@@ -261,9 +261,6 @@ const Index: React.FC = () => {
 
       {/* Auth & Onboarding Modal */}
       <AuthOnboardingModal />
-        }
-        onUpdateYouTubeLink={handleUpdateYouTubeLink}
-      />
 
       {/* Footer */}
       <footer className="border-t border-border/80 bg-card/50 py-8 mt-14">
