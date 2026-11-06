@@ -114,21 +114,55 @@ export function houseRobberMemo(nums: number[]): number {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 02:00] Demystifying DP: It Is Just Recursion with a Notepad
 - **On-Screen Visual / Slide Cue:** Fibonacci tree where duplicate subtrees light up green and return in O(1) from a lookup table.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "If you already understand tree recursion and Backtracking, you already know 90% of Dynamic Programming. The only flaw of pure recursion is amnesia: it solves the exact same subproblem thousands of times. Memoization hands it a notepad."
 
 ### [02:00 - 04:45] Defining the State and Computing Big-O in 5 Seconds
 - **On-Screen Visual / Slide Cue:** On-screen formula: Time Complexity = (# of Unique States) x (Work per Transition).
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "To find the time complexity of any Memoization function, count how many possible values your function parameters can take and multiply by the work inside a single call."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #36, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Recursive choices with overlapping subproblems (N <= 10^3 for 2D, N <= 10^5 for 1D)`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Memoization (Top-Down DP) interview problems with nested loops! When constraints reach Recursive choices with overlapping subproblems (N <= 10^3 for 2D, N <= 10^5 for 1D), your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Memoization (Top-Down DP) as If someone asks you `347 x 89`, you work it out on paper in 30 seconds and write the answer on a sticky note. If they ask `347 x 89` again five minutes later, you do not multiply again—you read the sticky note in half a second.. First, identify the choices at each step (e.g., take or skip element `i`) and the minimal variables that define the state. Then, write the recursive `dfs(state)` function with its base cases. This collapses your time complexity from an unviable brute-force right down to O(Number of Unique States * Work per State Transition)! Watch out for the trap though: passing mutable lists or redundant accumulators as arguments to `dfs(...)`, either causing `unhashable type` errors or blowing up the number of states."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

@@ -4,6 +4,10 @@ import { FlowchartView } from "@/components/FlowchartView";
 import { RoadmapView } from "@/components/RoadmapView";
 import { CreatorStudioView } from "@/components/CreatorStudioView";
 import { TopicDetailModal } from "@/components/TopicDetailModal";
+import { LandingHeroLevels } from "@/components/LandingHeroLevels";
+import { LandingSections } from "@/components/LandingSections";
+import { AuthOnboardingModal } from "@/components/AuthOnboardingModal";
+import { useAuth } from "@/context/AuthContext";
 import { ALL_DSA_TOPICS } from "@/data";
 import { DEFAULT_YOUTUBE_LINKS } from "@/data/youtube-links";
 import { DSATopic, YouTubeVideoEntry, VideoStatus } from "@/types/dsa";
@@ -17,7 +21,8 @@ const STORAGE_KEYS = {
 };
 
 const Index: React.FC = () => {
-  const [activeView, setActiveView] = useState<ActiveMainView>("flowchart");
+  const { isAuthenticated, openAuthModal, syncProgress } = useAuth();
+  const [activeView, setActiveView] = useState<ActiveMainView>("roadmap");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedTopic, setSelectedTopic] = useState<DSATopic | null>(null);
 
@@ -91,10 +96,14 @@ const Index: React.FC = () => {
       const next = new Set(prev);
       if (next.has(topicId)) next.delete(topicId);
       else next.add(topicId);
+      const arr = Array.from(next);
       localStorage.setItem(
         STORAGE_KEYS.COMPLETED_TOPICS,
-        JSON.stringify(Array.from(next))
+        JSON.stringify(arr)
       );
+      if (isAuthenticated) {
+        syncProgress(arr, Array.from(solvedProblems));
+      }
       return next;
     });
   };
@@ -104,12 +113,26 @@ const Index: React.FC = () => {
       const next = new Set(prev);
       if (next.has(problemNumber)) next.delete(problemNumber);
       else next.add(problemNumber);
+      const arr = Array.from(next);
       localStorage.setItem(
         STORAGE_KEYS.SOLVED_PROBLEMS,
-        JSON.stringify(Array.from(next))
+        JSON.stringify(arr)
       );
+      if (isAuthenticated) {
+        syncProgress(Array.from(completedTopics), arr);
+      }
       return next;
     });
+  };
+
+  const handleSelectTopicWithGating = (topic: DSATopic) => {
+    if (topic.level > 1 && !isAuthenticated) {
+      openAuthModal(
+        `Unlock Level ${topic.level} (${topic.title}) & track your algorithm progress for free with Google Sign-in!`
+      );
+      return;
+    }
+    setSelectedTopic(topic);
   };
 
   const handleUpdateYouTubeLink = (
@@ -161,7 +184,7 @@ const Index: React.FC = () => {
         {activeView === "flowchart" && (
           <FlowchartView
             topics={ALL_DSA_TOPICS}
-            onSelectTopic={setSelectedTopic}
+            onSelectTopic={handleSelectTopicWithGating}
             completedTopics={completedTopics}
             youtubeLinks={youtubeLinks}
             searchQuery={searchQuery}
@@ -169,14 +192,43 @@ const Index: React.FC = () => {
         )}
 
         {activeView === "roadmap" && (
-          <RoadmapView
-            topics={ALL_DSA_TOPICS}
-            onSelectTopic={setSelectedTopic}
-            completedTopics={completedTopics}
-            onToggleComplete={handleToggleComplete}
-            youtubeLinks={youtubeLinks}
-            searchQuery={searchQuery}
-          />
+          <div className="space-y-16">
+            <LandingHeroLevels
+              onSelectTopic={handleSelectTopicWithGating}
+              onExploreLevels={() => {
+                const el = document.getElementById("curriculum-levels");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+            />
+
+            <div id="curriculum-levels" className="pt-2">
+              <RoadmapView
+                topics={ALL_DSA_TOPICS}
+                onSelectTopic={handleSelectTopicWithGating}
+                completedTopics={completedTopics}
+                onToggleComplete={handleToggleComplete}
+                youtubeLinks={youtubeLinks}
+                searchQuery={searchQuery}
+              />
+            </div>
+
+            <LandingSections
+              onGetStarted={() => {
+                if (!isAuthenticated) {
+                  openAuthModal(
+                    "Join leet-yt for free to master all 7 levels & track your coding interview journey."
+                  );
+                } else {
+                  const el = document.getElementById("curriculum-levels");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+              onExploreLevels={() => {
+                const el = document.getElementById("curriculum-levels");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+            />
+          </div>
         )}
 
         {activeView === "studio" && (
@@ -194,7 +246,7 @@ const Index: React.FC = () => {
       <TopicDetailModal
         topic={selectedTopic}
         onClose={() => setSelectedTopic(null)}
-        onSelectTopic={setSelectedTopic}
+        onSelectTopic={handleSelectTopicWithGating}
         isCompleted={
           selectedTopic ? completedTopics.has(selectedTopic.id) : false
         }
@@ -203,6 +255,12 @@ const Index: React.FC = () => {
         onToggleProblem={handleToggleProblem}
         youtubeEntry={
           selectedTopic ? youtubeLinks[selectedTopic.id] : undefined
+        }
+        onUpdateYouTubeLink={handleUpdateYouTubeLink}
+      />
+
+      {/* Auth & Onboarding Modal */}
+      <AuthOnboardingModal />
         }
         onUpdateYouTubeLink={handleUpdateYouTubeLink}
       />

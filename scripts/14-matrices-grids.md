@@ -115,21 +115,55 @@ export function rotateMatrix90Clockwise(matrix: number[][]): void {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] From 1D to 2D: Coordinates, Diagonals, and Flattening
 - **On-Screen Visual / Slide Cue:** Grid highlighting rows, columns, main diagonal (`r - c == const`), and anti-diagonal (`r + c == const`).
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "A 2D matrix is an array of arrays with neat geometric invariants: along any main diagonal `r - c` is constant, and along any anti-diagonal `r + c` is constant."
 
 ### [01:45 - 04:30] Python's Negative Index Trap and the Bridge to Graphs
 - **On-Screen Visual / Slide Cue:** Cursor stepping above row 0 to `r = -1` and accidentally reading the bottom row in Python.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Watch out in Python: if your row index steps above zero to `-1`, Python will not throw an error—it silently reads the bottom row of your grid and corrupts your traversal. Checking `0 <= nr < rows` is mandatory."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #15, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: R, C <= 1000 (total cells R * C <= 10^6)`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Matrices / 2D Grids interview problems with nested loops! When constraints reach R, C <= 1000 (total cells R * C <= 10^6), your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Matrices / 2D Grids as A chessboard or spreadsheet: every cell has a unique `(row, col)` address, and every cell acts like a room with 4 doors (`up, down, left, right`) connecting it to adjacent rooms.. First, always extract `rows = len(grid)` and `cols = len(grid[0])` at the top of the function. Then, when transposing in-place, start `c` at `r + 1` so you do not swap elements twice back to their original spots. This collapses your time complexity from an unviable brute-force right down to Full traversal: O(R * C) | Cell access: O(1)! Watch out for the trap though: in python, negative indices like `grid[-1][0]` do not raise `indexerror`—they silently wrap around to the last row of the matrix! always write `0 <= nr < rows`."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

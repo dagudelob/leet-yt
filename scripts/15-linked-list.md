@@ -118,21 +118,55 @@ export function deleteValueWithDummy(head: ListNode | null, target: number): Lis
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:30] Arrays vs Linked Lists: Contiguous Lockers vs Treasure Hunt
 - **On-Screen Visual / Slide Cue:** Animation of nodes floating in memory connected by glowing pointer arrows.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "If Arrays are numbered lockers along a wall, a Linked List is a chain of clues where each node only knows where the next node lives. That makes indexing slow, but splicing links in O(1) instant."
 
 ### [01:30 - 04:00] The Superpower of the Dummy Sentinel Node
 - **On-Screen Visual / Slide Cue:** A gray 'Dummy' node placed ahead of 'head', allowing the first element to be deleted without edge cases.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Eighty percent of linked list bugs happen when deleting or moving the very first node. The clean engineering fix is placing a dummy sentinel node at the front and returning `dummy.next`."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #16, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: In-place pointer rewiring in O(1) extra memory`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Linked Lists interview problems with nested loops! When constraints reach In-place pointer rewiring in O(1) extra memory, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Linked Lists as A treasure hunt of envelopes: the first envelope is not physically glued to the second, but inside it is a note saying 'the next clue is under the blue flowerpot'. To reach clue #5, you must follow clues 1, 2, 3, and 4 in sequence.. First, sketch 3 boxes and arrows before writing any pointer manipulation code. Then, create `dummy = listnode(0, head)` whenever the original head might be deleted or moved. This collapses your time complexity from an unviable brute-force right down to Insert/Delete given node pointer: O(1) | Search by index/value: O(N)! Watch out for the trap though: overwriting `curr.next = new_node` before setting `new_node.next = curr.next`, severing the chain and losing the rest of the list."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

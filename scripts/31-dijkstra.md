@@ -145,21 +145,55 @@ export function networkDelayDijkstra(
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] From BFS to Dijkstra: When Roads Have Different Tolls
 - **On-Screen Visual / Slide Cue:** A graph where a 3-edge path of weight 1 beats a direct 1-edge path of weight 10.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "In BFS we assumed every edge costs 1. In the real world, a direct flight might cost $500 while two connecting flights cost $150 total. Swapping the FIFO Queue for a Min-Heap gives us Dijkstra's Algorithm."
 
 ### [01:45 - 04:45] Edge Relaxation, Lazy Deletion (`d > dist[u]`), and Minimax Dijkstra
 - **On-Screen Visual / Slide Cue:** Animation of the `dist[]` table updating and the Min-Heap skipping stale entries.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Beyond summing road lengths, Dijkstra also solves minimax bottleneck paths—like finding the route with the smallest maximum cliff jump—simply by replacing `d + w` with `max(d, w)`."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #32, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Cheapest/fastest path with non-negative weights w >= 0 and V, E <= 10^5`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Dijkstra interview problems with nested loops! When constraints reach Cheapest/fastest path with non-negative weights w >= 0 and V, E <= 10^5, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Dijkstra as If BFS is a water wave expanding at equal speed through identical pipes, Dijkstra is water flowing through pipes of different lengths: water reaches whichever intersection has the smallest total pipe distance first. A Min-Heap tells us which intersection the water reaches next.. First, initialize `dist = [inf] * n`, set `dist[start] = 0`, and push `(0, start)` into the min-heap. Then, pop `(d, u)`. if `d > dist[u]`, `continue`. This collapses your time complexity from an unviable brute-force right down to O((V + E) log V) using a Min-Heap! Watch out for the trap though: pushing `(node, distance)` instead of `(distance, node)` into python's `heapq`—which sorts by node id instead of path cost!."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

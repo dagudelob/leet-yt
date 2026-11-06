@@ -101,21 +101,55 @@ export function charFrequencySignature(s: string): string {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:30] Strings: Read-Only Arrays with an Immutability Secret
 - **On-Screen Visual / Slide Cue:** Animation of a locked string vs a mutable list of characters joined at the end.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Although a String looks just like an Array of characters, it hides a critical difference: it is immutable. Understanding what that means in memory will save you from quadratic performance bugs."
 
 ### [01:30 - 04:00] The 26-Bucket Trick (`ord(c) - ord('a')`)
 - **On-Screen Visual / Slide Cue:** A 26-slot array incrementing counters as letters of 'anagram' stream in.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Whenever a problem uses lowercase English letters, you do not need a heavy Hash Map. Subtracting the ASCII code of 'a' gives you a direct O(1) index from 0 to 25."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #06, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Alphabet 'a'-'z' -> Fixed 26-slot frequency array in O(1) space`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Strings interview problems with nested loops! When constraints reach Alphabet 'a'-'z' -> Fixed 26-slot frequency array in O(1) space, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Strings as A necklace of lettered beads sealed with glue (immutable). You can inspect any bead instantly by position, but if you want to swap a single bead or add one at the end, you must restring a brand-new necklace.. First, check the character set in constraints (lowercase `'a'-'z'`, alphanumeric, or full ascii). Then, if you need in-place character swaps, convert to `chars = list(s)` first and `''.join(chars)` at the end. This collapses your time complexity from an unviable brute-force right down to Index read `s[i]`: O(1) | Slice / Copy / Compare: O(N)! Watch out for the trap though: confusing substring (contiguous -> sliding window) with subsequence (non-contiguous -> two pointers or dynamic programming)."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

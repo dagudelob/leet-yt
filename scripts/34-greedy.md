@@ -111,21 +111,55 @@ export function canJumpGreedy(nums: number[]): boolean {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] Greedy vs DP: When Can You Trust a Local Choice?
 - **On-Screen Visual / Slide Cue:** A climber picking the steepest immediate step vs a map showing all paths.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "A Greedy algorithm makes the best decision right now and never looks in the rearview mirror. When the greedy exchange property holds, it turns problems that look like Dynamic Programming into a simple O(N) scan with O(1) memory."
 
 ### [01:45 - 04:30] Jump Game, Gas Station, and Sorting by End Time
 - **On-Screen Visual / Slide Cue:** Animation of `max_reach` advancing like a wave across the cells of Jump Game.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "In Jump Game, we do not care which exact sequence of jumps we took—we only care about the furthest index reachable so far."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #35, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Optimization with N <= 10^5 where the greedy exchange property holds`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Greedy interview problems with nested loops! When constraints reach Optimization with N <= 10^5 where the greedy exchange property holds, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Greedy as Fitting the maximum number of meetings into your day: the provably optimal greedy rule is always picking the meeting that **finishes earliest**, freeing up your room as soon as possible for future meetings.. First, formulate the candidate greedy rule (e.g., earliest finish time, furthest reach, largest ratio). Then, try to break it with a 3-element counterexample. if no counterexample exists, code it in o(n) or o(n log n). This collapses your time complexity from an unviable brute-force right down to O(N) single scan | O(N log N) when sorting first! Watch out for the trap though: applying greedy to `coin change` with arbitrary denominations or `house robber`, where picking the largest immediate value blocks two neighbors that sum to more."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

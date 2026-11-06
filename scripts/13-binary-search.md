@@ -110,21 +110,55 @@ export function binarySearchFirstTrue(
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] The True Essence of Binary Search: The False -> True Boundary
 - **On-Screen Visual / Slide Cue:** Row of red switches (False) followed by green switches (True), spotlighting the first green switch.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Forget the idea that Binary Search is only for finding a number inside a sorted array. Its real superpower appears whenever you can ask a Yes/No question where all the 'No' answers sit on the left and all the 'Yes' answers sit on the right."
 
 ### [01:45 - 05:00] Binary Search on the Answer Space (Koko Eating Bananas)
 - **On-Screen Visual / Slide Cue:** Speedometer testing speeds between 1 and Max, verifying in O(N) if Koko finishes within H hours.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "When a problem asks for the minimum ship capacity or the minimum speed to finish within H hours, we do not binary search the input array—we binary search the range of possible answers directly."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #14, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Sorted array or 'Minimize the Maximum / Maximize the Minimum' with monotonic feasibility`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Binary Search interview problems with nested loops! When constraints reach Sorted array or 'Minimize the Maximum / Maximize the Minimum' with monotonic feasibility, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Binary Search as Finding the lowest floor of a 100-story building from which an egg breaks: you test floor 50 first. If it breaks, floors 51–100 will also break, so you record 50 and search the lower half; if it survives, floors 1–50 are safe and you search the upper half.. First, identify the search range `[low, high]` (array indices `[0, n-1]` or answer range `[min_possible, max_possible]`). Then, write the monotonic predicate `is_feasible(mid) -> bool`. This collapses your time complexity from an unviable brute-force right down to O(log N) on arrays | O(N log(Max - Min)) on Answer Space! Watch out for the trap though: getting stuck in an infinite loop with `mid = (l + r) // 2` and `l = mid` when `r = l + 1`. recording `ans = mid` with `low = mid + 1` and `high = mid - 1` strictly shrinks the range on every step."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

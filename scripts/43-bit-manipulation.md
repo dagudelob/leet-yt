@@ -111,21 +111,55 @@ export function isPowerOfTwo(n: number): boolean {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] The Magic of XOR: Finding a Needle in a Haystack with O(1) Memory
 - **On-Screen Visual / Slide Cue:** Pairs of matching numbers colliding under XOR and turning into 0, leaving only the unique number.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "When a problem asks you to find the only unpaired number in linear time while forbidding a Hash Set by demanding O(1) memory, the answer lives in the bits: the XOR operator cancels any number that appears an even number of times."
 
 ### [01:45 - 04:15] Brian Kernighan's Trick: `n & (n - 1)`
 - **On-Screen Visual / Slide Cue:** Binary `10100` subtracting 1 (`10011`) and ANDing to clear the lowest 1 (`10000`).
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Subtracting 1 from a binary number flips every bit from the rightmost 1 to the end. That is why `n & (n - 1)` clears the lowest set bit in a single CPU instruction."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #44, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: O(N) Time with strict O(1) Space constraint, XOR cancellation, or powers of 2`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Bit Manipulation interview problems with nested loops! When constraints reach O(N) Time with strict O(1) Space constraint, XOR cancellation, or powers of 2, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Bit Manipulation as The XOR operator (`^`) works like a two-way staircase light switch: if you flip it twice with the same number (`x ^ x`), it returns to off (`0`). That is why if you XOR an entire list where every number appears in pairs except one, all pairs cancel out and leave only the lone number lit up.. First, to read bit `k`: `(n >> k) & 1`. Then, to set bit `k`: `n | (1 << k)`. This collapses your time complexity from an unviable brute-force right down to O(1) per bit operation | O(N) across an array scan! Watch out for the trap though: in python, applying `~n` or bit shifts to negative numbers expecting automatic 32-bit overflow (like in c++/java): python integers do not wrap at 32 bits unless you explicitly mask with `& 0xffffffff`."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

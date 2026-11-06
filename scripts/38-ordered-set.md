@@ -109,21 +109,55 @@ export function lowerBound(sortedArr: number[], target: number): number {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] Hash Set vs Heap vs Ordered Set: The Collection Triad
 - **On-Screen Visual / Slide Cue:** Comparison table showing why neither a Hash Set nor a Heap can answer 'what is the closest element to X?'.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "A Hash Set does not know who is larger than whom, and a Heap only knows the champion sitting at the top. When you need your entire collection to stay sorted while data enters and leaves live, the Ordered Set takes center stage."
 
 ### [01:45 - 04:15] SortedList in Python and the Nearest-Neighbor Pattern
 - **On-Screen Visual / Slide Cue:** Sliding window querying the floor and ceiling of `x` with `bisect_left`.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "With `bisect_left` on a sorted collection, you find in logarithmic time the element immediately greater than or equal to your target and the one immediately smaller, solving calendar booking and near-duplicate problems in just a few lines."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #39, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Dynamic Insertion/Deletion + Nearest Neighbor or Order-Statistic Query in O(log N)`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Ordered Set interview problems with nested loops! When constraints reach Dynamic Insertion/Deletion + Nearest Neighbor or Order-Statistic Query in O(log N), your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Ordered Set as A magical library where every time you return a new book, the shelves rearrange themselves in `log N` steps, allowing you to instantly ask not only whether a book exists, but 'what is the book with the price immediately above $45?' or 'how many books cost less than $30?'.. First, identify that the problem requires inserting/deleting elements and asking order or proximity questions (`>= x`, `<= x`, or the k-th active element). Then, query the neighbor with `idx = sl.bisect_left(target)` and verify `idx < len(sl)`. This collapses your time complexity from an unviable brute-force right down to add / remove / bisect_left / index `s[k]`: O(log N)! Watch out for the trap though: using `list.insert(idx, x)` after a `bisect` on a standard python list thinking it is o(log n): searching is o(log n), but inserting into the middle of a `list` still shifts elements in o(n). use `sortedlist`."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

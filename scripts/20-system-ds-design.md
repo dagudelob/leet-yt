@@ -133,21 +133,55 @@ export class MinStack {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 02:00] The Art of Pairing Data Structures
 - **On-Screen Visual / Slide Cue:** Diagram linking Hash Map keys directly to nodes inside a Doubly Linked List (LRU Cache).
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "In data structure design interviews, you are asked for combinations that seem impossible at first: O(1) key lookup, O(1) recency ordering, and O(1) arbitrary deletion. The secret is making two data structures work as a team."
 
 ### [02:00 - 05:00] LRU Cache and the Swap-and-Pop Trick in RandomizedSet
 - **On-Screen Visual / Slide Cue:** Animation showing index 2 deleted from an Array in O(1) by copying the last element into slot 2.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "How do you delete an element from the middle of an Array in O(1) time when order does not matter? Copy the last element over the slot you want to delete, update its index in the Hash Map, and pop the back."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #21, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Class design problems requiring O(1) per method call`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Design + Supporting DS interview problems with nested loops! When constraints reach Class design problems requiring O(1) per method call, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Design + Supporting DS as A librarian with a digital index (Hash Map) that points directly to the exact link in a movable chain of books (Doubly Linked List). The index finds any book in O(1), and the doubly linked chain moves that book to the 'most recently read' front in O(1).. First, list every required method and its target time complexity. Then, pick the primary lookup structure (e.g., hash map for o(1) key lookup) and the ordering structure (e.g., doubly linked list for o(1) recency updates). This collapses your time complexity from an unviable brute-force right down to O(1) across all custom methods! Watch out for the trap though: in `randomizedset.remove(val)`, deleting `del val_to_idx[val]` before setting `val_to_idx[last_val] = idx` breaks when the removed element is the last element of the array."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

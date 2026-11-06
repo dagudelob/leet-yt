@@ -120,21 +120,55 @@ export function twoPointersConverging(nums: number[], target: number): number[] 
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:30] From O(N^2) to O(N) with Two Coordinated Indices
 - **On-Screen Visual / Slide Cue:** Two arrows (L and R) at opposite ends of a sorted array converging toward the target sum.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "If an array is sorted, checking all pairs with a nested loop throws away valuable information. With Two Pointers at opposite ends, every mismatch tells us with mathematical certainty which boundary we can discard forever."
 
 ### [01:30 - 04:30] Converging Pointers vs Read/Write Pointers
 - **On-Screen Visual / Slide Cue:** Split screen showing Container With Most Water on top and Remove Duplicates in-place on bottom.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Not all Two Pointers start at opposite ends. When asked to compact an array in-place without allocating a new array, the Read pointer scouts ahead while the Write pointer overwrites only valid elements."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #07, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: N <= 10^5 with sorted input or O(1) in-place array compaction`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Two Pointers interview problems with nested loops! When constraints reach N <= 10^5 with sorted input or O(1) in-place array compaction, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Two Pointers as Two shoppers looking for two items that add up to an exact gift card balance on a shelf sorted by price: one starts at the cheapest item on the left, the other at the most expensive item on the right. If the total is too high, the right shopper steps left; if too low, the left shopper steps right.. First, decide whether pointers start at `(0, n-1)` (converging) or `(0, 0)` (same direction). Then, define the monotonic rule that determines which pointer advances on each iteration. This collapses your time complexity from an unviable brute-force right down to O(N) (or O(N log N) if sorting first)! Watch out for the trap though: in `3sum`, forgetting to skip duplicate values (`while left < right and nums[left] == nums[left-1]: left += 1`), producing duplicate triplets."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

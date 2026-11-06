@@ -138,21 +138,55 @@ export function buildKmpLps(pattern: string): number[] {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 02:00] Why Naive Search Backtracks and How KMP Only Looks Forward
 - **On-Screen Visual / Slide Cue:** Comparison of a pointer rewinding over and over on `'AAAAAB'` vs KMP marching straight ahead.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "When you search for a word and fail on the last letter, the naive algorithm throws away everything it just read and rewinds the text pointer. Knuth, Morris, and Pratt proved that what you just read already contains all the information needed to never step backward again."
 
 ### [02:00 - 04:45] The LPS Table and the `s + '#' + reverse(s)` Trick
 - **On-Screen Visual / Slide Cue:** LPS table for `'ABABAC'` and its direct application to Shortest Palindrome.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Beyond searching words, the LPS table is a symmetry detector: it tells you in O(N) whether a string is made of repeating blocks and what the longest palindrome anchored at index zero is."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #43, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Exact pattern matching, string periodicity, or Shortest Palindrome in O(N)`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving String Matching (KMP) interview problems with nested loops! When constraints reach Exact pattern matching, string periodicity, or Shortest Palindrome in O(N), your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of String Matching (KMP) as If you are searching for `'ABABAC'` and after matching the first 5 letters `'ABABA'` you fail on the 6th letter, you do not need to restart from scratch: because you already know the tail `'ABA'` you just read matches the opening `'ABA'` of your pattern, you continue directly from the 4th letter.. First, preprocess pattern `p` of length `m` to fill its `lps` array in o(m). Then, scan text `t` with index `i` and pattern `p` with index `j`. This collapses your time complexity from an unviable brute-force right down to Build LPS: O(M) | Search text: O(N) -> Total: O(N + M)! Watch out for the trap though: in `shortest palindrome` (`s + '#' + s[::-1]`), forgetting to insert a separator character `'#'` in the middle, allowing the prefix-suffix match to bleed across the boundary and exceed the length of `s`."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

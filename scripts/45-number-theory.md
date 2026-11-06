@@ -133,21 +133,55 @@ export function countPrimesSieve(n: number): number {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] History's Oldest and Most Elegant Algorithm: Euclid in 3 Lines
 - **On-Screen Visual / Slide Cue:** Two bars of length A and B reducing via `a % b` until finding the exact common measure.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Written more than two thousand three hundred years ago, the Euclidean Algorithm computes the Greatest Common Divisor of two astronomical numbers in the blink of an eye: while B is non-zero, replace A and B with B and A modulo B."
 
 ### [01:45 - 04:45] Sieve of Eratosthenes (`p * p`) and the Mystery of `10^9 + 7`
 - **On-Screen Visual / Slide Cue:** Number grid crossing out multiples from `p^2` and a visual breakdown of modulo `10^9 + 7`.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Why do so many LeetCode problems ask for the answer modulo 1,000,000,007? Because it is the first prime number after one billion: it fits cleanly inside standard integer types without overflowing, and being prime lets us divide using the modular inverse."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #46, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Primes up to N <= 5*10^6, divisibility, GCD/LCM, or answers modulo 10^9 + 7`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Number Theory interview problems with nested loops! When constraints reach Primes up to N <= 5*10^6, divisibility, GCD/LCM, or answers modulo 10^9 + 7, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Number Theory as The Sieve of Eratosthenes works like a layered strainer: you start at 2 and cross out all multiples of 2 (4, 6, 8...); the next uncrossed number is 3, so it is prime and you cross out its multiples starting from `3*3 = 9` onward. By the time you reach $\sqrt{N}$, every surviving uncrossed number is prime.. First, to find all primes up to `n`: use the sieve of eratosthenes with `p * p <= n`. Then, to factor a number `x`: test `d = 2` while `d * d <= x`, dividing `x //= d` while divisible; if `x > 1` at the end, the remaining `x` is also a prime factor. This collapses your time complexity from an unviable brute-force right down to Euclidean GCD: O(log(min(a,b))) | Sieve of Eratosthenes: O(N log log N) ~ O(N)! Watch out for the trap though: doing `(a // b) % mod` when the problem asks for the result of a division modulo `10^9 + 7` (for instance in combinatorics $ncr \pmod{10^9+7}$): once `a` has been reduced modulo `mod`, ordinary integer division produces a completely wrong answer. use the modular inverse `a * pow(b, mod - 2, mod) % mod`."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

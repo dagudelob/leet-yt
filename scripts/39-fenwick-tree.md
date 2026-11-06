@@ -133,21 +133,55 @@ export class FenwickTree {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] The Prefix Sum Dilemma When Data Mutates
 - **On-Screen Visual / Slide Cue:** Time comparison between Array, Prefix Sum, and Fenwick Tree (O(log N) for both operations).
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Prefix Sums were perfect until someone mutated a number in the array and forced us to recompute the entire table in O(N). The Fenwick Tree solves this dilemma, achieving both point updates and range sums in logarithmic time with barely fifteen lines of code."
 
 ### [01:45 - 04:30] The Magic of `i & -i` and Coordinate Compression
 - **On-Screen Visual / Slide Cue:** Power-of-2 staircase showing how `13 (1101_2)` jumps to `12 (1100_2)` and then to `8 (1000_2)`.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "The entire secret of the Fenwick Tree lives in the operation `i & -i`, which extracts the lowest power of two from any integer. By subtracting it at each step, we decompose any prefix into at most log(N) jumps."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #40, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Dynamic range sums with updates or order-statistic counting in O(N log N)`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Fenwick Tree (BIT) interview problems with nested loops! When constraints reach Dynamic range sums with updates or order-statistic counting in O(N log N), your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Fenwick Tree (BIT) as Instead of having every step store the sum of all previous steps (which would force you to fix every subsequent step whenever the first one changes), we group sums into powers of 2 (blocks of size 1, 2, 4, 8, 16...). That way, any update or prefix sum is assembled by jumping across at most `log2(N)` blocks.. First, create `tree = [0] * (n + 1)`. Then, in `add(i, delta)`, while `i <= n`, add `delta` and advance with `i += i & -i`. This collapses your time complexity from an unviable brute-force right down to Update: O(log N) | Prefix/Range Query: O(log N)! Watch out for the trap though: passing index `0` to `add(0, delta)`: since `0 & -0` is `0`, the loop `while i <= n: i += i & -i` never advances and hangs in an infinite loop."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

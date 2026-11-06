@@ -29,13 +29,18 @@ export interface NotebookLMPackage {
 
 export interface VisualStateStep {
   stepTitle: string;
-  explanation: string;
-  items: string[];
+  caption?: string;
+  explanation?: string;
+  cells?: string[];
+  items?: string[];
   activeIndices: number[]; // highlighted in amber (current pointers/focus)
   matchedIndices?: number[]; // highlighted in emerald (resolved/valid state)
+  secondaryIndices?: number[]; // highlighted in muted/previous state
   discardedIndices?: number[]; // highlighted in rose/muted (pruned/eliminated)
+  pointers?: Record<string, number>;
   pointerLabels?: Record<number, string>; // e.g. { 0: "L", 3: "R" }
   stateNote?: string;
+  badge?: string;
 }
 
 export interface MicroChallenge {
@@ -43,6 +48,14 @@ export interface MicroChallenge {
   options: string[];
   correctIndex: number;
   explanation: string;
+}
+
+export interface YouTubeShortScript {
+  hook: string;
+  mentalModel: string;
+  dualCta: string;
+  targetSeconds: number;
+  wordCount: number;
 }
 
 export interface DSATopic {
@@ -79,6 +92,7 @@ export interface DSATopic {
   typescriptTemplate: string;
   leetcodeProblems: LeetCodeProblem[];
   notebookLM: NotebookLMPackage;
+  shortScript?: YouTubeShortScript;
   visualSteps?: VisualStateStep[];
   microChallenge?: MicroChallenge;
 }
@@ -89,6 +103,8 @@ export interface YouTubeVideoEntry {
   youtubeUrl: string;
   status: VideoStatus;
   durationEstimate: string;
+  shortYoutubeUrl?: string;
+  shortStatus?: VideoStatus;
   notes?: string;
 }
 
@@ -114,4 +130,23 @@ export interface LevelMetadata {
   borderClass: string;
   glowClass: string;
   goalDescription: string;
+}
+
+export interface UserProfile {
+  id: string;
+  email: string;
+  fullName: string;
+  ageRange?: string;
+  occupation?: string;
+  primaryGoal?: string;
+  onboardingCompleted: boolean;
+  completedTopics: string[];
+  solvedProblems: number[];
+}
+
+export interface OnboardingFormData {
+  fullName: string;
+  ageRange: string;
+  occupation: string;
+  primaryGoal: string;
 }

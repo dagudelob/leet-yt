@@ -125,21 +125,55 @@ export function slidingWindowDynamic(s: string): number {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:30] The Caterpillar Mental Model: Stop Recomputing Sums
 - **On-Screen Visual / Slide Cue:** Glowing frame sliding across an array: adding the right element and subtracting the left element.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "If you just summed five elements and slide your window one step right, why re-add the four elements in the middle? Just add the new element entering on the right and subtract the old one leaving on the left. That is Sliding Window."
 
 ### [01:30 - 04:30] The 10-Line Universal Dynamic Window Template
 - **On-Screen Visual / Slide Cue:** Code highlighted in 3 blocks: Expand, Shrink, and Update.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Ninety-five percent of dynamic sliding window problems fall to the exact same ten-line template: a `for` loop advancing `right`, and an inner `while` loop advancing `left` whenever our rule is broken."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #08, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Optimal contiguous subarray/substring with N <= 10^5 (and non-negative values for sum windows)`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Sliding Window interview problems with nested loops! When constraints reach Optimal contiguous subarray/substring with N <= 10^5 (and non-negative values for sum windows), your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Sliding Window as A caterpillar crawling along a branch: it stretches its head forward (`right`) to include new leaves while the window is valid, and whenever it exceeds its limit, it pulls its tail forward (`left`) until the rule is restored—without ever recounting the leaves in the middle.. First, initialize `left = 0`, the window state (running sum or frequency map), and the best answer. Then, iterate `right` from `0` to `n-1`, adding `nums[right]` into the window state. This collapses your time complexity from an unviable brute-force right down to O(N)! Watch out for the trap though: using sum-based sliding window when the array contains negative numbers (e.g., leetcode 560 subarray sum equals k). with negatives, use prefix sum + hash map."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

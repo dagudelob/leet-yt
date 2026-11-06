@@ -127,21 +127,55 @@ export function fastPower(x: number, n: number): number {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] Gauss's Shortcut and Instant Pair & Subarray Counting
 - **On-Screen Visual / Slide Cue:** Triangle of pairs showing why `1 + 2 + ... + (N-1) = N*(N-1)/2`.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Often you have already found the valid groups with a Hash Map or a sliding window, and to finish the problem you just need to count how many pairs or subarrays they form without running an extra loop. Gauss's formula `N*(N-1)//2` solves it in O(1)."
 
 ### [01:45 - 04:30] O(log N) Binary Exponentiation and Float-Free Geometry
 - **On-Screen Visual / Slide Cue:** Computing `x^1024` in just 10 multiplications and reducing fraction `(dy, dx)` by its GCD.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "In interview geometry there is one commandment: stay away from floating-point decimals whenever possible. Representing a slope as a fraction simplified by its Greatest Common Divisor eliminates both division by zero and rounding errors."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #45, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: N >= 10^9 requiring O(1)/O(log N), combinatorial counting, or points on a 2D plane`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Math & Geometry interview problems with nested loops! When constraints reach N >= 10^9 requiring O(1)/O(log N), combinatorial counting, or points on a 2D plane, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Math & Geometry as When young Carl Friedrich Gauss's teacher asked the class to sum the numbers from 1 to 100 to keep them busy for an hour, instead of adding one by one (O(N)), Gauss paired `1+100 = 101`, `2+99 = 101`... 50 pairs of 101 = `5050` in a single second (O(1)).. First, check whether an o(n) simulation can be collapsed into an o(1) division, modulo, or gauss sum. Then, for large exponents, square the base and halve the exponent on each iteration. This collapses your time complexity from an unviable brute-force right down to Gauss formulas: O(1) | Binary Exponentiation: O(log N)! Watch out for the trap though: using floating-point `dy / dx` to group collinear points: it crashes with `zerodivisionerror` on vertical lines and suffers from precision loss on large coordinates."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

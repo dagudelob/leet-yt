@@ -132,21 +132,55 @@ export function buildAdjacencyList(
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] Every Tree Is a Graph, Carry No Rules
 - **On-Screen Visual / Slide Cue:** A binary tree connecting its leaves and forming cycles until it transforms into a general graph network.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "A Tree is simply a well-behaved graph with no cycles. The moment we allow any node to connect to any other node, we enter the world of Graphs—the structure modeling everything from Google Maps to package dependencies."
 
 ### [01:45 - 04:30] Adjacency Lists, In-Degree / Out-Degree, and 2-Coloring
 - **On-Screen Visual / Slide Cue:** Converting `edges = [[0,1], [1,2]]` into an `adj` list and coloring nodes red and blue.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Your automatic reflex upon seeing an edge list should be building an Adjacency List in five lines. From there, counting incoming arrows or 2-coloring a bipartite network becomes effortless."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #30, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: V, E <= 10^5 -> Adjacency List is mandatory`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Graphs interview problems with nested loops! When constraints reach V, E <= 10^5 -> Adjacency List is mandatory, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Graphs as Your phone's contact list (Adjacency List): under each person's name, you store only the friends they directly call—rather than carrying an 8-billion-by-8-billion spreadsheet of every person on Earth (Adjacency Matrix).. First, identify what the vertices `v` and edges `e` represent in the problem story. Then, ask: is the relationship one-way (directed) or mutual (undirected)? does each edge have a cost (weighted)?. This collapses your time complexity from an unviable brute-force right down to Build Adjacency List: O(V + E) | Iterate neighbors of u: O(degree(u))! Watch out for the trap though: starting dfs/bfs only from node `0` assuming the graph is a single connected component, missing isolated components."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

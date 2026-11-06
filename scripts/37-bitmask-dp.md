@@ -128,21 +128,55 @@ export function tspBitmaskDP(dist: number[][]): number {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] The Dead-Giveaway Constraint: Why N <= 16?
 - **On-Screen Visual / Slide Cue:** Dramatic comparison between `16! = 20.9 trillion` vs `2^16 = 65,536` states.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Whenever you open a Hard problem and see N <= 16 or N <= 20, smile: the problem author just handed you a neon sign pointing to Bitmask DP. At N = 16, factorial permutations explode past 20 trillion, while subsets are just 65,536."
 
 ### [01:45 - 04:45] The 3 Bitmask Operations and the Traveling Salesperson Problem
 - **On-Screen Visual / Slide Cue:** A 5-bit binary number flipping bits from 0 to 1 via `mask | (1 << v)`.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Instead of passing a boolean visited array into our recursion, we pack that entire array into the bits of a single integer. That makes `(current_city, mask)` instant to memoize."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #38, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Unmistakable signal: 12 <= N <= 20 and state depends on the subset of items used`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Bitmask DP interview problems with nested loops! When constraints reach Unmistakable signal: 12 <= N <= 20 and state depends on the subset of items used, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Bitmask DP as A wall panel of 15 light switches: instead of carrying a written list of which rooms have their lights on, you snapshot the 15 switches as a single binary number (`010110...`). That single integer instantly tells you which rooms have been visited and which remain.. First, confirm in constraints that $n \le 20$. Then, define `all_visited = (1 << n) - 1`. This collapses your time complexity from an unviable brute-force right down to O(N * 2^N) or O(N^2 * 2^N)! Watch out for the trap though: in js/c++, forgetting parentheses around `(mask & (1 << v)) === 0`, since `===` has higher operator precedence than `&`."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

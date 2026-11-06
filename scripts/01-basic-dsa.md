@@ -107,26 +107,60 @@ export function analyzeConstraints(n: number): string {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:15] Hook: Why We Freeze in Coding Interviews
 - **On-Screen Visual / Slide Cue:** Show the full Leet-YT Decision Flowchart lighting up from root to leaf nodes.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Have you ever opened a coding interview problem, stared at a blank editor, and wondered where to even begin? The number one mistake is guessing code before reading the clues the problem gives you for free."
 
 ### [01:15 - 03:30] The Golden Rule: Decoding Constraints (N)
 - **On-Screen Visual / Slide Cue:** Animated table comparing N <= 20, N <= 10^3, N <= 10^5, and N <= 10^9 against execution times.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Online judges execute roughly one hundred million operations per second. That means if N is one hundred thousand, a nested O(N^2) loop performs ten billion operations and hits Time Limit Exceeded. Just seeing N <= 10^5 tells you immediately that you need O(N) or O(N log N)."
 
 ### [03:30 - 06:00] How to Navigate the 46-Node Flowchart
 - **On-Screen Visual / Slide Cue:** Visual walkthrough across the 7 progressive levels of the platform.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Across this series, we will master all 46 core building blocks—from Arrays and Two Pointers to Dynamic Programming and Segment Trees. Every episode unlocks a new node on the flowchart."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #02, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: N <= 20 -> O(2^N) | N <= 10^3 -> O(N^2) | N <= 10^5 -> O(N log N) or O(N) | N >= 10^9 -> O(log N) or O(1)`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Basic DSA & Big-O interview problems with nested loops! When constraints reach N <= 20 -> O(2^N) | N <= 10^3 -> O(N^2) | N <= 10^5 -> O(N log N) or O(N) | N >= 10^9 -> O(log N) or O(1), your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Basic DSA & Big-O as Imagine delivering packages across a city. If there are 10 packages (N <= 10), you can try every possible route order (O(N!)). If there are 100,000 packages (N <= 10^5), comparing every pair of addresses (O(N^2)) would take months: you need a single linear pass (O(N)) or a sorted route (O(N log N)). Problem constraints are your CPU time budget.. First, read the problem statement and identify the primary input structure (array, string, tree, graph). Then, jump immediately to the 'constraints' section and inspect the upper bound of n. This collapses your time complexity from an unviable brute-force right down to O(1) < O(log N) < O(N) < O(N log N)! Watch out for the trap though: ignoring hidden o(n) costs inside loops—such as array slicing `arr[i:j]` or string concatenation—which silently turn an o(n) loop into o(n^2)."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

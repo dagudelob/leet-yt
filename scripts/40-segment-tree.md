@@ -152,21 +152,55 @@ export class SegmentTreeMax {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 02:00] Why the Segment Tree Rules Range Queries
 - **On-Screen Visual / Slide Cue:** Binary tree of intervals covering range `[1..6]` with only 3 shaded canonical nodes.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "What do you do when you need the maximum or minimum of a range a thousand times per second while array values mutate live? A Fenwick Tree is no longer enough because a maximum cannot be subtracted. Enter the Segment Tree."
 
 ### [02:00 - 05:00] 20-Line Iterative Segment Tree and Lazy Propagation
 - **On-Screen Visual / Slide Cue:** Array of size `2N` updating leaves and propagating 'Lazy' tags across ranges.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Many candidates fear the Segment Tree because the classic recursive version is verbose. With the 2N iterative layout, leaves sit in the second half of the array and parents sit in the first half: clean, fast, and recursion-free."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #41, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Dynamic Range Min/Max/Sum Query with N, Q <= 10^5`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Segment Tree interview problems with nested loops! When constraints reach Dynamic Range Min/Max/Sum Query with N, Q <= 10^5, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Segment Tree as A regional sales hierarchy: the CEO holds the record for the entire country `[0..7]`; underneath sit the directors for the western half `[0..3]` and eastern half `[4..7]`, all the way down to individual stores. If you ask for the maximum across stores `[1..6]`, you do not visit all 6 stores: you ask a couple of middle managers whose regions cover that exact span in `log N` calls.. First, place initial elements in the right half `tree[n .. 2n-1]`. Then, fill parents from `n-1` down to `1` by combining `tree[2*i]` and `tree[2*i + 1]`. This collapses your time complexity from an unviable brute-force right down to Build: O(N) | Update: O(log N) | Range Query `[L, R]`: O(log N)! Watch out for the trap though: in a recursive segment tree, allocating `2 * n` instead of `4 * n`: when `n` is not an exact power of 2, the recursive tree array requires up to `4 * n` slots."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

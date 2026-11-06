@@ -127,14 +127,49 @@ export function buildNotebookLMMarkdown(topic: DSATopic): string {
     .map((item) => `- **Interview Trap:** ${item}`)
     .join("\n");
 
-  const narrativeSection = topic.notebookLM.narrativeBlocks
-    .map(
+  const narrativeSection = [
+    ...topic.notebookLM.narrativeBlocks.map(
       (b) => `### [${b.timestamp}] ${b.sectionTitle}
 - **On-Screen Visual / Slide Cue:** ${b.visualCue}
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "${b.narration}"`
-    )
-    .join("\n\n");
+    ),
+    `### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #${String(Math.min(topic.order + 1, 46)).padStart(2, "0")}, and solve today's practice problems. See you in the next masterclass!"`
+  ].join("\n\n");
+
+  const analogyClean = topic.analogy.replace(/"/g, "'");
+  const stepOne = topic.notebookLM.stepByStepWalkthrough[0] || "process items systematically";
+  const stepTwo = topic.notebookLM.stepByStepWalkthrough[1] || "maintain the core invariant";
+  const trapOne = topic.notebookLM.interviewTraps[0] || "watch out for boundary conditions";
+
+  const shortHook = `Stop solving ${topic.shortTitle} interview problems with nested loops! When constraints reach ${topic.constraintHint}, your quadratic approach will get Time Limit Exceeded instantly.`;
+  const shortBody = `Here is the visual trick: think of ${topic.shortTitle} as ${analogyClean}. First, ${stepOne.toLowerCase().replace(/\.$/, "")}. Then, ${stepTwo.toLowerCase().replace(/\.$/, "")}. This collapses your time complexity from an unviable brute-force right down to ${topic.timeComplexity.average}! Watch out for the trap though: ${trapOne.toLowerCase().replace(/\.$/, "")}.`;
+  const shortCta = `Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel.`;
+
+  const shortSection = `### Target Specs:
+- **Aspect Ratio:** \`9:16 Vertical\` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** \`45–55 Seconds\` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: \`⚠️ TLE Alert: ${topic.constraintHint}\`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "${shortHook}"
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "${shortBody}"
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (\`🔗 leet-yt: Link in Bio / Comments\`) and YouTube full video banner (\`▶️ Full Masterclass on Channel\`).
+- **Presenter / Voiceover:**
+  > "${shortCta}"`;
 
   const problemsSection = topic.leetcodeProblems
     .map(
@@ -220,13 +255,21 @@ ${topic.typescriptTemplate}
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ${narrativeSection}
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+${shortSection}
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

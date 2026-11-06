@@ -55,13 +55,37 @@ Instead of memorizing all data structures in isolation and all algorithms later,
 
 ---
 
-## Local Development & Lovable Deployment
+## Local Development & Docker Deployment
+
+### Option A: Using Docker (Recommended)
+No local Node.js installation required on your host machine.
+
+```bash
+# Start the development server with live reload
+docker compose up web
+
+# Or run in detached background mode
+docker compose up -d web
+
+# Stop the container
+docker compose down
+```
+Once started, access the app at: **http://localhost:8080**
+
+To run builds or package commands inside the container:
+```bash
+docker compose run --rm web npm run build
+```
+
+---
+
+### Option B: Local Node.js / Lovable Deployment
 
 ```bash
 # 1. Install dependencies
 npm install
 
-# 2. Start the development server
+# 2. Start the development server (runs on port 8080)
 npm run dev
 
 # 3. Build for production

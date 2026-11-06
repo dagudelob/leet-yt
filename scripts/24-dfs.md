@@ -131,21 +131,55 @@ export function numIslandsDFS(grid: string[][]): number {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] Theseus in the Labyrinth: How Depth-First Search Thinks
 - **On-Screen Visual / Slide Cue:** A beam of light diving all the way to the bottom of a branch before backtracking.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Depth-First Search has a bold personality: it picks one direction and plunges all the way to the bottom before ever backing up to try another fork."
 
 ### [01:45 - 04:30] 2D Grid Flood Fill: Sinking Islands in O(R * C)
 - **On-Screen Visual / Slide Cue:** Grid of 1s and 0s where touching a 1 spreads a wave that zeroes out the entire connected island.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "In Number of Islands, every time we encounter a land cell, we increment our island count by one and launch DFS like a paint bucket to mark that entire connected island as visited."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #25, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Islands, connected components, or tree/graph paths with V, E <= 10^5`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving DFS interview problems with nested loops! When constraints reach Islands, connected components, or tree/graph paths with V, E <= 10^5, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of DFS as Exploring a maze with a ball of yarn: you walk down the first available corridor until you hit a dead end, then rewind your yarn back to the last intersection with an unexplored door and try that path next.. First, check base cases first (out of bounds, obstacle, or already visited). Then, immediately mark the current cell/node as visited (`visited.add(u)` or `grid[r][c] = '0'`). This collapses your time complexity from an unviable brute-force right down to O(V + E) on graphs | O(R * C) on 2D grids! Watch out for the trap though: forgetting to mark nodes as visited on a cyclic graph, triggering `maximum call stack size exceeded`."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

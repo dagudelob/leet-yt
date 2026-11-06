@@ -22,4 +22,12 @@
 * **Strict TypeScript**: Strongly typed schemas for all curriculum nodes, learning tracks, and visualization states. Avoid `any`.
 * **Component Architecture**: Keep UI components modular, atomic, and decoupled from raw data definitions.
 * **Styling**: Tailwind CSS with clean utility composition and consistent design tokens.
+* **Docker & Environment Policy**:
+  * **DO NOT** install or run Node.js/npm directly on the Windows host.
+  * Use **Docker** (`docker compose` or `docker run`) for all package management, builds, dev server, and tooling.
+  * Main container service: `docker compose up web`, `docker compose run --rm web npm run build`, etc.
+* **Git Branching & PR Policy** (see `.agents/skills/git-branch-pr-workflow/SKILL.md`):
+  * **NEVER** commit or push code changes directly to `main`.
+  * **ALWAYS** create and switch to a new feature/refactor branch before making code edits.
+  * **ONLY** open or merge a Pull Request when explicitly instructed by the developer.
 * **Documentation & Customizations**: Internal project strategy and learning vision are maintained in workspace skills (`.agents/skills/`), which remain untracked in Git via `.gitignore`.

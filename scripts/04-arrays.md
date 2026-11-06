@@ -118,21 +118,55 @@ export function arrayOperationsDemo(nums: number[]): number[] {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:30] Why the Array Is King of Memory
 - **On-Screen Visual / Slide Cue:** Contiguous RAM blocks lighting up as `arr[4]` is accessed in a single jump.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Before diving into advanced algorithms, we must master the data structure behind 70% of interview problems: the Array. Its superpower lies in how it sits physically in RAM."
 
 ### [01:30 - 04:00] Dynamic Arrays and the Hidden Cost of Shifting
 - **On-Screen Visual / Slide Cue:** Animation of every element shifting right when inserting at index 0.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Appending to the end takes constant amortized time. But deleting or inserting at index zero forces the entire row to shift one slot over. Doing that inside a loop is the #1 cause of silent Time Limit Exceeded."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #05, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Foundation for almost all sequence problems with N <= 10^5`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Arrays interview problems with nested loops! When constraints reach Foundation for almost all sequence problems with N <= 10^5, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Arrays as A row of numbered lockers (0 to N-1) along a straight hallway. Because every locker has the exact same width and sits right next to the previous one, jumping to locker #500 does not require walking past lockers 0 through 499—you calculate its exact position and jump there in O(1).. First, visualize the contiguous memory block and constant-time address offset calculation. Then, understand dynamic resizing: doubling capacity copies n elements only once every n appends. This collapses your time complexity from an unviable brute-force right down to Index Access: O(1) | Append at end: O(1) amortized! Watch out for the trap though: calling `nums.pop(0)` in python or `nums.shift()` in js inside a `while` loop—silently turning a linear algorithm into o(n^2). use `collections.deque` for queues."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

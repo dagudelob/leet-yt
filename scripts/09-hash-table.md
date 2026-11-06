@@ -118,21 +118,55 @@ export function twoSumHash(nums: number[], target: number): number[] {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] How a Hash Table Works Under the Hood
 - **On-Screen Visual / Slide Cue:** Animation of a key passing through `hash(key) % buckets` into an array slot.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "A Hash Table combines the flexibility of searching by any key with the instant O(1) speed of an Array. How? By running your key through a deterministic hash function that maps it to a bucket index."
 
 ### [01:45 - 04:30] The 3 Master Patterns: Complement, Frequency, and Sequence Start
 - **On-Screen Visual / Slide Cue:** Three visual cards: O(1) Complement, Frequency Map, and Streak Sentinel.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "In interviews, you will use hash tables for three signature plays: remembering the index of a complement, counting frequencies, and detecting the exact start of consecutive sequences in linear time."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #10, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: Eliminates inner linear search loops when N <= 10^5`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Hash Table interview problems with nested loops! When constraints reach Eliminates inner linear search loops when N <= 10^5, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Hash Table as A coat check room with a mathematical formula: instead of scanning every coat hook from 1 to 10,000 (O(N)), the formula computes your exact hook number directly from your name in one step (O(1)).. First, ask: what information from previous elements do i wish i could look up in o(1) while standing at index `i`?. Then, define the `key` (what you search by) and the `value` (index, frequency, or grouped list). This collapses your time complexity from an unviable brute-force right down to Insert / Lookup / Delete: O(1)! Watch out for the trap though: trying to use a mutable `list` as a dictionary key in python (`typeerror: unhashable type: 'list'`). convert it to `tuple` first."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

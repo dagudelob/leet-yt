@@ -115,21 +115,55 @@ export function subsetsBacktracking(nums: number[]): number[][] {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] Choose, Explore, Unchoose: The Rhythm of Backtracking
 - **On-Screen Visual / Slide Cue:** Decision tree where a shared `path` list appends an item going down and pops it going back up.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Whenever a problem asks you to return ALL possible combinations or permutations, you are exploring a decision tree. Backtracking walks that entire tree using a single shared list thanks to its three-step rhythm: choose, explore, and unchoose."
 
 ### [01:45 - 04:45] Subsets vs Combination Sum vs Permutations and the `path[:]` Bug
 - **On-Screen Visual / Slide Cue:** Three nearly identical code blocks highlighting the single line that changes between them.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "You do not need twenty separate templates. Once you understand the difference between advancing `start_idx` for combinations and tracking a `used` array for permutations, you own the entire family."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #27, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: 'Return all possible...' with N <= 20`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Backtracking interview problems with nested loops! When constraints reach 'Return all possible...' with N <= 20, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Backtracking as Solving a Sudoku puzzle in pencil: you write a 5 in a cell (Choose), try filling subsequent cells (Explore), and if you hit a contradiction where no number fits, you erase that 5 (Unchoose / Backtrack) and try a 6.. First, maintain a single shared `path` list mutated in-place as you descend and ascend the decision tree. Then, at base cases, append a snapshot copy `res.append(path[:])`. This collapses your time complexity from an unviable brute-force right down to Subsets: O(N * 2^N) | Permutations: O(N * N!)! Watch out for the trap though: writing `res.append(path)` instead of `res.append(path[:])` (or `[...path]` in js): since `path` is emptied by `pop()` as the recursion unwinds, `res` ends up filled with empty lists `[[], [], []]`."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |

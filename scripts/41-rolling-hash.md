@@ -122,21 +122,55 @@ export class RollingHash {
 
 ---
 
-## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
+## 6. Long-Form In-Depth Video Script (16:9 Masterclass)
+> **Target Duration:** 10–15 Minutes | **Format:** Teleprompter Script with On-Screen Visual Cues & Webapp CTA
 
 ### [00:00 - 01:45] Turning Words into Numbers: The Base-10 Intuition
 - **On-Screen Visual / Slide Cue:** The window `3456` sliding to `4567` by subtracting `3*1000`, multiplying by `10`, and adding `7`.
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "If you slice a ten-thousand-character substring into a Hash Set at every step of a sliding window, copying and hashing those ten thousand characters blows your complexity up to O(N^2). Rolling Hash updates the fingerprint in O(1) with a single subtraction and multiplication."
 
 ### [01:45 - 04:30] Prefix Hashes + Binary Search in Longest Duplicate Substring
 - **On-Screen Visual / Slide Cue:** Combining Binary Search on length L with Rolling Hash to detect duplicates in O(N).
-- **Narration / Script:**
+- **Narration / Teleprompter Script:**
   > "Once you precompute the hashes of all prefixes and powers of the base, you can extract the signature of any sub-segment `[L, R]` in constant O(1) time, just like Prefix Sums."
+
+### [15:00 - End] Problem Solving Blueprint & Interactive Webapp CTA
+- **On-Screen Visual / Slide Cue:** Cut to leet-yt webapp visualizer showing interactive step-by-step state transitions and the 3 recommended LeetCode practice problems.
+- **Narration / Teleprompter Script:**
+  > "Want to see these state transitions and pointers update live in your browser? Head over to our interactive webapp—the link is pinned in the description below! You can test custom inputs, step through edge cases, and solidify your mental model with interactive micro-challenges. Be sure to star the repo on GitHub, subscribe for Episode #42, and solve today's practice problems. See you in the next masterclass!"
 
 ---
 
-## 7. Classic LeetCode Problems to Practice Today
+## 7. High-Retention YouTube Short Script (9:16 Vertical)
+> **Target Duration:** 45–55 Seconds | **Format:** Vertical Video with Dual CTA (Webapp + Channel)
+
+### Target Specs:
+- **Aspect Ratio:** `9:16 Vertical` (YouTube Shorts / Reels / TikTok)
+- **Target Duration:** `45–55 Seconds` (~135 words)
+- **Visual Split:** Top 40% Animated Visualizer Diagram | Middle 40% Presenter Camera | Bottom 20% Kinetic Captions & CTA Banner
+
+---
+
+#### [00:00 - 00:06] Phase 1: The Curiosity Hook
+- **Visual Cue:** Fast zoom-on-screen with high-contrast text overlay: `⚠️ TLE Alert: O(1) substring comparison or repeated substring search with N <= 10^5`. Red warning icon flashes.
+- **Presenter / Voiceover:**
+  > "Stop solving Rolling Hash interview problems with nested loops! When constraints reach O(1) substring comparison or repeated substring search with N <= 10^5, your quadratic approach will get Time Limit Exceeded instantly."
+
+#### [00:06 - 00:42] Phase 2: The Mental Model & Visual Mechanics
+- **Visual Cue:** Animated interactive simulation from the leet-yt webapp. Diagram highlights pointer movements and the core invariant.
+- **Presenter / Voiceover:**
+  > "Here is the visual trick: think of Rolling Hash as In base 10, if you have the 4-digit window `3456` and slide one step right where `7` enters (to form `4567`), you do not rebuild the number from scratch: you subtract `3 * 1000`, multiply the remainder by `10`, and add `7`. Rolling Hash does the exact same arithmetic with characters.. First, choose a `base` larger than the alphabet size (e.g., `31` or `313`) and a large prime `mod` (`10^9 + 7` or `10^9 + 9`). Then, precompute `pref_hash[i]` and `power[i] = base^i % mod` in o(n). This collapses your time complexity from an unviable brute-force right down to Precompute or slide window: O(N) | Query hash of substring `s[L..R]`: O(1)! Watch out for the trap though: using a small modulus like `10,007`: by the birthday paradox, when comparing 10^5 substrings you will hit collisions with any modulus smaller than roughly n^2. use a prime >= 10^9 + 7 or double hashing."
+
+#### [00:42 - 00:55] Phase 3: The Dual Call to Action (Webapp + Long Video)
+- **Visual Cue:** Split screen showing the interactive webapp visualizer (`🔗 leet-yt: Link in Bio / Comments`) and YouTube full video banner (`▶️ Full Masterclass on Channel`).
+- **Presenter / Voiceover:**
+  > "Test this live with interactive step controls on our webapp—link in bio and pinned comment! And for the full line-by-line code walkthrough and complexity proof, watch the deep-dive video on our channel."
+
+
+---
+
+## 8. Classic LeetCode Problems to Practice Today
 
 | Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
