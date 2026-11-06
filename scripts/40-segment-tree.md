@@ -1,89 +1,89 @@
-# 🎬 Episodio #40: Segment Tree (Árbol de Segmentos y Lazy Propagation)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 7 — Estructura de Datos + Patrón Algorítmico (`Expert`)  
-> **Término en Inglés (Flowchart):** `Segment Tree & Lazy Propagation`  
-> **Prerrequisitos Recomendados:** Fenwick Tree (BIT) → Divide & Conquer → Binary Trees
+# Episode #40: Segment Tree & Lazy Propagation
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 7 — Data Structure + Algorithmic Pattern (`Expert`)  
+> **Flowchart Node Term:** `Segment Tree & Lazy Propagation`  
+> **Recommended Prerequisites:** Fenwick Tree (BIT) -> Divide & Conquer -> Binary Trees
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica cómo funciona un Segment Tree dividiendo cualquier intervalo en a lo sumo `2 log₂ N` bloques canónicos. Presenta el truco del 'Segment Tree Iterativo de tamaño 2N' (que se escribe en 20 líneas y cabe cómodamente en una entrevista) y explica conceptualmente qué es Lazy Propagation (postergar actualizaciones de un bloque entero en una nota adhesiva hasta que alguien necesite bajar a sus hijos).
+Explain how a Segment Tree works by decomposing any arbitrary interval into at most `2 log2(N)` canonical blocks. Present the '2N Iterative Segment Tree' trick (which fits in 20 lines during an interview) and conceptually explain Lazy Propagation (postponing whole-block updates on a sticky note until a query actually needs to visit its children).
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Segment Tree", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Range Min/Max/Sum Query con actualizaciones dinámicas y N, Q ≤ 10⁵) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Segment Tree", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Dynamic Range Min/Max/Sum Query with N, Q <= 10^5) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Segment Tree?
-La estructura de datos definitiva para consultas y actualizaciones sobre **intervalos `[L, R]`**: un árbol binario donde cada nodo representa un subsegmento del arreglo y almacena cualquier función asociativa (**Mínimo, Máximo, Suma, GCD, XOR**) en **O(log N)**.
+### What is Segment Tree?
+The ultimate data structure for queries and updates over **intervals `[L, R]`**: a binary tree where each node represents a sub-segment of the array and stores any associative function (**Min, Max, Sum, GCD, XOR**) in **O(log N)**.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Un gerente regional de ventas: el CEO tiene el récord del país completo `[0..7]`; debajo tiene al director de la mitad oeste `[0..3]` y la mitad este `[4..7]`, y así hasta cada tienda individual. Si pides el máximo de las tiendas `[1..6]`, no visitas las 6 tiendas: le preguntas a un par de gerentes intermedios que cubren exactamente ese bloque en `log N` llamadas.
+### Real-World Analogy
+> **Visual Intuition:** A regional sales hierarchy: the CEO holds the record for the entire country `[0..7]`; underneath sit the directors for the western half `[0..3]` and eastern half `[4..7]`, all the way down to individual stores. If you ask for the maximum across stores `[1..6]`, you do not visit all 6 stores: you ask a couple of middle managers whose regions cover that exact span in `log N` calls.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** El Segment Tree funciona para CUALQUIER operación asociativa (`max`, `min`, `+`, `gcd`, `xor`, matriz de transición), mientras que el Fenwick Tree requiere operaciones invertibles como la suma.
-2. **Idea Clave #2:** En el Segment Tree iterativo de tamaño `2N`, las hojas viven en `[N .. 2N-1]` y el padre de `k` es `k // 2`.
-3. **Idea Clave #3:** Lazy Propagation permite actualizar un millón de elementos de un rango `[L, R]` en O(log N) guardando el cambio pendiente en los nodos superiores.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Segment Tree)
-- ✅ Necesitas consultar el **Mínimo, Máximo, GCD o Suma de un rango `[L, R]`** mientras el arreglo sufre actualizaciones dinámicas (donde Fenwick Tree no puede hacer `min/max` general en subrangos).
-- ✅ **Lazy Propagation**: Cuando las actualizaciones no son a 1 sola casilla sino a **todo un rango completo** ('suma +5 a todos los elementos entre L y R' o 'pinta de rojo el segmento `[L, R]`') en O(log N).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si solo necesitas sumas de rango con actualizaciones de 1 elemento: usa un **Fenwick Tree**, que lleva un tercio del código y menos memoria.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Range Min/Max/Sum Query con actualizaciones dinámicas y N, Q ≤ 10⁵`
-- **Complejidad Temporal Promedio:** `Build: O(N) | Update: O(log N) | Range Query `[L, R]`: O(log N)`
-- **Complejidad Temporal Peor Caso:** `O(log N) por operación`
-- **Complejidad Espacial:** `O(N) (`2N` en versión iterativa o `4N` en versión recursiva)`
-- **Nota Técnica:** La versión iterativa de Segment Tree ocupa solo `2 * N` enteros y es extremadamente rápida y concisa para entrevistas.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** A Segment Tree works for ANY associative operation (`max`, `min`, `+`, `gcd`, `xor`, transition matrices), whereas a Fenwick Tree requires invertible operations like addition.
+2. **Key Takeaway #2:** In the `2N` iterative Segment Tree, leaves live in `[N .. 2N-1]` and the parent of `k` is `k // 2`.
+3. **Key Takeaway #3:** Lazy Propagation lets you update a million elements in a range `[L, R]` in O(log N) by storing the pending change on higher-level nodes.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Colocar los elementos iniciales en la mitad derecha `tree[n .. 2n-1]`.
-2. Llenar los padres de `n-1` hasta `1` combinando `tree[2*i]` y `tree[2*i + 1]`.
-3. Para actualizar, cambiar la hoja `idx + n` y subir dividiendo entre 2 hasta la raíz.
-4. Para consultar `[L, R]`, subir desde ambos extremos cerrando el rango en O(log N).
+### Problem Statement Signals (When to USE Segment Tree)
+- [x] You need to query the **Minimum, Maximum, GCD, or Sum of a range `[L, R]`** while the array undergoes dynamic updates (where a Fenwick Tree cannot handle arbitrary sub-range `min/max`).
+- [x] **Lazy Propagation**: When updates modify not just a single cell, but **an entire range `[L, R]` at once** ('add +5 to every element between L and R' or 'set segment `[L, R]` to value X') in O(log N).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** En la versión recursiva de Segment Tree, reservar `2 * N` en vez de `4 * N`: cuando `N` no es potencia exacta de 2, el árbol recursivo necesita hasta `4 * N` casillas.
+### When NOT to Use It (False Positives)
+- [!] If you only need range sums with single-element updates: use a **Fenwick Tree**, which takes a third of the code and less memory.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Dynamic Range Min/Max/Sum Query with N, Q <= 10^5`
+- **Average Time Complexity:** `Build: O(N) | Update: O(log N) | Range Query `[L, R]`: O(log N)`
+- **Worst-Case Time Complexity:** `O(log N) per operation`
+- **Space Complexity:** `O(N) (`2N` in the iterative version or `4N` in the recursive version)`
+- **Engineering Note:** The iterative Segment Tree uses only `2 * N` integers and is extremely fast and concise for interviews.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Place initial elements in the right half `tree[n .. 2n-1]`.
+2. Fill parents from `n-1` down to `1` by combining `tree[2*i]` and `tree[2*i + 1]`.
+3. To update, modify leaf `idx + n` and walk up dividing by 2 to the root.
+4. To query `[L, R]`, climb from both ends inward in O(log N).
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** In a recursive Segment Tree, allocating `2 * N` instead of `4 * N`: when `N` is not an exact power of 2, the recursive tree array requires up to `4 * N` slots.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 class IterativeSegmentTree:
     """
-    Segment Tree Iterativo Compacto (Tamaño 2N) para Range Maximum/Sum Query.
-    Las hojas viven en tree[n .. 2n-1] y los padres en tree[1 .. n-1].
-    Tiempo Build: O(N) | Update y Query: O(log N)
+    Compact Iterative Segment Tree (Size 2N) for Range Maximum/Sum Query.
+    Leaves live in tree[n .. 2n-1] and internal parents in tree[1 .. n-1].
+    Build Time: O(N) | Update & Query: O(log N)
     """
     def __init__(self, nums: list[int]):
         self.n = len(nums)
         self.tree = [0] * (2 * self.n)
-        # 1. Copiar hojas en la segunda mitad
+        # 1. Copy leaves into the second half
         for i, x in enumerate(nums):
             self.tree[self.n + i] = x
-        # 2. Construir padres hacia atrás en O(N)
+        # 2. Build internal parents bottom-up in O(N)
         for i in range(self.n - 1, 0, -1):
             self.tree[i] = max(self.tree[2 * i], self.tree[2 * i + 1])
 
@@ -95,10 +95,10 @@ class IterativeSegmentTree:
             self.tree[pos] = max(self.tree[2 * pos], self.tree[2 * pos + 1])
 
     def range_max(self, left: int, right: int) -> int:
-        """Máximo en el rango cerrado [left, right] (0-indexed)."""
+        """Maximum in the closed range [left, right] (0-indexed)."""
         res = float("-inf")
         l = left + self.n
-        r = right + self.n + 1  # Semiabierto [l, r)
+        r = right + self.n + 1  # Half-open [l, r)
         while l < r:
             if l & 1:
                 res = max(res, self.tree[l])
@@ -111,7 +111,7 @@ class IterativeSegmentTree:
         return res
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export class SegmentTreeMax {
   private n: number;
@@ -152,24 +152,24 @@ export class SegmentTreeMax {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 02:00] Por qué el Segment Tree es el rey de las consultas de rango
-- **🎬 Visual en Pantalla / Slide:** Árbol binario de intervalos cubriendo el rango `[1..6]` con solo 3 nodos sombreados.
-- **🎙️ Narración / Guion:**
-  > "¿Qué haces cuando necesitas el máximo o mínimo de un rango mil veces por segundo mientras los valores del arreglo cambian en vivo? El Fenwick Tree ya no basta porque el máximo no se puede restar. Aquí entra el poderoso Segment Tree."
+### [00:00 - 02:00] Why the Segment Tree Rules Range Queries
+- **On-Screen Visual / Slide Cue:** Binary tree of intervals covering range `[1..6]` with only 3 shaded canonical nodes.
+- **Narration / Script:**
+  > "What do you do when you need the maximum or minimum of a range a thousand times per second while array values mutate live? A Fenwick Tree is no longer enough because a maximum cannot be subtracted. Enter the Segment Tree."
 
-### ⏱️ [02:00 - 05:00] Segment Tree Iterativo en 20 líneas y Lazy Propagation
-- **🎬 Visual en Pantalla / Slide:** Arreglo de tamaño `2N` actualizando hojas y propagando notas 'Lazy' en rangos.
-- **🎙️ Narración / Guion:**
-  > "Muchos temen al Segment Tree porque la versión recursiva clásica es larga. Pero con la representación iterativa de tamaño 2N, las hojas van en la segunda mitad del arreglo y los padres en la primera mitad: limpio, rápido y libre de recursión."
+### [02:00 - 05:00] 20-Line Iterative Segment Tree and Lazy Propagation
+- **On-Screen Visual / Slide Cue:** Array of size `2N` updating leaves and propagating 'Lazy' tags across ranges.
+- **Narration / Script:**
+  > "Many candidates fear the Segment Tree because the classic recursive version is verbose. With the 2N iterative layout, leaves sit in the second half of the array and parents sit in the first half: clean, fast, and recursion-free."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#307. Range Sum Query - Mutable** | `Medium` | [https://leetcode.com/problems/range-sum-query-mutable/](https://leetcode.com/problems/range-sum-query-mutable/) | Reemplaza `max` por `+` en el Segment Tree iterativo. |
-| **#715. Range Module** | `Hard` | [https://leetcode.com/problems/range-module/](https://leetcode.com/problems/range-module/) | Segment Tree dinámico con Lazy Propagation o mantenimiento de intervalos. |
-| **#2407. Longest Increasing Subsequence II** | `Hard` | [https://leetcode.com/problems/longest-increasing-subsequence-ii/](https://leetcode.com/problems/longest-increasing-subsequence-ii/) | Combina DP con un Segment Tree de Máximos: `dp[x] = 1 + seg.range_max(x - k, x - 1)`. |
+| **#307. Range Sum Query - Mutable** | `Medium` | [https://leetcode.com/problems/range-sum-query-mutable/](https://leetcode.com/problems/range-sum-query-mutable/) | Replace `max` with `+` in the iterative Segment Tree. |
+| **#715. Range Module** | `Hard` | [https://leetcode.com/problems/range-module/](https://leetcode.com/problems/range-module/) | Dynamic Segment Tree with Lazy Propagation or sorted interval maintenance. |
+| **#2407. Longest Increasing Subsequence II** | `Hard` | [https://leetcode.com/problems/longest-increasing-subsequence-ii/](https://leetcode.com/problems/longest-increasing-subsequence-ii/) | Combine DP with a Range Maximum Segment Tree: `dp[x] = 1 + seg.range_max(x - k, x - 1)`. |

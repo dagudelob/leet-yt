@@ -1,81 +1,81 @@
-# 🎬 Episodio #02: Brute Force (Fuerza Bruta)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 1 — Patrón Algorítmico (`Beginner`)  
-> **Término en Inglés (Flowchart):** `Brute Force & Exhaustive Search`  
-> **Prerrequisitos Recomendados:** Basic DSA & Big-O
+# Episode #02: Brute Force & Exhaustive Search
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 1 — Algorithmic Pattern (`Beginner`)  
+> **Flowchart Node Term:** `Brute Force & Exhaustive Search`  
+> **Recommended Prerequisites:** Basic DSA & Big-O
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica por qué la Fuerza Bruta NO es un 'mal algoritmo', sino el primer escalón indispensable en una entrevista técnica. Muestra cómo verbalizar la solución de fuerza bruta ante un entrevistador te da claridad para descubrir el cuello de botella.
+Explain why Brute Force is NOT a failure in a coding interview, but the essential first stepping stone. Show how stating the brute force clearly in 30 seconds reveals the bottleneck that leads to Hash Maps or Two Pointers.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Brute Force", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (N ≤ 200 para triple bucle | N ≤ 2000 para doble bucle) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Brute Force", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (N <= 200 for triple loops | N <= 2000 for double loops) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Brute Force?
-Probar sistemáticamente todas las posibilidades candidatas y verificar cuáles cumplen la condición. Es el punto de partida obligatorio en toda entrevista antes de optimizar.
+### What is Brute Force?
+Systematically enumerating every candidate configuration and checking which ones satisfy the problem condition. It is the mandatory starting point in every interview before optimizing.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Abrir un candado de combinación de 3 dígitos probando desde el 000 hasta el 999 uno por uno. No es elegante, pero garantiza al 100% que encontrarás la combinación correcta y te permite entender las reglas del candado.
+### Real-World Analogy
+> **Visual Intuition:** Opening a 3-digit combination lock by testing 000, 001, 002 all the way to 999 one by one. It is not fancy, but it guarantees 100% that you will find the answer and clarifies the exact rules of the lock.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** En una entrevista, mencionar primero la fuerza bruta demuestra estructura mental y asegura que entendiste el problema.
-2. **Idea Clave #2:** Toda optimización (Hash Map, Sliding Window, DP) nace de preguntarse: '¿qué cálculo estoy repitiendo innecesariamente en mi fuerza bruta?'
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Brute Force)
-- ✅ Cuando N es muy pequeño (ej. N ≤ 100 para O(N²) o N ≤ 10 para O(N!)).
-- ✅ Durante los primeros 2 minutos de una entrevista para establecer una solución base correcta (baseline) y luego identificar qué trabajo repetido puedes optimizar.
-- ✅ Para generar tests pequeños y verificar que tu algoritmo optimizado da la misma respuesta.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Cuando N ≥ 10⁴ y tu fuerza bruta requiere revisar todos los pares O(N²) o subconjuntos O(2ᴺ).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `N ≤ 200 para triple bucle | N ≤ 2000 para doble bucle`
-- **Complejidad Temporal Promedio:** `O(N²) o O(N³) en pares/tripletas`
-- **Complejidad Temporal Peor Caso:** `O(2ᴺ) o O(N!) en combinatoria`
-- **Complejidad Espacial:** `O(1) si solo iteramos con índices`
-- **Nota Técnica:** Depende del tamaño del espacio de búsqueda.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Stating the brute-force baseline first shows structured thinking and confirms you understood the problem.
+2. **Key Takeaway #2:** Every optimization (Hash Map, Sliding Window, DP) comes from asking: 'What repeated work is my brute force doing?'
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Definir qué forma tiene una 'solución candidata' (un par de índices, un subarreglo, una asignación).
-2. Escribir los ciclos anidados que enumeran todos los candidatos sin repetir (`j = i + 1`).
-3. Validar cada candidato y actualizar la respuesta óptima.
-4. Identificar el bucle más interno para optimizarlo con una estructura de datos.
+### Problem Statement Signals (When to USE Brute Force)
+- [x] When N is very small (e.g., N <= 100 for O(N^2) or N <= 10 for O(N!)).
+- [x] During the first 2 minutes of an interview to establish a working baseline and pinpoint redundant work to optimize.
+- [x] To generate small stress-tests and verify your optimized algorithm produces the exact same output.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Empezar `j` desde `0` en vez de `i + 1`, usando el mismo elemento dos veces o contando pares duplicados.
-- 🚨 **Trampa de Entrevista:** Quedarse callado en la entrevista intentando buscar la solución O(N) mágica sin antes enunciar la O(N²).
+### When NOT to Use It (False Positives)
+- [!] When N >= 10^4 and your brute force checks all pairs O(N^2) or all subsets O(2^N).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `N <= 200 for triple loops | N <= 2000 for double loops`
+- **Average Time Complexity:** `O(N^2) or O(N^3) for pairs/triplets`
+- **Worst-Case Time Complexity:** `O(2^N) or O(N!) for combinatorial search`
+- **Space Complexity:** `O(1) when iterating with indices`
+- **Engineering Note:** Directly proportional to the total number of candidate states.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Define what a single 'candidate solution' looks like (a pair of indices, a subarray, a subset).
+2. Write nested loops that enumerate all unique candidates without duplicates (`j = i + 1`).
+3. Validate each candidate and update the best answer.
+4. Identify the innermost loop to optimize with a data structure.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Starting `j` at `0` instead of `i + 1`, which uses the same element twice or counts duplicate pairs.
+- **Interview Trap:** Sitting in silence trying to invent a clever O(N) trick without first securing the O(N^2) baseline.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def two_sum_brute_force(nums: list[int], target: int) -> list[int]:
     """
-    Revisa absolutamente todos los pares (i, j) con i < j.
-    Tiempo: O(N^2) | Espacio: O(1)
+    Enumerates every unique pair (i, j) with i < j.
+    Time: O(N^2) | Space: O(1)
     """
     n = len(nums)
     for i in range(n):
@@ -85,7 +85,7 @@ def two_sum_brute_force(nums: list[int], target: int) -> list[int]:
     return []
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function twoSumBruteForce(nums: number[], target: number): number[] {
   const n = nums.length;
@@ -102,24 +102,24 @@ export function twoSumBruteForce(nums: number[], target: number): number[] {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:00] El mito de que Fuerza Bruta es fracasar
-- **🎬 Visual en Pantalla / Slide:** Comparación entre un candidato bloqueado en silencio vs uno que plantea el baseline en 30 segundos.
-- **🎙️ Narración / Guion:**
-  > "Muchos creen que mencionar Fuerza Bruta en una entrevista resta puntos. En realidad, es todo lo contrario: es tu brújula para descubrir dónde está el trabajo repetido."
+### [00:00 - 01:00] The Myth That Brute Force Is Bad
+- **On-Screen Visual / Slide Cue:** Side-by-side comparison: a silent stuck candidate vs one who states the O(N^2) baseline in 30 seconds.
+- **Narration / Script:**
+  > "Many candidates think mentioning Brute Force in an interview loses points. In reality, it is your compass: you cannot optimize a bottleneck until you can see the bottleneck."
 
-### ⏱️ [01:00 - 03:30] Anatomía de la enumeración de pares y tripletas
-- **🎬 Visual en Pantalla / Slide:** Animación de índices i y j recorriendo una cuadrícula triangular superior.
-- **🎙️ Narración / Guion:**
-  > "Cuando recorremos pares con i desde 0 y j desde i+1, exploramos N*(N-1)/2 combinaciones. Al ver ese bucle interno buscando un complemento, se vuelve obvio por qué existen los Hash Maps y los Dos Punteros."
+### [01:00 - 03:30] Anatomy of Pair and Triplet Enumeration
+- **On-Screen Visual / Slide Cue:** Animation of indices i and j scanning an upper-triangular grid.
+- **Narration / Script:**
+  > "When we scan pairs with i from 0 and j from i+1, we inspect N*(N-1)/2 combinations. Seeing that inner loop search for a complement makes it obvious why Hash Maps and Two Pointers exist."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#1. Two Sum** | `Easy` | [https://leetcode.com/problems/two-sum/](https://leetcode.com/problems/two-sum/) | Empieza con el doble bucle O(N²) y nota que la búsqueda interna de `target - nums[i]` se puede acelerar. |
-| **#1534. Count Good Triplets** | `Easy` | [https://leetcode.com/problems/count-good-triplets/](https://leetcode.com/problems/count-good-triplets/) | Con N ≤ 100, el triple bucle O(N³) es la solución directa esperada. |
-| **#2367. Number of Arithmetic Triplets** | `Easy` | [https://leetcode.com/problems/number-of-arithmetic-triplets/](https://leetcode.com/problems/number-of-arithmetic-triplets/) | Compara fuerza bruta O(N³) contra búsqueda en conjunto. |
+| **#1. Two Sum** | `Easy` | [https://leetcode.com/problems/two-sum/](https://leetcode.com/problems/two-sum/) | Start with the O(N^2) nested loop and notice that the inner lookup for `target - nums[i]` can be accelerated. |
+| **#1534. Count Good Triplets** | `Easy` | [https://leetcode.com/problems/count-good-triplets/](https://leetcode.com/problems/count-good-triplets/) | With N <= 100, the O(N^3) triple loop is the direct expected solution. |
+| **#2367. Number of Arithmetic Triplets** | `Easy` | [https://leetcode.com/problems/number-of-arithmetic-triplets/](https://leetcode.com/problems/number-of-arithmetic-triplets/) | Compare O(N^3) brute force against O(N) set lookup. |

@@ -1,91 +1,91 @@
-# 🎬 Episodio #27: Heaps / Priority Queues (Montículos y Colas de Prioridad)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 4 — Estructura de Datos (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Binary Heaps & Priority Queues`  
-> **Prerrequisitos Recomendados:** Arrays → Binary Trees
+# Episode #27: Heaps / Priority Queues (Min-Heap & Max-Heap)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 4 — Data Structure (`Intermediate`)  
+> **Flowchart Node Term:** `Binary Heaps & Priority Queues`  
+> **Recommended Prerequisites:** Arrays -> Binary Trees
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica cómo un Heap logra representar un árbol binario dentro de un simple Array sin gastar memoria en punteros (`left = 2*i + 1`, `right = 2*i + 2`, `parent = (i - 1) // 2`). Enseña por qué `heapify` toma O(N) y el truco indispensable en Python: cómo convertir el Min-Heap de `heapq` en un Max-Heap multiplicando los números por `-1`.
+Explain how a Binary Heap packs a complete binary tree inside a flat Array without pointers (`left = 2*i + 1`, `right = 2*i + 2`, `parent = (i - 1) // 2`). Explain why bottom-up `heapify` runs in O(N) time and how to simulate a Max-Heap in Python's `heapq` by negating numbers (`-x`).
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Heaps (Priority Queue)", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Extracción continua del mínimo/máximo con N ≤ 10⁵) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Heaps (Priority Queue)", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Repeated extraction of min/max from a changing set with N <= 10^5) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Heaps (Priority Queue)?
-Un árbol binario casi completo almacenado de forma compacta dentro de un Array (sin punteros) donde cada padre es menor o igual que sus hijos (`Min-Heap`) o mayor o igual (`Max-Heap`). Permite consultar el mínimo/máximo en O(1) e insertar o extraer el extremo en O(log N).
+### What is Heaps (Priority Queue)?
+A complete binary tree packed compactly inside a flat Array (zero pointers) where every parent is `<=` its children (`Min-Heap`) or `>=` its children (`Max-Heap`). Provides O(1) peek at the extreme element and O(log N) insertion and extraction.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** La sala de urgencias de un hospital (Triage): no atienden por orden de llegada como en el banco, sino que siempre pasa primero el paciente con mayor urgencia (`pop` en O(log N)), sin importar si acaba de entrar hace un minuto (`push` en O(log N)).
+### Real-World Analogy
+> **Visual Intuition:** A hospital emergency room triage (Priority Queue): patients are not treated in arrival order like at a bank—the patient with the highest urgency always goes next (`pop` in O(log N)), even if they walked in a minute ago (`push` in O(log N)).
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Un Heap NO está completamente ordenado: solo garantiza que cada padre domina a sus dos hijos y que el extremo global está en `heap[0]`.
-2. **Idea Clave #2:** En Python, `heapq` es siempre un Min-Heap; para simular un Max-Heap guarda `-valor` o tuplas `(-prioridad, item)`.
-3. **Idea Clave #3:** `heapq.heapify(arr)` construye el montículo de abajo hacia arriba en tiempo O(N) lineal.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Heaps (Priority Queue))
-- ✅ Necesitas consultar y extraer repetidamente el elemento **MÍNIMO** o **MÁXIMO** de una colección dinámica que sigue recibiendo nuevos elementos.
-- ✅ Simular eventos ordenados por su timestamp más próximo o elegir siempre la tarea más prioritaria.
-- ✅ Motor interno del algoritmo de Dijkstra, Prim MST y codificación de Huffman.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si el conjunto de datos es estático y solo necesitas el mínimo una sola vez (usa `min(nums)` en O(N)).
-- ⚠️ Si necesitas buscar un elemento arbitrario de en medio: un Heap solo garantiza acceso instantáneo a la cima `heap[0]`, no es un BST completo.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Extracción continua del mínimo/máximo con N ≤ 10⁵`
-- **Complejidad Temporal Promedio:** `Peek (`heap[0]`): O(1) | Push / Pop: O(log N) | `heapify(lista)`: O(N)`
-- **Complejidad Temporal Peor Caso:** `Push / Pop: O(log N)`
-- **Complejidad Espacial:** `O(N) almacenado en un arreglo contiguo`
-- **Nota Técnica:** ¡Convertir una lista existente en un Heap con `heapq.heapify(nums)` toma O(N) lineal, NO O(N log N)!
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** A Heap is NOT fully sorted: it only guarantees that every parent dominates its children so the global extreme sits at `heap[0]`.
+2. **Key Takeaway #2:** In Python, `heapq` is a Min-Heap; store `-val` or `(-priority, item)` to turn it into a Max-Heap.
+3. **Key Takeaway #3:** `heapq.heapify(arr)` sifts down from the bottom up in linear O(N) time.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Decidir si necesitas extraer repetidamente el menor (Min-Heap) o el mayor (Max-Heap con `-x`).
-2. Si partes de una lista inicial, usar `heapq.heapify(lista)` en O(N).
-3. Usar `heappop` y `heappush` para mantener la invariante en O(log N) por operación.
+### Problem Statement Signals (When to USE Heaps (Priority Queue))
+- [x] You need to repeatedly query and extract the **MINIMUM** or **MAXIMUM** element from a dynamic collection that keeps receiving new items.
+- [x] Scheduling tasks by earliest deadline or highest priority.
+- [x] Internal engine of Dijkstra's shortest path, Prim's MST, and Huffman coding.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Llamar a `nums.sort()` dentro de un bucle cada vez que se inserta un elemento nuevo (cuesta O(N² log N)) en lugar de usar un Heap (O(N log N)).
+### When NOT to Use It (False Positives)
+- [!] If the dataset is static and you only need the minimum once (just call `min(nums)` in O(N)).
+- [!] If you need to search for an arbitrary middle value: a Heap only exposes its root `heap[0]` in O(1), not arbitrary elements.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Repeated extraction of min/max from a changing set with N <= 10^5`
+- **Average Time Complexity:** `Peek (`heap[0]`): O(1) | Push / Pop: O(log N) | `heapify(list)`: O(N)`
+- **Worst-Case Time Complexity:** `Push / Pop: O(log N)`
+- **Space Complexity:** `O(N) stored in a contiguous array`
+- **Engineering Note:** Converting an existing array into a Heap via `heapq.heapify(nums)` takes linear O(N) time, NOT O(N log N)!
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Decide whether you need repeated minimum extraction (Min-Heap) or maximum extraction (Max-Heap via `-x`).
+2. Convert an initial list in O(N) using `heapq.heapify(nums)`.
+3. Use `heappop` and `heappush` to maintain the heap invariant in O(log N) per step.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Calling `nums.sort()` inside a loop every time a new element is inserted (O(N^2 log N)) instead of pushing to a Heap (O(N log N)).
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 import heapq
 
 def heap_fundamentals_demo(nums: list[int]) -> tuple[int, int]:
     """
-    En Python, 'heapq' implementa un MIN-HEAP sobre una lista normal.
-    TRUCO PARA MAX-HEAP: Guardar los números con signo NEGATIVO (-x).
+    Python's 'heapq' implements a MIN-HEAP on a standard list.
+    MAX-HEAP TRICK: Negate values (-x) when pushing and popping!
     """
-    # 1. Min-Heap: convertir lista en heap en tiempo lineal O(N)
+    # 1. Min-Heap: build heap in-place in O(N) linear time
     min_heap = nums[:]
     heapq.heapify(min_heap)
     heapq.heappush(min_heap, 5)          # O(log N)
     smallest = heapq.heappop(min_heap)   # O(log N)
 
-    # 2. Max-Heap: multiplicamos por -1 al insertar y al extraer
+    # 2. Max-Heap: negate numbers by multiplying by -1
     max_heap = [-x for x in nums]
     heapq.heapify(max_heap)
     heapq.heappush(max_heap, -5)
@@ -94,7 +94,7 @@ def heap_fundamentals_demo(nums: list[int]) -> tuple[int, int]:
     return smallest, largest
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export class MinHeap {
   private data: number[] = [];
@@ -150,24 +150,24 @@ export class MinHeap {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] Un árbol escondido dentro de un Array
-- **🎬 Visual en Pantalla / Slide:** Árbol binario mapeando sus nodos directamente a las casillas 0..N-1 de un arreglo con `2i+1` y `2i+2`.
-- **🎙️ Narración / Guion:**
-  > "¿Y si te dijera que el Heap es un árbol binario que no usa ni un solo objeto nodo ni punteros? Como se llena de izquierda a derecha sin huecos, los hijos del índice `i` viven matemáticamente en `2i + 1` y `2i + 2`."
+### [00:00 - 01:45] A Binary Tree Hidden Inside an Array
+- **On-Screen Visual / Slide Cue:** Complete binary tree mapping its nodes directly to array indices `0..N-1` via `2i+1` and `2i+2`.
+- **Narration / Script:**
+  > "What if I told you a Binary Heap is a tree that uses zero node objects and zero pointers? Because it fills level by level from left to right without gaps, the children of index `i` live mathematically at `2i + 1` and `2i + 2`."
 
-### ⏱️ [01:45 - 04:15] Sift-Up, Sift-Down y el truco del signo negativo en Python
-- **🎬 Visual en Pantalla / Slide:** Un elemento nuevo subiendo por el árbol en `log N` saltos y ejemplo de Max-Heap con `-x`.
-- **🎙️ Narración / Guion:**
-  > "Mantener todo un arreglo ordenado cuando entran y salen datos es carísimo. Pero si solo te importa quién va ganando en la cima, un Heap reacomoda una rama de altura log(N) en un parpadeo."
+### [01:45 - 04:15] Sift-Up, Sift-Down, and Python's Negation Trick
+- **On-Screen Visual / Slide Cue:** A new element bubbling up a branch in `log N` swaps and Max-Heap negation `-x`.
+- **Narration / Script:**
+  > "Keeping an entire array sorted while items arrive and leave is expensive. When you only care about who is currently winning at the top, a Heap rebalances a single branch of height log(N) in an instant."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#1046. Last Stone Weight** | `Easy` | [https://leetcode.com/problems/last-stone-weight/](https://leetcode.com/problems/last-stone-weight/) | Usa un Max-Heap (negando los valores en `heapq`) para sacar siempre las 2 piedras más pesadas en O(log N). |
-| **#703. Kth Largest Element in a Stream** | `Easy` | [https://leetcode.com/problems/kth-largest-element-in-a-stream/](https://leetcode.com/problems/kth-largest-element-in-a-stream/) | Mantén un Min-Heap de tamaño fijo `K`: la raíz `heap[0]` siempre será el K-ésimo más grande. |
-| **#621. Task Scheduler** | `Medium` | [https://leetcode.com/problems/task-scheduler/](https://leetcode.com/problems/task-scheduler/) | Max-Heap con las frecuencias restantes + una cola de enfriamiento `(frecuencia, tiempo_disponible)`. |
+| **#1046. Last Stone Weight** | `Easy` | [https://leetcode.com/problems/last-stone-weight/](https://leetcode.com/problems/last-stone-weight/) | Use a Max-Heap (negating values in `heapq`) to repeatedly smash the 2 heaviest stones in O(log N). |
+| **#703. Kth Largest Element in a Stream** | `Easy` | [https://leetcode.com/problems/kth-largest-element-in-a-stream/](https://leetcode.com/problems/kth-largest-element-in-a-stream/) | Maintain a Min-Heap of fixed size `K`: the root `heap[0]` is always the K-th largest element. |
+| **#621. Task Scheduler** | `Medium` | [https://leetcode.com/problems/task-scheduler/](https://leetcode.com/problems/task-scheduler/) | Max-Heap of remaining task counts paired with a cooldown queue `(count, available_time)`. |

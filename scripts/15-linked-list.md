@@ -1,74 +1,74 @@
-# 🎬 Episodio #15: Linked Lists (Listas Enlazadas Simples y Dobles)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 3 — Estructura de Datos (`Beginner`)  
-> **Término en Inglés (Flowchart):** `Singly & Doubly Linked Lists`  
-> **Prerrequisitos Recomendados:** Arrays
+# Episode #15: Linked Lists (Singly & Doubly Linked)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 3 — Data Structure (`Beginner`)  
+> **Flowchart Node Term:** `Singly & Doubly Linked Lists`  
+> **Recommended Prerequisites:** Arrays
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Contrasta visualmente un Array (casilleros pegados en memoria) con una Linked List (nodos unidos por flechas/punteros). Enseña por qué el 'Nodo Dummy (Centinela)' es el mejor amigo del programador para evitar errores de `NullPointerException` cuando la cabeza de la lista cambia.
+Contrast an Array (contiguous lockers in RAM) with a Linked List (nodes linked by pointer arrows). Explain why the 'Dummy Sentinel Node' is a developer's best friend for avoiding null-pointer bugs when the head of the list changes.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Linked Lists", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Manipulación de punteros in-place en O(1) memoria extra) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Linked Lists", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (In-place pointer rewiring in O(1) extra memory) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Linked Lists?
-Nodos independientes dispersos en memoria donde cada uno guarda su valor y una flecha (`next`, y `prev` en listas dobles) al siguiente nodo. Permiten insertar o eliminar en O(1) en cualquier punto si ya tienes la referencia al nodo.
+### What is Linked Lists?
+Independent nodes scattered across memory where each node holds a value and a pointer (`next`, plus `prev` in doubly linked lists) to the adjacent node. Enables O(1) insertion and deletion anywhere once you hold a reference to the node.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Una búsqueda del tesoro con pistas en sobres: el primer sobre no está pegado físicamente al segundo, pero adentro tiene un papel que dice 'la siguiente pista está debajo de la maceta azul'. Para llegar a la pista #5 debes abrir las pistas 1, 2, 3 y 4 en orden.
+### Real-World Analogy
+> **Visual Intuition:** A treasure hunt of envelopes: the first envelope is not physically glued to the second, but inside it is a note saying 'the next clue is under the blue flowerpot'. To reach clue #5, you must follow clues 1, 2, 3, and 4 in sequence.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** En una Linked List no existen índices automáticos: perder la referencia a `head` significa perder toda la lista.
-2. **Idea Clave #2:** El orden en que reasignas punteros importa: guarda `nxt = curr.next` antes de sobrescribir `curr.next`.
-3. **Idea Clave #3:** Un nodo `dummy` antes de `head` hace que todos los nodos tengan un nodo previo real.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Linked Lists)
-- ✅ Necesitas insertar o eliminar elementos en O(1) en medio o en los extremos sin desplazar memoria contigua.
-- ✅ Listas Doblemente Enlazadas (`prev` y `next`): cuando necesitas quitar un nodo específico de en medio de una cola en O(1) teniendo su referencia directa (pieza clave de LRU Cache).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Cuando necesitas acceso aleatorio por índice (`get(i)` cuesta O(N) porque debes caminar desde la cabeza `head`).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Manipulación de punteros in-place en O(1) memoria extra`
-- **Complejidad Temporal Promedio:** `Insertar/Borrar con puntero al nodo: O(1) | Buscar por índice/valor: O(N)`
-- **Complejidad Temporal Peor Caso:** `O(N)`
-- **Complejidad Espacial:** `O(N) nodos y punteros`
-- **Nota Técnica:** Usar un nodo centinela `dummy = ListNode(0, head)` elimina los casos especiales al borrar o cambiar la cabeza.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** In a Linked List there are no automatic indices: losing the reference to `head` loses the entire list.
+2. **Key Takeaway #2:** The order of pointer reassignment matters: always save `nxt = curr.next` before overwriting `curr.next`.
+3. **Key Takeaway #3:** Placing a `dummy` node before `head` guarantees every real node has a valid predecessor.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Dibujar siempre 3 cajitas con flechas antes de escribir código de punteros.
-2. Crear `dummy = ListNode(0, head)` siempre que la cabeza original pueda cambiar o eliminarse.
-3. Retornar `dummy.next` al final.
+### Problem Statement Signals (When to USE Linked Lists)
+- [x] You need O(1) insertion or deletion at the head, tail, or middle without shifting contiguous array memory.
+- [x] Doubly Linked Lists (`prev` and `next`): when you need to unlink an arbitrary node from the middle of a queue in O(1) given its direct pointer (the backbone of LRU Cache).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Hacer `curr.next = nuevo` antes de conectar `nuevo.next = curr.next`, cortando la cadena y perdiendo el resto de la lista en memoria.
+### When NOT to Use It (False Positives)
+- [!] When you need O(1) random access by index (`get(i)` takes O(N) because you must walk from `head`).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `In-place pointer rewiring in O(1) extra memory`
+- **Average Time Complexity:** `Insert/Delete given node pointer: O(1) | Search by index/value: O(N)`
+- **Worst-Case Time Complexity:** `O(N)`
+- **Space Complexity:** `O(N) nodes and pointers`
+- **Engineering Note:** Using a sentinel `dummy = ListNode(0, head)` eliminates special-case edge logic when deleting or replacing the head node.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Sketch 3 boxes and arrows before writing any pointer manipulation code.
+2. Create `dummy = ListNode(0, head)` whenever the original head might be deleted or moved.
+3. Return `dummy.next` at the end.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Overwriting `curr.next = new_node` before setting `new_node.next = curr.next`, severing the chain and losing the rest of the list.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 class ListNode:
     def __init__(self, val: int = 0, next: "ListNode | None" = None):
@@ -78,20 +78,20 @@ class ListNode:
 
 def delete_value_with_dummy(head: ListNode | None, target: int) -> ListNode | None:
     """
-    El Truco del Nodo Dummy (Centinela):
-    Evita tener que escribir un 'if' especial cuando el nodo a borrar es el propio 'head'.
+    The Dummy Sentinel Node Trick:
+    Eliminates special-case checks when the node to remove is 'head' itself.
     """
     dummy = ListNode(0, head)
     curr = dummy
     while curr.next:
         if curr.next.val == target:
-            curr.next = curr.next.next  # Saltamos el nodo objetivo en O(1)
+            curr.next = curr.next.next  # Bypass target node in O(1)
         else:
             curr = curr.next
     return dummy.next
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export class ListNode {
   val: number;
@@ -118,24 +118,24 @@ export function deleteValueWithDummy(head: ListNode | null, target: number): Lis
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:30] Arrays vs Linked Lists: Cajas contiguas vs Búsqueda del tesoro
-- **🎬 Visual en Pantalla / Slide:** Animación de nodos enlazados flotando en memoria conectados por flechas luminosas.
-- **🎙️ Narración / Guion:**
-  > "Si los Arrays son casilleros pegados en una pared, una Linked List es una cadena de pistas donde cada nodo solo sabe dónde vive el siguiente. Eso hace que buscar por posición sea lento, pero insertar o cortar eslabones sea instantáneo."
+### [00:00 - 01:30] Arrays vs Linked Lists: Contiguous Lockers vs Treasure Hunt
+- **On-Screen Visual / Slide Cue:** Animation of nodes floating in memory connected by glowing pointer arrows.
+- **Narration / Script:**
+  > "If Arrays are numbered lockers along a wall, a Linked List is a chain of clues where each node only knows where the next node lives. That makes indexing slow, but splicing links in O(1) instant."
 
-### ⏱️ [01:30 - 04:00] El superpoder del Nodo Dummy (Centinela)
-- **🎬 Visual en Pantalla / Slide:** Un nodo gris 'Dummy' colocado delante de 'head' permitiendo borrar el primer elemento sin casos borde.
-- **🎙️ Narración / Guion:**
-  > "El 80% de los bugs en listas enlazadas ocurren cuando te toca borrar o mover el primer nodo. La solución profesional es colocar un nodo fantasma Dummy al inicio y devolver `dummy.next` al final."
+### [01:30 - 04:00] The Superpower of the Dummy Sentinel Node
+- **On-Screen Visual / Slide Cue:** A gray 'Dummy' node placed ahead of 'head', allowing the first element to be deleted without edge cases.
+- **Narration / Script:**
+  > "Eighty percent of linked list bugs happen when deleting or moving the very first node. The clean engineering fix is placing a dummy sentinel node at the front and returning `dummy.next`."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#21. Merge Two Sorted Lists** | `Easy` | [https://leetcode.com/problems/merge-two-sorted-lists/](https://leetcode.com/problems/merge-two-sorted-lists/) | Crea un nodo `dummy` y ve cosiendo el menor entre `l1` y `l2`. |
-| **#203. Remove Linked List Elements** | `Easy` | [https://leetcode.com/problems/remove-linked-list-elements/](https://leetcode.com/problems/remove-linked-list-elements/) | Usa `dummy.next = head` por si los primeros nodos también deben eliminarse. |
-| **#707. Design Linked List** | `Medium` | [https://leetcode.com/problems/design-linked-list/](https://leetcode.com/problems/design-linked-list/) | Implementa con centinelas `head_dummy` y `tail_dummy` para simplificar inserciones. |
+| **#21. Merge Two Sorted Lists** | `Easy` | [https://leetcode.com/problems/merge-two-sorted-lists/](https://leetcode.com/problems/merge-two-sorted-lists/) | Create a `dummy` node and stitch the smaller head between `l1` and `l2` at each step. |
+| **#203. Remove Linked List Elements** | `Easy` | [https://leetcode.com/problems/remove-linked-list-elements/](https://leetcode.com/problems/remove-linked-list-elements/) | Use `dummy.next = head` so leading target nodes are removed cleanly. |
+| **#707. Design Linked List** | `Medium` | [https://leetcode.com/problems/design-linked-list/](https://leetcode.com/problems/design-linked-list/) | Implement with `head_dummy` and `tail_dummy` sentinels to simplify boundary insertions. |

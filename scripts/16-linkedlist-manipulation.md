@@ -1,105 +1,105 @@
-# 🎬 Episodio #16: Linked List Manipulation (Fast & Slow Pointers y Reversión)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 3 — Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Fast & Slow Pointers & In-Place Reversal`  
-> **Prerrequisitos Recomendados:** Linked Lists → Two Pointers
+# Episode #16: Linked List Manipulation (Fast & Slow Pointers & Reversal)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 3 — Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Fast & Slow Pointers & In-Place Reversal`  
+> **Recommended Prerequisites:** Linked Lists -> Two Pointers
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Haz que el oyente domine de memoria las dos coreografías más preguntadas en entrevistas: 1) El baile de 4 pasos para invertir una lista (`nxt = curr.next`, `curr.next = prev`, `prev = curr`, `curr = nxt`) y 2) El algoritmo de la Tortuga y la Liebre de Floyd, cerrando con cómo ambos se combinan en 'Reorder List' o 'Palindrome Linked List'.
+Make the listener master the two most-asked linked list choreographies: 1) The 4-step in-place reversal dance (`nxt = curr.next`, `curr.next = prev`, `prev = curr`, `curr = nxt`) and 2) Floyd's Tortoise and Hare algorithm, showing how both combine in 'Reorder List' and 'Palindrome Linked List'.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "LL Manipulation", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Operaciones sobre listas o secuencias cíclicas exigiendo O(1) memoria extra) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("LL Manipulation", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Linked list or functional cycle problems requiring O(1) extra memory) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es LL Manipulation?
-Las dos técnicas quirúrgicas sobre listas enlazadas: 1) Tortuga y Liebre (`slow` avanza 1 paso, `fast` avanza 2 pasos) para hallar el nodo central o detectar ciclos en O(1) espacio, y 2) Inversión de punteros in-place con `prev, curr, nxt`.
+### What is LL Manipulation?
+The two surgical techniques on linked lists: 1) Tortoise and Hare (`slow` moves 1 step, `fast` moves 2 steps) to locate the middle node or detect cycles in O(1) space, and 2) In-place pointer reversal using `prev, curr, nxt`.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Dos corredores en una pista: si la pista es recta, cuando el corredor que va al doble de velocidad llega a la meta, el corredor lento va exactamente por la mitad. Y si la pista es circular (hay un ciclo), el corredor rápido inevitablemente alcanzará al lento dándole una vuelta de ventaja.
+### Real-World Analogy
+> **Visual Intuition:** Two runners on a track: on a straight track, when the runner moving at 2x speed reaches the finish line, the 1x runner is at the exact midpoint. On a circular track (a cycle), the faster runner is guaranteed to lap and meet the slower runner.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Invertir una lista in-place solo requiere 3 variables (`prev`, `curr`, `nxt`) y 4 asignaciones en orden cíclico.
-2. **Idea Clave #2:** Cuando `fast` llega al final, `slow` está exactamente en el medio.
-3. **Idea Clave #3:** En detección de ciclos de Floyd, si tras chocar reinicias un puntero en `head` y avanzas ambos de 1 en 1, se encuentran en la entrada exacta del ciclo.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR LL Manipulation)
-- ✅ Encontrar el nodo del medio de una lista en una sola pasada sin contar su longitud previamente.
-- ✅ Detectar si una lista (o secuencia de estados funcionales) tiene un ciclo y hallar el nodo exacto donde empieza el ciclo (Algoritmo de Floyd).
-- ✅ Invertir toda la lista o un subsegmento `[left, right]` in-place sin crear nodos nuevos.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Nunca hagas `fast.next.next` sin verificar primero `while fast and fast.next:` en la condición del bucle.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Operaciones sobre listas o secuencias cíclicas exigiendo O(1) memoria extra`
-- **Complejidad Temporal Promedio:** `O(N)`
-- **Complejidad Temporal Peor Caso:** `O(N)`
-- **Complejidad Espacial:** `O(1) punteros in-place`
-- **Nota Técnica:** Usa O(1) de memoria auxiliar frente a O(N) que usaría un Hash Set o pila recursiva.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Reversing a list in-place requires only 3 variables (`prev`, `curr`, `nxt`) and 4 cyclical assignments.
+2. **Key Takeaway #2:** When `fast` reaches the end of the list, `slow` sits at the exact midpoint.
+3. **Key Takeaway #3:** In Floyd's cycle detection, resetting one pointer to `head` after collision and advancing both by 1 step meets at the exact cycle entrance.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Para hallar mitad/ciclo: inicializar `slow = fast = head` y ciclar con `while fast and fast.next:`.
-2. Para invertir: inicializar `prev = None`, `curr = head`, respaldar `nxt = curr.next` en cada paso y retornar `prev`.
-3. Para problemas compuestos (ej. `Reorder List`), partir la lista poniendo `slow.next = None` antes de invertir la segunda mitad.
+### Problem Statement Signals (When to USE LL Manipulation)
+- [x] Finding the middle node of a linked list in a single pass without pre-counting its length.
+- [x] Detecting whether a linked list (or functional state sequence) contains a cycle and finding the cycle entry point (Floyd's Cycle Detection).
+- [x] Reversing an entire linked list or a subsegment `[left, right]` in-place in O(1) extra space.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** En `Reorder List`, olvidar cortar el enlace entre la primera y la segunda mitad (`slow.next = None`), provocando un ciclo infinito al mezclar las listas.
+### When NOT to Use It (False Positives)
+- [!] Never access `fast.next.next` without first checking `while fast and fast.next:` in your loop guard.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Linked list or functional cycle problems requiring O(1) extra memory`
+- **Average Time Complexity:** `O(N)`
+- **Worst-Case Time Complexity:** `O(N)`
+- **Space Complexity:** `O(1) in-place pointers`
+- **Engineering Note:** Achieves O(1) auxiliary space compared to O(N) for a Hash Set or recursive call stack.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. For midpoint/cycle: initialize `slow = fast = head` and loop with `while fast and fast.next:`.
+2. For reversal: initialize `prev = None`, `curr = head`, save `nxt = curr.next` on each step, and return `prev`.
+3. For composite problems (`Reorder List`), sever the two halves with `slow.next = None` before reversing the second half.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** In `Reorder List`, forgetting to cut the link between the first and second halves (`slow.next = None`), causing an infinite cycle when merging.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def reverse_linked_list(head):
     """
-    1. Reversión In-Place con 3 punteros: prev, curr, nxt.
-    Tiempo: O(N) | Espacio: O(1)
+    1. In-Place Reversal with 3 pointers: prev, curr, nxt.
+    Time: O(N) | Space: O(1)
     """
     prev = None
     curr = head
     while curr:
-        nxt = curr.next      # 1. Guardar el siguiente antes de romper el enlace
-        curr.next = prev     # 2. Invertir la flecha hacia atrás
-        prev = curr          # 3. Avanzar prev
-        curr = nxt           # 4. Avanzar curr
+        nxt = curr.next      # 1. Save next node before breaking the link
+        curr.next = prev     # 2. Reverse arrow backward
+        prev = curr          # 3. Advance prev
+        curr = nxt           # 4. Advance curr
     return prev
 
 
 def middle_and_cycle_detection(head):
     """
-    2. Tortuga y Liebre (Fast & Slow Pointers de Floyd).
+    2. Floyd's Tortoise and Hare (Fast & Slow Pointers).
     """
     slow = fast = head
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
         if slow is fast:
-            return True  # ¡Ciclo detectado!
+            return True  # Cycle detected!
     return False
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 import { ListNode } from "./linked-list";
 
@@ -129,24 +129,24 @@ export function hasCycleFloyd(head: ListNode | null): boolean {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 02:00] La coreografía de 4 pasos: Invertir una Linked List in-place
-- **🎬 Visual en Pantalla / Slide:** Animación de las flechas girando 180 grados nodo por nodo con `prev`, `curr` y `nxt`.
-- **🎙️ Narración / Guion:**
-  > "Invertir una lista enlazada es una pregunta tan clásica que deberías poder escribirla con los ojos cerrados. No intentes memorizar código: memoriza el ciclo visual donde cada variable toma el lugar de la siguiente."
+### [00:00 - 02:00] The 4-Step Choreography: In-Place Linked List Reversal
+- **On-Screen Visual / Slide Cue:** Animation of arrows flipping 180 degrees node by node using `prev`, `curr`, and `nxt`.
+- **Narration / Script:**
+  > "Reversing a linked list is such a foundational interview question that you should be able to write it with your eyes closed. Do not memorize raw text—visualize the four-step cycle where each pointer takes the previous pointer's spot."
 
-### ⏱️ [02:00 - 04:45] Tortuga y Liebre (Floyd) y el Combo de Reorder List
-- **🎬 Visual en Pantalla / Slide:** Dos cursores a velocidad 1x y 2x hallando la mitad y luego intercalando extremos.
-- **🎙️ Narración / Guion:**
-  > "¿Cómo encuentras la mitad de una lista sin saber cuántos nodos tiene? Con un puntero lento y uno rápido. Y cuando combinas eso con invertir la segunda mitad, resuelves problemas Medium y Hard en O(1) de memoria."
+### [02:00 - 04:45] Tortoise & Hare (Floyd) and the Reorder List Combo
+- **On-Screen Visual / Slide Cue:** Two cursors moving at 1x and 2x speed finding the middle and zipper-merging both halves.
+- **Narration / Script:**
+  > "How do you find the middle of a list without knowing its length? Use a slow pointer and a fast pointer. Combine that with reversing the second half, and you can solve Medium and Hard linked list problems in O(1) memory."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#206. Reverse Linked List** | `Easy` | [https://leetcode.com/problems/reverse-linked-list/](https://leetcode.com/problems/reverse-linked-list/) | Baile de 4 líneas con `prev = None`, `curr = head` y `nxt = curr.next`. |
-| **#141. Linked List Cycle** | `Easy` | [https://leetcode.com/problems/linked-list-cycle/](https://leetcode.com/problems/linked-list-cycle/) | Tortuga (`slow.next`) y Liebre (`fast.next.next`) en O(1) espacio. |
-| **#143. Reorder List** | `Medium` | [https://leetcode.com/problems/reorder-list/](https://leetcode.com/problems/reorder-list/) | El combo definitivo: 1) Halla la mitad con Slow/Fast, 2) Invierte la 2ª mitad, 3) Intercala ambas mitades. |
+| **#206. Reverse Linked List** | `Easy` | [https://leetcode.com/problems/reverse-linked-list/](https://leetcode.com/problems/reverse-linked-list/) | 4-line pointer dance with `prev = None`, `curr = head`, and `nxt = curr.next`. |
+| **#141. Linked List Cycle** | `Easy` | [https://leetcode.com/problems/linked-list-cycle/](https://leetcode.com/problems/linked-list-cycle/) | Tortoise (`slow.next`) and Hare (`fast.next.next`) in O(1) space. |
+| **#143. Reorder List** | `Medium` | [https://leetcode.com/problems/reorder-list/](https://leetcode.com/problems/reorder-list/) | The ultimate combo: 1) Find middle with Slow/Fast, 2) Reverse second half in-place, 3) Zipper-merge both halves. |

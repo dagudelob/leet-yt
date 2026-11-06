@@ -1,82 +1,82 @@
-# 🎬 Episodio #11: Sorting + Interval Scan ( Barrido de Intervalos)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 2 — Patrón Algorítmico (`Beginner`)  
-> **Término en Inglés (Flowchart):** `Sorting & Merge Intervals`  
-> **Prerrequisitos Recomendados:** Arrays → Basic DSA & Big-O
+# Episode #11: Sorting + Interval Scan (Merge Intervals)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 2 — Algorithmic Pattern (`Beginner`)  
+> **Flowchart Node Term:** `Sorting & Merge Intervals`  
+> **Recommended Prerequisites:** Arrays -> Basic DSA & Big-O
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Muestra visualmente los 3 casos posibles entre dos intervalos ordenados por inicio: 1) Separados (`curr.start > prev.end`), 2) Traslape parcial, y 3) Uno completamente contenido dentro del otro (por eso es obligatorio usar `max(prev.end, curr.end)` y no simplemente `curr.end`).
+Visually walk through the 3 relative positions of two intervals sorted by start time: 1) Disjoint (`curr.start > prev.end`), 2) Partial overlap, and 3) Complete containment (`[1, 10]` and `[2, 5]`), explaining why `max(prev.end, curr.end)` is mandatory.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Sorting + Intervals", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Lista de pares [start, end] con N ≤ 10⁵) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Sorting + Intervals", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (List of [start, end] pairs with N <= 10^5) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Sorting + Intervals?
-Ordenar segmentos `[start, end]` (por su punto de inicio o de fin) para que cualquier par de intervalos que se traslapen queden adyacentes, permitiendo fusionarlos, contar colisiones o detectar huecos libres en un solo barrido lineal.
+### What is Sorting + Intervals?
+Sorting segments `[start, end]` by start time so that any overlapping intervals become adjacent, allowing us to merge overlaps, insert intervals, or detect free gaps in a single linear sweep.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Organizar tu calendario de reuniones del día: si las notas de tus reuniones están revueltas sobre el escritorio, es difícil ver cuáles se cruzan. Pero si las ordenas por hora de inicio de las 8:00 AM a las 6:00 PM, basta mirar cada reunión contra la inmediatamente anterior para ver si chocan.
+### Real-World Analogy
+> **Visual Intuition:** Organizing your daily meeting calendar: if sticky notes with meeting times are scattered across your desk, spotting conflicts is hard. Once you line them up chronologically from 8:00 AM to 6:00 PM, you only need to compare each meeting against the one immediately before it.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Ordenar por `start` garantiza que si dos intervalos se solapan, estarán contiguos en el recorrido.
-2. **Idea Clave #2:** La condición universal de solapamiento (una vez ordenados por inicio) es simplemente `curr.start <= prev.end`.
-3. **Idea Clave #3:** Al fusionar, el nuevo fin es `max(prev.end, curr.end)` porque el primer intervalo podría ser más largo y envolver al segundo (`[1, 10]` y `[2, 5]`).
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Sorting + Intervals)
-- ✅ El input es una lista de intervalos `[start, end]`, horarios de reuniones, reservas o segmentos en una línea.
-- ✅ Te piden fusionar intervalos superpuestos (`Merge Intervals`), insertar un nuevo intervalo, o encontrar huecos libres.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si el problema pide elegir el MÁXIMO número de intervalos que NO se solapan (Interval Scheduling Greedy), conviene ordenar por `end` (hora de finalización) en lugar de `start`.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Lista de pares [start, end] con N ≤ 10⁵`
-- **Complejidad Temporal Promedio:** `O(N log N) dominado por el ordenamiento inicial`
-- **Complejidad Temporal Peor Caso:** `O(N log N)`
-- **Complejidad Espacial:** `O(N) para almacenar la lista de intervalos fusionados`
-- **Nota Técnica:** El barrido posterior al sort toma solo O(N).
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Sorting by `start` guarantees that overlapping intervals sit next to each other.
+2. **Key Takeaway #2:** Once sorted by start, the universal overlap check is simply `curr.start <= prev.end`.
+3. **Key Takeaway #3:** Always update the merged end as `max(prev.end, curr.end)` because the earlier interval might completely contain the later one.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Ordenar el arreglo de intervalos de menor a mayor según su extremo izquierdo `x[0]`.
-2. Inicializar la lista `merged` con el primer intervalo.
-3. Para cada intervalo siguiente, comparar su inicio con el final del último intervalo en `merged`.
-4. Si se solapan, ampliar el final con `max`; si no, hacer `append`.
+### Problem Statement Signals (When to USE Sorting + Intervals)
+- [x] The input is a list of intervals `[start, end]`, meeting times, reservations, or 1D line segments.
+- [x] You need to merge overlapping intervals (`Merge Intervals`), insert a new interval, or find free time gaps.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Escribir `merged[-1][1] = end` en vez de `max(merged[-1][1], end)`: falla cuando un intervalo grande como `[1, 10]` es seguido por uno pequeño `[2, 3]`.
+### When NOT to Use It (False Positives)
+- [!] If asked for the MAXIMUM number of non-overlapping intervals (`Non-overlapping Intervals` / Interval Scheduling), sort by **END time (`x[1]`)** rather than start time.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `List of [start, end] pairs with N <= 10^5`
+- **Average Time Complexity:** `O(N log N) dominated by the initial sort`
+- **Worst-Case Time Complexity:** `O(N log N)`
+- **Space Complexity:** `O(N) to store the merged output list`
+- **Engineering Note:** The linear merge sweep after sorting takes only O(N).
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Sort intervals in ascending order by their start coordinate `x[0]`.
+2. Initialize `merged = [intervals[0]]`.
+3. For each subsequent interval, compare `start` against `merged[-1][1]`.
+4. If `start <= merged[-1][1]`, update `merged[-1][1] = max(merged[-1][1], end)`; otherwise append `[start, end]`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Writing `merged[-1][1] = end` instead of `max(merged[-1][1], end)`, which breaks when `[1, 10]` is followed by `[2, 3]`.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:
     """
-    Patrón Clásico de Fusión de Intervalos.
-    1. Ordenar por start: key=lambda x: x[0]
-    2. Comparar curr[start] <= prev[end]
-    Tiempo: O(N log N) | Espacio: O(N)
+    Canonical Merge Intervals Pattern:
+    1. Sort by start time: key=lambda x: x[0]
+    2. Overlap condition: curr_start <= prev_end
+    Time: O(N log N) | Space: O(N)
     """
     if not intervals:
         return []
@@ -87,16 +87,15 @@ def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:
     for start, end in intervals[1:]:
         prev_end = merged[-1][1]
         if start <= prev_end:
-            # Hay traslape: extendemos el final con el máximo de ambos
+            # Overlap: extend the end using max() in case one interval wraps the other
             merged[-1][1] = max(prev_end, end)
         else:
-            # No hay traslape: agregamos un nuevo intervalo independiente
             merged.append([start, end])
 
     return merged
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function mergeIntervals(intervals: number[][]): number[][] {
   if (intervals.length === 0) return [];
@@ -119,24 +118,24 @@ export function mergeIntervals(intervals: number[][]): number[][] {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:30] Domando el caos de los intervalos con un Sort
-- **🎬 Visual en Pantalla / Slide:** Barras horizontales desordenadas alineándose de izquierda a derecha tras ordenar por inicio.
-- **🎙️ Narración / Guion:**
-  > "Comparar todos los intervalos contra todos toma O(N²). Pero en cuanto los ordenamos por su punto de inicio, ocurre la magia: cualquier traslape ocurre únicamente con el vecino inmediato."
+### [00:00 - 01:30] Taming Interval Chaos with a Single Sort
+- **On-Screen Visual / Slide Cue:** Scattered horizontal bars aligning left-to-right after sorting by start time.
+- **Narration / Script:**
+  > "Comparing every interval against every other interval takes O(N^2). But the moment we sort them by start time, any overlap can only happen with the immediately preceding merged interval."
 
-### ⏱️ [01:30 - 04:00] La condición `start <= prev_end` y la trampa del intervalo envolvente
-- **🎬 Visual en Pantalla / Slide:** El intervalo [1, 10] tragándose al intervalo [2, 5] manteniendo el final en 10.
-- **🎙️ Narración / Guion:**
-  > "El error más común en entrevistas al fusionar intervalos es reemplazar el final directamente. ¿Qué pasa si el primer intervalo iba de 1 a 10 y el segundo va de 2 a 5? Siempre debes usar el máximo de ambos finales."
+### [01:30 - 04:00] The `start <= prev_end` Check and the Containment Trap
+- **On-Screen Visual / Slide Cue:** Interval [1, 10] swallowing interval [2, 5] while keeping the right endpoint at 10.
+- **Narration / Script:**
+  > "The most common bug in interval interviews is overwriting the end blindly. What if the first interval runs from 1 to 10 and the second runs from 2 to 5? Always take the maximum of both endpoints."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#56. Merge Intervals** | `Medium` | [https://leetcode.com/problems/merge-intervals/](https://leetcode.com/problems/merge-intervals/) | Ordena por `start` y fusiona si `curr.start <= merged[-1].end` usando `max(prev_end, curr_end)`. |
-| **#57. Insert Interval** | `Medium` | [https://leetcode.com/problems/insert-interval/](https://leetcode.com/problems/insert-interval/) | Divide en 3 fases: los que terminan antes del nuevo, los que se solapan con el nuevo, y los que empiezan después. |
-| **#435. Non-overlapping Intervals** | `Medium` | [https://leetcode.com/problems/non-overlapping-intervals/](https://leetcode.com/problems/non-overlapping-intervals/) | Ordena por `end` (o al detectar choque conserva el intervalo que termine más temprano). |
+| **#56. Merge Intervals** | `Medium` | [https://leetcode.com/problems/merge-intervals/](https://leetcode.com/problems/merge-intervals/) | Sort by `start` and merge whenever `curr.start <= merged[-1].end` using `max(prev_end, curr_end)`. |
+| **#57. Insert Interval** | `Medium` | [https://leetcode.com/problems/insert-interval/](https://leetcode.com/problems/insert-interval/) | Split into 3 phases: intervals ending before `new`, intervals overlapping `new`, and intervals starting after `new`. |
+| **#435. Non-overlapping Intervals** | `Medium` | [https://leetcode.com/problems/non-overlapping-intervals/](https://leetcode.com/problems/non-overlapping-intervals/) | Sort by `end` time (or on collision keep the interval that finishes earliest). |

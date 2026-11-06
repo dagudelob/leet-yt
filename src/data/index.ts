@@ -18,120 +18,120 @@ export const TOPICS_BY_ID: Record<string, DSATopic> = Object.fromEntries(
 export const LEVEL_METADATA: LevelMetadata[] = [
   {
     level: 1,
-    title: "Nivel 1: Fundamentos, Complejidad y Secuencias Lineales",
-    subtitle: "Big-O, Fuerza Bruta, Simulación, Arrays, Strings, Two Pointers y Sliding Window",
+    title: "Level 1: Foundations, Complexity & Linear Sequences",
+    subtitle: "Big-O, Brute Force, Simulation, Arrays, Strings, Two Pointers & Sliding Window",
     colorClass: "text-cyan-400",
     badgeClass: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
     borderClass: "border-cyan-500/40",
     glowClass: "shadow-cyan-500/10",
     goalDescription:
-      "Aprende a deducir la complejidad objetivo leyendo N en 5 segundos y domina los patrones O(N) sobre arreglos y cadenas sin gastar memoria extra.",
+      "Learn to deduce the target time complexity from N in 5 seconds and master O(N) patterns over arrays and strings with O(1) extra space.",
   },
   {
     level: 2,
-    title: "Nivel 2: Preprocesamiento, Hashing, Ordenamiento y Búsqueda",
-    subtitle: "Prefix Sums, Hash Tables, Counting/Buckets, Intervalos, Partitioning, Binary Search y Matrices 2D",
+    title: "Level 2: Preprocessing, Hashing, Sorting & Binary Search",
+    subtitle: "Prefix Sums, Hash Tables, Counting/Buckets, Intervals, Partitioning, Binary Search & 2D Matrices",
     colorClass: "text-emerald-400",
     badgeClass: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
     borderClass: "border-emerald-500/40",
     glowClass: "shadow-emerald-500/10",
     goalDescription:
-      "Transforma búsquedas O(N²) en O(1) con Tablas Hash y Prefix Sums, domina intervalos y aplica Binary Search tanto en arreglos como en espacios de respuestas.",
+      "Turn O(N^2) lookups into O(1) with Hash Maps and Prefix Sums, master interval merging, and apply Binary Search on both arrays and monotonic answer spaces.",
   },
   {
     level: 3,
-    title: "Nivel 3: Punteros Enlazados, Pilas, Colas y Diseño O(1)",
-    subtitle: "Linked Lists, Fast & Slow Pointers, Stacks, Queues/Deques, Monotonic Stack y LRU Cache",
+    title: "Level 3: Linked Pointers, Stacks, Queues & O(1) Design",
+    subtitle: "Linked Lists, Fast & Slow Pointers, Stacks, Queues/Deques, Monotonic Stack & LRU Cache",
     colorClass: "text-fuchsia-400",
     badgeClass: "bg-fuchsia-500/15 text-fuchsia-300 border-fuchsia-500/30",
     borderClass: "border-fuchsia-500/40",
     glowClass: "shadow-fuchsia-500/10",
     goalDescription:
-      "Domina la cirugía de punteros en memoria, el orden LIFO/FIFO, las pilas monótonas para 'Next Greater Element' y la fusión de estructuras para diseño O(1).",
+      "Master pointer manipulation, LIFO/FIFO ordering, monotonic stacks for 'Next Greater Element', and composite data structures for O(1) system design.",
   },
   {
     level: 4,
-    title: "Nivel 4: Recursión, Árboles, Heaps y Backtracking",
-    subtitle: "Divide & Conquer, Binary Trees, BST, DFS, BFS, Backtracking y Priority Queues (Top-K / Two Heaps)",
+    title: "Level 4: Recursion, Trees, Heaps & Backtracking",
+    subtitle: "Divide & Conquer, Binary Trees, BST, DFS, BFS, Backtracking & Priority Queues (Top-K / Two Heaps)",
     colorClass: "text-violet-400",
     badgeClass: "bg-violet-500/15 text-violet-300 border-violet-500/30",
     borderClass: "border-violet-500/40",
     glowClass: "shadow-violet-500/10",
     goalDescription:
-      "Desbloquea el pensamiento recursivo sobre árboles, recorridos por profundidad (DFS) y niveles (BFS), poda combinatoria y colas de prioridad.",
+      "Unlock recursive thinking on trees, depth-first (DFS) and level-order (BFS) traversals, combinatorial pruning, and priority queues.",
   },
   {
     level: 5,
-    title: "Nivel 5: Grafos, DAGs, Caminos Cortos, Conectividad y Tries",
-    subtitle: "Listas de Adyacencia, Topological Sort (Kahn & DAG DP), Dijkstra, Union-Find (DSU) y Prefix Trees",
+    title: "Level 5: Graphs, DAGs, Shortest Paths, Connectivity & Tries",
+    subtitle: "Adjacency Lists, Topological Sort (Kahn & DAG DP), Dijkstra, Union-Find (DSU) & Prefix Trees",
     colorClass: "text-rose-400",
     badgeClass: "bg-rose-500/15 text-rose-300 border-rose-500/30",
     borderClass: "border-rose-500/40",
     glowClass: "shadow-rose-500/10",
     goalDescription:
-      "Modela cualquier red de conexiones o dependencias: resuelve prerrequisitos sobre DAGs, rutas más baratas con Dijkstra y componentes dinámicas con Union-Find.",
+      "Model any network of connections or dependencies: solve prerequisites on DAGs, weighted shortest paths with Dijkstra, and dynamic connectivity with Union-Find.",
   },
   {
     level: 6,
-    title: "Nivel 6: Optimización, Greedy y Programación Dinámica",
-    subtitle: "Algoritmos Voraces, Memoization (Top-Down), DP Bottom-Up (1D/2D/Knapsack/LCS/LIS) y Bitmask DP",
+    title: "Level 6: Optimization, Greedy & Dynamic Programming",
+    subtitle: "Greedy Algorithms, Memoization (Top-Down), Bottom-Up DP (1D/2D/Knapsack/LCS/LIS) & Bitmask DP",
     colorClass: "text-orange-400",
     badgeClass: "bg-orange-500/15 text-orange-300 border-orange-500/30",
     borderClass: "border-orange-500/40",
     glowClass: "shadow-orange-500/10",
     goalDescription:
-      "Pasa de la recursión exponencial a soluciones polinomiales recordando subproblemas superpuestos, llenando tablas iterativas y usando máscaras de bits.",
+      "Move from exponential recursion to polynomial solutions by caching overlapping subproblems, filling iterative tables, and encoding state with bitmasks.",
   },
   {
     level: 7,
-    title: "Nivel 7: Rangos Dinámicos, Strings Avanzados, Matemáticas y Élite",
-    subtitle: "Ordered Set, Fenwick Tree, Segment Tree, Rolling Hash, KMP, Bits, Math, Number Theory y Sweep Line",
+    title: "Level 7: Dynamic Ranges, Advanced Strings, Math & Elite Patterns",
+    subtitle: "Ordered Set, Fenwick Tree, Segment Tree, Rolling Hash, KMP, Bits, Math, Number Theory & Sweep Line",
     colorClass: "text-indigo-400",
     badgeClass: "bg-indigo-500/15 text-indigo-300 border-indigo-500/30",
     borderClass: "border-indigo-500/40",
     glowClass: "shadow-indigo-500/10",
     goalDescription:
-      "El arsenal avanzado para problemas Hard y rondas finales: estructuras logarítmicas de rango, búsqueda lineal de texto, aritmética modular y barrido de eventos.",
+      "The advanced toolkit for Hard problems and final rounds: logarithmic range trees, linear string matching, modular arithmetic, and sweep-line event processing.",
   },
 ];
 
 /**
- * Construye el Paquete Híbrido completo en formato Markdown listo para subir a Google NotebookLM
- * o usar como teleprompter de grabación de YouTube.
+ * Builds the complete Hybrid Production Package in Markdown ready to upload to Google NotebookLM
+ * or use as a YouTube recording teleprompter.
  */
 export function buildNotebookLMMarkdown(topic: DSATopic): string {
   const epNum = String(topic.order).padStart(2, "0");
   const kindLabel =
     topic.kind === "data-structure"
-      ? "Estructura de Datos"
+      ? "Data Structure"
       : topic.kind === "algorithm"
-      ? "Patrón Algorítmico"
-      : "Estructura de Datos + Patrón Algorítmico";
+      ? "Algorithmic Pattern"
+      : "Data Structure + Algorithmic Pattern";
 
   const prereqNames =
     topic.prerequisites.length > 0
       ? topic.prerequisites
           .map((id) => TOPICS_BY_ID[id]?.shortTitle ?? id)
-          .join(" → ")
-      : "Ninguno (Punto de partida de la serie)";
+          .join(" -> ")
+      : "None (Series Starting Point)";
 
-  const whenToUseList = topic.whenToUse.map((item) => `- ✅ ${item}`).join("\n");
-  const whenNotToUseList = topic.whenNotToUse.map((item) => `- ⚠️ ${item}`).join("\n");
+  const whenToUseList = topic.whenToUse.map((item) => `- [x] ${item}`).join("\n");
+  const whenNotToUseList = topic.whenNotToUse.map((item) => `- [!] ${item}`).join("\n");
   const takeawaysList = topic.notebookLM.keyTakeaways
-    .map((item, idx) => `${idx + 1}. **Idea Clave #${idx + 1}:** ${item}`)
+    .map((item, idx) => `${idx + 1}. **Key Takeaway #${idx + 1}:** ${item}`)
     .join("\n");
   const stepsList = topic.notebookLM.stepByStepWalkthrough
     .map((item, idx) => `${idx + 1}. ${item}`)
     .join("\n");
   const trapsList = topic.notebookLM.interviewTraps
-    .map((item) => `- 🚨 **Trampa de Entrevista:** ${item}`)
+    .map((item) => `- **Interview Trap:** ${item}`)
     .join("\n");
 
   const narrativeSection = topic.notebookLM.narrativeBlocks
     .map(
-      (b) => `### ⏱️ [${b.timestamp}] ${b.sectionTitle}
-- **🎬 Visual en Pantalla / Slide:** ${b.visualCue}
-- **🎙️ Narración / Guion:**
+      (b) => `### [${b.timestamp}] ${b.sectionTitle}
+- **On-Screen Visual / Slide Cue:** ${b.visualCue}
+- **Narration / Script:**
   > "${b.narration}"`
     )
     .join("\n\n");
@@ -143,92 +143,92 @@ export function buildNotebookLMMarkdown(topic: DSATopic): string {
     )
     .join("\n");
 
-  return `# 🎬 Episodio #${epNum}: ${topic.title}
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel ${topic.level} — ${kindLabel} (\`${topic.difficulty}\`)  
-> **Término en Inglés (Flowchart):** \`${topic.englishTerm}\`  
-> **Prerrequisitos Recomendados:** ${prereqNames}
+  return `# Episode #${epNum}: ${topic.title}
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level ${topic.level} — ${kindLabel} (\`${topic.difficulty}\`)  
+> **Flowchart Node Term:** \`${topic.englishTerm}\`  
+> **Recommended Prerequisites:** ${prereqNames}
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 \`\`\`text
 ${topic.notebookLM.customDirectionPrompt}
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "${topic.shortTitle}", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (${topic.constraintHint}) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("${topic.shortTitle}", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (${topic.constraintHint}) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 \`\`\`
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es ${topic.shortTitle}?
+### What is ${topic.shortTitle}?
 ${topic.summary}
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** ${topic.analogy}
+### Real-World Analogy
+> **Visual Intuition:** ${topic.analogy}
 
-### Ideas Clave que debes recordar
+### Key Takeaways to Remember
 ${takeawaysList}
 
 ---
 
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Señales en el Enunciado (Cuándo USAR ${topic.shortTitle})
+### Problem Statement Signals (When to USE ${topic.shortTitle})
 ${whenToUseList}
 
-### Cuándo NO usarlo (Falsos Positivos)
+### When NOT to Use It (False Positives)
 ${whenNotToUseList}
 
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** \`${topic.constraintHint}\`
-- **Complejidad Temporal Promedio:** \`${topic.timeComplexity.average}\`
-- **Complejidad Temporal Peor Caso:** \`${topic.timeComplexity.worst}\`
-- **Complejidad Espacial:** \`${topic.spaceComplexity}\`
-- **Nota Técnica:** ${topic.timeComplexity.note}
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** \`${topic.constraintHint}\`
+- **Average Time Complexity:** \`${topic.timeComplexity.average}\`
+- **Worst-Case Time Complexity:** \`${topic.timeComplexity.worst}\`
+- **Space Complexity:** \`${topic.spaceComplexity}\`
+- **Engineering Note:** ${topic.timeComplexity.note}
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Algoritmo Paso a Paso
+### Step-by-Step Algorithm
 ${stepsList}
 
-### Errores Comunes y Casos Borde
+### Common Bugs & Edge Cases
 ${trapsList}
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 5. Code Templates
 
-### Plantilla en Python (Principal para explicación en video)
+### Python Template (Primary for Video Walkthrough)
 \`\`\`python
 ${topic.pythonTemplate}
 \`\`\`
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 \`\`\`typescript
 ${topic.typescriptTemplate}
 \`\`\`
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
 ${narrativeSection}
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
 ${problemsSection}
 `;

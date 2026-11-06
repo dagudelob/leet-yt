@@ -2,7 +2,7 @@ import { DSATopic } from "@/types/dsa";
 
 export const TOPICS_LEVEL_1_2: DSATopic[] = [
   // ============================================================================
-  // NIVEL 1: FUNDAMENTOS, COMPLEJIDAD Y SECUENCIAS LINEALES (01 - 07)
+  // LEVEL 1: FOUNDATIONS, COMPLEXITY & LINEAR SEQUENCES (01 - 07)
   // ============================================================================
   {
     id: "basic-dsa",
@@ -16,49 +16,49 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
     branchCategory: "fundamentals",
     prerequisites: [],
     summary:
-      "El mapa maestro antes de escribir una sola línea de código: cómo leer las restricciones (constraints N) de un problema de LeetCode para deducir en 5 segundos qué complejidad temporal (Big-O) y qué familia de algoritmos necesitas.",
+      "The master compass before writing a single line of code: how to read the input constraints (N) of any LeetCode problem to deduce in 5 seconds which time complexity (Big-O) and algorithm family you need.",
     analogy:
-      "Imagina que debes entregar paquetes en una ciudad. Si son 10 paquetes (N ≤ 10), puedes ir caminando en cualquier orden (O(N!)). Si son 100,000 paquetes (N ≤ 10⁵), ir de uno en uno comparando todos contra todos (O(N²)) te tomaría meses: necesitas una ruta lineal (O(N)) o clasificada por código postal (O(N log N)). Las restricciones del problema son el presupuesto de tiempo que te da el juez.",
+      "Imagine delivering packages across a city. If there are 10 packages (N <= 10), you can try every possible route order (O(N!)). If there are 100,000 packages (N <= 10^5), comparing every pair of addresses (O(N^2)) would take months: you need a single linear pass (O(N)) or a sorted route (O(N log N)). Problem constraints are your CPU time budget.",
     whenToUse: [
-      "Siempre como Paso 0 antes de resolver cualquier problema de entrevista o programación competitiva.",
-      "Cuando ves el límite de N en el enunciado (ej. N ≤ 10⁵ significa que O(N²) dará Time Limit Exceeded - TLE).",
-      "Para decidir si vale la pena gastar memoria extra O(N) a cambio de bajar el tiempo de O(N²) a O(N).",
+      "Always as Step 0 before solving any coding interview or competitive programming problem.",
+      "Whenever you check the maximum value of N in the Constraints section (e.g., N <= 10^5 means O(N^2) will trigger Time Limit Exceeded - TLE).",
+      "When deciding whether to trade O(N) extra memory in exchange for reducing time from O(N^2) down to O(N).",
     ],
     whenNotToUse: [
-      "No optimices prematuramente a O(N) complicado si N ≤ 50 y una solución limpia O(N²) o O(N³) pasa en 2 milisegundos.",
+      "Do not over-engineer a complex O(N) solution if N <= 50 and a clean O(N^2) or O(N^3) solution runs in 2 milliseconds.",
     ],
     timeComplexity: {
       average: "O(1) < O(log N) < O(N) < O(N log N)",
-      worst: "O(N²) < O(2ᴺ) < O(N!)",
-      note: "Regla de oro: una CPU moderna ejecuta ~10⁸ operaciones simples por segundo.",
+      worst: "O(N^2) < O(2^N) < O(N!)",
+      note: "Rule of thumb: a modern judge CPU executes ~10^8 simple operations per second.",
     },
-    spaceComplexity: "O(1) Auxiliar a O(N) según estructura o pila de recursión",
-    constraintHint: "N ≤ 20 → O(2ᴺ) | N ≤ 10³ → O(N²) | N ≤ 10⁵ → O(N log N) o O(N) | N ≥ 10⁹ → O(log N) o O(1)",
+    spaceComplexity: "O(1) auxiliary up to O(N) depending on data structures or recursion call stack",
+    constraintHint: "N <= 20 -> O(2^N) | N <= 10^3 -> O(N^2) | N <= 10^5 -> O(N log N) or O(N) | N >= 10^9 -> O(log N) or O(1)",
     pythonTemplate: `def analyze_constraints(n: int) -> str:
     """
-    Traductor de restricciones N -> Complejidad objetivo en LeetCode.
-    Regla práctica: ~10^8 operaciones máximas por segundo.
+    Constraint-to-Complexity translator for coding interviews.
+    Rule of thumb: ~10^8 simple operations per second.
     """
     if n <= 11:
-        return "O(N!) - Permutaciones / Backtracking exhaustivo"
+        return "O(N!) - Permutations / Exhaustive Backtracking"
     elif n <= 20:
-        return "O(2^N) o O(N * 2^N) - Backtracking / Bitmask DP"
+        return "O(2^N) or O(N * 2^N) - Subsets / Bitmask DP"
     elif n <= 500:
-        return "O(N^3) - Floyd-Warshall / DP de intervalos"
+        return "O(N^3) - Floyd-Warshall / Interval DP"
     elif n <= 5_000:
-        return "O(N^2) - Doble bucle / DP 2D"
+        return "O(N^2) - Nested loops / 2D Dynamic Programming"
     elif n <= 200_000:
-        return "O(N log N) o O(N) - Sorting, Heap, Two Pointers, Sliding Window, Hash"
+        return "O(N log N) or O(N) - Sorting, Heap, Two Pointers, Sliding Window, Hash"
     else:
-        return "O(log N) o O(1) - Binary Search, Math / Number Theory"`,
+        return "O(log N) or O(1) - Binary Search or Closed-Form Math"`,
     typescriptTemplate: `export function analyzeConstraints(n: number): string {
-  // Regla práctica: ~10^8 operaciones simples por segundo
-  if (n <= 11) return "O(N!) - Permutaciones / Backtracking";
-  if (n <= 20) return "O(2^N) - Subconjuntos / Bitmask DP";
-  if (n <= 500) return "O(N^3) - DP Cúbica / Floyd-Warshall";
-  if (n <= 5000) return "O(N^2) - Doble ciclo / DP 2D";
-  if (n <= 200000) return "O(N log N) u O(N) - Sorting, Heap, Two Pointers, Hash";
-  return "O(log N) u O(1) - Binary Search o Fórmula Matemática";
+  // Rule of thumb: ~10^8 simple operations per second
+  if (n <= 11) return "O(N!) - Permutations / Backtracking";
+  if (n <= 20) return "O(2^N) - Subsets / Bitmask DP";
+  if (n <= 500) return "O(N^3) - Cubic DP / Floyd-Warshall";
+  if (n <= 5000) return "O(N^2) - Nested loops / 2D DP";
+  if (n <= 200000) return "O(N log N) or O(N) - Sorting, Heap, Two Pointers, Hash";
+  return "O(log N) or O(1) - Binary Search or Direct Math Formula";
 }`,
     leetcodeProblems: [
       {
@@ -66,62 +66,62 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
         title: "Running Sum of 1d Array",
         slug: "running-sum-of-1d-array",
         difficulty: "Easy",
-        patternHint: "Compara recalcular desde cero O(N²) vs acumular en un pase O(N).",
+        patternHint: "Compare recomputing from index 0 in O(N^2) vs accumulating in a single O(N) pass.",
       },
       {
         number: 412,
         title: "Fizz Buzz",
         slug: "fizz-buzz",
         difficulty: "Easy",
-        patternHint: "Recorrido lineal O(N) y uso de memoria de salida.",
+        patternHint: "Single linear O(N) scan and output memory analysis.",
       },
       {
         number: 1342,
         title: "Number of Steps to Reduce a Number to Zero",
         slug: "number-of-steps-to-reduce-a-number-to-zero",
         difficulty: "Easy",
-        patternHint: "Dividir entre 2 repetidamente introduce complejidad logarítmica O(log N).",
+        patternHint: "Dividing by 2 repeatedly introduces logarithmic time complexity O(log N).",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Enfoca este episodio como el Episodio #01 de la serie 'Leet-YT'. Explica con entusiasmo cómo funciona el Flowchart de Decisión de Algoritmos y revela el 'secreto de las restricciones N': cómo al mirar el tamaño del input en LeetCode puedes descartar el 80% de los algoritmos incorrectos antes de programar.",
+        "Frame this as Episode #01 of the 'Leet-YT' series in English. Explain with energy how the Algorithm Decision Flowchart works and reveal the 'Constraint Secret': how looking at the maximum input size N lets you eliminate 80% of wrong algorithms before writing any code.",
       keyTakeaways: [
-        "No memorices miles de soluciones; aprende a leer las señales del enunciado.",
-        "La regla de 10⁸ operaciones por segundo conecta el tamaño del input N con la complejidad Big-O máxima permitida.",
-        "La complejidad espacial incluye la pila de llamadas (call stack) cuando usas recursión.",
+        "Never memorize thousands of isolated solutions; learn to decode problem signals and constraints.",
+        "The 10^8 operations-per-second rule bridges the input size N to the maximum allowed Big-O complexity.",
+        "Space complexity always includes the recursion Call Stack depth.",
       ],
       stepByStepWalkthrough: [
-        "Leer el enunciado e identificar el tipo de dato de entrada (Array, String, Árbol, Grafo).",
-        "Bajar inmediatamente a la sección 'Constraints' y mirar el valor máximo de N.",
-        "Cruzar el valor de N con la tabla de complejidades para fijar tu techo de Big-O.",
-        "Usar el Flowchart de Leet-YT para elegir la estructura de datos y el patrón exacto.",
+        "Read the problem statement and identify the primary input structure (Array, String, Tree, Graph).",
+        "Jump immediately to the 'Constraints' section and inspect the upper bound of N.",
+        "Map N to the complexity ceiling table to lock in your target Big-O.",
+        "Follow the Leet-YT Decision Flowchart to pick the exact pattern.",
       ],
       interviewTraps: [
-        "Ignorar el costo oculto de operaciones como slicing `arr[i:j]` o concatenación de strings dentro de un bucle, que convierten un O(N) aparente en O(N²).",
-        "Olvidar que la recursión de profundidad N consume O(N) de memoria en el Call Stack.",
+        "Ignoring hidden O(N) costs inside loops—such as array slicing `arr[i:j]` or string concatenation—which silently turn an O(N) loop into O(N^2).",
+        "Forgetting that recursion of depth N consumes O(N) auxiliary Call Stack memory.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:15",
-          sectionTitle: "Gancho: Por qué fallamos en LeetCode",
-          visualCue: "Mostrar el Flowchart completo de Leet-YT iluminándose desde la raíz.",
+          sectionTitle: "Hook: Why We Freeze in Coding Interviews",
+          visualCue: "Show the full Leet-YT Decision Flowchart lighting up from root to leaf nodes.",
           narration:
-            "¿Alguna vez abriste un problema de entrevista, te quedaste mirando la pantalla en blanco y pensaste 'por dónde empiezo'? El error número uno es intentar adivinar el código sin antes leer las pistas que el propio problema te regala.",
+            "Have you ever opened a coding interview problem, stared at a blank editor, and wondered where to even begin? The number one mistake is guessing code before reading the clues the problem gives you for free.",
         },
         {
           timestamp: "01:15 - 03:30",
-          sectionTitle: "La Regla de Oro: El Truco de las Constraints (N)",
-          visualCue: "Tabla animada comparando N <= 20, N <= 10^3, N <= 10^5 y N <= 10^9 contra tiempos de ejecución.",
+          sectionTitle: "The Golden Rule: Decoding Constraints (N)",
+          visualCue: "Animated table comparing N <= 20, N <= 10^3, N <= 10^5, and N <= 10^9 against execution times.",
           narration:
-            "Los servidores de evaluación ejecutan cerca de cien millones de operaciones por segundo. Eso significa que si el problema dice que N llega a cien mil (10^5), un doble ciclo anidado hará diez mil millones de operaciones y dará Time Limit Exceeded. Solo con ver N <= 10^5 ya sabes que necesitas O(N) u O(N log N).",
+            "Online judges execute roughly one hundred million operations per second. That means if N is one hundred thousand, a nested O(N^2) loop performs ten billion operations and hits Time Limit Exceeded. Just seeing N <= 10^5 tells you immediately that you need O(N) or O(N log N).",
         },
         {
           timestamp: "03:30 - 06:00",
-          sectionTitle: "Cómo usar este Flowchart y Roadmap",
-          visualCue: "Recorrido visual por los 7 niveles del proyecto y cierre con llamada a la acción.",
+          sectionTitle: "How to Navigate the 46-Node Flowchart",
+          visualCue: "Visual walkthrough across the 7 progressive levels of the platform.",
           narration:
-            "En esta serie recorreremos los 46 bloques fundamentales: desde Arrays y Dos Punteros hasta Programación Dinámica y Árboles de Segmentos. Cada video desbloquea un nodo del Flowchart.",
+            "Across this series, we will master all 46 core building blocks—from Arrays and Two Pointers to Dynamic Programming and Segment Trees. Every episode unlocks a new node on the flowchart.",
         },
       ],
     },
@@ -129,7 +129,7 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
   {
     id: "brute-force",
     order: 2,
-    title: "Brute Force (Fuerza Bruta)",
+    title: "Brute Force & Exhaustive Search",
     shortTitle: "Brute Force",
     englishTerm: "Brute Force & Exhaustive Search",
     kind: "algorithm",
@@ -138,28 +138,28 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
     branchCategory: "fundamentals",
     prerequisites: ["basic-dsa"],
     summary:
-      "Probar sistemáticamente todas las posibilidades candidatas y verificar cuáles cumplen la condición. Es el punto de partida obligatorio en toda entrevista antes de optimizar.",
+      "Systematically enumerating every candidate configuration and checking which ones satisfy the problem condition. It is the mandatory starting point in every interview before optimizing.",
     analogy:
-      "Abrir un candado de combinación de 3 dígitos probando desde el 000 hasta el 999 uno por uno. No es elegante, pero garantiza al 100% que encontrarás la combinación correcta y te permite entender las reglas del candado.",
+      "Opening a 3-digit combination lock by testing 000, 001, 002 all the way to 999 one by one. It is not fancy, but it guarantees 100% that you will find the answer and clarifies the exact rules of the lock.",
     whenToUse: [
-      "Cuando N es muy pequeño (ej. N ≤ 100 para O(N²) o N ≤ 10 para O(N!)).",
-      "Durante los primeros 2 minutos de una entrevista para establecer una solución base correcta (baseline) y luego identificar qué trabajo repetido puedes optimizar.",
-      "Para generar tests pequeños y verificar que tu algoritmo optimizado da la misma respuesta.",
+      "When N is very small (e.g., N <= 100 for O(N^2) or N <= 10 for O(N!)).",
+      "During the first 2 minutes of an interview to establish a working baseline and pinpoint redundant work to optimize.",
+      "To generate small stress-tests and verify your optimized algorithm produces the exact same output.",
     ],
     whenNotToUse: [
-      "Cuando N ≥ 10⁴ y tu fuerza bruta requiere revisar todos los pares O(N²) o subconjuntos O(2ᴺ).",
+      "When N >= 10^4 and your brute force checks all pairs O(N^2) or all subsets O(2^N).",
     ],
     timeComplexity: {
-      average: "O(N²) o O(N³) en pares/tripletas",
-      worst: "O(2ᴺ) o O(N!) en combinatoria",
-      note: "Depende del tamaño del espacio de búsqueda.",
+      average: "O(N^2) or O(N^3) for pairs/triplets",
+      worst: "O(2^N) or O(N!) for combinatorial search",
+      note: "Directly proportional to the total number of candidate states.",
     },
-    spaceComplexity: "O(1) si solo iteramos con índices",
-    constraintHint: "N ≤ 200 para triple bucle | N ≤ 2000 para doble bucle",
+    spaceComplexity: "O(1) when iterating with indices",
+    constraintHint: "N <= 200 for triple loops | N <= 2000 for double loops",
     pythonTemplate: `def two_sum_brute_force(nums: list[int], target: int) -> list[int]:
     """
-    Revisa absolutamente todos los pares (i, j) con i < j.
-    Tiempo: O(N^2) | Espacio: O(1)
+    Enumerates every unique pair (i, j) with i < j.
+    Time: O(N^2) | Space: O(1)
     """
     n = len(nums)
     for i in range(n):
@@ -184,54 +184,54 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
         title: "Two Sum",
         slug: "two-sum",
         difficulty: "Easy",
-        patternHint: "Empieza con el doble bucle O(N²) y nota que la búsqueda interna de `target - nums[i]` se puede acelerar.",
+        patternHint: "Start with the O(N^2) nested loop and notice that the inner lookup for `target - nums[i]` can be accelerated.",
       },
       {
         number: 1534,
         title: "Count Good Triplets",
         slug: "count-good-triplets",
         difficulty: "Easy",
-        patternHint: "Con N ≤ 100, el triple bucle O(N³) es la solución directa esperada.",
+        patternHint: "With N <= 100, the O(N^3) triple loop is the direct expected solution.",
       },
       {
         number: 2367,
         title: "Number of Arithmetic Triplets",
         slug: "number-of-arithmetic-triplets",
         difficulty: "Easy",
-        patternHint: "Compara fuerza bruta O(N³) contra búsqueda en conjunto.",
+        patternHint: "Compare O(N^3) brute force against O(N) set lookup.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica por qué la Fuerza Bruta NO es un 'mal algoritmo', sino el primer escalón indispensable en una entrevista técnica. Muestra cómo verbalizar la solución de fuerza bruta ante un entrevistador te da claridad para descubrir el cuello de botella.",
+        "Explain why Brute Force is NOT a failure in a coding interview, but the essential first stepping stone. Show how stating the brute force clearly in 30 seconds reveals the bottleneck that leads to Hash Maps or Two Pointers.",
       keyTakeaways: [
-        "En una entrevista, mencionar primero la fuerza bruta demuestra estructura mental y asegura que entendiste el problema.",
-        "Toda optimización (Hash Map, Sliding Window, DP) nace de preguntarse: '¿qué cálculo estoy repitiendo innecesariamente en mi fuerza bruta?'",
+        "Stating the brute-force baseline first shows structured thinking and confirms you understood the problem.",
+        "Every optimization (Hash Map, Sliding Window, DP) comes from asking: 'What repeated work is my brute force doing?'",
       ],
       stepByStepWalkthrough: [
-        "Definir qué forma tiene una 'solución candidata' (un par de índices, un subarreglo, una asignación).",
-        "Escribir los ciclos anidados que enumeran todos los candidatos sin repetir (`j = i + 1`).",
-        "Validar cada candidato y actualizar la respuesta óptima.",
-        "Identificar el bucle más interno para optimizarlo con una estructura de datos.",
+        "Define what a single 'candidate solution' looks like (a pair of indices, a subarray, a subset).",
+        "Write nested loops that enumerate all unique candidates without duplicates (`j = i + 1`).",
+        "Validate each candidate and update the best answer.",
+        "Identify the innermost loop to optimize with a data structure.",
       ],
       interviewTraps: [
-        "Empezar `j` desde `0` en vez de `i + 1`, usando el mismo elemento dos veces o contando pares duplicados.",
-        "Quedarse callado en la entrevista intentando buscar la solución O(N) mágica sin antes enunciar la O(N²).",
+        "Starting `j` at `0` instead of `i + 1`, which uses the same element twice or counts duplicate pairs.",
+        "Sitting in silence trying to invent a clever O(N) trick without first securing the O(N^2) baseline.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:00",
-          sectionTitle: "El mito de que Fuerza Bruta es fracasar",
-          visualCue: "Comparación entre un candidato bloqueado en silencio vs uno que plantea el baseline en 30 segundos.",
+          sectionTitle: "The Myth That Brute Force Is Bad",
+          visualCue: "Side-by-side comparison: a silent stuck candidate vs one who states the O(N^2) baseline in 30 seconds.",
           narration:
-            "Muchos creen que mencionar Fuerza Bruta en una entrevista resta puntos. En realidad, es todo lo contrario: es tu brújula para descubrir dónde está el trabajo repetido.",
+            "Many candidates think mentioning Brute Force in an interview loses points. In reality, it is your compass: you cannot optimize a bottleneck until you can see the bottleneck.",
         },
         {
           timestamp: "01:00 - 03:30",
-          sectionTitle: "Anatomía de la enumeración de pares y tripletas",
-          visualCue: "Animación de índices i y j recorriendo una cuadrícula triangular superior.",
+          sectionTitle: "Anatomy of Pair and Triplet Enumeration",
+          visualCue: "Animation of indices i and j scanning an upper-triangular grid.",
           narration:
-            "Cuando recorremos pares con i desde 0 y j desde i+1, exploramos N*(N-1)/2 combinaciones. Al ver ese bucle interno buscando un complemento, se vuelve obvio por qué existen los Hash Maps y los Dos Punteros.",
+            "When we scan pairs with i from 0 and j from i+1, we inspect N*(N-1)/2 combinations. Seeing that inner loop search for a complement makes it obvious why Hash Maps and Two Pointers exist.",
         },
       ],
     },
@@ -239,7 +239,7 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
   {
     id: "simulation",
     order: 3,
-    title: "Simulation (Simulación Paso a Paso)",
+    title: "Simulation (Step-by-Step State Execution)",
     shortTitle: "Simulation",
     englishTerm: "Simulation",
     kind: "algorithm",
@@ -248,31 +248,31 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
     branchCategory: "fundamentals",
     prerequisites: ["basic-dsa"],
     summary:
-      "Traducir fielmente las reglas de un proceso, juego o sistema físico en código limpio y libre de bugs, manteniendo el estado en cada instante de tiempo o movimiento.",
+      "Faithfully translating the rules of a process, game, or physical system into clean, bug-free code by maintaining state transitions at each step.",
     analogy:
-      "Ser el árbitro de un juego de mesa que sigue el manual de instrucciones al pie de la letra: lanzas los dados, mueves la ficha exactamente X casillas, verificas si cayó en una trampa y actualizas el marcador.",
+      "Acting as the referee of a board game who follows the rulebook to the letter: roll the dice, move the token X spaces, check if it landed on an obstacle, and update the scoreboard.",
     whenToUse: [
-      "El enunciado describe reglas explícitas paso a paso (un robot que gira en una cuadrícula, un juego por turnos, un cajero que da cambio).",
-      "No se pide encontrar un camino óptimo entre millones de opciones, sino calcular el resultado exacto tras aplicar las reglas dadas.",
+      "The problem describes explicit step-by-step rules (a robot turning on a grid, spiral matrix traversal, turn-based game).",
+      "You are not asked to search millions of branches for a hidden optimum, but rather compute the exact outcome of following given rules.",
     ],
     whenNotToUse: [
-      "Cuando el número de pasos a simular es gigantesco (ej. K = 10¹² pasos); ahí debes detectar ciclos con aritmética modular (`K % longitud_ciclo`) en vez de simular uno por uno.",
+      "When the number of steps to simulate is astronomical (e.g., K = 10^12 steps); in that case, detect cycles and use modular arithmetic (`K % cycle_length`) instead of simulating one by one.",
     ],
     timeComplexity: {
-      average: "O(Pasos × Costo por paso)",
-      worst: "O(N) a O(N²)",
-      note: "Si hay ciclos repetitivos, usa el módulo del periodo para reducir K pasos grandes.",
+      average: "O(Steps * Cost per step)",
+      worst: "O(N) to O(N^2)",
+      note: "If states repeat cyclically, use modulo of the period to fast-forward large K.",
     },
-    spaceComplexity: "O(1) o proporcional al estado del tablero",
-    constraintHint: "Reglas directas con N o pasos ≤ 10⁵",
+    spaceComplexity: "O(1) or proportional to the board state",
+    constraintHint: "Explicit rules with N or steps <= 10^5",
     pythonTemplate: `def robot_simulation(commands: list[str]) -> tuple[int, int]:
     """
-    Simulación con vectores de dirección (Norte, Este, Sur, Oeste).
-    Evita decenas de if/else usando arreglos de desplazamiento dx, dy.
+    Clean Simulation using Direction Vectors (North, East, South, West).
+    Avoids messy if/else chains by indexing into (dx, dy) offsets.
     """
-    # Norte, Este, Sur, Oeste (sentido horario)
+    # North, East, South, West (clockwise order)
     dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-    d = 0  # Empieza mirando al Norte
+    d = 0  # Starts facing North
     x, y = 0, 0
 
     for cmd in commands:
@@ -287,7 +287,7 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
             y += dy * steps
     return x, y`,
     typescriptTemplate: `export function robotSimulation(commands: string[]): [number, number] {
-  // Norte, Este, Sur, Oeste en sentido horario
+  // North, East, South, West in clockwise order
   const dirs: [number, number][] = [
     [0, 1],
     [1, 0],
@@ -315,54 +315,54 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
         title: "Robot Return to Origin",
         slug: "robot-return-to-origin",
         difficulty: "Easy",
-        patternHint: "Rastrea coordenadas (x, y) aplicando vectores de dirección.",
+        patternHint: "Track (x, y) coordinates applying directional unit vectors.",
       },
       {
         number: 54,
         title: "Spiral Matrix",
         slug: "spiral-matrix",
         difficulty: "Medium",
-        patternHint: "Simula los 4 bordes (top, bottom, left, right) encogiéndolos tras cada pasada.",
+        patternHint: "Maintain 4 shrinking boundaries (`top`, `bottom`, `left`, `right`) after each directional pass.",
       },
       {
         number: 874,
         title: "Walking Robot Simulation",
         slug: "walking-robot-simulation",
         difficulty: "Medium",
-        patternHint: "Vectores de dirección `(d + 1) % 4` + conjunto de obstáculos.",
+        patternHint: "Clockwise direction vectors `(d + 1) % 4` paired with a Hash Set of obstacles.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Enfoca este video en el arte de escribir código limpio para problemas de Simulación. Enseña el truco profesional de los 'vectores de dirección' `(dx, dy)` con aritmética modular `% 4` para evitar bloques gigantes de `if/else` que producen bugs en entrevistas.",
+        "Focus this episode on writing clean, bug-free code for Simulation problems. Teach the pro technique of clockwise 'Direction Vectors' `(dx, dy)` with `% 4` modular arithmetic to replace 20-line `if/else` blocks.",
       keyTakeaways: [
-        "En problemas de simulación, el reto no es algorítmico sino de ingeniería limpia y manejo de bordes.",
-        "Usa arreglos de direcciones `dirs = [(0,1), (1,0), (0,-1), (-1,0)]` para rotar con `(d + 1) % 4`.",
-        "Si el problema pide simular 10⁹ pasos en un estado finito, busca el ciclo y usa el operador módulo.",
+        "In simulation problems, the challenge is clean state engineering and boundary control rather than algorithmic invention.",
+        "Use clockwise direction arrays `dirs = [(0,1), (1,0), (0,-1), (-1,0)]` so turning right is `(d + 1) % 4`.",
+        "If asked to simulate 10^9 steps in a finite state space, detect the cycle and use modulo.",
       ],
       stepByStepWalkthrough: [
-        "Identificar las variables que definen el estado completo del sistema (ej. posición x, y, dirección d).",
-        "Codificar las transiciones de estado en funciones pequeñas o tablas de vectores.",
-        "Verificar condiciones de frontera antes de aplicar cada movimiento.",
+        "Identify the minimal variables that represent the full state of the system (e.g., `x, y, d`).",
+        "Encode transitions using lookup tables or small helper functions.",
+        "Check boundary conditions before committing each move.",
       ],
       interviewTraps: [
-        "Escribir 16 `if/else` anidados para giros a izquierda/derecha en lugar de usar índices circulares `% 4`.",
-        "En JavaScript/TypeScript, olvidar que `-1 % 4` da `-1`, por lo que para girar a la izquierda se usa `(d + 3) % 4`.",
+        "Writing 16 nested `if/else` branches for turns instead of circular indexing `% 4`.",
+        "In JavaScript/TypeScript, forgetting that `-1 % 4` evaluates to `-1`; always use `(d + 3) % 4` for a left turn.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:30",
-          sectionTitle: "Qué es un problema de Simulación",
-          visualCue: "Un robot moviéndose en una cuadrícula con flechas de dirección.",
+          sectionTitle: "What Makes a Problem a Simulation",
+          visualCue: "A robot moving on a coordinate grid with directional arrows.",
           narration:
-            "Hay problemas donde no necesitas inventar un algoritmo secreto: el enunciado ya te dice exactamente qué hacer en cada paso. El verdadero examen aquí es traducir esas reglas sin enredarte en tu propio código.",
+            "In some interview problems, you do not need to invent a hidden algorithm—the prompt already tells you exactly what happens at every step. The real test is translating those rules without tangling your own code.",
         },
         {
           timestamp: "01:30 - 04:00",
-          sectionTitle: "El truco de los Vectores de Dirección",
-          visualCue: "Brújula con índices 0, 1, 2, 3 mostrando `(d + 1) % 4` y `(d + 3) % 4`.",
+          sectionTitle: "The Direction Vector Trick",
+          visualCue: "Compass with indices 0, 1, 2, 3 showing `(d + 1) % 4` and `(d + 3) % 4`.",
           narration:
-            "Olvídate de escribir un switch gigante para Norte, Sur, Este y Oeste. Si ordenas tus vectores en sentido horario, girar a la derecha siempre es sumar 1 módulo 4.",
+            "Forget giant switch statements for North, South, East, and West. By ordering your direction vectors clockwise, turning right is always adding 1 modulo 4.",
         },
       ],
     },
@@ -370,7 +370,7 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
   {
     id: "arrays",
     order: 4,
-    title: "Arrays (Arreglos Estáticos y Dinámicos)",
+    title: "Arrays (Static & Dynamic Arrays)",
     shortTitle: "Arrays",
     englishTerm: "Arrays & Dynamic Arrays",
     kind: "data-structure",
@@ -379,38 +379,38 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
     branchCategory: "arrays-strings",
     prerequisites: ["basic-dsa"],
     summary:
-      "La estructura de datos más importante de la computación: bloques contiguos de memoria que permiten acceso instantáneo O(1) por índice y máxima velocidad de caché en CPU.",
+      "The foundational data structure of computing: contiguous blocks of memory that provide instant O(1) random access by index and optimal CPU cache locality.",
     analogy:
-      "Una fila de casilleros numerados del 0 al N-1 en un pasillo recto. Como todos miden exactamente lo mismo y están pegados uno al lado del otro, para ir al casillero #500 no tienes que contar desde el 0: calculas su posición exacta y vas directo en un instante.",
+      "A row of numbered lockers (0 to N-1) along a straight hallway. Because every locker has the exact same width and sits right next to the previous one, jumping to locker #500 does not require walking past lockers 0 through 499—you calculate its exact position and jump there in O(1).",
     whenToUse: [
-      "Necesitas acceso aleatorio instantáneo O(1) a cualquier elemento conociendo su índice `i`.",
-      "Quieres recorrer secuencias con máxima eficiencia de memoria y caché.",
-      "Como bloque constructor para Two Pointers, Sliding Window, Prefix Sums, Binary Search y Heaps.",
+      "You need instant O(1) random access to any element given its index `i`.",
+      "You want maximum memory efficiency and cache-friendly sequential iteration.",
+      "As the underlying storage for Two Pointers, Sliding Window, Prefix Sums, Binary Search, and Binary Heaps.",
     ],
     whenNotToUse: [
-      "Necesitas insertar o eliminar elementos frecuentemente al inicio o en medio de la colección (cuesta O(N) porque obliga a desplazar todos los elementos siguientes).",
+      "You need frequent insertions or deletions at the front or middle of the collection (which costs O(N) because all subsequent elements must shift in memory).",
     ],
     timeComplexity: {
-      average: "Acceso: O(1) | Append final: O(1) amortizado",
-      worst: "Inserción/Borrado en medio: O(N) | Búsqueda sin orden: O(N)",
-      note: "Los arreglos dinámicos (`list` en Python, `Array` en JS) duplican su capacidad interna cuando se llenan.",
+      average: "Index Access: O(1) | Append at end: O(1) amortized",
+      worst: "Insert/Delete at front or middle: O(N) | Unsorted search: O(N)",
+      note: "Dynamic arrays (`list` in Python, `Array` in JS) double their underlying capacity when full.",
     },
-    spaceComplexity: "O(N) memoria contigua",
-    constraintHint: "Base de todos los problemas con N ≤ 10⁵",
+    spaceComplexity: "O(N) contiguous memory",
+    constraintHint: "Foundation for almost all sequence problems with N <= 10^5",
     pythonTemplate: `def array_operations_demo(nums: list[int]) -> list[int]:
     """
-    Operaciones esenciales y sus complejidades reales en Python (list = Dynamic Array).
+    Core operations and real complexities on Python's dynamic array (list).
     """
-    # 1. Acceso por índice -> O(1)
+    # 1. Random access by index -> O(1)
     first = nums[0] if nums else 0
 
-    # 2. Agregar al final (append) -> O(1) amortizado
+    # 2. Append to the end -> O(1) amortized
     nums.append(first + 10)
 
-    # 3. Eliminar del final (pop) -> O(1)
+    # 3. Pop from the end -> O(1)
     nums.pop()
 
-    # 4. Inversión in-place sin duplicar memoria -> O(N) tiempo, O(1) espacio
+    # 4. In-place reversal without extra memory -> O(N) time, O(1) space
     left, right = 0, len(nums) - 1
     while left < right:
         nums[left], nums[right] = nums[right], nums[left]
@@ -419,14 +419,14 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
 
     return nums`,
     typescriptTemplate: `export function arrayOperationsDemo(nums: number[]): number[] {
-  // 1. Acceso aleatorio por índice -> O(1)
+  // 1. O(1) random access by index
   const first = nums.length > 0 ? nums[0] : 0;
 
-  // 2. Push / Pop al final -> O(1) amortizado
+  // 2. O(1) amortized push / pop at the end
   nums.push(first + 10);
   nums.pop();
 
-  // 3. Inversión in-place -> O(N) tiempo, O(1) espacio extra
+  // 3. In-place reversal -> O(N) time, O(1) extra space
   let left = 0,
     right = nums.length - 1;
   while (left < right) {
@@ -442,53 +442,53 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
         title: "Product of Array Except Self",
         slug: "product-of-array-except-self",
         difficulty: "Medium",
-        patternHint: "Dos pasadas sobre el arreglo (prefijos hacia adelante y sufijos hacia atrás) en O(N) y espacio O(1) extra.",
+        patternHint: "Two passes over the array (prefix products forward, suffix products backward) in O(N) time and O(1) extra space.",
       },
       {
         number: 189,
         title: "Rotate Array",
         slug: "rotate-array",
         difficulty: "Medium",
-        patternHint: "El truco de las 3 reversiones in-place para rotar un arreglo en O(1) de espacio.",
+        patternHint: "The 3-reversal in-place trick rotates an array in O(N) time and O(1) extra space.",
       },
       {
         number: 485,
         title: "Max Consecutive Ones",
         slug: "max-consecutive-ones",
         difficulty: "Easy",
-        patternHint: "Recorrido lineal manteniendo un contador de racha actual.",
+        patternHint: "Single linear scan tracking the current streak counter.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica cómo funcionan los Arrays en memoria física (aritmética de direcciones `base + i * tamaño`) y cómo funcionan los Dynamic Arrays (`list` en Python) con duplicación de capacidad para lograr `append` en O(1) amortizado. Advierte sobre la trampa mortal de hacer `pop(0)` o `insert(0, x)` dentro de un bucle.",
+        "Explain how Arrays work in physical RAM (`base_address + i * element_size`) and how Dynamic Arrays achieve O(1) amortized append via geometric capacity doubling. Warn strongly against calling `pop(0)` or `insert(0, x)` inside a loop.",
       keyTakeaways: [
-        "Un Array guarda elementos en celdas de memoria contiguas, permitiendo calcular la dirección del índice `i` en O(1).",
-        "Insertar o borrar al final (`append`/`pop`) es O(1) amortizado, pero hacerlo al inicio (`pop(0)`) cuesta O(N).",
-        "Dominar manipulaciones in-place (como el truco de revertir subsegmentos) ahorra memoria O(N).",
+        "An Array stores elements in contiguous memory cells, computing the address of index `i` in O(1).",
+        "Appending and popping at the end is O(1) amortized, but inserting or deleting at index 0 costs O(N).",
+        "In-place segment reversals (like the 3-reverse rotation trick) save O(N) auxiliary memory.",
       ],
       stepByStepWalkthrough: [
-        "Visualizar el bloque contiguo de memoria y el cálculo de offset.",
-        "Entender qué pasa cuando un arreglo dinámico se llena: reserva el doble de espacio y copia en O(N) una sola vez cada N inserciones.",
-        "Aplicar recorridos por índice de izquierda a derecha y de derecha a izquierda.",
+        "Visualize the contiguous memory block and constant-time address offset calculation.",
+        "Understand dynamic resizing: doubling capacity copies N elements only once every N appends.",
+        "Use forward, backward, and two-pass prefix/suffix scans.",
       ],
       interviewTraps: [
-        "Usar `nums.pop(0)` en Python o `nums.shift()` en JS dentro de un bucle `while`: convierte un algoritmo lineal en O(N²). Para colas usa `collections.deque`.",
+        "Calling `nums.pop(0)` in Python or `nums.shift()` in JS inside a `while` loop—silently turning a linear algorithm into O(N^2). Use `collections.deque` for queues.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:30",
-          sectionTitle: "Por qué el Array es el rey de la memoria",
-          visualCue: "Bloques de RAM contiguos iluminándose al acceder a `arr[4]` en un solo salto.",
+          sectionTitle: "Why the Array Is King of Memory",
+          visualCue: "Contiguous RAM blocks lighting up as `arr[4]` is accessed in a single jump.",
           narration:
-            "Antes de aprender algoritmos avanzados, necesitamos dominar la estructura donde vive el 70% de los problemas de entrevista: el Array. Su superpoder está en cómo se guarda físicamente en la memoria RAM.",
+            "Before diving into advanced algorithms, we must master the data structure behind 70% of interview problems: the Array. Its superpower lies in how it sits physically in RAM.",
         },
         {
           timestamp: "01:30 - 04:00",
-          sectionTitle: "Arreglos Dinámicos y el costo oculto de insertar en medio",
-          visualCue: "Animación de todos los elementos corriéndose un lugar a la derecha al insertar en el índice 0.",
+          sectionTitle: "Dynamic Arrays and the Hidden Cost of Shifting",
+          visualCue: "Animation of every element shifting right when inserting at index 0.",
           narration:
-            "Cuando agregas al final con append, toma tiempo constante amortizado. Pero si borras o insertas en la posición cero, obligas a toda la fila a moverse un paso. Hacer eso en un bucle es la causa número uno de Time Limit Exceeded silencioso.",
+            "Appending to the end takes constant amortized time. But deleting or inserting at index zero forces the entire row to shift one slot over. Doing that inside a loop is the #1 cause of silent Time Limit Exceeded.",
         },
       ],
     },
@@ -496,7 +496,7 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
   {
     id: "strings",
     order: 5,
-    title: "Strings (Cadenas de Caracteres)",
+    title: "Strings & Character Manipulation",
     shortTitle: "Strings",
     englishTerm: "Strings & Character Manipulation",
     kind: "data-structure",
@@ -505,37 +505,37 @@ export const TOPICS_LEVEL_1_2: DSATopic[] = [
     branchCategory: "arrays-strings",
     prerequisites: ["arrays"],
     summary:
-      "Secuencias de caracteres que funcionan como arreglos de solo lectura (inmutables en Python, JS y Java). Dominar códigos ASCII, conteo de frecuencias de 26 letras y construcción con `join` es esencial antes de Sliding Window y String Matching.",
+      "Character sequences that behave like read-only arrays (immutable in Python, JS, and Java). Mastering ASCII offsets (`ord(c) - ord('a')`), 26-letter frequency signatures, and O(N) string building with `join` is essential before Sliding Window and String Matching.",
     analogy:
-      "Un collar de cuentas con letras grabadas donde el hilo está sellado con pegamento (inmutable). Puedes leer cualquier letra al instante, pero si quieres cambiar una sola letra o agregar una al final, no puedes abrir el collar: tienes que fabricar un collar nuevo copiando todas las cuentas.",
+      "A necklace of lettered beads sealed with glue (immutable). You can inspect any bead instantly by position, but if you want to swap a single bead or add one at the end, you must restring a brand-new necklace.",
     whenToUse: [
-      "Procesamiento de texto, palíndromos, anagramas, subcadenas (substrings) y validación de formatos.",
-      "Cuando el alfabeto es pequeño y fijo (ej. 26 letras minúsculas `'a'-'z'`), permitiendo usar un arreglo fijo de tamaño 26 en lugar de un Hash Map general.",
+      "Text processing, palindromes, anagrams, substrings, and format parsing.",
+      "When the alphabet is small and fixed (e.g., 26 lowercase English letters `'a'-'z'`), letting you replace a general Hash Map with a fixed-size array of 26 integers.",
     ],
     whenNotToUse: [
-      "Nunca concatenes strings con `s += char` dentro de un bucle grande en lenguajes con strings inmutables; usa una lista de caracteres y `''.join(chars)` al final.",
+      "Avoid repeatedly concatenating strings with `s += ch` inside large loops in languages with immutable strings; accumulate in a list of characters and call `''.join(chars)` in O(N).",
     ],
     timeComplexity: {
-      average: "Lectura `s[i]`: O(1) | Comparación/Copia/Slice: O(N)",
-      worst: "Concatenación repetida ingenua en bucle: O(N²)",
-      note: "Usar `''.join(lista)` garantiza construcción en O(N).",
+      average: "Index read `s[i]`: O(1) | Slice / Copy / Compare: O(N)",
+      worst: "Naive repeated concatenation in a loop: O(N^2)",
+      note: "Using `''.join(list_of_Parts)` guarantees O(N) string construction.",
     },
-    spaceComplexity: "O(N) para almacenar la cadena o lista mutable de caracteres",
-    constraintHint: "Alfabeto 'a'-'z' → Vector de frecuencia de tamaño 26 en O(1) espacio",
+    spaceComplexity: "O(N) to hold the character list or resulting string",
+    constraintHint: "Alphabet 'a'-'z' -> Fixed 26-slot frequency array in O(1) space",
     pythonTemplate: `def char_frequency_signature(s: str) -> tuple[int, ...]:
     """
-    Convierte un string de letras 'a'-'z' en una firma de 26 enteros en O(N).
-    Dos strings son anagramas si y solo si tienen la misma firma.
+    Maps a lowercase 'a'-'z' string to a 26-integer tuple signature in O(N).
+    Two strings are anagrams if and only if their signatures are identical.
     """
     counts = [0] * 26
     for ch in s:
-        # ord(ch) - ord('a') mapea 'a'->0, 'b'->1, ..., 'z'->25
+        # ord(ch) - ord('a') maps 'a'->0, 'b'->1, ..., 'z'->25
         counts[ord(ch) - ord('a')] += 1
     return tuple(counts)
 
 
 def build_string_efficiently(parts: list[str]) -> str:
-    # SIEMPRE usa ''.join() en lugar de concatenar con += en un bucle
+    # Always use ''.join() instead of += inside a loop
     return "".join(parts)`,
     typescriptTemplate: `export function charFrequencySignature(s: string): string {
   const counts = new Array<number>(26).fill(0);
@@ -551,53 +551,53 @@ def build_string_efficiently(parts: list[str]) -> str:
         title: "Valid Anagram",
         slug: "valid-anagram",
         difficulty: "Easy",
-        patternHint: "Usa un arreglo de tamaño 26 con `ord(c) - ord('a')` para contar frecuencias en O(N) tiempo y O(1) espacio.",
+        patternHint: "Use a 26-slot array with `ord(c) - ord('a')` to compare character frequencies in O(N) time and O(1) space.",
       },
       {
         number: 49,
         title: "Group Anagrams",
         slug: "group-anagrams",
         difficulty: "Medium",
-        patternHint: "Agrupa palabras usando su tupla de conteo de 26 letras como llave de un Hash Map.",
+        patternHint: "Group words using their 26-letter frequency tuple as the dictionary key in O(N * L).",
       },
       {
         number: 151,
         title: "Reverse Words in a String",
         slug: "reverse-words-in-a-string",
         difficulty: "Medium",
-        patternHint: "Tokenización limpia e inversión de lista de palabras con `join`.",
+        patternHint: "Split by whitespace, reverse the word list, and join with a single space.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Destaca las 2 claves que separan a un principiante de un experto manejando Strings en entrevistas: 1) entender la inmutabilidad (por qué concatenar en bucle puede ser cuadrático y cómo resolverlo con `join`), y 2) el truco `ord(c) - ord('a')` para mapear letras a un arreglo de 26 posiciones.",
+        "Highlight the two secrets that separate beginners from pros when handling Strings in interviews: 1) understanding string immutability (why `''.join()` beats `+=` in loops), and 2) the `ord(c) - ord('a')` trick to map lowercase letters into a 26-element array.",
       keyTakeaways: [
-        "En Python, Java y JavaScript los Strings son inmutables: modificar un carácter crea un objeto nuevo.",
-        "El truco `ord(ch) - ord('a')` convierte cualquier letra minúscula en un índice de 0 a 25 en O(1).",
-        "Distinción crucial: 'Substring' es contiguo (sin saltos); 'Subsequence' puede saltar caracteres manteniendo el orden relativo.",
+        "In Python, Java, and JavaScript, Strings are immutable: mutating a character allocates a new string.",
+        "The expression `ord(ch) - ord('a')` converts any lowercase letter `'a'-'z'` into an array index `0..25` in O(1).",
+        "Crucial distinction: a 'Substring' is contiguous (no gaps); a 'Subsequence' can skip characters while keeping relative order.",
       ],
       stepByStepWalkthrough: [
-        "Verificar qué caracteres puede contener el string (solo `'a'-'z'`, alfanumérico, o ASCII completo de 128/256).",
-        "Si necesitas mutar caracteres in-place, convierte primero a lista `chars = list(s)` y al terminar haz `''.join(chars)`.",
-        "Para comparar frecuencias de ventanas o anagramas, usa un vector fijo de 26 enteros.",
+        "Check the character set in Constraints (lowercase `'a'-'z'`, alphanumeric, or full ASCII).",
+        "If you need in-place character swaps, convert to `chars = list(s)` first and `''.join(chars)` at the end.",
+        "Use a 26-slot integer array to compare anagram or window signatures.",
       ],
       interviewTraps: [
-        "Confundir Substring (contiguo, se resuelve con Sliding Window) con Subsequence (no contiguo, suele requerir Two Pointers o Dynamic Programming).",
+        "Confusing Substring (contiguous -> Sliding Window) with Subsequence (non-contiguous -> Two Pointers or Dynamic Programming).",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:30",
-          sectionTitle: "Strings: Arreglos con un secreto de inmutabilidad",
-          visualCue: "Animación de un string bloqueado con candado vs una lista mutable de caracteres.",
+          sectionTitle: "Strings: Read-Only Arrays with an Immutability Secret",
+          visualCue: "Animation of a locked string vs a mutable list of characters joined at the end.",
           narration:
-            "Aunque un String se parece a un Array de letras, guarda una diferencia crítica: es inmutable. Entender qué significa esto en memoria te salvará de errores de rendimiento en entrevistas.",
+            "Although a String looks just like an Array of characters, it hides a critical difference: it is immutable. Understanding what that means in memory will save you from quadratic performance bugs.",
         },
         {
           timestamp: "01:30 - 04:00",
-          sectionTitle: "El truco de las 26 casillas (`ord(c) - ord('a')`)",
-          visualCue: "Vector de 26 casillas incrementándose mientras pasan las letras de la palabra 'anagrama'.",
+          sectionTitle: "The 26-Bucket Trick (`ord(c) - ord('a')`)",
+          visualCue: "A 26-slot array incrementing counters as letters of 'anagram' stream in.",
           narration:
-            "Cuando el problema usa letras minúsculas del inglés, no necesitas un Hash Map pesado. Restar el código ASCII de la letra 'a' te da un índice limpio del 0 al 25.",
+            "Whenever a problem uses lowercase English letters, you do not need a heavy Hash Map. Subtracting the ASCII code of 'a' gives you a direct O(1) index from 0 to 25.",
         },
       ],
     },
@@ -605,7 +605,7 @@ def build_string_efficiently(parts: list[str]) -> str:
   {
     id: "two-pointers",
     order: 6,
-    title: "Two Pointers (Dos Punteros)",
+    title: "Two Pointers (Converging & Same-Direction)",
     shortTitle: "Two Pointers",
     englishTerm: "Two Pointers",
     kind: "algorithm",
@@ -614,28 +614,28 @@ def build_string_efficiently(parts: list[str]) -> str:
     branchCategory: "arrays-strings",
     prerequisites: ["arrays", "strings"],
     summary:
-      "Utilizar dos índices coordinados que recorren una secuencia (acercándose desde los extremos `left/right` o avanzando en la misma dirección `read/write`) para reducir búsquedas de O(N²) a un solo pase lineal O(N) con espacio O(1).",
+      "Using two coordinated indices across a sequence—either converging inward from opposite ends (`left` and `right`) or marching forward together (`write` and `read`)—to collapse O(N^2) pair searches into a single O(N) pass with O(1) space.",
     analogy:
-      "Dos personas buscando un libro en un estante ordenado por precio: una empieza por el más barato a la izquierda y otra por el más caro a la derecha. Si la suma de ambos precios se pasa de tu presupuesto, quien está en el lado caro da un paso a la izquierda; si falta dinero, quien está en el lado barato da un paso a la derecha.",
+      "Two shoppers looking for two items that add up to an exact gift card balance on a shelf sorted by price: one starts at the cheapest item on the left, the other at the most expensive item on the right. If the total is too high, the right shopper steps left; if too low, the left shopper steps right.",
     whenToUse: [
-      "El arreglo está ordenado (o puedes ordenarlo) y buscas pares o tripletas que cumplan una suma o condición (`Two Sum II`, `3Sum`).",
-      "Quieres verificar palíndromos o simetría comparando extremos hacia el centro.",
-      "Debes compactar, filtrar o eliminar duplicados de un arreglo in-place en O(1) espacio usando un puntero lector y otro escritor.",
+      "The input array is SORTED (or can be sorted) and you need pairs or triplets matching a target sum or constraint (`Two Sum II`, `3Sum`).",
+      "Checking palindromes or symmetry by comparing characters from both ends toward the center.",
+      "Compacting, filtering, or deduplicating an array in-place in O(1) extra space using a `read` pointer and a `write` pointer.",
     ],
     whenNotToUse: [
-      "Para buscar pares con suma objetivo en un arreglo NO ordenado donde debes devolver los índices originales (ordenarlo destruiría los índices originales; ahí usa un Hash Map).",
+      "Finding pair sums in an UNSORTED array where you must return the original indices (sorting destroys original indices; use a Hash Map instead).",
     ],
     timeComplexity: {
-      average: "O(N) (o O(N log N) si primero ordenas)",
+      average: "O(N) (or O(N log N) if sorting first)",
       worst: "O(N)",
-      note: "Cada paso mueve al menos uno de los dos punteros, haciendo como máximo N iteraciones.",
+      note: "Every iteration advances at least one pointer toward the other, guaranteeing at most N steps.",
     },
-    spaceComplexity: "O(1) espacio auxiliar",
-    constraintHint: "N ≤ 10⁵ con arreglo ordenado o modificación in-place O(1) espacio",
+    spaceComplexity: "O(1) auxiliary space",
+    constraintHint: "N <= 10^5 with sorted input or O(1) in-place array compaction",
     pythonTemplate: `def two_pointers_converging(nums: list[int], target: int) -> list[int]:
     """
-    Modalidad 1: Punteros convergentes en un arreglo ORDENADO.
-    Tiempo: O(N) | Espacio: O(1)
+    Mode 1: Converging pointers on a SORTED array.
+    Time: O(N) | Space: O(1)
     """
     left, right = 0, len(nums) - 1
     while left < right:
@@ -643,15 +643,15 @@ def build_string_efficiently(parts: list[str]) -> str:
         if current_sum == target:
             return [left, right]
         elif current_sum < target:
-            left += 1   # Necesitamos una suma más grande
+            left += 1   # Need a larger sum
         else:
-            right -= 1  # Necesitamos una suma más pequeña
+            right -= 1  # Need a smaller sum
     return []
 
 
 def remove_duplicates_inplace(nums: list[int]) -> int:
     """
-    Modalidad 2: Punteros en la misma dirección (Write / Read).
+    Mode 2: Same-direction pointers (Write / Read).
     """
     if not nums:
         return 0
@@ -679,53 +679,53 @@ def remove_duplicates_inplace(nums: list[int]) -> int:
         title: "Two Sum II - Input Array Is Sorted",
         slug: "two-sum-ii-input-array-is-sorted",
         difficulty: "Medium",
-        patternHint: "Punteros `left` al inicio y `right` al final aprovechando el orden ascendente.",
+        patternHint: "Place `left` at 0 and `right` at `n-1`, exploiting the sorted order to eliminate a row or column at each step.",
       },
       {
         number: 15,
         title: "3Sum",
         slug: "3sum",
         difficulty: "Medium",
-        patternHint: "Ordena el arreglo, fija `i` y ejecuta Two Pointers en `i+1 ... n-1` saltando duplicados.",
+        patternHint: "Sort the array, fix `i`, and run converging Two Pointers on `i+1 .. n-1` while skipping duplicates.",
       },
       {
         number: 11,
         title: "Container With Most Water",
         slug: "container-with-most-water",
         difficulty: "Medium",
-        patternHint: "Mueve siempre el puntero que tenga la pared más baja, porque es el cuello de botella del área.",
+        patternHint: "Always move the pointer with the shorter wall, since it bottlenecks the water height.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica con claridad cristalina las dos modalidades de Two Pointers: 1) Extremos opuestos (`left` y `right` acercándose) y 2) Misma dirección (`write` y `read` para modificar arreglos in-place). Demuestra por qué descartar un extremo nunca pierde la respuesta correcta cuando el arreglo está ordenado.",
+        "Explain the two core flavors of Two Pointers: 1) Converging pointers (`left` and `right` moving inward) and 2) Same-direction pointers (`write` and `read` for in-place filtering). Show why discarding one boundary never misses the optimal pair when the array is sorted.",
       keyTakeaways: [
-        "Two Pointers convierte problemas cuadráticos O(N²) en lineales O(N) sin usar memoria extra O(1).",
-        "En arreglos ordenados, cada comparación te permite descartar toda una fila o columna de pares de un solo golpe.",
-        "Para `3Sum`, fijas un elemento con un bucle externo y reduces el resto a `Two Sum II` en O(N²).",
+        "Two Pointers turns O(N^2) pair scans into O(N) linear passes with O(1) extra space.",
+        "On sorted arrays, every comparison eliminates an entire row or column of candidate pairs at once.",
+        "For `3Sum`, fixing the first element in an outer loop reduces the remaining problem to `Two Sum II` in O(N^2).",
       ],
       stepByStepWalkthrough: [
-        "Identificar si los punteros deben empezar en `(0, n-1)` (convergentes) o en `(0, 0)` (misma dirección).",
-        "Definir la condición invariante que decide qué puntero debe moverse en cada iteración.",
-        "Asegurar que en cada paso del `while (left < right)` al menos un puntero avance para evitar ciclos infinitos.",
+        "Decide whether pointers start at `(0, n-1)` (converging) or `(0, 0)` (same direction).",
+        "Define the monotonic rule that determines which pointer advances on each iteration.",
+        "Ensure every iteration of `while left < right` moves at least one pointer.",
       ],
       interviewTraps: [
-        "En problemas como `3Sum`, olvidar saltar valores duplicados (`while left < right and nums[left] == nums[left-1]: left += 1`), generando tripletas repetidas.",
+        "In `3Sum`, forgetting to skip duplicate values (`while left < right and nums[left] == nums[left-1]: left += 1`), producing duplicate triplets.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:30",
-          sectionTitle: "De O(N²) a O(N) con dos índices",
-          visualCue: "Dos flechas (L y R) en los extremos de un arreglo ordenado convergiendo al centro.",
+          sectionTitle: "From O(N^2) to O(N) with Two Coordinated Indices",
+          visualCue: "Two arrows (L and R) at opposite ends of a sorted array converging toward the target sum.",
           narration:
-            "Si el arreglo está ordenado, revisar todos los pares con un doble bucle es desperdiciar información. Con Dos Punteros en los extremos, cada suma fallida nos dice con certeza matemática cuál extremo debemos descartar.",
+            "If an array is sorted, checking all pairs with a nested loop throws away valuable information. With Two Pointers at opposite ends, every mismatch tells us with mathematical certainty which boundary we can discard forever.",
         },
         {
           timestamp: "01:30 - 04:30",
-          sectionTitle: "Las 2 variantes: Convergentes vs Lector/Escritor",
-          visualCue: "Pantalla dividida mostrando Container With Most Water arriba y Remove Duplicates abajo.",
+          sectionTitle: "Converging Pointers vs Read/Write Pointers",
+          visualCue: "Split screen showing Container With Most Water on top and Remove Duplicates in-place on bottom.",
           narration:
-            "No todos los Dos Punteros vienen de extremos opuestos. Cuando te piden limpiar un arreglo in-place sin crear otro nuevo, el puntero lector explora hacia adelante mientras el puntero escritor guarda solo los elementos válidos.",
+            "Not all Two Pointers start at opposite ends. When asked to compact an array in-place without allocating a new array, the Read pointer scouts ahead while the Write pointer overwrites only valid elements.",
         },
       ],
     },
@@ -733,7 +733,7 @@ def remove_duplicates_inplace(nums: list[int]) -> int:
   {
     id: "sliding-window",
     order: 7,
-    title: "Sliding Window (Ventana Deslizante)",
+    title: "Sliding Window (Fixed & Dynamic)",
     shortTitle: "Sliding Window",
     englishTerm: "Sliding Window (Fixed & Dynamic)",
     kind: "algorithm",
@@ -742,44 +742,45 @@ def remove_duplicates_inplace(nums: list[int]) -> int:
     branchCategory: "arrays-strings",
     prerequisites: ["arrays", "strings", "two-pointers"],
     summary:
-      "Mantener un subsegmento contiguo `[left..right]` que se desliza sobre un arreglo o string como una oruga: se expande por la derecha (`right++`) y se contrae por la izquierda (`left++`) reutilizando el cálculo anterior en O(N).",
+      "Maintaining a contiguous subsegment `[left..right]` that glides across an array or string like a caterpillar: expanding on the right (`right++`) and shrinking from the left (`left++`) whenever the window constraint is violated, achieving O(N) time.",
     analogy:
-      "Una oruga avanzando por una rama: estira la cabeza hacia adelante (`right`) para comer hojas mientras la ventana sea válida, y cuando se pasa del límite permitido, encoge la cola (`left`) hasta volver a cumplir la regla, sin volver a contar las hojas del medio.",
+      "A caterpillar crawling along a branch: it stretches its head forward (`right`) to include new leaves while the window is valid, and whenever it exceeds its limit, it pulls its tail forward (`left`) until the rule is restored—without ever recounting the leaves in the middle.",
     whenToUse: [
-      "El problema pide el subarreglo o substring CONTIGUO más largo, más corto o de suma máxima/mínima que cumpla cierta condición.",
-      "Ventana de tamaño fijo `K`: 'encuentra el promedio/suma máxima de cualquier subarreglo de longitud K'.",
-      "Ventana de tamaño dinámico: 'el substring más largo sin caracteres repetidos' o 'con a lo sumo K ceros'.",
+      "The problem asks for the longest, shortest, or optimal CONTIGUOUS subarray or substring satisfying a condition.",
+      "Fixed-size window `K`: 'Find the maximum sum or average of any contiguous subarray of length K'.",
+      "Dynamic-size window: 'Longest substring without repeating characters' or 'Smallest subarray with sum >= S'.",
     ],
     whenNotToUse: [
-      "¡CUIDADO! Si el arreglo tiene números NEGATIVOS y buscas una suma objetivo o ventana válida por suma, agregar un elemento a la derecha puede disminuir la suma en vez de aumentarla, rompiendo la monotonía de Sliding Window (ahí usa Prefix Sum + Hash Map o Monotonic Deque).",
+      "WARNING: If the array contains NEGATIVE numbers and the condition depends on subarray sum, adding elements to the right can decrease the sum, breaking monotonicity! For negative numbers, use `Prefix Sum + Hash Map`.",
     ],
     timeComplexity: {
       average: "O(N)",
       worst: "O(N)",
-      note: "Aunque hay un `while` dentro de un `for`, tanto `left` como `right` avanzan como máximo N veces en total (2N pasos = O(N)).",
+      note: "Even though there is a `while` loop inside a `for` loop, `left` and `right` each move forward at most N times (at most 2N total operations).",
     },
-    spaceComplexity: "O(1) o O(K) para el mapa de frecuencias de la ventana",
-    constraintHint: "Subarray/Substring contiguo óptimo con N ≤ 10⁵ (y valores no negativos si es por suma)",
+    spaceComplexity: "O(1) or O(K) for the window frequency counter",
+    constraintHint: "Optimal contiguous subarray/substring with N <= 10^5 (and non-negative values for sum windows)",
     pythonTemplate: `def sliding_window_dynamic(s: str) -> int:
     """
-    Plantilla Universal de Sliding Window Dinámica (ej. Longest Substring Without Repeating Chars).
-    Tiempo: O(N) | Espacio: O(alfabeto)
+    Universal 3-Step Dynamic Sliding Window Template
+    (e.g., Longest Substring Without Repeating Characters).
+    Time: O(N) | Space: O(alphabet)
     """
     window_counts: dict[str, int] = {}
     left = 0
     max_len = 0
 
     for right, ch in enumerate(s):
-        # 1. Expandir la ventana incluyendo s[right]
+        # 1. EXPAND window by including s[right]
         window_counts[ch] = window_counts.get(ch, 0) + 1
 
-        # 2. Contraer desde 'left' mientras la ventana viole la condición
+        # 2. SHRINK from 'left' while window violates the invariant
         while window_counts[ch] > 1:
             left_ch = s[left]
             window_counts[left_ch] -= 1
             left += 1
 
-        # 3. Actualizar la mejor respuesta con la ventana válida [left..right]
+        # 3. UPDATE best answer on valid window [left..right]
         max_len = max(max_len, right - left + 1)
 
     return max_len`,
@@ -792,7 +793,7 @@ def remove_duplicates_inplace(nums: list[int]) -> int:
     const ch = s[right];
     counts.set(ch, (counts.get(ch) ?? 0) + 1);
 
-    // Contraer mientras la condición sea inválida
+    // Shrink while window invariant is broken
     while ((counts.get(ch) ?? 0) > 1) {
       const leftCh = s[left];
       counts.set(leftCh, (counts.get(leftCh) ?? 1) - 1);
@@ -809,67 +810,67 @@ def remove_duplicates_inplace(nums: list[int]) -> int:
         title: "Longest Substring Without Repeating Characters",
         slug: "longest-substring-without-repeating-characters",
         difficulty: "Medium",
-        patternHint: "Expande `right` y encoge `left` mientras el carácter recién agregado tenga frecuencia > 1.",
+        patternHint: "Expand `right` and shrink `left` whenever the newly added character's count exceeds 1.",
       },
       {
         number: 209,
         title: "Minimum Size Subarray Sum",
         slug: "minimum-size-subarray-sum",
         difficulty: "Medium",
-        patternHint: "Para ventana MÍNIMA, actualiza la respuesta DENTRO del `while` mientras la condición se cumpla y encoge `left`.",
+        patternHint: "For a MINIMUM window, update the answer INSIDE the `while` loop while the sum is valid and shrink `left`.",
       },
       {
         number: 424,
         title: "Longest Repeating Character Replacement",
         slug: "longest-repeating-character-replacement",
         difficulty: "Medium",
-        patternHint: "La ventana es válida si `(right - left + 1) - max_frecuencia <= k`.",
+        patternHint: "Window `[left..right]` is valid as long as `(right - left + 1) - max_freq <= k`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Presenta la 'Plantilla Universal de 3 Pasos de Sliding Window' (1. Expandir con `right`, 2. Contraer con `while` desde `left`, 3. Actualizar respuesta). Explica la diferencia entre buscar la ventana MÁS LARGA (actualizar fuera del while) vs la ventana MÁS CORTA (actualizar dentro del while), y por qué el `while` dentro del `for` sigue siendo O(N) y no O(N²).",
+        "Teach the 'Universal 3-Step Sliding Window Template' (1. Expand with `right`, 2. Shrink with `while` from `left`, 3. Update answer). Explain the difference between finding the LONGEST valid window (update outside the `while`) vs the SHORTEST valid window (update inside the `while`), and why a `while` inside a `for` is still O(N) amortized.",
       keyTakeaways: [
-        "Palabra clave en el enunciado: 'subarray contiguo' o 'substring' + 'más largo / más corto / suma máxima'.",
-        "Complejidad O(N) amortizada: ningún elemento entra más de una vez por `right` ni sale más de una vez por `left`.",
-        "Diferencia clave: en ventana máxima encoges cuando es INVÁLIDA; en ventana mínima encoges mientras sea VÁLIDA para exprimir su tamaño.",
+        "Trigger keywords: 'contiguous subarray' or 'substring' + 'longest / shortest / maximum sum'.",
+        "Amortized O(N) complexity: each element enters the window once via `right` and leaves at most once via `left`.",
+        "For longest window: shrink while INVALID, then record length. For shortest window: record length and shrink while VALID.",
       ],
       stepByStepWalkthrough: [
-        "Inicializar `left = 0`, el estado de la ventana (suma o diccionario de conteo) y la variable de mejor respuesta.",
-        "Iterar `right` de `0` a `N-1` agregando el elemento `nums[right]` al estado de la ventana.",
-        "Usar un ciclo `while` para avanzar `left` y restar `nums[left]` cuando la ventana necesita ajustarse.",
-        "Calcular el tamaño de la ventana con la fórmula `right - left + 1`.",
+        "Initialize `left = 0`, the window state (running sum or frequency map), and the best answer.",
+        "Iterate `right` from `0` to `N-1`, adding `nums[right]` into the window state.",
+        "Use a `while` loop to advance `left` and remove `nums[left]` whenever the window needs adjustment.",
+        "Compute the window size using `right - left + 1`.",
       ],
       interviewTraps: [
-        "Intentar usar Sliding Window de suma cuando el arreglo tiene números negativos (ej. LeetCode 560 Subarray Sum Equals K). Con negativos, usa Prefix Sum + Hash Map.",
-        "Equivocarse por 1 en el tamaño de la ventana: la cantidad de elementos entre `left` y `right` inclusive es `right - left + 1`.",
+        "Using sum-based Sliding Window when the array contains negative numbers (e.g., LeetCode 560 Subarray Sum Equals K). With negatives, use Prefix Sum + Hash Map.",
+        "Off-by-one error on window length: the number of elements from `left` to `right` inclusive is `right - left + 1`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:30",
-          sectionTitle: "La Oruga: Por qué no recalcular desde cero",
-          visualCue: "Marco luminoso deslizándose sobre un arreglo: entra el elemento derecho y sale el izquierdo.",
+          sectionTitle: "The Caterpillar Mental Model: Stop Recomputing Sums",
+          visualCue: "Glowing frame sliding across an array: adding the right element and subtracting the left element.",
           narration:
-            "Si calculas la suma de cinco elementos y luego te mueves un paso a la derecha, ¿para qué volver a sumar los cuatro del medio? Solo suma el que entra por la derecha y resta el que sale por la izquierda. Eso es Sliding Window.",
+            "If you just summed five elements and slide your window one step right, why re-add the four elements in the middle? Just add the new element entering on the right and subtract the old one leaving on the left. That is Sliding Window.",
         },
         {
           timestamp: "01:30 - 04:30",
-          sectionTitle: "La Plantilla Universal de Ventana Dinámica",
-          visualCue: "Código con los 3 bloques numerados: Expandir, Contraer y Actualizar.",
+          sectionTitle: "The 10-Line Universal Dynamic Window Template",
+          visualCue: "Code highlighted in 3 blocks: Expand, Shrink, and Update.",
           narration:
-            "El 95% de los problemas de ventana deslizante caen con la misma plantilla de diez líneas: un bucle for para avanzar right, y un while interno que avanza left solo cuando rompemos la regla.",
+            "Ninety-five percent of dynamic sliding window problems fall to the exact same ten-line template: a `for` loop advancing `right`, and an inner `while` loop advancing `left` whenever our rule is broken.",
         },
       ],
     },
   },
 
   // ============================================================================
-  // NIVEL 2: PREPROCESAMIENTO, HASHING, ORDENAMIENTO Y BÚSQUEDA (08 - 14)
+  // LEVEL 2: PREPROCESSING, HASHING, SORTING & SEARCH (08 - 14)
   // ============================================================================
   {
     id: "prefix-sum",
     order: 8,
-    title: "Prefix Sums (Sumas de Prefijos 1D y 2D)",
+    title: "Prefix Sums (1D, 2D & Subarray Sum = K)",
     shortTitle: "Prefix Sums",
     englishTerm: "Prefix Sums",
     kind: "algorithm",
@@ -878,28 +879,28 @@ def remove_duplicates_inplace(nums: list[int]) -> int:
     branchCategory: "hashing-sorting-search",
     prerequisites: ["arrays"],
     summary:
-      "Precalcular en O(N) las sumas acumuladas desde el inicio del arreglo para responder cualquier consulta de suma en un rango `[L, R]` en tiempo instantáneo O(1) mediante la resta `prefix[R+1] - prefix[L]`.",
+      "Precomputing cumulative sums from the start of an array in O(N) so that any range sum query `[L, R]` can be answered in instant O(1) time via simple subtraction: `prefix[R + 1] - prefix[L]`.",
     analogy:
-      "El odómetro (cuentakilómetros) de un auto en una carretera: si en el kilómetro 0 de tu viaje marcaba 10,200 km al pasar por el pueblo A y luego marca 10,350 km al llegar al pueblo B, sabes en un instante que entre A y B hay exactamente 150 km (`10350 - 10200`), sin tener que volver a medir cada metro del tramo.",
+      "A car's odometer on a highway trip: if the odometer read 10,200 km at Town A and 10,350 km at Town B, you know instantly that the distance between A and B is `10,350 - 10,200 = 150 km` without re-measuring every kilometer in between.",
     whenToUse: [
-      "Múltiples consultas de suma o XOR sobre rangos `[L, R]` de un arreglo estático.",
-      "Contar o encontrar subarreglos que sumen exactamente `K` cuando PUEDE haber números negativos (combinando `Prefix Sum + Hash Map`).",
-      "Consultas de suma de submatrices rectangulares en 2D en O(1) por consulta.",
+      "Answering multiple range sum or range XOR queries `[L, R]` on a static array in O(1) per query.",
+      "Counting or finding subarrays that sum to `K` when **negative numbers ARE present** (combining `Prefix Sum + Hash Map`).",
+      "Computing the sum of any 2D rectangular submatrix in O(1) using 2D inclusion-exclusion.",
     ],
     whenNotToUse: [
-      "Si el arreglo cambia constantemente entre consultas (`update(i, val)` + `rangeSum(L, R)`): actualizar un Prefix Sum cuesta O(N). Para actualizaciones dinámicas necesitas un Fenwick Tree o Segment Tree.",
+      "If the array values are frequently mutated between range queries (`update(i, val)` + `rangeSum(L, R)`): updating a Prefix Sum takes O(N). Use a Fenwick Tree or Segment Tree instead.",
     ],
     timeComplexity: {
-      average: "Preprocesamiento: O(N) | Consulta de rango `[L, R]`: O(1)",
+      average: "Build: O(N) | Range Query `[L, R]`: O(1)",
       worst: "O(N) total",
-      note: "Agregar un cero inicial (`prefix = [0] * (n + 1)`) elimina todos los casos borde cuando L = 0.",
+      note: "Padding with a leading zero (`prefix = [0] * (n + 1)`) eliminates all `if L == 0` boundary checks.",
     },
-    spaceComplexity: "O(N) para guardar el arreglo de prefijos",
-    constraintHint: "Q ≤ 10⁵ consultas de rango o Subarray Sum = K con números negativos",
+    spaceComplexity: "O(N) for the prefix array or hash map",
+    constraintHint: "Q <= 10^5 range sum queries or Subarray Sum = K with negative numbers",
     pythonTemplate: `class RangeSumQuery:
     """
-    Prefix Sum 1D con padding de un 0 a la izquierda.
-    pref[i] guarda la suma de los primeros i elementos: nums[0..i-1].
+    1D Prefix Sum padded with a leading 0 at index 0.
+    pref[i] stores the sum of the first i elements: nums[0..i-1].
     """
     def __init__(self, nums: list[int]):
         self.pref = [0] * (len(nums) + 1)
@@ -907,16 +908,16 @@ def remove_duplicates_inplace(nums: list[int]) -> int:
             self.pref[i + 1] = self.pref[i] + x
 
     def query(self, left: int, right: int) -> int:
-        # Suma de nums[left..right] inclusive en O(1)
+        # Sum of nums[left..right] inclusive in O(1)
         return self.pref[right + 1] - self.pref[left]
 
 
 def subarray_sum_equals_k(nums: list[int], k: int) -> int:
     """
-    Patrón Estrella: Prefix Sum + Hash Map (funciona con números NEGATIVOS).
-    Si pref_actual - pref_anterior == k -> entonces pref_anterior == pref_actual - k.
+    Star Pattern: Prefix Sum + Hash Map (works with NEGATIVE numbers!).
+    If curr_sum - prev_sum == k, then prev_sum == curr_sum - k.
     """
-    seen_prefixes = {0: 1}  # Un prefijo vacío tiene suma 0
+    seen_prefixes = {0: 1}  # Base prefix of sum 0 occurs once
     curr_sum = 0
     count = 0
     for x in nums:
@@ -942,53 +943,53 @@ def subarray_sum_equals_k(nums: list[int], k: int) -> int:
         title: "Range Sum Query - Immutable",
         slug: "range-sum-query-immutable",
         difficulty: "Easy",
-        patternHint: "Arreglo `pref` de tamaño `N+1` con `pref[0] = 0`.",
+        patternHint: "Build a `pref` array of size `N + 1` with `pref[0] = 0`.",
       },
       {
         number: 560,
         title: "Subarray Sum Equals K",
         slug: "subarray-sum-equals-k",
         difficulty: "Medium",
-        patternHint: "Guarda en un Hash Map cuántas veces ha aparecido cada `curr_sum` y busca `curr_sum - k`.",
+        patternHint: "Store how many times each `curr_sum` has appeared in a Hash Map and look up `curr_sum - k`.",
       },
       {
         number: 304,
         title: "Range Sum Query 2D - Immutable",
         slug: "range-sum-query-2d-immutable",
         difficulty: "Medium",
-        patternHint: "Principio de inclusión-exclusión en 2D: `pref[r2][c2] - arriba - izquierda + esquina_diagonal`.",
+        patternHint: "2D inclusion-exclusion: `pref[r2][c2] - top - left + top_left_corner`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica primero la intuición del odómetro para Prefix Sum 1D con el truco del `0` extra al inicio (`N+1` elementos), y luego dedica la mitad central al patrón favorito de las entrevistas de Google y Meta: 'Prefix Sum + Hash Map' (LeetCode 560), explicando por qué triunfa donde Sliding Window falla (cuando hay números negativos).",
+        "First explain the odometer intuition for 1D Prefix Sums with the leading-zero sentinel trick (`N + 1` length). Then dedicate the core of the episode to the interview favorite: 'Prefix Sum + Hash Map' (LeetCode 560), showing why it succeeds with negative numbers where Sliding Window fails.",
       keyTakeaways: [
-        "Con un cero centinela al inicio (`pref = [0] * (n+1)`), la suma de `nums[L..R]` siempre es `pref[R+1] - pref[L]` sin `if L == 0`.",
-        "La suma de un subarreglo `nums[i..j]` es la diferencia entre dos prefijos: `pref[j+1] - pref[i]`.",
-        "Combinar Prefix Sum con un Hash Map transforma 'buscar un subarreglo de suma K' en un problema de tipo `Two Sum` sobre prefijos.",
+        "With a leading zero sentinel (`pref = [0] * (n + 1)`), the sum of `nums[L..R]` is always `pref[R + 1] - pref[L]` with zero edge cases.",
+        "Any subarray sum `nums[i..j]` is the difference between two prefix sums: `pref[j + 1] - pref[i]`.",
+        "Combining Prefix Sum with a Hash Map turns 'find a subarray summing to K' into `Two Sum` on prefix sums.",
       ],
       stepByStepWalkthrough: [
-        "Construir el arreglo `pref` de longitud `N + 1` inicializado en 0.",
-        "Para cada consulta `[L, R]`, devolver `pref[R + 1] - pref[L]` en O(1).",
-        "Si buscas subarreglos con suma `K`, mantén un diccionario `{suma_prefijo: frecuencia}` inicializado en `{0: 1}`.",
+        "Allocate `pref` of length `N + 1` initialized to 0.",
+        "For any range `[L, R]`, return `pref[R + 1] - pref[L]` in O(1).",
+        "When counting subarrays with sum `K`, maintain a frequency map `{prefix_sum: count}` initialized with `{0: 1}`.",
       ],
       interviewTraps: [
-        "Olvidar inicializar el diccionario con `{0: 1}` en `Subarray Sum Equals K`, perdiendo todos los subarreglos que empiezan exactamente en el índice 0.",
+        "Forgetting to initialize `seen_prefixes = {0: 1}` in `Subarray Sum Equals K`, which misses every valid subarray that starts at index 0.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "La analogía del odómetro y el Cero Centinela",
-          visualCue: "Arreglo original arriba y arreglo `pref` de tamaño N+1 abajo mostrando la resta de dos casillas.",
+          sectionTitle: "The Odometer Analogy and the Leading Zero Sentinel",
+          visualCue: "Original array on top and `N+1` prefix array below highlighting subtraction of two cells.",
           narration:
-            "Si te preguntan mil veces cuánto suman los elementos entre el índice L y el R, sumar desde L hasta R cada vez es lentísimo. Con Prefix Sums hacemos una sola pasada inicial y luego cada pregunta se responde con una simple resta en O(1).",
+            "If someone asks you ten thousand times for the sum between index L and R, looping from L to R every time is way too slow. With Prefix Sums, we do one O(N) pass up front and answer every future query with a single O(1) subtraction.",
         },
         {
           timestamp: "01:45 - 04:45",
-          sectionTitle: "Prefix Sum + Hash Map: El salvavidas con números negativos",
-          visualCue: "Gráfica subiendo y bajando con números negativos mostrando dos puntos cuya diferencia de altura es K.",
+          sectionTitle: "Prefix Sum + Hash Map: Conquering Negative Numbers",
+          visualCue: "Line graph rising and falling with negative numbers, highlighting two points separated vertically by K.",
           narration:
-            "Cuando hay números negativos, la ventana deslizante pierde su brújula. Pero si guardamos cada suma acumulada en un Hash Map, preguntar si existe un subarreglo que sume K equivale a preguntar: ¿ya vi antes un prefijo igual a `suma_actual - K`?",
+            "When negative numbers appear, Sliding Window loses its monotonic compass. By storing every running prefix sum in a Hash Map, asking if a subarray sums to K becomes asking: have I already seen a prefix sum equal to `current_sum - K`?",
         },
       ],
     },
@@ -1005,28 +1006,28 @@ def subarray_sum_equals_k(nums: list[int], k: int) -> int:
     branchCategory: "hashing-sorting-search",
     prerequisites: ["arrays", "strings"],
     summary:
-      "La herramienta número uno para acelerar algoritmos: utiliza una función hash para transformar cualquier clave inmutable en un índice de arreglo, logrando inserción, borrado y búsqueda en tiempo promedio O(1).",
+      "The #1 tool for accelerating algorithms: uses a hash function to map any immutable key to a bucket index, providing O(1) average-time insertion, deletion, and lookup.",
     analogy:
-      "Un guardarropa de teatro con una regla matemática: en lugar de buscar tu abrigo revisando perchero por perchero (O(N)), la etiqueta calcula un número exacto a partir de tu nombre y el encargado va directo a ese gancho en un segundo (O(1)).",
+      "A coat check room with a mathematical formula: instead of scanning every coat hook from 1 to 10,000 (O(N)), the formula computes your exact hook number directly from your name in one step (O(1)).",
     whenToUse: [
-      "Necesitas saber en O(1) si un elemento ya apareció antes (`Hash Set` para duplicados o pertenencia).",
-      "Necesitas asociar claves con valores: conteo de frecuencias, guardar el índice donde viste cada número (`Two Sum`), o agrupar elementos por una firma común.",
-      "Quieres cambiar un bucle interno de búsqueda O(N) por una consulta instantánea O(1) (Trade-off Espacio por Tiempo).",
+      "You need O(1) membership checks to see if an element has appeared before (`Hash Set` for duplicates).",
+      "You need key-value associations: frequency counting, remembering the index where a value was seen (`Two Sum`), or grouping items by a shared signature.",
+      "You want to replace an inner O(N) linear search loop with an instant O(1) lookup (trading O(N) space for O(N) time).",
     ],
     whenNotToUse: [
-      "Necesitas mantener los elementos ordenados o buscar el 'elemento más cercano mayor o igual a X' (un Hash Map no tiene orden; para eso usa Binary Search o un Ordered Set / BST).",
+      "You need sorted order or nearest-neighbor queries like 'find the smallest element >= X' (Hash Tables are unordered; use Binary Search or an Ordered Set / BST instead).",
     ],
     timeComplexity: {
-      average: "Insertar / Buscar / Borrar: O(1)",
-      worst: "O(N) si todas las claves colisionan en el mismo bucket",
-      note: "Las implementaciones modernas (`dict` en Python, `Map` en JS) redimensionan la tabla para mantener el factor de carga bajo.",
+      average: "Insert / Lookup / Delete: O(1)",
+      worst: "O(N) under adversarial hash collisions",
+      note: "Modern implementations (`dict` in Python, `Map` in JS) resize automatically to keep load factor low.",
     },
-    spaceComplexity: "O(N) para almacenar hasta N claves únicas",
-    constraintHint: "Reemplaza búsquedas lineales internas cuando N ≤ 10⁵",
+    spaceComplexity: "O(N) to store up to N unique keys",
+    constraintHint: "Eliminates inner linear search loops when N <= 10^5",
     pythonTemplate: `def two_sum_hash(nums: list[int], target: int) -> list[int]:
     """
-    Patrón Clásico: Guardar {valor_visto: indice} mientras recorres en 1 solo pase.
-    Tiempo: O(N) | Espacio: O(N)
+    Classic Pattern: Store {value_seen: index} in a single pass.
+    Time: O(N) | Space: O(N)
     """
     seen: dict[int, int] = {}
     for i, num in enumerate(nums):
@@ -1039,12 +1040,12 @@ def subarray_sum_equals_k(nums: list[int], k: int) -> int:
 
 def longest_consecutive(nums: list[int]) -> int:
     """
-    Patrón de Inicio de Secuencia con Hash Set en O(N).
+    Sequence-Start Pattern with Hash Set in O(N).
     """
     num_set = set(nums)
     best = 0
     for x in num_set:
-        # Solo empezamos a contar si 'x' es el INICIO de una racha
+        # Only start counting if 'x' is the very START of a streak
         if (x - 1) not in num_set:
             length = 1
             while (x + length) in num_set:
@@ -1068,53 +1069,53 @@ def longest_consecutive(nums: list[int]) -> int:
         title: "Two Sum",
         slug: "two-sum",
         difficulty: "Easy",
-        patternHint: "Consulta si `target - x` ya está en el diccionario antes de insertar `x`.",
+        patternHint: "Check if `target - x` is already in the map before inserting `x`.",
       },
       {
         number: 128,
         title: "Longest Consecutive Sequence",
         slug: "longest-consecutive-sequence",
         difficulty: "Medium",
-        patternHint: "Mete todo en un `set` y solo expande hacia adelante desde números `x` cuyo `x - 1` NO esté en el set.",
+        patternHint: "Insert all numbers into a `set` and only expand streaks from numbers `x` where `x - 1` is NOT in the set.",
       },
       {
         number: 217,
         title: "Contains Duplicate",
         slug: "contains-duplicate",
         difficulty: "Easy",
-        patternHint: "Detección inmediata en O(N) con `set`.",
+        patternHint: "Instant O(N) duplicate detection with a `set`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica cómo funciona una Tabla Hash por dentro (función hash -> módulo capacidad -> resolución de colisiones) y luego enseña los 3 patrones de entrevista con Hash: 1) Búsqueda de complemento (`Two Sum`), 2) Mapa de frecuencias, y 3) Detección de inicio de racha en O(N) (`Longest Consecutive Sequence`).",
+        "Explain how a Hash Table works under the hood (hash function -> modulo capacity -> collision handling) and then walk through the 3 high-yield interview patterns: 1) Complement lookup (`Two Sum`), 2) Frequency counter, and 3) Streak-start detection in O(N) (`Longest Consecutive Sequence`).",
       keyTakeaways: [
-        "Chiste clásico pero real de entrevistas: si te atascas, pregúntate '¿y si le meto un Hash Map?'",
-        "En Python, las llaves de un `dict` o elementos de un `set` deben ser inmutables (`int`, `str`, `tuple`), nunca `list`.",
-        "En `Longest Consecutive Sequence`, verificar `if (x - 1) not in num_set` evita trabajo repetido y garantiza O(N).",
+        "Classic interview truth: whenever you have an O(N^2) nested search, ask 'Can a Hash Map make the inner lookup O(1)?'",
+        "In Python, `dict` keys and `set` elements must be immutable (`int`, `str`, `tuple`), never `list`.",
+        "In `Longest Consecutive Sequence`, checking `if (x - 1) not in num_set` prevents redundant work and guarantees O(N).",
       ],
       stepByStepWalkthrough: [
-        "Preguntarse: ¿qué información del pasado me gustaría consultar en O(1) mientras estoy en el índice `i`?",
-        "Definir qué es la Clave (`key`) y qué es el Valor (`value`: índice, frecuencia o lista de elementos agrupados).",
-        "Recorrer la entrada actualizando y consultando la tabla hash.",
+        "Ask: what information from previous elements do I wish I could look up in O(1) while standing at index `i`?",
+        "Define the `Key` (what you search by) and the `Value` (index, frequency, or grouped list).",
+        "Scan the input updating and querying the hash table in O(1).",
       ],
       interviewTraps: [
-        "Intentar usar una lista mutable `[1, 2]` como llave de un diccionario en Python (`TypeError: unhashable type: 'list'`). Conviértela a `tuple([1, 2])`.",
+        "Trying to use a mutable `list` as a dictionary key in Python (`TypeError: unhashable type: 'list'`). Convert it to `tuple` first.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "Cómo funciona una Hash Table bajo el capó",
-          visualCue: "Animación de una clave pasando por `hash(key) % buckets` y manejando una colisión.",
+          sectionTitle: "How a Hash Table Works Under the Hood",
+          visualCue: "Animation of a key passing through `hash(key) % buckets` into an array slot.",
           narration:
-            "Una Tabla Hash combina la flexibilidad de buscar por cualquier llave con la velocidad instantánea de un Array. ¿Cómo lo logra? Usando una función matemática que convierte tu llave en un índice numérico.",
+            "A Hash Table combines the flexibility of searching by any key with the instant O(1) speed of an Array. How? By running your key through a deterministic hash function that maps it to a bucket index.",
         },
         {
           timestamp: "01:45 - 04:30",
-          sectionTitle: "Los 3 Patrones Maestros con Hash Map y Hash Set",
-          visualCue: "Tres tarjetas visuales: Complemento O(1), Contador de Frecuencias y Centinela de Secuencia.",
+          sectionTitle: "The 3 Master Patterns: Complement, Frequency, and Sequence Start",
+          visualCue: "Three visual cards: O(1) Complement, Frequency Map, and Streak Sentinel.",
           narration:
-            "Más allá de guardar datos, en entrevistas usarás tablas hash para tres jugadas maestras: recordar el índice de un complemento, contar frecuencias y detectar el inicio exacto de secuencias consecutivas en tiempo lineal.",
+            "In interviews, you will use hash tables for three signature plays: remembering the index of a complement, counting frequencies, and detecting the exact start of consecutive sequences in linear time.",
         },
       ],
     },
@@ -1122,7 +1123,7 @@ def longest_consecutive(nums: list[int]) -> int:
   {
     id: "counting",
     order: 10,
-    title: "Counting & Bucket Sort (Ordenamiento por Conteo)",
+    title: "Counting & Bucket Sort",
     shortTitle: "Counting / Buckets",
     englishTerm: "Counting Sort & Bucket Sort",
     kind: "algorithm",
@@ -1131,39 +1132,38 @@ def longest_consecutive(nums: list[int]) -> int:
     branchCategory: "hashing-sorting-search",
     prerequisites: ["arrays", "hash-table"],
     summary:
-      "Romper la barrera teórica del O(N log N) de los ordenamientos por comparación: cuando los valores o frecuencias caen en un rango acotado `[0..K]`, podemos agruparlos en cubetas (buckets) y ordenarlos en tiempo lineal O(N + K).",
+      "Breaking the O(N log N) comparison-sort barrier: when values or frequencies fall within a bounded range `[0..K]`, we can group them into buckets and sort in linear O(N + K) time.",
     analogy:
-      "Ordenar un mazo de 500 monedas de 1, 5, 10 y 20 pesos. En lugar de comparar monedas de dos en dos (QuickSort/MergeSort), simplemente pones 4 cajas en la mesa, tiras cada moneda en su caja correspondiente y al final juntas las cajas en orden.",
+      "Sorting 500 coins of denominations 1, 5, 10, and 25 cents. Instead of comparing coins two by two (QuickSort/MergeSort), you place 4 labeled boxes on the table, drop each coin into its box in one pass, and collect the boxes in order.",
     whenToUse: [
-      "El rango de valores posibles `K` es pequeño o proporcional a `N` (ej. edades `0..120`, colores `0, 1, 2`, calificaciones `0..100`).",
-      "Quieres ordenar elementos por su FRECUENCIA de aparición (la frecuencia máxima nunca supera `N`, por lo que puedes crear `N + 1` cubetas donde el índice `f` guarda los elementos que aparecen `f` veces).",
+      "The range of possible values `K` is small or proportional to `N` (e.g., ages `0..120`, colors `0, 1, 2`, scores `0..100`).",
+      "Sorting elements by their **FREQUENCY of occurrence**: since no element in an array of length `N` can appear more than `N` times, you can allocate `N + 1` buckets indexed by frequency (`Top K Frequent Elements` in O(N)).",
     ],
     whenNotToUse: [
-      "Cuando los valores pueden ser gigantescos o arbitrarios (ej. enteros de hasta `10⁹` o flotantes sin acotar), ya que crear un arreglo de tamaño `10⁹` agotaría la memoria RAM.",
+      "When values span an huge arbitrary range (e.g., integers up to `10^9`), since allocating `10^9` buckets would exhaust memory.",
     ],
     timeComplexity: {
-      average: "O(N + K) donde K es el número de cubetas",
+      average: "O(N + K) where K is the bucket range",
       worst: "O(N + K)",
-      note: "Supera a O(N log N) cuando K = O(N).",
+      note: "Beats O(N log N) whenever K = O(N).",
     },
-    spaceComplexity: "O(N + K) para los contadores y cubetas",
-    constraintHint: "Rango de valores K ≤ 10⁵ o ordenar por frecuencia (frecuencia ≤ N)",
+    spaceComplexity: "O(N + K) for the bucket array",
+    constraintHint: "Bounded value range K <= 10^5 or sorting by frequency (max frequency <= N)",
     pythonTemplate: `def top_k_frequent_buckets(nums: list[int], k: int) -> list[int]:
     """
-    Bucket Sort por Frecuencia (LeetCode 347) en O(N) puro, sin usar Heap.
-    Como ningún elemento puede aparecer más de N veces, creamos N+1 cubetas.
+    Bucket Sort by Frequency (LeetCode 347) in pure O(N) time without a Heap.
+    Since no number can appear more than N times, we create N + 1 buckets.
     """
     freq_map: dict[int, int] = {}
     for x in nums:
         freq_map[x] = freq_map.get(x, 0) + 1
 
-    # buckets[f] contiene la lista de números que aparecieron exactamente 'f' veces
+    # buckets[f] stores all numbers that appeared exactly 'f' times
     buckets: list[list[int]] = [[] for _ in range(len(nums) + 1)]
     for num, freq in freq_map.items():
         buckets[freq].append(num)
 
     result: list[int] = []
-    # Recorremos las cubetas desde la mayor frecuencia hacia abajo
     for freq in range(len(nums), 0, -1):
         for num in buckets[freq]:
             result.append(num)
@@ -1196,52 +1196,52 @@ def longest_consecutive(nums: list[int]) -> int:
         title: "Top K Frequent Elements",
         slug: "top-k-frequent-elements",
         difficulty: "Medium",
-        patternHint: "Usa `buckets[frecuencia]` de tamaño `N+1` para lograr O(N) en vez de O(N log K) con Heap.",
+        patternHint: "Use `buckets[frequency]` of size `N + 1` to achieve O(N) time instead of O(N log K) with a Heap.",
       },
       {
         number: 451,
         title: "Sort Characters By Frequency",
         slug: "sort-characters-by-frequency",
         difficulty: "Medium",
-        patternHint: "Cuenta frecuencias y reconstruye el string recorriendo las cubetas de `N` a `1`.",
+        patternHint: "Count frequencies and rebuild the string by scanning buckets from `N` down to `1`.",
       },
       {
         number: 274,
         title: "H-Index",
         slug: "h-index",
         difficulty: "Medium",
-        patternHint: "Trunca citas mayores a `N` en la cubeta `N` y acumula de derecha a izquierda en O(N).",
+        patternHint: "Cap citations larger than `N` into bucket `N` and accumulate from right to left in O(N).",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica cómo es posible ordenar en O(N) sin romper las leyes de la computación (evitando comparaciones directas y usando los propios valores o frecuencias como índices de un arreglo de cubetas). Destaca el truco de Bucket Sort por Frecuencia en 'Top K Frequent Elements'.",
+        "Explain how we can sort in O(N) time without violating computer science laws (by avoiding pairwise comparisons and indexing directly into buckets). Highlight the 'Bucket Sort by Frequency' pattern for Top K Frequent Elements.",
       keyTakeaways: [
-        "Todo algoritmo de ordenamiento basado en comparaciones (`<`, `>`) tarda al menos O(N log N), pero Counting/Bucket Sort no compara: indexa directamente.",
-        "Aunque los números de entrada sean enormes (`-10⁹` a `10⁹`), sus FRECUENCIAS siempre están entre `1` y `N`, permitiendo usar Bucket Sort por frecuencia en O(N).",
+        "Every comparison-based sort (`<`, `>`) requires at least O(N log N), but Counting/Bucket Sort indexes directly without comparing.",
+        "Even if input numbers are huge (`-10^9` to `10^9`), their FREQUENCIES are bounded between `1` and `N`, enabling O(N) Bucket Sort by frequency.",
       ],
       stepByStepWalkthrough: [
-        "Identificar la variable acotada (el valor del elemento si es pequeño, o su frecuencia si ya contamos con un Hash Map).",
-        "Crear un arreglo de cubetas `buckets` cuyo índice representa esa cantidad acotada.",
-        "Recorrer las cubetas en orden ascendente o descendente para recolectar la respuesta en O(N).",
+        "Identify the bounded quantity (either the element value itself or its frequency count).",
+        "Allocate a `buckets` list indexed by that bounded value.",
+        "Scan the buckets in ascending or descending order to collect the sorted output in O(N).",
       ],
       interviewTraps: [
-        "Inicializar cubetas en Python con `buckets = [[]] * (n + 1)`: eso crea `n + 1` referencias a la MISMA lista en memoria. Siempre usa `[[] for _ in range(n + 1)]`.",
+        "Initializing buckets in Python with `buckets = [[]] * (n + 1)`—which creates `n + 1` references to the SAME list object. Always use `[[] for _ in range(n + 1)]`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:30",
-          sectionTitle: "Rompiendo el límite de O(N log N)",
-          visualCue: "Comparación de árbol de decisiones O(N log N) vs caída directa en cubetas numeradas O(N).",
+          sectionTitle: "Breaking the O(N log N) Speed Limit",
+          visualCue: "Comparison decision tree O(N log N) vs direct drop into numbered buckets O(N).",
           narration:
-            "En la universidad nos enseñan que ordenar toma N log N. Pero eso solo aplica si ordenas comparando elementos entre sí. Si sabes que tus datos caen en un rango pequeño, puedes usar los propios números como índices de casilleros.",
+            "In CS 101 we learn that sorting takes N log N. But that lower bound only applies when sorting via pairwise comparisons. When your keys or frequencies fall in a bounded range, you can use the numbers themselves as array indices.",
         },
         {
           timestamp: "01:30 - 04:00",
-          sectionTitle: "Bucket Sort por Frecuencia (El truco de Top-K en O(N))",
-          visualCue: "Arreglo de cubetas de 0 a N donde cada índice guarda los números con esa frecuencia.",
+          sectionTitle: "Bucket Sort by Frequency (Top-K in Pure O(N))",
+          visualCue: "Bucket array from 0 to N where each index holds numbers appearing that many times.",
           narration:
-            "Incluso si los números del arreglo son gigantescos, ¿cuántas veces puede repetirse un número en un arreglo de tamaño N? Como máximo N veces. Eso nos permite ordenar por frecuencia en tiempo 100% lineal.",
+            "Even when input integers are arbitrarily large, how many times can any number appear in an array of length N? At most N times. That lets us sort by frequency in 100% linear time.",
         },
       ],
     },
@@ -1249,7 +1249,7 @@ def longest_consecutive(nums: list[int]) -> int:
   {
     id: "sorting-intervals",
     order: 11,
-    title: "Sorting + Interval Scan ( Barrido de Intervalos)",
+    title: "Sorting + Interval Scan (Merge Intervals)",
     shortTitle: "Sorting + Intervals",
     englishTerm: "Sorting & Merge Intervals",
     kind: "algorithm",
@@ -1258,29 +1258,29 @@ def longest_consecutive(nums: list[int]) -> int:
     branchCategory: "hashing-sorting-search",
     prerequisites: ["arrays", "basic-dsa"],
     summary:
-      "Ordenar segmentos `[start, end]` (por su punto de inicio o de fin) para que cualquier par de intervalos que se traslapen queden adyacentes, permitiendo fusionarlos, contar colisiones o detectar huecos libres en un solo barrido lineal.",
+      "Sorting segments `[start, end]` by start time so that any overlapping intervals become adjacent, allowing us to merge overlaps, insert intervals, or detect free gaps in a single linear sweep.",
     analogy:
-      "Organizar tu calendario de reuniones del día: si las notas de tus reuniones están revueltas sobre el escritorio, es difícil ver cuáles se cruzan. Pero si las ordenas por hora de inicio de las 8:00 AM a las 6:00 PM, basta mirar cada reunión contra la inmediatamente anterior para ver si chocan.",
+      "Organizing your daily meeting calendar: if sticky notes with meeting times are scattered across your desk, spotting conflicts is hard. Once you line them up chronologically from 8:00 AM to 6:00 PM, you only need to compare each meeting against the one immediately before it.",
     whenToUse: [
-      "El input es una lista de intervalos `[start, end]`, horarios de reuniones, reservas o segmentos en una línea.",
-      "Te piden fusionar intervalos superpuestos (`Merge Intervals`), insertar un nuevo intervalo, o encontrar huecos libres.",
+      "The input is a list of intervals `[start, end]`, meeting times, reservations, or 1D line segments.",
+      "You need to merge overlapping intervals (`Merge Intervals`), insert a new interval, or find free time gaps.",
     ],
     whenNotToUse: [
-      "Si el problema pide elegir el MÁXIMO número de intervalos que NO se solapan (Interval Scheduling Greedy), conviene ordenar por `end` (hora de finalización) en lugar de `start`.",
+      "If asked for the MAXIMUM number of non-overlapping intervals (`Non-overlapping Intervals` / Interval Scheduling), sort by **END time (`x[1]`)** rather than start time.",
     ],
     timeComplexity: {
-      average: "O(N log N) dominado por el ordenamiento inicial",
+      average: "O(N log N) dominated by the initial sort",
       worst: "O(N log N)",
-      note: "El barrido posterior al sort toma solo O(N).",
+      note: "The linear merge sweep after sorting takes only O(N).",
     },
-    spaceComplexity: "O(N) para almacenar la lista de intervalos fusionados",
-    constraintHint: "Lista de pares [start, end] con N ≤ 10⁵",
+    spaceComplexity: "O(N) to store the merged output list",
+    constraintHint: "List of [start, end] pairs with N <= 10^5",
     pythonTemplate: `def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:
     """
-    Patrón Clásico de Fusión de Intervalos.
-    1. Ordenar por start: key=lambda x: x[0]
-    2. Comparar curr[start] <= prev[end]
-    Tiempo: O(N log N) | Espacio: O(N)
+    Canonical Merge Intervals Pattern:
+    1. Sort by start time: key=lambda x: x[0]
+    2. Overlap condition: curr_start <= prev_end
+    Time: O(N log N) | Space: O(N)
     """
     if not intervals:
         return []
@@ -1291,10 +1291,9 @@ def longest_consecutive(nums: list[int]) -> int:
     for start, end in intervals[1:]:
         prev_end = merged[-1][1]
         if start <= prev_end:
-            # Hay traslape: extendemos el final con el máximo de ambos
+            # Overlap: extend the end using max() in case one interval wraps the other
             merged[-1][1] = max(prev_end, end)
         else:
-            # No hay traslape: agregamos un nuevo intervalo independiente
             merged.append([start, end])
 
     return merged`,
@@ -1321,54 +1320,54 @@ def longest_consecutive(nums: list[int]) -> int:
         title: "Merge Intervals",
         slug: "merge-intervals",
         difficulty: "Medium",
-        patternHint: "Ordena por `start` y fusiona si `curr.start <= merged[-1].end` usando `max(prev_end, curr_end)`.",
+        patternHint: "Sort by `start` and merge whenever `curr.start <= merged[-1].end` using `max(prev_end, curr_end)`.",
       },
       {
         number: 57,
         title: "Insert Interval",
         slug: "insert-interval",
         difficulty: "Medium",
-        patternHint: "Divide en 3 fases: los que terminan antes del nuevo, los que se solapan con el nuevo, y los que empiezan después.",
+        patternHint: "Split into 3 phases: intervals ending before `new`, intervals overlapping `new`, and intervals starting after `new`.",
       },
       {
         number: 435,
         title: "Non-overlapping Intervals",
         slug: "non-overlapping-intervals",
         difficulty: "Medium",
-        patternHint: "Ordena por `end` (o al detectar choque conserva el intervalo que termine más temprano).",
+        patternHint: "Sort by `end` time (or on collision keep the interval that finishes earliest).",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Muestra visualmente los 3 casos posibles entre dos intervalos ordenados por inicio: 1) Separados (`curr.start > prev.end`), 2) Traslape parcial, y 3) Uno completamente contenido dentro del otro (por eso es obligatorio usar `max(prev.end, curr.end)` y no simplemente `curr.end`).",
+        "Visually walk through the 3 relative positions of two intervals sorted by start time: 1) Disjoint (`curr.start > prev.end`), 2) Partial overlap, and 3) Complete containment (`[1, 10]` and `[2, 5]`), explaining why `max(prev.end, curr.end)` is mandatory.",
       keyTakeaways: [
-        "Ordenar por `start` garantiza que si dos intervalos se solapan, estarán contiguos en el recorrido.",
-        "La condición universal de solapamiento (una vez ordenados por inicio) es simplemente `curr.start <= prev.end`.",
-        "Al fusionar, el nuevo fin es `max(prev.end, curr.end)` porque el primer intervalo podría ser más largo y envolver al segundo (`[1, 10]` y `[2, 5]`).",
+        "Sorting by `start` guarantees that overlapping intervals sit next to each other.",
+        "Once sorted by start, the universal overlap check is simply `curr.start <= prev.end`.",
+        "Always update the merged end as `max(prev.end, curr.end)` because the earlier interval might completely contain the later one.",
       ],
       stepByStepWalkthrough: [
-        "Ordenar el arreglo de intervalos de menor a mayor según su extremo izquierdo `x[0]`.",
-        "Inicializar la lista `merged` con el primer intervalo.",
-        "Para cada intervalo siguiente, comparar su inicio con el final del último intervalo en `merged`.",
-        "Si se solapan, ampliar el final con `max`; si no, hacer `append`.",
+        "Sort intervals in ascending order by their start coordinate `x[0]`.",
+        "Initialize `merged = [intervals[0]]`.",
+        "For each subsequent interval, compare `start` against `merged[-1][1]`.",
+        "If `start <= merged[-1][1]`, update `merged[-1][1] = max(merged[-1][1], end)`; otherwise append `[start, end]`.",
       ],
       interviewTraps: [
-        "Escribir `merged[-1][1] = end` en vez de `max(merged[-1][1], end)`: falla cuando un intervalo grande como `[1, 10]` es seguido por uno pequeño `[2, 3]`.",
+        "Writing `merged[-1][1] = end` instead of `max(merged[-1][1], end)`, which breaks when `[1, 10]` is followed by `[2, 3]`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:30",
-          sectionTitle: "Domando el caos de los intervalos con un Sort",
-          visualCue: "Barras horizontales desordenadas alineándose de izquierda a derecha tras ordenar por inicio.",
+          sectionTitle: "Taming Interval Chaos with a Single Sort",
+          visualCue: "Scattered horizontal bars aligning left-to-right after sorting by start time.",
           narration:
-            "Comparar todos los intervalos contra todos toma O(N²). Pero en cuanto los ordenamos por su punto de inicio, ocurre la magia: cualquier traslape ocurre únicamente con el vecino inmediato.",
+            "Comparing every interval against every other interval takes O(N^2). But the moment we sort them by start time, any overlap can only happen with the immediately preceding merged interval.",
         },
         {
           timestamp: "01:30 - 04:00",
-          sectionTitle: "La condición `start <= prev_end` y la trampa del intervalo envolvente",
-          visualCue: "El intervalo [1, 10] tragándose al intervalo [2, 5] manteniendo el final en 10.",
+          sectionTitle: "The `start <= prev_end` Check and the Containment Trap",
+          visualCue: "Interval [1, 10] swallowing interval [2, 5] while keeping the right endpoint at 10.",
           narration:
-            "El error más común en entrevistas al fusionar intervalos es reemplazar el final directamente. ¿Qué pasa si el primer intervalo iba de 1 a 10 y el segundo va de 2 a 5? Siempre debes usar el máximo de ambos finales.",
+            "The most common bug in interval interviews is overwriting the end blindly. What if the first interval runs from 1 to 10 and the second runs from 2 to 5? Always take the maximum of both endpoints.",
         },
       ],
     },
@@ -1385,29 +1384,29 @@ def longest_consecutive(nums: list[int]) -> int:
     branchCategory: "hashing-sorting-search",
     prerequisites: ["arrays", "two-pointers"],
     summary:
-      "Reorganizar un arreglo in-place alrededor de un pivote en O(N) para separar elementos menores, iguales y mayores sin tener que ordenar todo el arreglo completo.",
+      "Rearranging an array in-place around a pivot in O(N) time to separate elements that are smaller, equal, and larger—without paying the full O(N log N) cost of sorting everything.",
     analogy:
-      "Clasificar la ropa para lavar en tres cestos (blanca, de color y oscura) en una sola pasada, o encontrar al jugador de estatura mediana de un salón haciendo que los más bajos que un voluntario pasen a la izquierda y los más altos a la derecha: si a la izquierda quedaron muchos, solo sigues buscando en ese grupo.",
+      "Finding the median-height player in a gym class by picking a volunteer pivot: everyone shorter steps left, everyone taller steps right. If 20 people are on the left and you want the 10th shortest overall, you never even need to sort the right half.",
     whenToUse: [
-      "Necesitas el K-ésimo elemento más grande o más pequeño (o la mediana) en O(N) tiempo promedio sin pagar el O(N log N) de ordenar todo (`QuickSelect`).",
-      "Debes agrupar un arreglo en exactamente 3 categorías in-place en un solo pase (`Dutch National Flag` / `Sort Colors` con punteros `low`, `mid`, `high`).",
-      "Mover todos los ceros o pares al frente manteniendo O(1) espacio.",
+      "Finding the **K-th largest or smallest element** (or median) in **O(N) average time** (`QuickSelect`).",
+      "Grouping an array into **3 distinct categories in-place** in a single pass (`Dutch National Flag` / `Sort Colors` with `low`, `mid`, `high` pointers).",
+      "Segregating zeroes, evens/odds, or positives/negatives in-place in O(1) space.",
     ],
     whenNotToUse: [
-      "Si necesitas que TODOS los elementos queden ordenados o vas a hacer muchas consultas de distintos K sobre el mismo arreglo (ahí ordena una sola vez en O(N log N)).",
+      "If you need the entire array sorted or need to answer many different K queries on the same static array (sort once in O(N log N) instead).",
     ],
     timeComplexity: {
-      average: "O(N) (QuickSelect: N + N/2 + N/4 + ... = 2N)",
-      worst: "O(N²) en QuickSelect si el pivote siempre cae en un extremo (usa pivote aleatorio + 3-way partition)",
-      note: "Dutch National Flag siempre es O(N) estricto en un solo pase.",
+      average: "O(N) (QuickSelect geometric series: N + N/2 + N/4 + ... = 2N)",
+      worst: "O(N^2) in QuickSelect if bad pivots are chosen (use random pivot + 3-way partition)",
+      note: "Dijkstra's Dutch National Flag is strictly O(N) in a single pass.",
     },
     spaceComplexity: "O(1) in-place",
-    constraintHint: "K-th Largest en O(N) promedio o clasificación en 3 grupos con O(1) espacio",
+    constraintHint: "K-th Largest in O(N) average time or 3-way in-place classification in O(1) space",
     pythonTemplate: `def sort_colors_dutch_flag(nums: list[int]) -> None:
     """
-    Algoritmo de la Bandera Holandesa de Dijkstra (3-Way Partitioning in-place).
-    Clasifica 0s (izquierda), 1s (centro) y 2s (derecha) en 1 solo pase O(N).
-    Invariante:
+    Dijkstra's Dutch National Flag Algorithm (3-Way In-Place Partition).
+    Groups 0s (left), 1s (middle), and 2s (right) in a single O(N) pass.
+    Invariant:
       nums[0..low-1] == 0
       nums[low..mid-1] == 1
       nums[high+1..n-1] == 2
@@ -1422,7 +1421,7 @@ def longest_consecutive(nums: list[int]) -> int:
             mid += 1
         else:  # nums[mid] == 2
             nums[mid], nums[high] = nums[high], nums[mid]
-            high -= 1  # OJO: No incrementamos mid porque el valor traído de 'high' aún no fue inspeccionado`,
+            high -= 1  # NOTE: Do NOT increment mid yet; the swapped value from 'high' is uninspected`,
     typescriptTemplate: `export function sortColorsDutchFlag(nums: number[]): void {
   let low = 0,
     mid = 0,
@@ -1437,7 +1436,7 @@ def longest_consecutive(nums: list[int]) -> int:
       mid++;
     } else {
       [nums[mid], nums[high]] = [nums[high], nums[mid]];
-      high--; // No avanzar mid hasta evaluar el nuevo elemento traído desde high
+      high--; // Do not increment mid until the newly swapped element is inspected
     }
   }
 }`,
@@ -1447,53 +1446,53 @@ def longest_consecutive(nums: list[int]) -> int:
         title: "Sort Colors",
         slug: "sort-colors",
         difficulty: "Medium",
-        patternHint: "Usa los 3 punteros (`low`, `mid`, `high`) de la Bandera Nacional Holandesa.",
+        patternHint: "Use the 3 pointers (`low`, `mid`, `high`) of Dijkstra's Dutch National Flag algorithm.",
       },
       {
         number: 215,
         title: "Kth Largest Element in an Array",
         slug: "kth-largest-element-in-an-array",
         difficulty: "Medium",
-        patternHint: "QuickSelect con partición en 3 vías (`< pivot`, `== pivot`, `> pivot`) para alcanzar O(N) promedio.",
+        patternHint: "QuickSelect with 3-way partitioning (`< pivot`, `== pivot`, `> pivot`) achieves O(N) average time.",
       },
       {
         number: 283,
         title: "Move Zeroes",
         slug: "move-zeroes",
         difficulty: "Easy",
-        patternHint: "Partición estable de 2 vías: intercambia elementos no-cero hacia el puntero `low`.",
+        patternHint: "2-way stable partition: swap non-zero elements forward into the `low` pointer.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica cómo la operación de Partición es el motor tanto de QuickSort como de QuickSelect (encontrar el K-ésimo elemento en O(N) porque solo exploras una mitad: N + N/2 + N/4 = 2N). Luego explica en detalle el invariante de los 3 punteros de Edsger Dijkstra ('Dutch National Flag') y por qué NO se incrementa `mid` cuando intercambias con `high`.",
+        "Explain how Partitioning powers both QuickSort and QuickSelect (finding the K-th element in O(N) because we only recurse on one side: `N + N/2 + N/4 = 2N`). Then explain Dijkstra's 3-pointer Dutch National Flag invariant and why `mid` does NOT advance when swapping with `high`.",
       keyTakeaways: [
-        "QuickSelect encuentra el K-ésimo elemento en O(N) promedio porque descarta una mitad en cada paso (`N + N/2 + N/4 ... = 2N`).",
-        "La partición de 3 vías (Dutch National Flag) evita el peor caso O(N²) cuando el arreglo tiene muchos elementos duplicados.",
-        "Al intercambiar `mid` con `high`, el elemento que viene desde `high` es desconocido, así que `mid` debe quedarse quieto para evaluarlo en la siguiente vuelta.",
+        "QuickSelect finds the K-th largest element in O(N) average time because it discards half the remaining subarray at each step (`N + N/2 + N/4 ... = 2N`).",
+        "3-way partitioning (`< pivot`, `== pivot`, `> pivot`) prevents O(N^2) degradation on arrays with many duplicates.",
+        "When swapping `mid` with `high`, the element arriving from `high` has not been inspected yet, so `mid` must stay put for the next check.",
       ],
       stepByStepWalkthrough: [
-        "Definir las regiones del arreglo mediante punteros frontera (`low`, `mid`, `high`).",
-        "Inspeccionar siempre el elemento en `nums[mid]` mientras `mid <= high`.",
-        "En QuickSelect, comparar el índice del pivote (o rango de iguales al pivote) contra `k` para decidir en qué subarreglo continuar.",
+        "Maintain boundary pointers (`low`, `mid`, `high`) partitioning the array into 4 regions.",
+        "Inspect `nums[mid]` while `mid <= high`.",
+        "In QuickSelect, compare the target index `k` against the pivot boundaries to recurse into only one partition.",
       ],
       interviewTraps: [
-        "Incrementar `mid` después de hacer swap con `high` en `Sort Colors`: te saltarías sin revisar el número que acabas de traer desde el final.",
+        "Incrementing `mid` after swapping with `high` in `Sort Colors`, which skips inspecting the unknown element brought in from `high`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "Ordenar a medias es el doble de inteligente: QuickSelect",
-          visualCue: "Árbol de QuickSort podando una rama entera en cada nivel: N + N/2 + N/4 = 2N.",
+          sectionTitle: "Why Partial Sorting Beats Full Sorting: QuickSelect",
+          visualCue: "QuickSort tree pruning an entire half at every level: N + N/2 + N/4 = 2N.",
           narration:
-            "Si solo te interesa saber quién quedó en el puesto número K, ¿para qué ordenar todo el salón? Al partir el grupo respecto a un pivote, sabes instantáneamente de qué lado está el puesto K y descartas la otra mitad para siempre.",
+            "If you only care about who finished in K-th place, why sort the entire stadium? By partitioning around a pivot, you know immediately which side holds index K and discard the other side forever.",
         },
         {
           timestamp: "01:45 - 04:30",
-          sectionTitle: "La Bandera Holandesa de Dijkstra (3-Way Partition)",
-          visualCue: "Tres zonas de color (Rojo 0, Blanco 1, Azul 2) y la zona gris de incógnita entre mid y high.",
+          sectionTitle: "Dijkstra's Dutch National Flag (3-Way Partition)",
+          visualCue: "Three colored zones (0s, 1s, 2s) and the shrinking unknown zone between `mid` and `high`.",
           narration:
-            "Cuando tienes tres categorías o muchos duplicados, la partición de tres punteros de Dijkstra mantiene cuatro zonas en el arreglo y reduce la zona desconocida hasta que `mid` cruza a `high`.",
+            "When you have three categories or heavy duplicates, Dijkstra's three-pointer partition maintains four zones in the array and shrinks the unknown region until `mid` crosses `high`.",
         },
       ],
     },
@@ -1501,7 +1500,7 @@ def longest_consecutive(nums: list[int]) -> int:
   {
     id: "binary-search",
     order: 13,
-    title: "Binary Search (Búsqueda Binaria y Espacio de Respuestas)",
+    title: "Binary Search (Sorted Arrays & Monotonic Search Space)",
     shortTitle: "Binary Search",
     englishTerm: "Binary Search & Monotonic Search Space",
     kind: "algorithm",
@@ -1510,38 +1509,38 @@ def longest_consecutive(nums: list[int]) -> int:
     branchCategory: "hashing-sorting-search",
     prerequisites: ["arrays", "basic-dsa"],
     summary:
-      "Dividir repetidamente a la mitad un espacio de búsqueda en O(log N). No solo sirve para buscar un número en un arreglo ordenado: funciona sobre CUALQUIER condición monótona `[False, False, ..., True, True]`, incluyendo buscar la respuesta óptima ('Binary Search on Answer').",
+      "Repeatedly halving a search space in O(log N) time. Beyond finding a value in a sorted array, Binary Search works on ANY monotonic boolean condition `[False, False, ..., True, True]`—including searching for the optimal answer itself ('Binary Search on Answer').",
     analogy:
-      "Adivinar un número del 1 al 1,000,000 cuando te dicen 'más alto' o 'más bajo', o probar a partir de qué piso de un edificio de 100 pisos se rompe un cristal: empiezas en el piso 50; si se rompe, sabes que del 51 al 100 también se romperá y buscas abajo; si resiste, buscas arriba. En solo 20 preguntas resuelves un millón de opciones.",
+      "Finding the lowest floor of a 100-story building from which an egg breaks: you test floor 50 first. If it breaks, floors 51–100 will also break, so you record 50 and search the lower half; if it survives, floors 1–50 are safe and you search the upper half.",
     whenToUse: [
-      "El arreglo está ordenado (o rotado) y necesitas buscar un elemento o el primer índice `>= target` (`lower_bound`).",
-      "El problema pide 'el MÍNIMO X tal que sea posible hacer Y' o 'el MÁXIMO X tal que se cumpla Y' y existe una función `es_factible(x)` monótona (`Binary Search on Answer`).",
-      "La restricción es enorme (`N ≤ 10⁵` con verificación `O(N)` → total `O(N log(Rango))`, o `N ≥ 10⁹` → `O(log N)`).",
+      "The array is sorted (or rotated sorted) and you need to find a target or the first index `>= target` (`lower_bound`).",
+      "The problem asks for 'the MINIMUM X such that it is possible to achieve Y' or 'the MAXIMUM X such that Y holds' and `is_feasible(X)` is monotonic (`Binary Search on Answer`).",
+      "Constraints are huge (`N >= 10^9` requiring `O(log N)`, or `N <= 10^5` with an `O(N)` feasibility check giving `O(N log(Range))`).",
     ],
     whenNotToUse: [
-      "Cuando la propiedad no es monótona (saber qué pasa en `mid` no te da ninguna certeza para descartar la mitad izquierda ni la mitad derecha).",
+      "When the condition is not monotonic (knowing the outcome at `mid` gives zero guarantee about which half to discard).",
     ],
     timeComplexity: {
-      average: "O(log N) en arreglo | O(N log(Max - Min)) en Binary Search on Answer",
+      average: "O(log N) on arrays | O(N log(Max - Min)) on Answer Space",
       worst: "O(log N)",
-      note: "Para N = 1,000,000,000 (`10⁹`), `log₂(N)` son apenas ~30 iteraciones.",
+      note: "For N = 1,000,000,000 (`10^9`), `log2(N)` is only ~30 iterations.",
     },
-    spaceComplexity: "O(1) iterativo",
-    constraintHint: "Arreglo ordenado o 'Minimiza el máximo / Maximiza el mínimo' con función factible monótona",
+    spaceComplexity: "O(1) iterative",
+    constraintHint: "Sorted array or 'Minimize the Maximum / Maximize the Minimum' with monotonic feasibility",
     pythonTemplate: `def binary_search_first_true(low: int, high: int, is_feasible) -> int:
     """
-    Plantilla Maestra de AlgoMonster: Encontrar el PRIMER valor donde is_feasible(mid) es True.
-    Patrón del dominio: [False, False, False, True, True, True]
-                                              ^-- Queremos este primer True
+    Master AlgoMonster Template: Find the FIRST value where is_feasible(mid) is True.
+    Domain pattern: [False, False, False, True, True, True]
+                                           ^-- We want this first True
     """
     first_true_idx = -1
     while low <= high:
         mid = low + (high - low) // 2
         if is_feasible(mid):
-            first_true_idx = mid   # Guardamos candidato válido
-            high = mid - 1         # Intentamos encontrar uno aún más a la izquierda (menor)
+            first_true_idx = mid   # Record valid candidate
+            high = mid - 1         # Try to find an even smaller valid value on the left
         else:
-            low = mid + 1          # No alcanza, necesitamos un valor mayor
+            low = mid + 1          # Too small; search the right half
     return first_true_idx`,
     typescriptTemplate: `export function binarySearchFirstTrue(
   low: number,
@@ -1552,10 +1551,10 @@ def longest_consecutive(nums: list[int]) -> int:
   while (low <= high) {
     const mid = low + Math.floor((high - low) / 2);
     if (isFeasible(mid)) {
-      firstTrueIdx = mid; // Candidato válido encontrado
-      high = mid - 1;     // Buscar si existe uno menor a la izquierda
+      firstTrueIdx = mid; // Record valid candidate
+      high = mid - 1;     // Search left for an earlier True
     } else {
-      low = mid + 1;      // Buscar a la derecha
+      low = mid + 1;      // Search right
     }
   }
   return firstTrueIdx;
@@ -1566,52 +1565,52 @@ def longest_consecutive(nums: list[int]) -> int:
         title: "Binary Search",
         slug: "binary-search",
         difficulty: "Easy",
-        patternHint: "Búsqueda binaria clásica en arreglo ordenado.",
+        patternHint: "Classic binary search on a sorted array.",
       },
       {
         number: 33,
         title: "Search in Rotated Sorted Array",
         slug: "search-in-rotated-sorted-array",
         difficulty: "Medium",
-        patternHint: "Al partir en `mid`, al menos UNA de las dos mitades siempre está perfectamente ordenada.",
+        patternHint: "When splitting at `mid`, at least ONE of the two halves (`[low..mid]` or `[mid..high]`) is guaranteed to be strictly sorted.",
       },
       {
         number: 875,
         title: "Koko Eating Bananas",
         slug: "koko-eating-bananas",
         difficulty: "Medium",
-        patternHint: "Binary Search on Answer: busca la velocidad mínima `k` en `[1, max(piles)]` donde `horas(k) <= h`.",
+        patternHint: "Binary Search on Answer: search for the minimum eating speed `k` in `[1, max(piles)]` where `hours_needed(k) <= h`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Revoluciona la forma en que el oyente entiende Binary Search: deja claro que NO se trata solo de buscar un número en un arreglo, sino de encontrar la frontera entre `False` y `True` en cualquier función monótona (la plantilla `first_true_idx` de AlgoMonster). Explica con el ejemplo de 'Koko Eating Bananas' cómo hacer Binary Search sobre el espacio de respuestas.",
+        "Reframe how the listener thinks about Binary Search: it is NOT just for finding a number in a sorted array—it is for finding the boundary between `False` and `True` in any monotonic boolean function (the `first_true_idx` template). Walk through 'Koko Eating Bananas' to demonstrate Binary Search on the Answer Space.",
       keyTakeaways: [
-        "En vez de memorizar 5 variantes distintas de `while (l < r)` vs `while (l <= r)` que dan ciclos infinitos, usa siempre la plantilla de 'guardar el mejor candidato `ans = mid` y mover `high = mid - 1`'.",
-        "Siempre que un problema pida 'el mínimo X para lograr Y' y si funciona con X también funciona con X+1, estás ante Binary Search on Answer.",
+        "Instead of memorizing 5 fragile `while (l < r)` variants that risk infinite loops, always use the `first_true_idx` template: save `ans = mid` and shrink with `high = mid - 1` or `low = mid + 1`.",
+        "Whenever a problem asks for 'the minimum X to accomplish Y' and succeeding at X implies succeeding at X+1, use Binary Search on Answer.",
       ],
       stepByStepWalkthrough: [
-        "Definir el rango posible de respuestas `[low, high]` (en un arreglo es `[0, n-1]`; en espacio de respuestas es `[min_posible, max_posible]`).",
-        "Escribir la función booleana `is_feasible(mid)` que responde si con `mid` se cumple la condición.",
-        "Si `is_feasible(mid)` es `True`, guardar `ans = mid` y probar si se puede mejorar (`high = mid - 1`). Si es `False`, hacer `low = mid + 1`.",
+        "Identify the search range `[low, high]` (array indices `[0, n-1]` or answer range `[min_possible, max_possible]`).",
+        "Write the monotonic predicate `is_feasible(mid) -> bool`.",
+        "If `is_feasible(mid)` is `True`, record `ans = mid` and search left (`high = mid - 1`); otherwise search right (`low = mid + 1`).",
       ],
       interviewTraps: [
-        "Quedar atrapado en un bucle infinito con `mid = (l + r) // 2` y `l = mid`. Usando `ans = mid` con `low = mid + 1` y `high = mid - 1` el rango se encoge en TODAS las iteraciones sin excepción.",
+        "Getting stuck in an infinite loop with `mid = (l + r) // 2` and `l = mid` when `r = l + 1`. Recording `ans = mid` with `low = mid + 1` and `high = mid - 1` strictly shrinks the range on every step.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "La verdadera esencia de Binary Search: La Frontera False → True",
-          visualCue: "Fila de interruptores rojos (False) seguidos de interruptores verdes (True), iluminando el primer verde.",
+          sectionTitle: "The True Essence of Binary Search: The False -> True Boundary",
+          visualCue: "Row of red switches (False) followed by green switches (True), spotlighting the first green switch.",
           narration:
-            "Olvida la idea de que Binary Search solo sirve para buscar un número dentro de un arreglo ordenado. Su verdadero poder aparece cuando puedes formular una pregunta de Sí o No donde todos los 'No' están a la izquierda y todos los 'Sí' están a la derecha.",
+            "Forget the idea that Binary Search is only for finding a number inside a sorted array. Its real superpower appears whenever you can ask a Yes/No question where all the 'No' answers sit on the left and all the 'Yes' answers sit on the right.",
         },
         {
           timestamp: "01:45 - 05:00",
-          sectionTitle: "Binary Search en el Espacio de Respuestas (Koko Eating Bananas)",
-          visualCue: "Velocímetro probando velocidades entre 1 y Max, verificando en O(N) si llega a tiempo.",
+          sectionTitle: "Binary Search on the Answer Space (Koko Eating Bananas)",
+          visualCue: "Speedometer testing speeds between 1 and Max, verifying in O(N) if Koko finishes within H hours.",
           narration:
-            "Cuando un problema pide la capacidad mínima de un barco o la velocidad mínima para terminar en H horas, no hacemos búsqueda binaria en el arreglo de entrada: la hacemos directamente sobre el rango de posibles respuestas.",
+            "When a problem asks for the minimum ship capacity or the minimum speed to finish within H hours, we do not binary search the input array—we binary search the range of possible answers directly.",
         },
       ],
     },
@@ -1619,8 +1618,8 @@ def longest_consecutive(nums: list[int]) -> int:
   {
     id: "matrices-grids",
     order: 14,
-    title: "Matrices & 2D Grids (Tableros y Cuadrículas)",
-    shortTitle: "Matrices / Grids 2D",
+    title: "Matrices & 2D Grids",
+    shortTitle: "Matrices / 2D Grids",
     englishTerm: "2D Matrices & Grids",
     kind: "data-structure",
     level: 2,
@@ -1628,28 +1627,28 @@ def longest_consecutive(nums: list[int]) -> int:
     branchCategory: "arrays-strings",
     prerequisites: ["arrays", "simulation"],
     summary:
-      "Arreglos bidimensionales `grid[r][c]` de `R` filas por `C` columnas que modelan mapas, imágenes, tableros y grafos implícitos donde cada celda se conecta con sus 4 u 8 vecinos.",
+      "Two-dimensional arrays `grid[r][c]` of `R` rows by `C` columns that model images, game boards, spreadsheets, and implicit graphs where each cell connects to its 4 or 8 neighbors.",
     analogy:
-      "Un tablero de ajedrez o una hoja de cálculo de Excel: cada casilla tiene una dirección única `(fila, columna)`. Además, cada casilla es como una habitación con 4 puertas (arriba, abajo, izquierda, derecha) que la conectan con las habitaciones vecinas.",
+      "A chessboard or spreadsheet: every cell has a unique `(row, col)` address, and every cell acts like a room with 4 doors (`up, down, left, right`) connecting it to adjacent rooms.",
     whenToUse: [
-      "Operaciones geométricas sobre imágenes o tablas (rotar 90 grados, transponer, poner filas/columnas en cero in-place).",
-      "Problemas de islas, laberintos, propagación de fuego o caminos en cuadrículas (puente directo hacia BFS, DFS y DP 2D).",
+      "In-place geometric transformations on tables or images (rotate 90 degrees, transpose, zero out rows/columns).",
+      "Island counting, shortest paths in mazes, flood fill, or 2D dynamic programming grids.",
     ],
     whenNotToUse: [
-      "Si la cuadrícula es gigantesca (ej. `10⁶ × 10⁶`) pero casi todas las celdas están vacías (matriz dispersa / sparse): no crees la matriz en memoria; guarda solo las coordenadas activas `(r, c)` en un `Hash Set`.",
+      "If the grid dimensions are huge (e.g., `10^6 x 10^6`) but almost all cells are empty (sparse matrix): do not allocate the 2D matrix; store only active coordinates `(r, c)` in a `Hash Set`.",
     ],
     timeComplexity: {
-      average: "Recorrido completo: O(R × C) | Acceso a celda: O(1)",
-      worst: "O(R × C)",
-      note: "Una cuadrícula de R×C es un grafo con V = R*C nodos y hasta 4*R*C aristas.",
+      average: "Full traversal: O(R * C) | Cell access: O(1)",
+      worst: "O(R * C)",
+      note: "An R x C grid is an implicit graph with V = R * C vertices and up to 4 * R * C edges.",
     },
-    spaceComplexity: "O(1) si modificas in-place o O(R × C) con matriz de visitados",
-    constraintHint: "R, C ≤ 1000 (total de celdas R × C ≤ 10⁶)",
-    pythonTemplate: `def grid_neighbors_and_rotate(matrix: list[list[int]]) -> None:
+    spaceComplexity: "O(1) if mutated in-place, or O(R * C) with a visited matrix",
+    constraintHint: "R, C <= 1000 (total cells R * C <= 10^6)",
+    pythonTemplate: `def rotate_matrix_90_clockwise(matrix: list[list[int]]) -> None:
     """
-    1. Truco Clásico: Rotar una matriz N x N 90 grados en sentido horario IN-PLACE:
-       Paso A: Transponer (intercambiar matrix[r][c] con matrix[c][r])
-       Paso B: Invertir cada fila
+    1. Classic In-Place 90-Degree Clockwise Matrix Rotation:
+       Step A: Transpose across main diagonal (swap matrix[r][c] with matrix[c][r])
+       Step B: Reverse each row
     """
     n = len(matrix)
     for r in range(n):
@@ -1661,7 +1660,7 @@ def longest_consecutive(nums: list[int]) -> int:
 
 def get_valid_4_neighbors(r: int, c: int, rows: int, cols: int) -> list[tuple[int, int]]:
     """
-    2. Generador limpio de los 4 vecinos ortogonales dentro de los límites del tablero.
+    2. Clean 4-directional orthogonal neighbor generator within grid bounds.
     """
     neighbors = []
     for dr, dc in ((-1, 0), (1, 0), (0, -1), (0, 1)):
@@ -1671,13 +1670,13 @@ def get_valid_4_neighbors(r: int, c: int, rows: int, cols: int) -> list[tuple[in
     return neighbors`,
     typescriptTemplate: `export function rotateMatrix90Clockwise(matrix: number[][]): void {
   const n = matrix.length;
-  // 1. Transponer sobre la diagonal principal
+  // 1. Transpose across the main diagonal
   for (let r = 0; r < n; r++) {
     for (let c = r + 1; c < n; c++) {
       [matrix[r][c], matrix[c][r]] = [matrix[c][r], matrix[r][c]];
     }
   }
-  // 2. Invertir cada fila
+  // 2. Reverse each row
   for (let r = 0; r < n; r++) {
     matrix[r].reverse();
   }
@@ -1688,53 +1687,53 @@ def get_valid_4_neighbors(r: int, c: int, rows: int, cols: int) -> list[tuple[in
         title: "Rotate Image",
         slug: "rotate-image",
         difficulty: "Medium",
-        patternHint: "Rotar 90° en sentido horario = Transponer la matriz + Invertir cada fila in-place.",
+        patternHint: "Rotate 90° clockwise = Transpose matrix + Reverse each row in-place.",
       },
       {
         number: 73,
         title: "Set Matrix Zeroes",
         slug: "set-matrix-zeroes",
         difficulty: "Medium",
-        patternHint: "Usa la primera fila y la primera columna como marcadores para lograr O(1) espacio extra.",
+        patternHint: "Use the first row and first column as in-place markers to achieve O(1) extra space.",
       },
       {
         number: 74,
         title: "Search a 2D Matrix",
         slug: "search-a-2d-matrix",
         difficulty: "Medium",
-        patternHint: "Mapea un índice 1D `idx` a coordenadas 2D con `r = idx // cols` y `c = idx % cols`.",
+        patternHint: "Map a 1D binary search index `idx` to 2D coordinates via `r = idx // cols` and `c = idx % cols`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Presenta las Matrices 2D como el puente entre los arreglos simples y el mundo de los Grafos y la Programación Dinámica. Enseña las 3 recetas imprescindibles: 1) Mapear 1D <-> 2D con `idx = r * cols + c`, 2) Rotar 90° mediante Transponer + Reverse, y 3) Recorrer los 4 vecinos con `0 <= nr < rows and 0 <= nc < cols`.",
+        "Present 2D Matrices as the bridge between simple 1D arrays and Graph/DP algorithms. Teach the 3 essential recipes: 1) Flattening 2D <-> 1D with `idx = r * cols + c`, 2) Rotating 90° via Transpose + Row Reverse, and 3) 4-directional neighbor traversal with strict boundary checks `0 <= nr < rows`.",
       keyTakeaways: [
-        "Cualquier coordenada `(r, c)` se aplana a un índice 1D único con `id = r * C + c`, y se recupera con `r = id // C`, `c = id % C`.",
-        "Rotar 90° horario nunca requiere fórmulas complicadas de 4 esquinas: basta Transponer (`r, c -> c, r`) e invertir cada fila.",
-        "Todo tablero 2D es en realidad un Grafo implícito donde las celdas son nodos y las direcciones `(-1,0), (1,0), (0,-1), (0,1)` son las aristas.",
+        "Any 2D coordinate `(r, c)` maps to a unique 1D index `id = r * C + c`, and converts back via `r = id // C`, `c = id % C`.",
+        "Rotating 90° clockwise never requires complex 4-corner index math: just Transpose (`r, c <-> c, r`) and Reverse each row.",
+        "Every 2D grid is an implicit Graph where cells are vertices and `(-1,0), (1,0), (0,-1), (0,1)` are edges.",
       ],
       stepByStepWalkthrough: [
-        "Extraer siempre `rows = len(grid)` y `cols = len(grid[0])` al inicio de la función.",
-        "Al transponer in-place, iniciar `c` desde `r + 1` para no intercambiar dos veces y dejar la matriz igual.",
-        "Validar siempre los límites `0 <= nr < rows and 0 <= nc < cols` antes de leer `grid[nr][nc]`.",
+        "Always extract `rows = len(grid)` and `cols = len(grid[0])` at the top of the function.",
+        "When transposing in-place, start `c` at `r + 1` so you do not swap elements twice back to their original spots.",
+        "Always check `0 <= nr < rows and 0 <= nc < cols` before indexing `grid[nr][nc]`.",
       ],
       interviewTraps: [
-        "En Python, los índices negativos como `grid[-1][0]` NO lanzan error sino que leen la última fila del tablero por accidente. Siempre escribe `0 <= nr < rows`, nunca solo `nr < rows`.",
+        "In Python, negative indices like `grid[-1][0]` do NOT raise `IndexError`—they silently wrap around to the last row of the matrix! Always write `0 <= nr < rows`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "De 1D a 2D: Coordenadas, Diagonales y Aplanamiento",
-          visualCue: "Cuadrícula iluminando filas, columnas, diagonal principal (`r == c`) y secundaria (`r + c == n - 1`).",
+          sectionTitle: "From 1D to 2D: Coordinates, Diagonals, and Flattening",
+          visualCue: "Grid highlighting rows, columns, main diagonal (`r - c == const`), and anti-diagonal (`r + c == const`).",
           narration:
-            "Una matriz 2D no es más que un arreglo de arreglos, pero esconde propiedades geométricas geniales: en una misma diagonal principal `r - c` es constante, y en la diagonal inversa `r + c` es constante.",
+            "A 2D matrix is an array of arrays with neat geometric invariants: along any main diagonal `r - c` is constant, and along any anti-diagonal `r + c` is constant.",
         },
         {
           timestamp: "01:45 - 04:30",
-          sectionTitle: "La trampa de los índices negativos en Python y el puente a Grafos",
-          visualCue: "Un cursor saliendo por arriba de la fila 0 a `r = -1` y leyendo por error la última fila en Python.",
+          sectionTitle: "Python's Negative Index Trap and the Bridge to Graphs",
+          visualCue: "Cursor stepping above row 0 to `r = -1` and accidentally reading the bottom row in Python.",
           narration:
-            "Atención si programas en Python: si te sales del borde superior hacia la fila `-1`, Python no lanza IndexError: lee silenciosamente la última fila de la matriz y arruina tu búsqueda. Verificar `0 <= nr < rows` es sagrado.",
+            "Watch out in Python: if your row index steps above zero to `-1`, Python will not throw an error—it silently reads the bottom row of your grid and corrupts your traversal. Checking `0 <= nr < rows` is mandatory.",
         },
       ],
     },

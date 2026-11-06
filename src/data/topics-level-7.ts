@@ -2,12 +2,12 @@ import { DSATopic } from "@/types/dsa";
 
 export const TOPICS_LEVEL_7: DSATopic[] = [
   // ============================================================================
-  // NIVEL 7: ESTRUCTURAS DE RANGO, STRINGS AVANZADOS, MATEMÁTicas Y ESPECIALIZADOS (38 - 46)
+  // LEVEL 7: RANGE STRUCTURES, ADVANCED STRINGS, MATH & SPECIALIZED (38 - 46)
   // ============================================================================
   {
     id: "ordered-set",
     order: 38,
-    title: "Ordered Set & Balanced BSTs (Conjuntos Ordenados Dinámicos)",
+    title: "Ordered Set & Balanced BSTs (Dynamic Sorted Collections)",
     shortTitle: "Ordered Set",
     englishTerm: "Ordered Set / SortedList & Balanced BST Operations",
     kind: "hybrid",
@@ -16,45 +16,45 @@ export const TOPICS_LEVEL_7: DSATopic[] = [
     branchCategory: "advanced-math-range",
     prerequisites: ["bst", "binary-search"],
     summary:
-      "Colección dinámica auto-balanceada (`SortedList` / `SortedSet` de `sortedcontainers` en Python, `std::set` en C++, `TreeSet` en Java) que mantiene los elementos ordenados en todo momento permitiendo **insertar, borrar y buscar el vecino más cercano (`>= x` o `<= x`) en O(log N)**.",
+      "A self-balancing dynamic collection (`SortedList` / `SortedSet` from `sortedcontainers` in Python, `std::set` in C++, `TreeSet` in Java) that keeps elements sorted at all times, allowing **insertions, deletions, and nearest-neighbor queries (`>= x` or `<= x`) in O(log N)**.",
     analogy:
-      "Una biblioteca mágica donde cada vez que devuelves un libro nuevo, los estantes se acomodan solos en `log N` pasos, permitiéndote preguntar al instante no solo si existe un libro, sino '¿cuál es el libro de precio inmediatamente superior a $45?' o '¿cuántos libros cuestan menos de $30?'.",
+      "A magical library where every time you return a new book, the shelves rearrange themselves in `log N` steps, allowing you to instantly ask not only whether a book exists, but 'what is the book with the price immediately above $45?' or 'how many books cost less than $30?'.",
     whenToUse: [
-      "Necesitas insertar y eliminar números dinámicamente Y consultar en cada paso el **sucesor (`>= x` / `bisect_left`)**, el **predecesor (`<= x` / `bisect_right - 1`)**, o **cuántos elementos menores que `x`** han aparecido hasta ahora.",
-      "Mantener intervalos activos sin solapamiento en un calendario dinámico (`My Calendar I`) o una ventana deslizante ordenada (`Contains Duplicate III`, `Sliding Window Median`).",
+      "You need to insert and remove numbers dynamically AND query at each step the **successor (`>= x` / `bisect_left`)**, the **predecessor (`<= x` / `bisect_right - 1`)**, or **how many elements smaller than `x`** have appeared so far.",
+      "Maintaining non-overlapping active intervals in a dynamic calendar (`My Calendar I`) or a sorted sliding window (`Contains Duplicate III`, `Sliding Window Median`).",
     ],
     whenNotToUse: [
-      "Si todos los datos están fijos desde el principio (no necesitas un Ordered Set dinámico; basta ordenar el arreglo una vez y usar Binary Search). Si solo necesitas el mínimo o máximo extremo, usa un Heap (más ligero).",
+      "If all data is static from the start (you do not need a dynamic Ordered Set; just sort the array once and use Binary Search). If you only need the overall minimum or maximum, use a Heap (lighter weight).",
     ],
     timeComplexity: {
       average: "add / remove / bisect_left / index `s[k]`: O(log N)",
       worst: "O(log N)",
-      note: "En LeetCode Python, la librería `from sortedcontainers import SortedList` viene instalada por defecto.",
+      note: "In LeetCode Python, `from sortedcontainers import SortedList` is pre-installed by default.",
     },
     spaceComplexity: "O(N)",
-    constraintHint: "Inserción/Borrado dinámico + Búsqueda de vecino más cercano o rango en O(log N)",
-    pythonTemplate: `# En LeetCode Python, 'sortedcontainers' está incluido en el entorno oficial:
+    constraintHint: "Dynamic Insertion/Deletion + Nearest Neighbor or Order-Statistic Query in O(log N)",
+    pythonTemplate: `# In LeetCode Python, 'sortedcontainers' is included in the official runtime:
 from sortedcontainers import SortedList
 
 def contains_nearby_almost_duplicate(nums: list[int], indexDiff: int, valueDiff: int) -> bool:
     """
-    Patrón Clásico de Ordered Set en Ventana Deslizante (LeetCode 220).
-    Buscamos si en los últimos 'indexDiff' elementos existe alguno en [x - valueDiff, x + valueDiff].
-    Tiempo: O(N log(indexDiff)) | Espacio: O(indexDiff)
+    Classic Ordered Set in a Sliding Window Pattern (LeetCode 220).
+    Check if within the last 'indexDiff' elements there is any value in [x - valueDiff, x + valueDiff].
+    Time: O(N log(indexDiff)) | Space: O(indexDiff)
     """
     window = SortedList()
     for i, x in enumerate(nums):
-        # 1. Buscar el menor elemento en la ventana que sea >= x - valueDiff
+        # 1. Find the smallest element in the window that is >= x - valueDiff
         pos = window.bisect_left(x - valueDiff)
         if pos < len(window) and window[pos] <= x + valueDiff:
             return True
 
-        # 2. Insertar el actual y retirar el que sale de la ventana de tamaño indexDiff
+        # 2. Insert current element and evict the one leaving the indexDiff window
         window.add(x)
         if i >= indexDiff:
             window.remove(nums[i - indexDiff])
     return False`,
-    typescriptTemplate: `// En TypeScript/JS podemos usar Búsqueda Binaria sobre arreglo mantenido o compresión + Fenwick Tree
+    typescriptTemplate: `// In TypeScript/JS we can use Binary Search on a maintained block structure or Coordinate Compression + Fenwick Tree
 export function lowerBound(sortedArr: number[], target: number): number {
   let low = 0,
     high = sortedArr.length;
@@ -71,52 +71,52 @@ export function lowerBound(sortedArr: number[], target: number): number {
         title: "My Calendar I",
         slug: "my-calendar-i",
         difficulty: "Medium",
-        patternHint: "Guarda intervalos ordenados y usa `bisect_left` para revisar solo el evento inmediatamente anterior y el siguiente.",
+        patternHint: "Store sorted intervals and use `bisect_left` to check only the immediately preceding and succeeding events.",
       },
       {
         number: 220,
         title: "Contains Duplicate III",
         slug: "contains-duplicate-iii",
         difficulty: "Hard",
-        patternHint: "Mantén un `SortedList` de los últimos `k` elementos y consulta `bisect_left(x - t)`.",
+        patternHint: "Maintain a `SortedList` of the last `k` elements and query `bisect_left(x - t)`.",
       },
       {
         number: 315,
         title: "Count of Smaller Numbers After Self",
         slug: "count-of-smaller-numbers-after-self",
         difficulty: "Hard",
-        patternHint: "Recorre de derecha a izquierda: `window.bisect_left(x)` te dice en O(log N) cuántos menores ya viste.",
+        patternHint: "Scan right to left: `window.bisect_left(x)` tells you in O(log N) how many smaller elements you have already seen.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica qué vacío llena el Ordered Set entre el Hash Set (que es O(1) pero está totalmente desordenado) y el Heap (que solo ve el mínimo o máximo en la punta). Revela el arma secreta para entrevistas en Python: que LeetCode incluye preinstalado `from sortedcontainers import SortedList`.",
+        "Explain what gap the Ordered Set fills between a Hash Set (which is O(1) but completely unordered) and a Heap (which only sees the minimum or maximum at the top). Reveal the secret weapon for Python interviews: LeetCode comes with `from sortedcontainers import SortedList` pre-installed.",
       keyTakeaways: [
-        "Hash Set = búsqueda exacta O(1) sin orden. Heap = solo mínimo/máximo en O(log N). Ordered Set = inserción, borrado y búsqueda de vecinos cercanos `>= x` en O(log N).",
-        "En Python usa `from sortedcontainers import SortedList` con `.add(x)`, `.remove(x)` y `.bisect_left(x)`.",
+        "Hash Set = O(1) exact lookup without order. Heap = only min/max in O(log N). Ordered Set = insertion, deletion, and nearest-neighbor lookup `>= x` in O(log N).",
+        "In Python use `from sortedcontainers import SortedList` with `.add(x)`, `.remove(x)`, and `.bisect_left(x)`.",
       ],
       stepByStepWalkthrough: [
-        "Identificar que el problema pide insertar/borrar elementos Y hacer preguntas de orden o cercanía (`>= x`, `<= x`, o el K-ésimo elemento activo).",
-        "Consultar el vecino con `idx = sl.bisect_left(target)` y verificar que `idx < len(sl)`.",
-        "Actualizar la colección con `sl.add(x)` y `sl.remove(old)`.",
+        "Identify that the problem requires inserting/deleting elements AND asking order or proximity questions (`>= x`, `<= x`, or the K-th active element).",
+        "Query the neighbor with `idx = sl.bisect_left(target)` and verify `idx < len(sl)`.",
+        "Update the collection with `sl.add(x)` and `sl.remove(old)`.",
       ],
       interviewTraps: [
-        "Usar `list.insert(idx, x)` tras un `bisect` sobre una lista normal de Python creyendo que es O(log N): la búsqueda es O(log N), pero insertar en medio de una `list` sigue siendo O(N). Usa `SortedList`.",
+        "Using `list.insert(idx, x)` after a `bisect` on a standard Python list thinking it is O(log N): searching is O(log N), but inserting into the middle of a `list` still shifts elements in O(N). Use `SortedList`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "Hash Set vs Heap vs Ordered Set: La tríada de colecciones",
-          visualCue: "Tabla comparativa mostrando por qué ni el Hash Set ni el Heap pueden responder '¿cuál es el elemento más cercano a X?'.",
+          sectionTitle: "Hash Set vs Heap vs Ordered Set: The Collection Triad",
+          visualCue: "Comparison table showing why neither a Hash Set nor a Heap can answer 'what is the closest element to X?'.",
           narration:
-            "Un Hash Set no sabe quién es mayor que quién, y un Heap solo conoce al campeón que está en la cima. Cuando necesitas que toda tu colección se mantenga ordenada mientras entran y salen datos en vivo, entra en escena el Ordered Set.",
+            "A Hash Set does not know who is larger than whom, and a Heap only knows the champion sitting at the top. When you need your entire collection to stay sorted while data enters and leaves live, the Ordered Set takes center stage.",
         },
         {
           timestamp: "01:45 - 04:15",
-          sectionTitle: "SortedList en Python y el patrón de Vecino Más Cercano",
-          visualCue: "Ventana deslizante consultando el piso y techo de `x` con `bisect_left`.",
+          sectionTitle: "SortedList in Python and the Nearest-Neighbor Pattern",
+          visualCue: "Sliding window querying the floor and ceiling of `x` with `bisect_left`.",
           narration:
-            "Con `bisect_left` sobre un conjunto ordenado, encuentras en tiempo logarítmico el elemento inmediatamente mayor o igual y el inmediatamente menor, resolviendo problemas de calendarios y duplicados cercanos en pocas líneas.",
+            "With `bisect_left` on a sorted collection, you find in logarithmic time the element immediately greater than or equal to your target and the one immediately smaller, solving calendar booking and near-duplicate problems in just a few lines.",
         },
       ],
     },
@@ -133,42 +133,42 @@ export function lowerBound(sortedArr: number[], target: number): number {
     branchCategory: "advanced-math-range",
     prerequisites: ["prefix-sum", "trees"],
     summary:
-      "Un Prefix Sum dinámico en apenas 15 líneas de código: utiliza el bit menos significativo (`i & -i`) para que **tanto actualizar un elemento (`update`) como consultar la suma de cualquier rango `[L, R]` (`query`) tomen tiempo O(log N)**.",
+      "A dynamic Prefix Sum in just 15 lines of code: it uses the lowest set bit (`i & -i`) so that **both updating an element (`update`) and querying the sum of any range `[L, R]` (`query`) take O(log N) time**.",
     analogy:
-      "En lugar de que cada escalón guarde la suma de todos los anteriores (que obligaría a corregir todos los escalones siguientes si cambia el primero), agrupamos las sumas en potencias de 2 (escalones de 1, 2, 4, 8, 16...). Así, cualquier cambio o suma se arma saltando por a lo sumo `log₂ N` bloques.",
+      "Instead of having every step store the sum of all previous steps (which would force you to fix every subsequent step whenever the first one changes), we group sums into powers of 2 (blocks of size 1, 2, 4, 8, 16...). That way, any update or prefix sum is assembled by jumping across at most `log2(N)` blocks.",
     whenToUse: [
-      "El problema combina **actualizaciones puntuales (`nums[i] += delta`)** intercaladas con **consultas de suma en rangos (`sum(nums[L..R])`)** (`Range Sum Query - Mutable`).",
-      "Contar inversiones o cuántos elementos menores/mayores que `x` han aparecido hasta ahora (usando los valores o sus rangos comprimidos como índices del Fenwick Tree).",
+      "The problem interleaves **point updates (`nums[i] += delta`)** with **range sum queries (`sum(nums[L..R])`)** (`Range Sum Query - Mutable`).",
+      "Counting inversions or how many elements smaller/larger than `x` have appeared so far (using the values or their compressed ranks as indices in the Fenwick Tree).",
     ],
     whenNotToUse: [
-      "Si el arreglo nunca cambia (usa un simple Prefix Sum en O(1) por consulta).",
-      "Si necesitas consultar el **mínimo o máximo de un rango arbitrario `[L, R]` con actualizaciones que disminuyen o aumentan libremente**: la operación `min/max` no tiene inverso como la resta `query(R) - query(L-1)`, por lo que ahí necesitas un **Segment Tree**.",
+      "If the array never changes (use a simple Prefix Sum in O(1) per query).",
+      "If you need to query the **minimum or maximum of an arbitrary range `[L, R]` with updates that can freely increase or decrease values**: `min/max` is not invertible like subtraction `query(R) - query(L-1)`, so you need a **Segment Tree**.",
     ],
     timeComplexity: {
       average: "Update: O(log N) | Prefix/Range Query: O(log N)",
       worst: "O(log N)",
-      note: "Usa índices 1-based (`1..N`) porque `0 & -0 == 0` atraparía el bucle en 0.",
+      note: "Uses 1-based indexing (`1..N`) because `0 & -0 == 0` would trap the loop at index 0.",
     },
-    spaceComplexity: "O(N) un único arreglo `tree` de tamaño `N + 1`",
-    constraintHint: "Sumas de rango dinámicas con actualizaciones o conteo por orden en O(N log N)",
+    spaceComplexity: "O(N) a single `tree` array of size `N + 1`",
+    constraintHint: "Dynamic range sums with updates or order-statistic counting in O(N log N)",
     pythonTemplate: `class FenwickTree:
     """
-    Binary Indexed Tree (BIT / Fenwick Tree) en 15 líneas.
-    IMPORTANTE: Internamente siempre es 1-indexed (índices de 1 a N).
-    Truco de bit: (i & -i) extrae la mayor potencia de 2 que divide a 'i'.
+    Binary Indexed Tree (BIT / Fenwick Tree) in 15 lines.
+    IMPORTANT: Internally always 1-indexed (indices 1 to N).
+    Bit trick: (i & -i) extracts the largest power of 2 that divides 'i'.
     """
     def __init__(self, n: int):
         self.n = n
         self.tree = [0] * (n + 1)
 
     def add(self, i: int, delta: int) -> None:
-        """Suma 'delta' en el índice 1-based 'i' en O(log N)."""
+        """Add 'delta' at 1-based index 'i' in O(log N)."""
         while i <= self.n:
             self.tree[i] += delta
             i += i & -i
 
     def prefix_sum(self, i: int) -> int:
-        """Retorna la suma de [1..i] en O(log N)."""
+        """Return the sum of [1..i] in O(log N)."""
         s = 0
         while i > 0:
             s += self.tree[i]
@@ -176,7 +176,7 @@ export function lowerBound(sortedArr: number[], target: number): number {
         return s
 
     def range_sum(self, left: int, right: int) -> int:
-        """Retorna la suma de [left..right] (1-based) en O(log N)."""
+        """Return the sum of [left..right] (1-based) in O(log N)."""
         return self.prefix_sum(right) - self.prefix_sum(left - 1)`,
     typescriptTemplate: `export class FenwickTree {
   private tree: number[];
@@ -211,53 +211,53 @@ export function lowerBound(sortedArr: number[], target: number): number {
         title: "Range Sum Query - Mutable",
         slug: "range-sum-query-mutable",
         difficulty: "Medium",
-        patternHint: "Usa `bit.add(i + 1, new_val - old_val)` para actualizar y `bit.range_sum(L + 1, R + 1)` para consultar.",
+        patternHint: "Use `bit.add(i + 1, new_val - old_val)` to update and `bit.range_sum(L + 1, R + 1)` to query.",
       },
       {
         number: 315,
         title: "Count of Smaller Numbers After Self",
         slug: "count-of-smaller-numbers-after-self",
         difficulty: "Hard",
-        patternHint: "Comprime coordenadas (Rank Compression) y recorre de derecha a izquierda consultando `bit.prefix_sum(rank - 1)`.",
+        patternHint: "Coordinate-compress values (Rank Compression) and scan right to left querying `bit.prefix_sum(rank - 1)`.",
       },
       {
         number: 493,
         title: "Reverse Pairs",
         slug: "reverse-pairs",
         difficulty: "Hard",
-        patternHint: "Cuenta cuántos elementos previos superan `2 * nums[j]` usando Fenwick Tree con compresión de coordenadas o Merge Sort.",
+        patternHint: "Count how many previous elements exceed `2 * nums[j]` using a Fenwick Tree with coordinate compression or Merge Sort.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Presenta el Fenwick Tree como 'la joya de 15 líneas que todo entrevistado avanzado ama': mientras un Segment Tree toma 50 líneas, un Fenwick Tree se escribe en 2 minutos gracias al truco binario `i & -i` (aislar el último bit encendido). Explica por qué el índice DEBE empezar en 1 (`1-based`).",
+        "Present the Fenwick Tree as 'the 15-line gem every advanced interviewee loves': while a recursive Segment Tree takes 50 lines, a Fenwick Tree can be written in 2 minutes thanks to the binary trick `i & -i` (isolating the lowest set bit). Explain why the index MUST start at 1 (`1-based`).",
       keyTakeaways: [
-        "En un Array normal: `update` es O(1) y `range_sum` es O(N). En Prefix Sum: `update` es O(N) y `range_sum` es O(1). En Fenwick Tree: **AMBOS son O(log N)**.",
-        "La expresión `i & -i` (complemento a dos) aísla el bit menos significativo: para subir hacia los padres haces `i += i & -i`; para sumar prefijos haces `i -= i & -i`.",
-        "Siempre suma `+1` a los índices 0-based de LeetCode antes de pasarlos al Fenwick Tree.",
+        "In a standard Array: `update` is O(1) and `range_sum` is O(N). In a Prefix Sum: `update` is O(N) and `range_sum` is O(1). In a Fenwick Tree: **BOTH are O(log N)**.",
+        "The expression `i & -i` (two's complement) isolates the lowest set bit: to climb toward parent ranges do `i += i & -i`; to accumulate prefix blocks do `i -= i & -i`.",
+        "Always add `+1` to 0-based LeetCode indices before passing them to the Fenwick Tree.",
       ],
       stepByStepWalkthrough: [
-        "Crear `tree = [0] * (n + 1)`.",
-        "En `add(i, delta)`, mientras `i <= n`, sumar `delta` y avanzar con `i += i & -i`.",
-        "En `prefix_sum(i)`, mientras `i > 0`, acumular `tree[i]` y retroceder con `i -= i & -i`.",
+        "Create `tree = [0] * (n + 1)`.",
+        "In `add(i, delta)`, while `i <= n`, add `delta` and advance with `i += i & -i`.",
+        "In `prefix_sum(i)`, while `i > 0`, accumulate `tree[i]` and step back with `i -= i & -i`.",
       ],
       interviewTraps: [
-        "Pasar el índice `0` a `add(0, delta)`: como `0 & -0` es `0`, el bucle `while i <= n: i += i & -i` nunca avanza y se queda colgado en un ciclo infinito.",
+        "Passing index `0` to `add(0, delta)`: since `0 & -0` is `0`, the loop `while i <= n: i += i & -i` never advances and hangs in an infinite loop.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "El dilema del Prefix Sum cuando los datos cambian",
-          visualCue: "Comparación de tiempos entre Array, Prefix Sum y Fenwick Tree (O(log N) en ambos).",
+          sectionTitle: "The Prefix Sum Dilemma When Data Mutates",
+          visualCue: "Time comparison between Array, Prefix Sum, and Fenwick Tree (O(log N) for both operations).",
           narration:
-            "El Prefix Sum era perfecto hasta que alguien cambió un número del arreglo y nos obligó a recalcular toda la tabla en O(N). El Árbol de Fenwick resuelve este dilema logrando tanto actualizaciones como sumas de rango en tiempo logarítmico con apenas quince líneas de código.",
+            "Prefix Sums were perfect until someone mutated a number in the array and forced us to recompute the entire table in O(N). The Fenwick Tree solves this dilemma, achieving both point updates and range sums in logarithmic time with barely fifteen lines of code.",
         },
         {
           timestamp: "01:45 - 04:30",
-          sectionTitle: "La magia de `i & -i` y la Compresión de Coordenadas",
-          visualCue: "Escalera de potencias de 2 mostrando cómo `13 (1101₂)` salta a `12 (1100₂)` y a `8 (1000₂)`.",
+          sectionTitle: "The Magic of `i & -i` and Coordinate Compression",
+          visualCue: "Power-of-2 staircase showing how `13 (1101_2)` jumps to `12 (1100_2)` and then to `8 (1000_2)`.",
           narration:
-            "Todo el secreto del Fenwick Tree reside en la operación `i & -i`, que extrae la última potencia de dos de cualquier número. Restándola en cada paso, descomponemos cualquier rango en a lo sumo log(N) saltos.",
+            "The entire secret of the Fenwick Tree lives in the operation `i & -i`, which extracts the lowest power of two from any integer. By subtracting it at each step, we decompose any prefix into at most log(N) jumps.",
         },
       ],
     },
@@ -265,7 +265,7 @@ export function lowerBound(sortedArr: number[], target: number): number {
   {
     id: "segment-tree",
     order: 40,
-    title: "Segment Tree (Árbol de Segmentos y Lazy Propagation)",
+    title: "Segment Tree & Lazy Propagation",
     shortTitle: "Segment Tree",
     englishTerm: "Segment Tree & Lazy Propagation",
     kind: "hybrid",
@@ -274,36 +274,36 @@ export function lowerBound(sortedArr: number[], target: number): number {
     branchCategory: "advanced-math-range",
     prerequisites: ["fenwick-tree", "divide-and-conquer", "trees"],
     summary:
-      "La estructura de datos definitiva para consultas y actualizaciones sobre **intervalos `[L, R]`**: un árbol binario donde cada nodo representa un subsegmento del arreglo y almacena cualquier función asociativa (**Mínimo, Máximo, Suma, GCD, XOR**) en **O(log N)**.",
+      "The ultimate data structure for queries and updates over **intervals `[L, R]`**: a binary tree where each node represents a sub-segment of the array and stores any associative function (**Min, Max, Sum, GCD, XOR**) in **O(log N)**.",
     analogy:
-      "Un gerente regional de ventas: el CEO tiene el récord del país completo `[0..7]`; debajo tiene al director de la mitad oeste `[0..3]` y la mitad este `[4..7]`, y así hasta cada tienda individual. Si pides el máximo de las tiendas `[1..6]`, no visitas las 6 tiendas: le preguntas a un par de gerentes intermedios que cubren exactamente ese bloque en `log N` llamadas.",
+      "A regional sales hierarchy: the CEO holds the record for the entire country `[0..7]`; underneath sit the directors for the western half `[0..3]` and eastern half `[4..7]`, all the way down to individual stores. If you ask for the maximum across stores `[1..6]`, you do not visit all 6 stores: you ask a couple of middle managers whose regions cover that exact span in `log N` calls.",
     whenToUse: [
-      "Necesitas consultar el **Mínimo, Máximo, GCD o Suma de un rango `[L, R]`** mientras el arreglo sufre actualizaciones dinámicas (donde Fenwick Tree no puede hacer `min/max` general en subrangos).",
-      "**Lazy Propagation**: Cuando las actualizaciones no son a 1 sola casilla sino a **todo un rango completo** ('suma +5 a todos los elementos entre L y R' o 'pinta de rojo el segmento `[L, R]`') en O(log N).",
+      "You need to query the **Minimum, Maximum, GCD, or Sum of a range `[L, R]`** while the array undergoes dynamic updates (where a Fenwick Tree cannot handle arbitrary sub-range `min/max`).",
+      "**Lazy Propagation**: When updates modify not just a single cell, but **an entire range `[L, R]` at once** ('add +5 to every element between L and R' or 'set segment `[L, R]` to value X') in O(log N).",
     ],
     whenNotToUse: [
-      "Si solo necesitas sumas de rango con actualizaciones de 1 elemento: usa un **Fenwick Tree**, que lleva un tercio del código y menos memoria.",
+      "If you only need range sums with single-element updates: use a **Fenwick Tree**, which takes a third of the code and less memory.",
     ],
     timeComplexity: {
       average: "Build: O(N) | Update: O(log N) | Range Query `[L, R]`: O(log N)",
-      worst: "O(log N) por operación",
-      note: "La versión iterativa de Segment Tree ocupa solo `2 * N` enteros y es extremadamente rápida y concisa para entrevistas.",
+      worst: "O(log N) per operation",
+      note: "The iterative Segment Tree uses only `2 * N` integers and is extremely fast and concise for interviews.",
     },
-    spaceComplexity: "O(N) (`2N` en versión iterativa o `4N` en versión recursiva)",
-    constraintHint: "Range Min/Max/Sum Query con actualizaciones dinámicas y N, Q ≤ 10⁵",
+    spaceComplexity: "O(N) (`2N` in the iterative version or `4N` in the recursive version)",
+    constraintHint: "Dynamic Range Min/Max/Sum Query with N, Q <= 10^5",
     pythonTemplate: `class IterativeSegmentTree:
     """
-    Segment Tree Iterativo Compacto (Tamaño 2N) para Range Maximum/Sum Query.
-    Las hojas viven en tree[n .. 2n-1] y los padres en tree[1 .. n-1].
-    Tiempo Build: O(N) | Update y Query: O(log N)
+    Compact Iterative Segment Tree (Size 2N) for Range Maximum/Sum Query.
+    Leaves live in tree[n .. 2n-1] and internal parents in tree[1 .. n-1].
+    Build Time: O(N) | Update & Query: O(log N)
     """
     def __init__(self, nums: list[int]):
         self.n = len(nums)
         self.tree = [0] * (2 * self.n)
-        # 1. Copiar hojas en la segunda mitad
+        # 1. Copy leaves into the second half
         for i, x in enumerate(nums):
             self.tree[self.n + i] = x
-        # 2. Construir padres hacia atrás en O(N)
+        # 2. Build internal parents bottom-up in O(N)
         for i in range(self.n - 1, 0, -1):
             self.tree[i] = max(self.tree[2 * i], self.tree[2 * i + 1])
 
@@ -315,10 +315,10 @@ export function lowerBound(sortedArr: number[], target: number): number {
             self.tree[pos] = max(self.tree[2 * pos], self.tree[2 * pos + 1])
 
     def range_max(self, left: int, right: int) -> int:
-        """Máximo en el rango cerrado [left, right] (0-indexed)."""
+        """Maximum in the closed range [left, right] (0-indexed)."""
         res = float("-inf")
         l = left + self.n
-        r = right + self.n + 1  # Semiabierto [l, r)
+        r = right + self.n + 1  # Half-open [l, r)
         while l < r:
             if l & 1:
                 res = max(res, self.tree[l])
@@ -370,54 +370,54 @@ export function lowerBound(sortedArr: number[], target: number): number {
         title: "Range Sum Query - Mutable",
         slug: "range-sum-query-mutable",
         difficulty: "Medium",
-        patternHint: "Reemplaza `max` por `+` en el Segment Tree iterativo.",
+        patternHint: "Replace `max` with `+` in the iterative Segment Tree.",
       },
       {
         number: 715,
         title: "Range Module",
         slug: "range-module",
         difficulty: "Hard",
-        patternHint: "Segment Tree dinámico con Lazy Propagation o mantenimiento de intervalos.",
+        patternHint: "Dynamic Segment Tree with Lazy Propagation or sorted interval maintenance.",
       },
       {
         number: 2407,
         title: "Longest Increasing Subsequence II",
         slug: "longest-increasing-subsequence-ii",
         difficulty: "Hard",
-        patternHint: "Combina DP con un Segment Tree de Máximos: `dp[x] = 1 + seg.range_max(x - k, x - 1)`.",
+        patternHint: "Combine DP with a Range Maximum Segment Tree: `dp[x] = 1 + seg.range_max(x - k, x - 1)`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica cómo funciona un Segment Tree dividiendo cualquier intervalo en a lo sumo `2 log₂ N` bloques canónicos. Presenta el truco del 'Segment Tree Iterativo de tamaño 2N' (que se escribe en 20 líneas y cabe cómodamente en una entrevista) y explica conceptualmente qué es Lazy Propagation (postergar actualizaciones de un bloque entero en una nota adhesiva hasta que alguien necesite bajar a sus hijos).",
+        "Explain how a Segment Tree works by decomposing any arbitrary interval into at most `2 log2(N)` canonical blocks. Present the '2N Iterative Segment Tree' trick (which fits in 20 lines during an interview) and conceptually explain Lazy Propagation (postponing whole-block updates on a sticky note until a query actually needs to visit its children).",
       keyTakeaways: [
-        "El Segment Tree funciona para CUALQUIER operación asociativa (`max`, `min`, `+`, `gcd`, `xor`, matriz de transición), mientras que el Fenwick Tree requiere operaciones invertibles como la suma.",
-        "En el Segment Tree iterativo de tamaño `2N`, las hojas viven en `[N .. 2N-1]` y el padre de `k` es `k // 2`.",
-        "Lazy Propagation permite actualizar un millón de elementos de un rango `[L, R]` en O(log N) guardando el cambio pendiente en los nodos superiores.",
+        "A Segment Tree works for ANY associative operation (`max`, `min`, `+`, `gcd`, `xor`, transition matrices), whereas a Fenwick Tree requires invertible operations like addition.",
+        "In the `2N` iterative Segment Tree, leaves live in `[N .. 2N-1]` and the parent of `k` is `k // 2`.",
+        "Lazy Propagation lets you update a million elements in a range `[L, R]` in O(log N) by storing the pending change on higher-level nodes.",
       ],
       stepByStepWalkthrough: [
-        "Colocar los elementos iniciales en la mitad derecha `tree[n .. 2n-1]`.",
-        "Llenar los padres de `n-1` hasta `1` combinando `tree[2*i]` y `tree[2*i + 1]`.",
-        "Para actualizar, cambiar la hoja `idx + n` y subir dividiendo entre 2 hasta la raíz.",
-        "Para consultar `[L, R]`, subir desde ambos extremos cerrando el rango en O(log N).",
+        "Place initial elements in the right half `tree[n .. 2n-1]`.",
+        "Fill parents from `n-1` down to `1` by combining `tree[2*i]` and `tree[2*i + 1]`.",
+        "To update, modify leaf `idx + n` and walk up dividing by 2 to the root.",
+        "To query `[L, R]`, climb from both ends inward in O(log N).",
       ],
       interviewTraps: [
-        "En la versión recursiva de Segment Tree, reservar `2 * N` en vez de `4 * N`: cuando `N` no es potencia exacta de 2, el árbol recursivo necesita hasta `4 * N` casillas.",
+        "In a recursive Segment Tree, allocating `2 * N` instead of `4 * N`: when `N` is not an exact power of 2, the recursive tree array requires up to `4 * N` slots.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 02:00",
-          sectionTitle: "Por qué el Segment Tree es el rey de las consultas de rango",
-          visualCue: "Árbol binario de intervalos cubriendo el rango `[1..6]` con solo 3 nodos sombreados.",
+          sectionTitle: "Why the Segment Tree Rules Range Queries",
+          visualCue: "Binary tree of intervals covering range `[1..6]` with only 3 shaded canonical nodes.",
           narration:
-            "¿Qué haces cuando necesitas el máximo o mínimo de un rango mil veces por segundo mientras los valores del arreglo cambian en vivo? El Fenwick Tree ya no basta porque el máximo no se puede restar. Aquí entra el poderoso Segment Tree.",
+            "What do you do when you need the maximum or minimum of a range a thousand times per second while array values mutate live? A Fenwick Tree is no longer enough because a maximum cannot be subtracted. Enter the Segment Tree.",
         },
         {
           timestamp: "02:00 - 05:00",
-          sectionTitle: "Segment Tree Iterativo en 20 líneas y Lazy Propagation",
-          visualCue: "Arreglo de tamaño `2N` actualizando hojas y propagando notas 'Lazy' en rangos.",
+          sectionTitle: "20-Line Iterative Segment Tree and Lazy Propagation",
+          visualCue: "Array of size `2N` updating leaves and propagating 'Lazy' tags across ranges.",
           narration:
-            "Muchos temen al Segment Tree porque la versión recursiva clásica es larga. Pero con la representación iterativa de tamaño 2N, las hojas van en la segunda mitad del arreglo y los padres en la primera mitad: limpio, rápido y libre de recursión.",
+            "Many candidates fear the Segment Tree because the classic recursive version is verbose. With the 2N iterative layout, leaves sit in the second half of the array and parents sit in the first half: clean, fast, and recursion-free.",
         },
       ],
     },
@@ -425,7 +425,7 @@ export function lowerBound(sortedArr: number[], target: number): number {
   {
     id: "rolling-hash",
     order: 41,
-    title: "Rolling Hash (Hash Rodante y Rabin-Karp)",
+    title: "Rolling Hash & Rabin-Karp Algorithm",
     shortTitle: "Rolling Hash",
     englishTerm: "Rolling Hash & Rabin-Karp Algorithm",
     kind: "algorithm",
@@ -434,27 +434,27 @@ export function lowerBound(sortedArr: number[], target: number): number {
     branchCategory: "advanced-math-range",
     prerequisites: ["strings", "sliding-window", "hash-table"],
     summary:
-      "Tratar un string como un número en base `B` módulo un primo grande `MOD` para que, al deslizar una ventana un carácter a la derecha, podamos **actualizar el hash de la ventana en tiempo O(1)** (quitando la letra que sale por la izquierda y agregando la que entra por la derecha), permitiendo comparar substrings de longitud `L` en O(1).",
+      "Treating a string as a base-`B` number modulo a large prime `MOD` so that when a sliding window shifts one character to the right, we can **update the window's hash in O(1) time** (subtracting the exiting left character and adding the entering right character), enabling O(1) substring comparisons.",
     analogy:
-      "En base 10, si tienes el número `3456` en una ventana de 4 dígitos y te mueves un paso a la derecha donde entra un `7` (para formar `4567`), no construyes el número desde cero: le restas `3 × 1000`, multiplicas lo que queda por `10` y le sumas `7`. Rolling Hash hace exactamente eso con letras.",
+      "In base 10, if you have the 4-digit window `3456` and slide one step right where `7` enters (to form `4567`), you do not rebuild the number from scratch: you subtract `3 * 1000`, multiply the remainder by `10`, and add `7`. Rolling Hash does the exact same arithmetic with characters.",
     whenToUse: [
-      "Comparar substrings o encontrar **substrings duplicados de longitud `L`** en O(N) (`Repeated DNA Sequences`, `Longest Duplicate Substring` combinando `Binary Search + Rolling Hash`).",
-      "Buscar múltiples patrones o encontrar el palíndromo más largo desde el inicio usando hash hacia adelante y hacia atrás.",
+      "Comparing substrings or finding **duplicate substrings of length `L`** in O(N) (`Repeated DNA Sequences`, `Longest Duplicate Substring` combining `Binary Search + Rolling Hash`).",
+      "Searching for multiple patterns at once or finding the longest palindrome prefix using forward and backward rolling hashes.",
     ],
     whenNotToUse: [
-      "Para buscar un único patrón en un texto sin necesidad de hashes numéricos, KMP es determinista sin riesgo de colisiones modulares.",
+      "For finding a single pattern in a text without needing numeric hashes, KMP is deterministic and free of modular collision risk.",
     ],
     timeComplexity: {
-      average: "Precalcular o deslizar ventana: O(N) | Consultar hash de substring `s[L..R]`: O(1)",
-      worst: "O(N) con primo grande (ej. `MOD = 10⁹ + 7` o `2⁶¹ - 1`)",
-      note: "Combinar Binary Search en la longitud `L` con Rolling Hash resuelve 'Longest Duplicate Substring' en O(N log N).",
+      average: "Precompute or slide window: O(N) | Query hash of substring `s[L..R]`: O(1)",
+      worst: "O(N) with a large prime (e.g., `MOD = 10^9 + 7` or `2^61 - 1`)",
+      note: "Combining Binary Search on length `L` with Rolling Hash solves 'Longest Duplicate Substring' in O(N log N).",
     },
-    spaceComplexity: "O(N) para hashes de prefijo y potencias de la base",
-    constraintHint: "Comparación O(1) de substrings o búsqueda de subcadenas repetidas con N ≤ 10⁵",
+    spaceComplexity: "O(N) for prefix hashes and powers of the base",
+    constraintHint: "O(1) substring comparison or repeated substring search with N <= 10^5",
     pythonTemplate: `class PolynomialRollingHash:
     """
-    Precalcula hashes polinomiales de prefijos para consultar el hash de CUALQUIER
-    substring s[left..right] (inclusive) en tiempo O(1).
+    Precomputes polynomial prefix hashes to query the hash of ANY
+    substring s[left..right] (inclusive) in O(1) time.
     """
     def __init__(self, s: str, base: int = 313, mod: int = 1_000_000_007):
         self.mod = mod
@@ -466,8 +466,8 @@ export function lowerBound(sortedArr: number[], target: number): number {
             self.pref_hash[i + 1] = (self.pref_hash[i] * base + ord(ch)) % mod
             self.power[i + 1] = (self.power[i] * base) % mod
 
-    def get_Substring_hash(self, left: int, right: int) -> int:
-        """Retorna el hash de s[left..right] inclusive en O(1)."""
+    def get_substring_hash(self, left: int, right: int) -> int:
+        """Return the hash of s[left..right] inclusive in O(1)."""
         length = right - left + 1
         return (
             self.pref_hash[right + 1]
@@ -502,52 +502,52 @@ export function lowerBound(sortedArr: number[], target: number): number {
         title: "Repeated DNA Sequences",
         slug: "repeated-dna-sequences",
         difficulty: "Medium",
-        patternHint: "Ventana deslizante de longitud 10 manteniendo su representación numérica en O(1) por paso.",
+        patternHint: "Slide a window of length 10 maintaining its numeric base-4 hash in O(1) per step.",
       },
       {
         number: 1044,
         title: "Longest Duplicate Substring",
         slug: "longest-duplicate-substring",
         difficulty: "Hard",
-        patternHint: "Binary Search sobre la longitud `L` + Rolling Hash en O(N) para verificar si algún hash de longitud `L` se repite.",
+        patternHint: "Binary Search on length `L` + Rolling Hash in O(N) to check if any length-`L` hash repeats.",
       },
       {
         number: 718,
         title: "Maximum Length of Repeated Subarray",
         slug: "maximum-length-of-repeated-subarray",
         difficulty: "Medium",
-        patternHint: "Se resuelve en O((N + M) log(min(N, M))) con Binary Search + Rolling Hash.",
+        patternHint: "Solvable in O((N + M) log(min(N, M))) with Binary Search + Rolling Hash.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Conecta el concepto de Prefix Sum y Sliding Window con las cadenas de texto: explica por qué hashear un substring de tamaño K con la función `hash()` normal dentro de una ventana cuesta O(K) por paso (total O(N·K)), mientras que tratar el string como un polinomio en base `B` permite calcular el hash de cualquier substring en O(1).",
+        "Connect Prefix Sums and Sliding Window to strings: explain why hashing a length-K substring with a standard `hash()` function inside a window costs O(K) per step (O(N*K) total), whereas treating the string as a polynomial in base `B` lets you compute the hash of any substring in O(1).",
       keyTakeaways: [
-        "Rolling Hash es el equivalente exacto de Prefix Sum pero para Strings: permite obtener la huella digital de `s[L..R]` en O(1).",
-        "Al restar en aritmética modular `(a - b) % MOD`, en lenguajes como JS/C++/Java debes sumar `(a - b % MOD + MOD) % MOD` para evitar restos negativos (en Python `%` ya devuelve positivo).",
+        "Rolling Hash is the exact equivalent of Prefix Sums for strings: it gives you the fingerprint of `s[L..R]` in O(1).",
+        "When subtracting in modular arithmetic `(a - b) % MOD`, in languages like JS/C++/Java you must add `((a - b) % MOD + MOD) % MOD` to avoid negative remainders (in Python `%` already returns a non-negative result).",
       ],
       stepByStepWalkthrough: [
-        "Elegir una `base` mayor que el tamaño del alfabeto (ej. `31` o `313`) y un primo grande `MOD` (`10⁹ + 7` o `10⁹ + 9`).",
-        "Precalcular `pref_hash[i]` y `power[i] = base^i % MOD` en O(N).",
-        "Consultar cualquier rango `[L, R]` con `(pref_hash[R+1] - pref_hash[L] * power[R - L + 1]) % MOD`.",
+        "Choose a `base` larger than the alphabet size (e.g., `31` or `313`) and a large prime `MOD` (`10^9 + 7` or `10^9 + 9`).",
+        "Precompute `pref_hash[i]` and `power[i] = base^i % MOD` in O(N).",
+        "Query any range `[L, R]` with `(pref_hash[R+1] - pref_hash[L] * power[R - L + 1]) % MOD`.",
       ],
       interviewTraps: [
-        "Usar un módulo pequeño como `10,007`: por la Paradoja del Cumpleaños, cuando comparas $10^5$ substrings empezarás a tener colisiones con módulos menores a $\approx N^2$. Usa un primo $\ge 10^9 + 7$ o doble hash.",
+        "Using a small modulus like `10,007`: by the Birthday Paradox, when comparing 10^5 substrings you will hit collisions with any modulus smaller than roughly N^2. Use a prime >= 10^9 + 7 or double hashing.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "Convertir palabras en números: La intuición en base 10",
-          visualCue: "La ventana `3456` deslizándose a `4567` restando `3*1000`, multiplicando por `10` y sumando `7`.",
+          sectionTitle: "Turning Words into Numbers: The Base-10 Intuition",
+          visualCue: "The window `3456` sliding to `4567` by subtracting `3*1000`, multiplying by `10`, and adding `7`.",
           narration:
-            "Si metes un substring de diez mil letras dentro de un Hash Set en cada paso de una ventana deslizante, copiar y hashear esas diez mil letras rompe tu complejidad a O(N²). Rolling Hash actualiza el hash en O(1) con una resta y una multiplicación.",
+            "If you slice a ten-thousand-character substring into a Hash Set at every step of a sliding window, copying and hashing those ten thousand characters blows your complexity up to O(N^2). Rolling Hash updates the fingerprint in O(1) with a single subtraction and multiplication.",
         },
         {
           timestamp: "01:45 - 04:30",
-          sectionTitle: "Hashes de Prefijos + Binary Search en Longest Duplicate Substring",
-          visualCue: "Combinación de Binary Search eligiendo longitud L y Rolling Hash detectando duplicados en O(N).",
+          sectionTitle: "Prefix Hashes + Binary Search in Longest Duplicate Substring",
+          visualCue: "Combining Binary Search on length L with Rolling Hash to detect duplicates in O(N).",
           narration:
-            "Cuando precalculas los hashes de todos los prefijos y las potencias de la base, puedes obtener la firma de cualquier subsegmento `[L, R]` en tiempo constante O(1), igual que hacíamos con Prefix Sums.",
+            "Once you precompute the hashes of all prefixes and powers of the base, you can extract the signature of any sub-segment `[L, R]` in constant O(1) time, just like Prefix Sums.",
         },
       ],
     },
@@ -555,7 +555,7 @@ export function lowerBound(sortedArr: number[], target: number): number {
   {
     id: "string-matching",
     order: 42,
-    title: "String Matching (Algoritmo KMP y Función Prefijo LPS)",
+    title: "String Matching (KMP Algorithm & LPS Prefix Function)",
     shortTitle: "String Matching (KMP)",
     englishTerm: "String Matching (KMP, Z-Algorithm & LPS Array)",
     kind: "algorithm",
@@ -564,32 +564,32 @@ export function lowerBound(sortedArr: number[], target: number): number {
     branchCategory: "advanced-math-range",
     prerequisites: ["strings", "two-pointers"],
     summary:
-      "Buscar todas las apariciones de un patrón `P` dentro de un texto `T` en tiempo estrictamente lineal **O(|T| + |P|)** sin retroceder jamás el puntero del texto `T`. El secreto es el arreglo **LPS (Longest Proper Prefix which is also Suffix)** del algoritmo **Knuth-Morris-Pratt (KMP)**.",
+      "Find all occurrences of a pattern `P` inside a text `T` in strictly linear **O(|T| + |P|)** time without ever moving the text pointer backward. The secret is the **LPS (Longest Proper Prefix which is also Suffix)** array from the **Knuth-Morris-Pratt (KMP)** algorithm.",
     analogy:
-      "Si estás buscando la palabra `'ABABAC'` y tras coincidir las primeras 5 letras `'ABABA'` fallas en la sexta letra, no tienes que volver a empezar desde cero: como sabes que el final `'ABA'` que acabas de leer coincide exactamente con el inicio `'ABA'` de tu patrón, continúas directamente desde la cuarta letra.",
+      "If you are searching for `'ABABAC'` and after matching the first 5 letters `'ABABA'` you fail on the 6th letter, you do not need to restart from scratch: because you already know the tail `'ABA'` you just read matches the opening `'ABA'` of your pattern, you continue directly from the 4th letter.",
     whenToUse: [
-      "Buscar un patrón `P` en un texto `T` garantizando O(N + M) en el peor caso (incluso en textos repetitivos como `'aaaa...ab'`).",
-      "Detectar si un string está formado por la repetición periódica de un bloque más corto (`Repeated Substring Pattern`).",
-      "Encontrar el **palíndromo más largo que empieza en el índice 0** concatenando `s + '#' + s[::-1]` y mirando el último valor del arreglo LPS (`Shortest Palindrome`).",
+      "Searching for a pattern `P` in a text `T` with guaranteed worst-case O(N + M) time (even on repetitive inputs like `'aaaa...ab'`).",
+      "Detecting whether a string is built by repeating a shorter periodic block (`Repeated Substring Pattern`).",
+      "Finding the **longest palindrome starting at index 0** by concatenating `s + '#' + s[::-1]` and inspecting the last value of its LPS array (`Shortest Palindrome`).",
     ],
     whenNotToUse: [
-      "En problemas sencillos donde `N` es pequeño y `s.find(p)` de la librería estándar es suficiente.",
+      "In simple problems where `N` is small and built-in `s.find(p)` is fast enough.",
     ],
     timeComplexity: {
-      average: "Construir LPS: O(M) | Buscar en texto: O(N) → Total: O(N + M)",
-      worst: "O(N + M) determinista (sin casos patológicos O(N·M))",
-      note: "El arreglo `lps[i]` guarda la longitud del prefijo propio más largo de `P[0..i]` que también es sufijo de `P[0..i]`.",
+      average: "Build LPS: O(M) | Search text: O(N) -> Total: O(N + M)",
+      worst: "Deterministic O(N + M) (no pathological O(N*M) cases)",
+      note: "The `lps[i]` entry stores the length of the longest proper prefix of `P[0..i]` that is also a suffix of `P[0..i]`.",
     },
-    spaceComplexity: "O(M) para el arreglo `lps` del patrón",
-    constraintHint: "Búsqueda exacta de patrones, periodicidad de cadenas o Shortest Palindrome en O(N)",
+    spaceComplexity: "O(M) for the pattern's `lps` array",
+    constraintHint: "Exact pattern matching, string periodicity, or Shortest Palindrome in O(N)",
     pythonTemplate: `def build_kmp_lps(pattern: str) -> list[int]:
     """
-    Construye la tabla LPS (Longest Proper Prefix which is also Suffix) en O(M).
-    lps[i] = longitud del mayor prefijo propio de pattern[0..i] que coincide con su sufijo.
+    Build the LPS (Longest Proper Prefix which is also Suffix) table in O(M).
+    lps[i] = length of the longest proper prefix of pattern[0..i] that matches its suffix.
     """
     m = len(pattern)
     lps = [0] * m
-    length = 0  # Longitud del LPS previo
+    length = 0  # Length of the previous longest prefix-suffix
     i = 1
 
     while i < m:
@@ -598,7 +598,7 @@ export function lowerBound(sortedArr: number[], target: number): number {
             lps[i] = length
             i += 1
         elif length > 0:
-            # Retrocedemos inteligentemente usando la propia tabla LPS
+            # Fall back smartly using the LPS table itself
             length = lps[length - 1]
         else:
             lps[i] = 0
@@ -607,11 +607,11 @@ export function lowerBound(sortedArr: number[], target: number): number {
 
 
 def kmp_search(text: str, pattern: str) -> int:
-    """Retorna el primer índice donde 'pattern' aparece en 'text', o -1."""
+    """Return the first index where 'pattern' appears in 'text', or -1."""
     if not pattern:
         return 0
     lps = build_kmp_lps(pattern)
-    i = j = 0  # i recorre text, j recorre pattern
+    i = j = 0  # i scans text, j scans pattern
 
     while i < len(text):
         if text[i] == pattern[j]:
@@ -647,53 +647,53 @@ def kmp_search(text: str, pattern: str) -> int:
         title: "Find the Index of the First Occurrence in a String",
         slug: "find-the-index-of-the-first-occurrence-in-a-string",
         difficulty: "Easy",
-        patternHint: "Problema base para implementar KMP en O(N + M).",
+        patternHint: "Foundational problem for implementing KMP in O(N + M).",
       },
       {
         number: 459,
         title: "Repeated Substring Pattern",
         slug: "repeated-substring-pattern",
         difficulty: "Easy",
-        patternHint: "Con KMP: un string de largo `N` es periódico si `lps[-1] > 0` y `N % (N - lps[-1]) == 0`.",
+        patternHint: "With KMP: a string of length `N` is periodic iff `lps[-1] > 0` and `N % (N - lps[-1]) == 0`.",
       },
       {
         number: 214,
         title: "Shortest Palindrome",
         slug: "shortest-palindrome",
         difficulty: "Hard",
-        patternHint: "Construye el arreglo LPS de `s + '#' + s[::-1]`: `lps[-1]` te da el prefijo palindrómico más largo de `s` en O(N).",
+        patternHint: "Build the LPS array of `s + '#' + s[::-1]`: `lps[-1]` gives the longest palindromic prefix of `s` in O(N).",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica de forma muy visual qué significa la tabla `LPS` de KMP ('¿qué parte del final de lo que acabo de leer es idéntica al principio del patrón para no tener que volver a compararla?'). Revela el truco estrella para problemas Hard: concatenar `s + '#' + reverse(s)` y calcular su LPS para hallar el prefijo palindrómico más largo en O(N) (`Shortest Palindrome`).",
+        "Visually explain what the KMP `LPS` table means ('how much of the tail of what I just read is identical to the start of the pattern so I never have to re-compare it?'). Reveal the star trick for Hard problems: concatenating `s + '#' + reverse(s)` and computing its LPS to find the longest palindromic prefix in O(N) (`Shortest Palindrome`).",
       keyTakeaways: [
-        "La búsqueda ingenua de strings empeora a O(N·M) cuando hay muchos falsos inicios como buscar `'AAAAB'` en `'AAAAAAAAAB'`. KMP nunca retrocede el índice `i` del texto.",
-        "La línea clave de KMP es `length = lps[length - 1]`: cuando falla un carácter, reutilizamos el segundo mejor prefijo-sufijo ya calculado.",
-        "El periodo mínimo de un string de longitud `N` es `N - lps[N - 1]`.",
+        "Naive string search degrades to O(N*M) when there are many false starts like searching for `'AAAAB'` inside `'AAAAAAAAAB'`. KMP never moves the text index `i` backward.",
+        "The key line in KMP is `length = lps[length - 1]`: when a character mismatches, we fall back to the second-best prefix-suffix already computed.",
+        "The minimum period of a string of length `N` is `N - lps[N - 1]`.",
       ],
       stepByStepWalkthrough: [
-        "Preprocesar el patrón `P` de longitud `M` para llenar su arreglo `lps` en O(M).",
-        "Recorrer el texto `T` con índice `i` y el patrón con índice `j`.",
-        "Si `T[i] == P[j]`, avanzar ambos; si no coinciden y `j > 0`, saltar `j = lps[j - 1]` sin retroceder `i`.",
+        "Preprocess pattern `P` of length `M` to fill its `lps` array in O(M).",
+        "Scan text `T` with index `i` and pattern `P` with index `j`.",
+        "If `T[i] == P[j]`, advance both; if they mismatch and `j > 0`, jump `j = lps[j - 1]` without rewinding `i`.",
       ],
       interviewTraps: [
-        "En `Shortest Palindrome` (`s + '#' + s[::-1]`), olvidar poner un carácter separador `'#'` en medio, haciendo que el prefijo-sufijo cruce la mitad y supere la longitud de `s`.",
+        "In `Shortest Palindrome` (`s + '#' + s[::-1]`), forgetting to insert a separator character `'#'` in the middle, allowing the prefix-suffix match to bleed across the boundary and exceed the length of `s`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 02:00",
-          sectionTitle: "Por qué la búsqueda ingenua retrocede y cómo KMP mira solo hacia adelante",
-          visualCue: "Comparación de un puntero retrocediendo una y otra vez en `'AAAAAB'` vs KMP avanzando en línea recta.",
+          sectionTitle: "Why Naive Search Backtracks and How KMP Only Looks Forward",
+          visualCue: "Comparison of a pointer rewinding over and over on `'AAAAAB'` vs KMP marching straight ahead.",
           narration:
-            "Cuando buscas una palabra y fallas en la última letra, el algoritmo ingenuo tira a la basura todo lo que acababa de leer y retrocede en el texto. Knuth, Morris y Pratt demostraron que lo que acabas de leer ya contiene toda la información necesaria para no retroceder jamás.",
+            "When you search for a word and fail on the last letter, the naive algorithm throws away everything it just read and rewinds the text pointer. Knuth, Morris, and Pratt proved that what you just read already contains all the information needed to never step backward again.",
         },
         {
           timestamp: "02:00 - 04:45",
-          sectionTitle: "La tabla LPS y el truco de `s + '#' + reverse(s)`",
-          visualCue: "Tabla LPS de `'ABABAC'` y aplicación directa a Shortest Palindrome.",
+          sectionTitle: "The LPS Table and the `s + '#' + reverse(s)` Trick",
+          visualCue: "LPS table for `'ABABAC'` and its direct application to Shortest Palindrome.",
           narration:
-            "Más allá de buscar palabras, la tabla LPS es un detector de simetrías: te dice en O(N) si una cadena está hecha de bloques repetidos y cuál es el palíndromo más largo pegado al inicio.",
+            "Beyond searching words, the LPS table is a symmetry detector: it tells you in O(N) whether a string is made of repeating blocks and what the longest palindrome anchored at index zero is.",
         },
       ],
     },
@@ -701,7 +701,7 @@ def kmp_search(text: str, pattern: str) -> int:
   {
     id: "bit-manipulation",
     order: 43,
-    title: "Bit Manipulation (Manipulación de Bits y Trucos XOR)",
+    title: "Bit Manipulation & XOR Tricks",
     shortTitle: "Bit Manipulation",
     englishTerm: "Bit Manipulation & XOR Tricks",
     kind: "algorithm",
@@ -710,41 +710,41 @@ def kmp_search(text: str, pattern: str) -> int:
     branchCategory: "advanced-math-range",
     prerequisites: ["basic-dsa", "arrays"],
     summary:
-      "Operar directamente sobre la representación binaria de los números en los registros de la CPU (`&`, `|`, `^`, `~`, `<<`, `>>`) para lograr algoritmos en O(1) espacio y máxima velocidad.",
+      "Operate directly on the binary representation of numbers in CPU registers (`&`, `|`, `^`, `~`, `<<`, `>>`) to achieve O(1) extra space and blazing-fast constant-time operations.",
     analogy:
-      "El operador XOR (`^`) es como un interruptor de luz de escalera: si lo presionas dos veces con el mismo número (`x ^ x`), vuelve a quedar apagado (`0`). Por eso, si aplicas XOR a una lista donde todos los números vienen en pareja menos uno, todas las parejas se cancelan entre sí y queda encendido únicamente el número solitario.",
+      "The XOR operator (`^`) works like a two-way staircase light switch: if you flip it twice with the same number (`x ^ x`), it returns to off (`0`). That is why if you XOR an entire list where every number appears in pairs except one, all pairs cancel out and leave only the lone number lit up.",
     whenToUse: [
-      "**Propiedades de XOR (`^`)**: Encontrar el único elemento que no se repite (`Single Number`: `x ^ x = 0` y `x ^ 0 = x`) o el número faltante en `0..N`.",
-      "**Truco de Brian Kernighan (`n & (n - 1)`)**: Apagar el bit `1` más a la derecha para contar cuántos bits encendidos tiene un número (`Counting Bits`) o verificar en O(1) si `n` es potencia de 2 (`n > 0 and (n & (n - 1)) == 0`).",
-      "**Aislar el último bit encendido (`n & -n`)**: Separar dos números únicos (`Single Number III`) o moverse en un Fenwick Tree.",
+      "**XOR Properties (`^`)**: Find the single non-repeating element (`Single Number`: `x ^ x = 0` and `x ^ 0 = x`) or the missing number in `0..N`.",
+      "**Brian Kernighan's Trick (`n & (n - 1)`)**: Clear the lowest set `1` bit to count how many set bits an integer has (`Counting Bits`) or check in O(1) whether `n` is a power of 2 (`n > 0 and (n & (n - 1)) == 0`).",
+      "**Isolating the Lowest Set Bit (`n & -n`)**: Split two unique numbers (`Single Number III`) or navigate a Fenwick Tree.",
     ],
     whenNotToUse: [
-      "No sacrifiques legibilidad con trucos oscuros de bits si una operación aritmética normal tiene la misma complejidad y es más clara.",
+      "Do not sacrifice code readability with obscure bit hacks if standard arithmetic has the exact same complexity and is clearer.",
     ],
     timeComplexity: {
-      average: "O(1) por operación de bit | O(N) en barrido sobre arreglo",
-      worst: "O(1) para enteros de 32/64 bits",
-      note: "`n & (n - 1)` salta directamente entre bits encendidos sin revisar los ceros intermedios.",
+      average: "O(1) per bit operation | O(N) across an array scan",
+      worst: "O(1) for 32/64-bit integers",
+      note: "`n & (n - 1)` jumps directly between set bits without inspecting intermediate zeros.",
     },
-    spaceComplexity: "O(1) registros de CPU",
-    constraintHint: "Tiempo O(N) con restricción estricta de Espacio O(1), XOR o potencias de 2",
+    spaceComplexity: "O(1) CPU registers",
+    constraintHint: "O(N) Time with strict O(1) Space constraint, XOR cancellation, or powers of 2",
     pythonTemplate: `def bit_manipulation_essentials(nums: list[int], n: int) -> tuple[int, bool, int]:
     """
-    Los 3 Trucos Fundamentales de Bits para Entrevistas:
+    The 3 Core Bit Manipulation Tricks for Interviews:
     """
-    # 1. XOR cancela duplicados: x ^ x = 0, x ^ 0 = x
+    # 1. XOR cancels duplicates: x ^ x = 0, x ^ 0 = x
     single = 0
     for x in nums:
         single ^= x
 
-    # 2. ¿Es 'n' una potencia exacta de 2? (Solo tiene un único bit '1' encendido)
+    # 2. Is 'n' an exact power of 2? (Has exactly one '1' bit set)
     is_power_of_two = n > 0 and (n & (n - 1)) == 0
 
-    # 3. Algoritmo de Brian Kernighan: contar bits '1' apagando el último bit en cada paso
+    # 3. Brian Kernighan's Algorithm: count '1' bits by clearing the lowest set bit each step
     ones_count = 0
     temp = n
     while temp > 0:
-        temp &= temp - 1  # Apaga el bit '1' menos significativo
+        temp &= temp - 1  # Clears the least significant '1' bit
         ones_count += 1
 
     return single, is_power_of_two, ones_count`,
@@ -765,54 +765,54 @@ export function isPowerOfTwo(n: number): boolean {
         title: "Single Number",
         slug: "single-number",
         difficulty: "Easy",
-        patternHint: "Acumula el XOR de todos los números: las parejas dan `0` y sobrevive el único solitario en O(1) espacio.",
+        patternHint: "Accumulate the XOR of all numbers: pairs cancel to `0` and the unique number survives in O(1) space.",
       },
       {
         number: 191,
         title: "Number of 1 Bits",
         slug: "number-of-1-bits",
         difficulty: "Easy",
-        patternHint: "Repite `n &= n - 1` contando cuántos pasos toma llegar a 0.",
+        patternHint: "Repeat `n &= n - 1` counting how many steps it takes to reach 0.",
       },
       {
         number: 338,
         title: "Counting Bits",
         slug: "counting-bits",
         difficulty: "Easy",
-        patternHint: "DP + Bits: `dp[i] = dp[i >> 1] + (i & 1)` o `dp[i] = dp[i & (i - 1)] + 1`.",
+        patternHint: "DP + Bits: `dp[i] = dp[i >> 1] + (i & 1)` or `dp[i] = dp[i & (i - 1)] + 1`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Haz un recorrido ágil y memorable por los 4 superpoderes de la manipulación de bits: 1) Las 3 leyes del XOR (`x ^ 0 = x`, `x ^ x = 0`, y que el orden no importa), 2) `n & (n - 1)` de Brian Kernighan para apagar el último 1 y detectar potencias de 2, 3) `n & -n` para aislar el último 1, y 4) Desplazamientos `1 << k` y `(n >> k) & 1`.",
+        "Take a brisk, memorable tour through the 4 superpowers of bit manipulation: 1) The 3 laws of XOR (`x ^ 0 = x`, `x ^ x = 0`, and commutativity/associativity), 2) Brian Kernighan's `n & (n - 1)` to clear the lowest set bit and detect powers of 2, 3) `n & -n` to isolate the lowest set bit, and 4) Shifts `1 << k` and `(n >> k) & 1`.",
       keyTakeaways: [
-        "XOR (`^`) es una suma en base 2 sin acarreo: sumar dos veces lo mismo vuelve a dar cero.",
-        "`n & (n - 1)` borra el bit `1` más a la derecha; si un número positivo era potencia de 2 (tenía un solo bit `1`), al hacer `n & (n - 1)` queda en `0`.",
-        "En Python los enteros tienen precisión arbitraria (infinitos bits), por lo que al simular enteros de 32 bits con signo en problemas como `Sum of Two Integers` se usa una máscara `MASK = 0xFFFFFFFF`.",
+        "XOR (`^`) is base-2 addition without carry: adding the same value twice brings you back to zero.",
+        "`n & (n - 1)` erases the rightmost `1` bit; if a positive integer was a power of 2 (had a single `1` bit), `n & (n - 1)` becomes `0`.",
+        "In Python, integers have arbitrary precision (infinite bits), so when simulating signed 32-bit integers in problems like `Sum of Two Integers`, apply a mask `MASK = 0xFFFFFFFF`.",
       ],
       stepByStepWalkthrough: [
-        "Para leer el bit `k`: `(n >> k) & 1`.",
-        "Para encender el bit `k`: `n | (1 << k)`.",
-        "Para apagar el bit `k`: `n & ~(1 << k)`.",
-        "Para invertir (toggle) el bit `k`: `n ^ (1 << k)`.",
+        "To read bit `k`: `(n >> k) & 1`.",
+        "To set bit `k`: `n | (1 << k)`.",
+        "To clear bit `k`: `n & ~(1 << k)`.",
+        "To toggle bit `k`: `n ^ (1 << k)`.",
       ],
       interviewTraps: [
-        "En Python, aplicar `~n` o desplazamientos a negativos esperando comportamiento de 32 bits con overflow automático (como en C++/Java): en Python los enteros no desbordan a 32 bits a menos que apliques `& 0xFFFFFFFF`.",
+        "In Python, applying `~n` or bit shifts to negative numbers expecting automatic 32-bit overflow (like in C++/Java): Python integers do not wrap at 32 bits unless you explicitly mask with `& 0xFFFFFFFF`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "La magia del XOR: Cómo encontrar una aguja en un pajar con O(1) de memoria",
-          visualCue: "Parejas de números iguales chocando con XOR y convirtiéndose en 0, dejando solo al número único.",
+          sectionTitle: "The Magic of XOR: Finding a Needle in a Haystack with O(1) Memory",
+          visualCue: "Pairs of matching numbers colliding under XOR and turning into 0, leaving only the unique number.",
           narration:
-            "Cuando un problema te pide encontrar el único número que no tiene pareja en tiempo lineal pero te prohíbe usar un Hash Set exigiendo memoria O(1), la respuesta está en los bits: el operador XOR cancela cualquier número repetido un número par de veces.",
+            "When a problem asks you to find the only unpaired number in linear time while forbidding a Hash Set by demanding O(1) memory, the answer lives in the bits: the XOR operator cancels any number that appears an even number of times.",
         },
         {
           timestamp: "01:45 - 04:15",
-          sectionTitle: "El truco de Brian Kernighan: `n & (n - 1)`",
-          visualCue: "El binario `10100` restando 1 (`10011`) y haciendo AND para apagar el último 1 (`10000`).",
+          sectionTitle: "Brian Kernighan's Trick: `n & (n - 1)`",
+          visualCue: "Binary `10100` subtracting 1 (`10011`) and ANDing to clear the lowest 1 (`10000`).",
           narration:
-            "Restar 1 a un número binario invierte todos los bits desde el último 1 hacia la derecha. Por eso, al hacer `n & (n - 1)` apagas de un solo golpe el bit encendido más bajo.",
+            "Subtracting 1 from a binary number flips every bit from the rightmost 1 to the end. That is why `n & (n - 1)` clears the lowest set bit in a single CPU instruction.",
         },
       ],
     },
@@ -820,7 +820,7 @@ export function isPowerOfTwo(n: number): boolean {
   {
     id: "math",
     order: 44,
-    title: "Math & Geometry (Matemáticas, Combinatoria y Geometría)",
+    title: "Math, Combinatorics & Computational Geometry",
     shortTitle: "Math & Geometry",
     englishTerm: "Math, Combinatorics & Computational Geometry",
     kind: "algorithm",
@@ -829,30 +829,30 @@ export function isPowerOfTwo(n: number): boolean {
     branchCategory: "advanced-math-range",
     prerequisites: ["basic-dsa", "arrays"],
     summary:
-      "Reemplazar simulaciones lentas por fórmulas cerradas en O(1) u O(log N): series aritméticas de Gauss, combinatoria ($nCr$), exponenciación rápida (`pow(x, n)` en O(log N)), pendientes representadas como fracciones irreducibles `(dy // g, dx // g)` y producto cruz en geometría 2D.",
+      "Replace slow simulations with closed-form O(1) or O(log N) formulas: Gauss arithmetic series, combinatorics ($nCr$), binary exponentiation (`pow(x, n)` in O(log N)), slopes represented as irreducible fractions `(dy // g, dx // g)`, and 2D cross products.",
     analogy:
-      "Cuando el profesor le pidió al niño Carl Friedrich Gauss sumar los números del 1 al 100 para mantenerlo ocupado una hora, en lugar de sumar uno por uno (O(N)), emparejó `1+100 = 101`, `2+99 = 101`... 50 parejas de 101 = `5050` en un segundo (O(1)).",
+      "When young Carl Friedrich Gauss's teacher asked the class to sum the numbers from 1 to 100 to keep them busy for an hour, instead of adding one by one (O(N)), Gauss paired `1+100 = 101`, `2+99 = 101`... 50 pairs of 101 = `5050` in a single second (O(1)).",
     whenToUse: [
-      "Sumas de series (`n * (n + 1) // 2`), conteo de pares (`n * (n - 1) // 2`) o caminos en cuadrícula con combinatoria $\binom{m+n-2}{m-1}$.",
-      "**Exponenciación Binaria**: Calcular $x^n$ en $O(\log n)$ usando que $x^{2k} = (x^2)^k$.",
-      "**Geometría 2D**: Colinealidad de puntos (`Max Points on a Line`), orientación de giros con **Producto Cruz** y distancias euclidianas al cuadrado (`dx² + dy²` sin usar `sqrt` para evitar errores de punto flotante).",
+      "Series sums (`n * (n + 1) // 2`), pair counting (`n * (n - 1) // 2`), or grid paths via combinatorics $\\binom{m+n-2}{m-1}$.",
+      "**Binary Exponentiation**: Compute $x^n$ in $O(\\log n)$ using $x^{2k} = (x^2)^k$.",
+      "**2D Geometry**: Point collinearity (`Max Points on a Line`), turn orientation via **Cross Product**, and squared Euclidean distances (`dx^2 + dy^2` without `sqrt` to avoid floating-point inaccuracy).",
     ],
     whenNotToUse: [
-      "¡NUNCA dividas flotantes `dy / dx` para usar pendientes como llaves de un Hash Map! `0.1 + 0.2 != 0.3` en IEEE 754 y la división por cero falla en líneas verticales. Simplifica siempre por el `gcd(dy, dx)` y guarda la tupla entera `(dy // g, dx // g)`.",
+      "NEVER divide floats `dy / dx` to use slopes as Hash Map keys! `0.1 + 0.2 != 0.3` in IEEE 754 and division by zero crashes on vertical lines. Always reduce by `gcd(dy, dx)` and store the integer tuple `(dy // g, dx // g)`.",
     ],
     timeComplexity: {
-      average: "Fórmulas de Gauss: O(1) | Binary Exponentiation: O(log N)",
+      average: "Gauss formulas: O(1) | Binary Exponentiation: O(log N)",
       worst: "O(log N)",
-      note: "Evita `math.sqrt` y `float` siempre que puedas comparar distancias al cuadrado con enteros exactos.",
+      note: "Avoid `math.sqrt` and `float` whenever you can compare squared distances with exact integers.",
     },
     spaceComplexity: "O(1)",
-    constraintHint: "N ≥ 10⁹ exigiendo O(1)/O(log N), conteo combinatorio o puntos en el plano 2D",
+    constraintHint: "N >= 10^9 requiring O(1)/O(log N), combinatorial counting, or points on a 2D plane",
     pythonTemplate: `import math
 
 def fast_power(x: float, n: int) -> float:
     """
-    1. Exponenciación Binaria (Pow(x, n)) en O(log N).
-    Si n es par: x^n = (x * x)^(n // 2).
+    1. Binary Exponentiation (Pow(x, n)) in O(log N).
+    If n is even: x^n = (x * x)^(n // 2).
     """
     if n < 0:
         x = 1.0 / x
@@ -868,8 +868,8 @@ def fast_power(x: float, n: int) -> float:
 
 def normalized_slope(p1: list[int], p2: list[int]) -> tuple[int, int]:
     """
-    2. Pendiente Exacta en Geometría sin punto flotante (para usar en Hash Map).
-    Reduce (dy, dx) por su Máximo Común Divisor y normaliza el signo.
+    2. Exact Float-Free Slope in Geometry (safe as a Hash Map key).
+    Reduce (dy, dx) by their Greatest Common Divisor and normalize the sign.
     """
     dy = p2[1] - p1[1]
     dx = p2[0] - p1[0]
@@ -901,53 +901,53 @@ def normalized_slope(p1: list[int], p2: list[int]) -> tuple[int, int]:
         title: "Pow(x, n)",
         slug: "powx-n",
         difficulty: "Medium",
-        patternHint: "Exponenciación binaria dividiendo el exponente `n` entre 2 en cada paso en O(log N).",
+        patternHint: "Binary exponentiation halving the exponent `n` at each step in O(log N).",
       },
       {
         number: 149,
         title: "Max Points on a Line",
         slug: "max-points-on-a-line",
         difficulty: "Hard",
-        patternHint: "Para cada punto base, agrupa los demás en un Hash Map usando la pendiente entera reducida `(dy // gcd, dx // gcd)`.",
+        patternHint: "For each anchor point, group other points in a Hash Map using the reduced integer slope `(dy // gcd, dx // gcd)`.",
       },
       {
         number: 62,
         title: "Unique Paths",
         slug: "unique-paths",
         difficulty: "Medium",
-        patternHint: "Además de DP, es combinatoria pura: elegir dónde van los `m-1` pasos hacia abajo entre `(m-1) + (n-1)` pasos totales: `math.comb(m + n - 2, m - 1)`.",
+        patternHint: "Beyond DP, it is pure combinatorics: choose where the `m-1` down steps go among `(m-1) + (n-1)` total steps: `math.comb(m + n - 2, m - 1)`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Enseña las herramientas matemáticas que salvan entrevistas: 1) Cómo contar pares `N*(N-1)//2` y subarreglos `L*(L+1)//2` al instante, 2) Exponenciación Binaria (`Pow(x, n)`) en O(log N), y 3) La regla de oro en Geometría Computacional: 'El punto flotante es tu enemigo; usa distancias al cuadrado y pendientes reducidas con GCD'.",
+        "Teach the mathematical tools that save interviews: 1) How to count pairs `N*(N-1)//2` and subarrays `L*(L+1)//2` instantly, 2) Binary Exponentiation (`Pow(x, n)`) in O(log N), and 3) The golden rule of Computational Geometry: 'Floating point is your enemy; use squared distances and GCD-reduced slopes'.",
       keyTakeaways: [
-        "En un grupo de `K` elementos iguales, el número de pares que puedes formar es `K * (K - 1) // 2`.",
-        "En un segmento válido de longitud `L`, el número de subarreglos contiguos contenidos es `L * (L + 1) // 2`.",
-        "Para comparar distancias en el plano, compara `dx*dx + dy*dy` con enteros en vez de `sqrt(dx*dx + dy*dy)`.",
+        "In a group of `K` identical items, the number of pairs you can form is `K * (K - 1) // 2`.",
+        "In a valid segment of length `L`, the number of contiguous subarrays contained within it is `L * (L + 1) // 2`.",
+        "To compare distances in the plane, compare `dx*dx + dy*dy` with integers instead of `sqrt(dx*dx + dy*dy)`.",
       ],
       stepByStepWalkthrough: [
-        "Verificar si una simulación O(N) se puede colapsar en una división, módulo o suma de Gauss O(1).",
-        "En potencias grandes, elevar la base al cuadrado y dividir el exponente entre 2 en cada iteración.",
-        "En problemas de rectas y puntos, representar cada dirección como `(dy // gcd, dx // gcd)`.",
+        "Check whether an O(N) simulation can be collapsed into an O(1) division, modulo, or Gauss sum.",
+        "For large exponents, square the base and halve the exponent on each iteration.",
+        "For line and point problems, represent each direction as `(dy // gcd, dx // gcd)`.",
       ],
       interviewTraps: [
-        "Usar `dy / dx` en punto flotante para agrupar puntos colineales: falla con `ZeroDivisionError` en rectas verticales y por pérdida de precisión en números grandes.",
+        "Using floating-point `dy / dx` to group collinear points: it crashes with `ZeroDivisionError` on vertical lines and suffers from precision loss on large coordinates.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "El atajo de Gauss y el conteo instantáneo de pares y subarreglos",
-          visualCue: "Triángulo de pares mostrando por qué `1 + 2 + ... + (N-1) = N*(N-1)/2`.",
+          sectionTitle: "Gauss's Shortcut and Instant Pair & Subarray Counting",
+          visualCue: "Triangle of pairs showing why `1 + 2 + ... + (N-1) = N*(N-1)/2`.",
           narration:
-            "Muchas veces ya encontraste los grupos válidos con un Hash Map o una ventana deslizante, y para rematar el problema solo necesitas contar cuántos pares o subarreglos se forman sin hacer un bucle extra. La fórmula de Gauss `N*(N-1)//2` lo resuelve en O(1).",
+            "Often you have already found the valid groups with a Hash Map or a sliding window, and to finish the problem you just need to count how many pairs or subarrays they form without running an extra loop. Gauss's formula `N*(N-1)//2` solves it in O(1).",
         },
         {
           timestamp: "01:45 - 04:30",
-          sectionTitle: "Exponenciación Binaria O(log N) y Geometría libre de punto flotante",
-          visualCue: "Cálculo de `x^1024` en solo 10 multiplicaciones y reducción de fracción `(dy, dx)` por su GCD.",
+          sectionTitle: "O(log N) Binary Exponentiation and Float-Free Geometry",
+          visualCue: "Computing `x^1024` in just 10 multiplications and reducing fraction `(dy, dx)` by its GCD.",
           narration:
-            "En geometría para entrevistas hay un mandamiento: aléjate de los números decimales siempre que puedas. Representar una pendiente como una fracción simplificada por su Máximo Común Divisor elimina tanto la división por cero como los errores de redondeo.",
+            "In interview geometry there is one commandment: stay away from floating-point decimals whenever possible. Representing a slope as a fraction simplified by its Greatest Common Divisor eliminates both division by zero and rounding errors.",
         },
       ],
     },
@@ -955,7 +955,7 @@ def normalized_slope(p1: list[int], p2: list[int]) -> tuple[int, int]:
   {
     id: "number-theory",
     order: 45,
-    title: "Number Theory (Teoría de Números: GCD, Criba de Eratóstenes y Módulo)",
+    title: "Number Theory (Euclidean GCD, Sieve of Eratosthenes & Modular Arithmetic)",
     shortTitle: "Number Theory",
     englishTerm: "Number Theory (Euclidean GCD, Sieve of Eratosthenes & Modular Arithmetic)",
     kind: "algorithm",
@@ -964,27 +964,27 @@ def normalized_slope(p1: list[int], p2: list[int]) -> tuple[int, int]:
     branchCategory: "advanced-math-range",
     prerequisites: ["math", "arrays"],
     summary:
-      "Los pilares de los números enteros y primos: 1) **Algoritmo de Euclides** para el Máximo Común Divisor (`GCD`) y Mínimo Común Múltiplo (`LCM`) en O(log(min(a,b))), 2) **Criba de Eratóstenes** para hallar todos los primos hasta `N` en $O(N \log \log N)$, 3) **Factorización en $O(\sqrt{N})$**, y 4) **Aritmética Modular (`10⁹ + 7`)**.",
+      "The pillars of integers and prime numbers: 1) **Euclidean Algorithm** for Greatest Common Divisor (`GCD`) and Least Common Multiple (`LCM`) in O(log(min(a,b))), 2) **Sieve of Eratosthenes** to find all primes up to `N` in $O(N \\log \\log N)$, 3) **Prime Factorization in $O(\\sqrt{N})$**, and 4) **Modular Arithmetic (`10^9 + 7`)**.",
     analogy:
-      "La Criba de Eratóstenes es como un colador por capas: empiezas en el 2 y tachas todos los múltiplos de 2 (4, 6, 8...); el siguiente número sin tachar es el 3, así que es primo y tachas sus múltiplos desde `3×3 = 9` en adelante. Al llegar a $\sqrt{N}$, todos los números que sobrevivieron sin tachar son primos.",
+      "The Sieve of Eratosthenes works like a layered strainer: you start at 2 and cross out all multiples of 2 (4, 6, 8...); the next uncrossed number is 3, so it is prime and you cross out its multiples starting from `3*3 = 9` onward. By the time you reach $\\sqrt{N}$, every surviving uncrossed number is prime.",
     whenToUse: [
-      "El enunciado pide devolver la respuesta **'modulo $10^9 + 7$'** (señal de que la respuesta crece exponencialmente y debes aplicar `% MOD` en cada suma y multiplicación).",
-      "Encontrar todos los números primos menores a `N` (`Count Primes`) o descomponer números en sus factores primos (para conectar números con factores comunes vía Union-Find).",
-      "Simplificar fracciones, sincronizar ciclos periódicos (`LCM(a, b) = (a * b) // GCD(a, b)`) o saber si es posible medir cierta cantidad de agua (`Water and Jug Problem` — Identidad de Bézout).",
+      "The problem asks you to return the answer **'modulo $10^9 + 7$'** (a signal that the answer grows exponentially and you must apply `% MOD` at every addition and multiplication).",
+      "Finding all prime numbers below `N` (`Count Primes`) or decomposing numbers into their prime factors (e.g., to connect numbers sharing a common factor via Union-Find).",
+      "Simplifying fractions, synchronizing periodic cycles (`LCM(a, b) = (a * b) // GCD(a, b)`), or determining whether a target volume is measurable (`Water and Jug Problem` — Bezout's Identity).",
     ],
     whenNotToUse: [
-      "Para verificar si un SOLO número individual `X` es primo, no construyas toda la Criba hasta `X`: basta probar divisores hasta `d * d <= X` en $O(\sqrt{X})$.",
+      "To check whether a SINGLE individual number `X` is prime, do not build the entire Sieve up to `X`: just test divisors up to `d * d <= X` in $O(\\sqrt{X})$.",
     ],
     timeComplexity: {
-      average: "Euclides GCD: O(log(min(a,b))) | Criba de Eratóstenes: O(N log log N) ≈ O(N)",
-      worst: "Factorización de un número X: O(√X)",
-      note: "En la Criba de Eratóstenes, al tachar múltiplos del primo `p`, empieza siempre desde `p * p` porque los múltiplos menores (`2p, 3p...`) ya fueron tachados por primos más pequeños.",
+      average: "Euclidean GCD: O(log(min(a,b))) | Sieve of Eratosthenes: O(N log log N) ~ O(N)",
+      worst: "Factoring a single number X: O(sqrt(X))",
+      note: "In the Sieve of Eratosthenes, when crossing out multiples of prime `p`, always start at `p * p` because smaller multiples (`2p, 3p...`) were already crossed out by smaller primes.",
     },
-    spaceComplexity: "O(1) en GCD | O(N) en Criba de Eratóstenes",
-    constraintHint: "Primos hasta N ≤ 5·10⁶, divisibilidad, GCD/LCM o respuestas módulo 10⁹ + 7",
+    spaceComplexity: "O(1) for GCD | O(N) for Sieve of Eratosthenes",
+    constraintHint: "Primes up to N <= 5*10^6, divisibility, GCD/LCM, or answers modulo 10^9 + 7",
     pythonTemplate: `def gcd_and_lcm(a: int, b: int) -> tuple[int, int]:
     """
-    1. Algoritmo de Euclides en O(log(min(a, b))):
+    1. Euclidean Algorithm in O(log(min(a, b))):
        gcd(a, b) = gcd(b, a % b)
     """
     x, y = a, b
@@ -997,7 +997,7 @@ def normalized_slope(p1: list[int], p2: list[int]) -> tuple[int, int]:
 
 def sieve_of_eratosthenes(n: int) -> list[bool]:
     """
-    2. Criba de Eratóstenes para identificar todos los primos en [0..n] en O(N log log N).
+    2. Sieve of Eratosthenes to identify all primes in [0..n] in O(N log log N).
     """
     if n < 2:
         return [False] * (n + 1)
@@ -1007,7 +1007,7 @@ def sieve_of_eratosthenes(n: int) -> list[bool]:
     p = 2
     while p * p <= n:
         if is_prime[p]:
-            # Empezamos en p * p e incrementamos de p en p
+            # Start at p * p and step by p
             for multiple in range(p * p, n + 1, p):
                 is_prime[multiple] = False
         p += 1
@@ -1042,53 +1042,53 @@ export function countPrimesSieve(n: number): number {
         title: "Count Primes",
         slug: "count-primes",
         difficulty: "Medium",
-        patternHint: "Criba de Eratóstenes tachando desde `p * p` con paso `p` hasta `p * p < n`.",
+        patternHint: "Sieve of Eratosthenes crossing out from `p * p` with step `p` while `p * p < n`.",
       },
       {
         number: 1979,
         title: "Find Greatest Common Divisor of Array",
         slug: "find-greatest-common-divisor-of-array",
         difficulty: "Easy",
-        patternHint: "Aplica el algoritmo de Euclides entre `min(nums)` y `max(nums)`.",
+        patternHint: "Apply the Euclidean algorithm between `min(nums)` and `max(nums)`.",
       },
       {
         number: 952,
         title: "Largest Component Size by Common Factor",
         slug: "largest-component-size-by-common-factor",
         difficulty: "Hard",
-        patternHint: "Descompón cada número en sus factores primos en O(√X) y únelos en un Disjoint Set Union (DSU).",
+        patternHint: "Decompose each number into its prime factors in O(sqrt(X)) and union them in a Disjoint Set Union (DSU).",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica las 3 piedras angulares de Number Theory en entrevistas: 1) El Algoritmo de Euclides (`while b: a, b = b, a % b`) y por qué es tan veloz como Binary Search, 2) La Criba de Eratóstenes y por qué el bucle interno empieza en `p * p` (no en `2 * p`), y 3) Las reglas de Aritmética Modular (`10⁹ + 7`), incluyendo el Pequeño Teorema de Fermat (`pow(b, MOD - 2, MOD)`) cuando toca dividir bajo un módulo primo.",
+        "Explain the 3 cornerstones of Number Theory in interviews: 1) The Euclidean Algorithm (`while b: a, b = b, a % b`) and why it is as fast as Binary Search, 2) The Sieve of Eratosthenes and why the inner loop starts at `p * p` (not `2 * p`), and 3) The rules of Modular Arithmetic (`10^9 + 7`), including Fermat's Little Theorem (`pow(b, MOD - 2, MOD)`) when dividing under a prime modulus.",
       keyTakeaways: [
-        "En Euclides, `a % b` reduce el número al menos a la mitad cada 2 pasos, tardando $O(\log(\min(a,b)))$.",
-        "En la Criba de Eratóstenes, empezar en `p * p` ahorra muchísimo trabajo porque cualquier `k * p` con `k < p` ya fue tachado antes por el factor primo de `k`.",
-        "Bajo un módulo primo `MOD = 10⁹ + 7`, la suma y la multiplicación distribuyen `(a * b) % MOD`, pero para dividir entre `b` debes multiplicar por su inverso modular `pow(b, MOD - 2, MOD)`.",
+        "In Euclid's algorithm, `a % b` shrinks the number by at least half every 2 steps, taking $O(\\log(\\min(a,b)))$.",
+        "In the Sieve of Eratosthenes, starting at `p * p` saves massive work because any `k * p` with `k < p` was already crossed out earlier by the smallest prime factor of `k`.",
+        "Under a prime modulus `MOD = 10^9 + 7`, addition and multiplication distribute `(a * b) % MOD`, but to divide by `b` you must multiply by its modular inverse `pow(b, MOD - 2, MOD)`.",
       ],
       stepByStepWalkthrough: [
-        "Para hallar todos los primos hasta `N`: usar Criba de Eratóstenes con `p * p <= n`.",
-        "Para factorizar un número `X`: probar `d = 2` mientras `d * d <= X`, dividiendo `X //= d` mientras sea divisible; si al final `X > 1`, el resto `X` también es un factor primo.",
-        "Para cálculos módulo `10⁹ + 7`: aplicar `% MOD` en cada acumulación.",
+        "To find all primes up to `N`: use the Sieve of Eratosthenes with `p * p <= n`.",
+        "To factor a number `X`: test `d = 2` while `d * d <= X`, dividing `X //= d` while divisible; if `X > 1` at the end, the remaining `X` is also a prime factor.",
+        "For calculations modulo `10^9 + 7`: apply `% MOD` at every accumulation step.",
       ],
       interviewTraps: [
-        "Hacer `(a // b) % MOD` cuando el problema pide el resultado de una división módulo `10⁹ + 7` (por ejemplo en combinatoria $nCr \pmod{10^9+7}$): si `a` ya fue reducido módulo `MOD`, la división entera normal da un resultado completamente falso. Usa el inverso modular `a * pow(b, MOD - 2, MOD) % MOD`.",
+        "Doing `(a // b) % MOD` when the problem asks for the result of a division modulo `10^9 + 7` (for instance in combinatorics $nCr \\pmod{10^9+7}$): once `a` has been reduced modulo `MOD`, ordinary integer division produces a completely wrong answer. Use the modular inverse `a * pow(b, MOD - 2, MOD) % MOD`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "El algoritmo más antiguo y elegante de la historia: Euclides en 3 líneas",
-          visualCue: "Dos barras de longitud A y B reduciéndose con `a % b` hasta hallar la medida común exacta.",
+          sectionTitle: "History's Oldest and Most Elegant Algorithm: Euclid in 3 Lines",
+          visualCue: "Two bars of length A and B reducing via `a % b` until finding the exact common measure.",
           narration:
-            "Escrito hace más de dos mil trescientos años, el Algoritmo de Euclides calcula el Máximo Común Divisor de dos números gigantescos en un parpadeo: mientras B no sea cero, reemplazas A y B por B y el residuo de A entre B.",
+            "Written more than two thousand three hundred years ago, the Euclidean Algorithm computes the Greatest Common Divisor of two astronomical numbers in the blink of an eye: while B is non-zero, replace A and B with B and A modulo B.",
         },
         {
           timestamp: "01:45 - 04:45",
-          sectionTitle: "Criba de Eratóstenes (`p * p`) y el misterio de `10^9 + 7`",
-          visualCue: "Tablero numérico tachando múltiplos desde `p²` y explicación visual del módulo `10^9 + 7`.",
+          sectionTitle: "Sieve of Eratosthenes (`p * p`) and the Mystery of `10^9 + 7`",
+          visualCue: "Number grid crossing out multiples from `p^2` and a visual breakdown of modulo `10^9 + 7`.",
           narration:
-            "¿Por qué tantos problemas de LeetCode piden devolver la respuesta módulo 1,000,000,007? Porque es el primer número primo después de mil millones: cabe perfectamente en enteros estándar sin desbordar y, al ser primo, nos permite incluso dividir usando el inverso modular.",
+            "Why do so many LeetCode problems ask for the answer modulo 1,000,000,007? Because it is the first prime number after one billion: it fits cleanly inside standard integer types without overflowing, and being prime lets us divide using the modular inverse.",
         },
       ],
     },
@@ -1105,29 +1105,29 @@ export function countPrimesSieve(n: number): number {
     branchCategory: "advanced-math-range",
     prerequisites: ["sorting-intervals", "graphs", "dfs"],
     summary:
-      "El arsenal de élite para cerrar el Flowchart: 1) **Sweep Line / Difference Array** (convertir intervalos en eventos `+1` al abrir y `-1` al cerrar), 2) **Boyer-Moore Majority Vote** (hallar el elemento mayoritario en O(N) tiempo y O(1) espacio), 3) **Reservoir Sampling**, 4) **Algoritmo de Hierholzer (Camino de Euler)** y 5) **Algoritmo de Tarjan (Puentes / SCC)**.",
+      "The elite toolkit to complete the Flowchart: 1) **Sweep Line / Difference Array** (turning intervals into `+1` open and `-1` close events), 2) **Boyer-Moore Majority Vote** (finding the majority element in O(N) time and O(1) space), 3) **Reservoir Sampling**, 4) **Hierholzer's Algorithm (Eulerian Path)**, and 5) **Tarjan's Bridge-Finding Algorithm (`tin` & `low`)**.",
     analogy:
-      "Imagina un guardia en la puerta de un centro comercial (Sweep Line / Eventos): para saber en qué minuto del día hubo más gente adentro, no necesitas seguir a cada comprador; simplemente sumas `+1` al contador cada vez que alguien entra por la puerta y restas `-1` cada vez que alguien sale.",
+      "Picture a security guard at the entrance of a shopping mall (Sweep Line / Event Counter): to know which minute of the day had the highest crowd inside, you do not need to track each shopper individually; you simply add `+1` to your counter every time someone walks in and subtract `-1` every time someone walks out.",
     whenToUse: [
-      "**Sweep Line / Difference Array**: ¿Cuántos intervalos están activos simultáneamente en cada punto o cuál es el pico máximo de salas necesarias? (`Meeting Rooms II`, `Car Pooling`, `The Skyline Problem`).",
-      "**Boyer-Moore Majority Vote**: Encontrar el elemento que aparece más de `⌊N/2⌋` (o `⌊N/3⌋`) veces exigiendo estrictamente **O(1) memoria** (`Majority Element I & II`).",
-      "**Hierholzer (Eulerian Path)**: Recorrer **TODAS LAS ARISTAS** de un grafo exactamente 1 vez (`Reconstruct Itinerary`) agregando el nodo al resultado en post-order (`dfs` agotando aristas salientes).",
-      "**Tarjan (`tin` y `low`)**: Encontrar **Aristas Críticas (Bridges)** cuya eliminación desconecta el grafo (`Critical Connections in a Network`).",
+      "**Sweep Line / Difference Array**: How many intervals are active simultaneously at each point, or what is the peak number of rooms needed? (`Meeting Rooms II`, `Car Pooling`, `The Skyline Problem`).",
+      "**Boyer-Moore Majority Vote**: Find the element that appears more than `floor(N/2)` (or `floor(N/3)`) times under a strict **O(1) memory** constraint (`Majority Element I & II`).",
+      "**Hierholzer (Eulerian Path)**: Traverse **EVERY EDGE** of a graph exactly once (`Reconstruct Itinerary`) by appending nodes in post-order after exhausting outgoing edges.",
+      "**Tarjan (`tin` and `low`)**: Find **Critical Connections (Bridges)** whose removal disconnects the graph (`Critical Connections in a Network`).",
     ],
     whenNotToUse: [
-      "No uses Boyer-Moore para encontrar el elemento 'más frecuente' general si no está garantizado que supere `N/2` (o si no haces una segunda pasada de verificación).",
+      "Do not use Boyer-Moore to find the general 'most frequent' element unless it is guaranteed to exceed `N/2` (or unless you run a second verification pass).",
     ],
     timeComplexity: {
-      average: "Boyer-Moore: O(N) tiempo, O(1) espacio | Sweep Line: O(N log N) | Tarjan / Hierholzer: O(V + E)",
-      worst: "O(N log N) o O(V + E)",
-      note: "Un Difference Array (`diff[L] += val; diff[R+1] -= val`) aplica N sumas de rango en O(1) cada una y reconstruye el arreglo final con un Prefix Sum en O(N).",
+      average: "Boyer-Moore: O(N) time, O(1) space | Sweep Line: O(N log N) | Tarjan / Hierholzer: O(V + E)",
+      worst: "O(N log N) or O(V + E)",
+      note: "A Difference Array (`diff[L] += val; diff[R+1] -= val`) applies N range additions in O(1) each and reconstructs the final array with a single O(N) Prefix Sum.",
     },
-    spaceComplexity: "O(1) en Boyer-Moore | O(N) en Sweep Line / Tarjan",
-    constraintHint: "Concurrencia máxima de eventos, Majority Vote en O(1) espacio, Puentes en redes o Camino de Euler",
+    spaceComplexity: "O(1) for Boyer-Moore | O(N) for Sweep Line / Tarjan",
+    constraintHint: "Peak event concurrency, O(1)-space Majority Vote, Network Bridges, or Eulerian Path",
     pythonTemplate: `def boyer_moore_majority_vote(nums: list[int]) -> int:
     """
-    1. Algoritmo de Voto Mayoritario de Boyer-Moore.
-    Encuentra el elemento que aparece > N/2 veces en O(N) tiempo y O(1) espacio.
+    1. Boyer-Moore Majority Vote Algorithm.
+    Finds the element appearing > N/2 times in O(N) time and O(1) space.
     """
     candidate = 0
     count = 0
@@ -1140,15 +1140,15 @@ export function countPrimesSieve(n: number): number {
 
 def sweep_line_max_overlap(intervals: list[list[int]]) -> int:
     """
-    2. Sweep Line (Barrido de Eventos +1 / -1).
-    Encuentra el máximo número de intervalos superpuestos al mismo tiempo (Meeting Rooms II).
+    2. Sweep Line (+1 / -1 Event Scanning).
+    Finds the maximum number of simultaneously overlapping intervals (Meeting Rooms II).
     """
     events: list[tuple[int, int]] = []
     for start, end in intervals:
-        events.append((start, +1))  # Abre un intervalo
-        events.append((end, -1))    # Cierra un intervalo
+        events.append((start, +1))  # Interval opens
+        events.append((end, -1))    # Interval closes
 
-    # Si un intervalo termina justo cuando otro empieza, procesamos el cierre (-1) primero
+    # If one interval ends right when another starts, process the closing (-1) first
     events.sort(key=lambda e: (e[0], e[1]))
     active = max_active = 0
     for _, delta in events:
@@ -1187,53 +1187,53 @@ export function sweepLineMaxOverlap(intervals: number[][]): number {
         title: "Majority Element",
         slug: "majority-element",
         difficulty: "Easy",
-        patternHint: "Algoritmo de Boyer-Moore: cancela elementos distintos de par en par manteniendo `candidate` y `count` en O(1) espacio.",
+        patternHint: "Boyer-Moore algorithm: cancel distinct elements pairwise while maintaining `candidate` and `count` in O(1) space.",
       },
       {
         number: 1094,
         title: "Car Pooling",
         slug: "car-pooling",
         difficulty: "Medium",
-        patternHint: "Sweep Line / Difference Array: suma `+pasajeros` al subir en `from` y resta `-pasajeros` al bajar en `to`.",
+        patternHint: "Sweep Line / Difference Array: add `+passengers` at pickup `from` and subtract `-passengers` at drop-off `to`.",
       },
       {
         number: 1192,
         title: "Critical Connections in a Network",
         slug: "critical-connections-in-a-network",
         difficulty: "Hard",
-        patternHint: "Algoritmo de Tarjan: una arista `(u, v)` es un puente crítico si `low[v] > discovery_time[u]`.",
+        patternHint: "Tarjan's algorithm: an edge `(u, v)` is a critical bridge iff `low[v] > discovery_time[u]`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Cierra con broche de oro el episodio #46 de la serie 'Leet-YT' presentando los 4 patrones especializados que hacen brillar a un candidato Senior/Staff: 1) Sweep Line & Difference Arrays (`+1` en `start`, `-1` en `end`), 2) Boyer-Moore Majority Vote en O(1) espacio, 3) Camino de Euler con Hierholzer (`Reconstruct Itinerary`), y 4) Detección de Puentes Críticos con Tarjan (`Critical Connections`).",
+        "Close out episode #46 of the 'Leet-YT' series with a grand finale showcasing the 4 specialized patterns that make a Senior/Staff candidate shine: 1) Sweep Line & Difference Arrays (`+1` at `start`, `-1` at `end`), 2) O(1)-space Boyer-Moore Majority Vote, 3) Eulerian Path with Hierholzer (`Reconstruct Itinerary`), and 4) Critical Bridge Detection with Tarjan (`Critical Connections`).",
       keyTakeaways: [
-        "Sweep Line desarma intervalos `[start, end]` en dos eventos puntuales independientes `(start, +1)` y `(end, -1)`.",
-        "Difference Array es el inverso del Prefix Sum: sumar `V` a todo el rango `[L, R]` es solo `diff[L] += V` y `diff[R+1] -= V` en O(1).",
-        "En Boyer-Moore, si un ejército tiene más de la mitad de los soldados, aunque cada soldado se anule 1 a 1 con un enemigo distinto, siempre quedará en pie el ejército mayoritario.",
+        "Sweep Line breaks intervals `[start, end]` into two independent point events `(start, +1)` and `(end, -1)`.",
+        "A Difference Array is the inverse of a Prefix Sum: adding `V` to the entire range `[L, R]` is just `diff[L] += V` and `diff[R+1] -= V` in O(1).",
+        "In Boyer-Moore, if one army holds more than half the soldiers, even if every soldier pairs off 1-to-1 with an enemy and both vanish, the majority army is guaranteed to be the last one standing.",
       ],
       stepByStepWalkthrough: [
-        "Para concurrencia de intervalos (Sweep Line): emitir `+delta` en `start` y `-delta` en `end`, ordenar por coordenada y acumular.",
-        "Para actualizaciones masivas de rango offline (Difference Array): aplicar `+V` en `L` y `-V` en `R+1`, y al final calcular la suma prefija.",
-        "Para Boyer-Moore: cambiar `candidate` solo cuando `count == 0`.",
+        "For interval concurrency (Sweep Line): emit `+delta` at `start` and `-delta` at `end`, sort by coordinate, and accumulate.",
+        "For offline batch range additions (Difference Array): apply `+V` at `L` and `-V` at `R+1`, then take the prefix sum at the end.",
+        "For Boyer-Moore: switch `candidate` only when `count == 0`.",
       ],
       interviewTraps: [
-        "En Sweep Line, no definir cómo desempatar cuando un intervalo termina en el mismo instante `t` en que otro empieza: si `[1, 2]` y `[2, 3]` NO se solapan, `(t, -1)` debe ir antes que `(t, +1)`; si SÍ cuentan como traslape en el borde, `(t, +1)` va primero.",
+        "In Sweep Line, failing to define tie-breaking when one interval ends at the exact timestamp `t` another starts: if `[1, 2]` and `[2, 3]` do NOT overlap, `(t, -1)` must sort before `(t, +1)`; if touching endpoints DO count as overlapping, `(t, +1)` comes first.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 02:00",
-          sectionTitle: "Sweep Line y Difference Arrays: El poder de los eventos +1 y -1",
-          visualCue: "Una línea vertical barriendo intervalos de izquierda a derecha sumando +1 al entrar y -1 al salir.",
+          sectionTitle: "Sweep Line and Difference Arrays: The Power of +1 and -1 Events",
+          visualCue: "A vertical line sweeping across intervals from left to right adding +1 on entry and -1 on exit.",
           narration:
-            "Llegamos al episodio final de nuestro mapa de 46 temas. Empezamos este bloque con una idea brillante: un intervalo de inicio a fin no es más que dos eventos en el tiempo, un `+1` cuando empieza y un `-1` cuando termina.",
+            "We have reached the final episode of our 46-topic map. We kick off this capstone with a brilliant insight: an interval from start to end is nothing more than two point events in time, a `+1` when it opens and a `-1` when it closes.",
         },
         {
           timestamp: "02:00 - 05:15",
-          sectionTitle: "Boyer-Moore en O(1), Caminos de Euler y Puentes de Tarjan",
-          visualCue: "Resumen visual de Boyer-Moore, el recorrido de aristas de Euler y los tiempos `low[v] > tin[u]` de Tarjan.",
+          sectionTitle: "O(1) Boyer-Moore, Eulerian Paths, and Tarjan's Bridges",
+          visualCue: "Visual summary of Boyer-Moore cancellation, Eulerian edge traversal, and Tarjan's `low[v] > tin[u]` bridge condition.",
           narration:
-            "Con Boyer-Moore para mayorías en O(1), Hierholzer para recorrer todas las aristas sin repetir y Tarjan para detectar conexiones críticas en una red, has completado los 46 nodos del Flowchart de Leet-YT.",
+            "With Boyer-Moore for O(1) majorities, Hierholzer for traversing every edge once, and Tarjan for spotting critical network bridges, you have completed all 46 nodes of the Leet-YT Flowchart.",
         },
       ],
     },

@@ -1,90 +1,90 @@
-# 🎬 Episodio #24: DFS - Depth-First Search (Búsqueda en Profundidad)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 4 — Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Depth-First Search (Trees, Grids & Graphs)`  
-> **Prerrequisitos Recomendados:** Binary Trees → Matrices / Grids 2D → Stacks (LIFO)
+# Episode #24: DFS - Depth-First Search (Trees, Grids & Graphs)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 4 — Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Depth-First Search (Trees, Grids & Graphs)`  
+> **Recommended Prerequisites:** Binary Trees -> Matrices / 2D Grids -> Stacks (LIFO)
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica cómo funciona DFS tanto en Árboles (donde no hace falta `visited` porque no hay ciclos) como en Grafos y Grids 2D (donde marcar `visited` ANTES de explorar vecinos es obligatorio para no caer en un bucle infinito). Usa el ejemplo visual de 'Number of Islands' (Flood Fill).
+Explain how DFS works on Trees (where no `visited` set is needed because trees have no cycles) vs Graphs and 2D Grids (where marking `visited` IMMEDIATELY upon entering `dfs(u)` is mandatory to avoid infinite loops). Use 'Number of Islands' (Flood Fill) as the visual anchor.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "DFS", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Islas, componentes conexas, caminos en árboles/grafos con V, E ≤ 10⁵) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("DFS", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Islands, connected components, or tree/graph paths with V, E <= 10^5) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es DFS?
-Explorar un camino hasta llegar lo más profundo posible antes de retroceder y probar otra bifurcación. Es el algoritmo estándar para contar componentes conexas (islas), verificar conectividad, detectar ciclos y recorrer árboles.
+### What is DFS?
+Exploring a branch as deep as possible before backtracking to try the next branch. It is the go-to algorithm for counting connected components (islands), checking reachability, detecting cycles, and traversing trees.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Explorar un laberinto con un ovillo de hilo (como Teseo y el Minotauro): avanzas siempre por el primer pasillo disponible hasta topar con una pared sin salida; entonces rebobinas el hilo hasta la última intersección que tenía una puerta sin explorar y entras por ahí.
+### Real-World Analogy
+> **Visual Intuition:** Exploring a maze with a ball of yarn: you walk down the first available corridor until you hit a dead end, then rewind your yarn back to the last intersection with an unexplored door and try that path next.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** En árboles no hay ciclos, pero en Grafos y Matrices 2D SIEMPRE debes marcar el nodo como visitado apenas entras a `dfs(u)`.
-2. **Idea Clave #2:** DFS es más corto de programar que BFS porque usa la propia recursión del lenguaje como pila.
-3. **Idea Clave #3:** Para contar el tamaño de una región, haz que `dfs` devuelva `1 + sum(dfs(vecino))`.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR DFS)
-- ✅ Recorrer todos los nodos de un árbol, cuadrícula 2D o grafo para contar componentes conexas (`Number of Islands`, `Max Area of Island`).
-- ✅ Verificar si existe algún camino de `A` a `B`, clonar un grafo o detectar ciclos.
-- ✅ Calcular propiedades de subárboles o caminos de la raíz a las hojas (`Path Sum`).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Cuando necesitas encontrar el **camino MÁS CORTO** en un grafo o cuadrícula sin pesos: DFS puede encontrar primero un camino larguísimo que da mil vueltas; para camino más corto sin pesos usa siempre **BFS**.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Islas, componentes conexas, caminos en árboles/grafos con V, E ≤ 10⁵`
-- **Complejidad Temporal Promedio:** `O(V + E) en grafos | O(R × C) en cuadrículas`
-- **Complejidad Temporal Peor Caso:** `O(V + E)`
-- **Complejidad Espacial:** `O(V) para el conjunto `visited` y la pila de recursión`
-- **Nota Técnica:** Con un conjunto `visited`, cada nodo y arista se procesa una constante de veces.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Trees have no cycles, but on Graphs and 2D Grids you MUST mark a node `visited` as soon as you enter `dfs(u)`.
+2. **Key Takeaway #2:** DFS is concise to write because it uses the language's own call stack.
+3. **Key Takeaway #3:** To measure the size of a connected component, return `1 + sum(dfs(neighbor))`.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Verificar primero el caso base (fuera de límites, obstáculo o nodo ya visitado).
-2. Marcar inmediatamente el nodo actual como visitado (`visited.add(u)` o `grid[r][c] = '0'`).
-3. Iterar sobre todos los vecinos y llamar recursivamente a `dfs(vecino)`.
+### Problem Statement Signals (When to USE DFS)
+- [x] Exploring all nodes of a tree, 2D grid, or graph to count connected components (`Number of Islands`, `Max Area of Island`).
+- [x] Checking path reachability from `A` to `B`, cloning a graph, or detecting cycles.
+- [x] Computing subtree properties or root-to-leaf paths (`Path Sum`).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Olvidar marcar un nodo como visitado en un grafo con ciclos, provocando `Maximum Call Stack Size Exceeded` en milisegundos.
+### When NOT to Use It (False Positives)
+- [!] When you need the **SHORTEST PATH** in an unweighted graph or grid: DFS might snake through a 1,000-step detour before finding a 2-step path; for unweighted shortest path, always use **BFS**.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Islands, connected components, or tree/graph paths with V, E <= 10^5`
+- **Average Time Complexity:** `O(V + E) on graphs | O(R * C) on 2D grids`
+- **Worst-Case Time Complexity:** `O(V + E)`
+- **Space Complexity:** `O(V) for the `visited` set and recursion stack`
+- **Engineering Note:** Marking nodes `visited` ensures each vertex and edge is processed a constant number of times.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Check base cases first (out of bounds, obstacle, or already visited).
+2. Immediately mark the current cell/node as visited (`visited.add(u)` or `grid[r][c] = '0'`).
+3. Loop over all neighbors and recursively call `dfs(neighbor)`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Forgetting to mark nodes as visited on a cyclic graph, triggering `Maximum Call Stack Size Exceeded`.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def num_islands_dfs(grid: list[list[str]]) -> int:
     """
-    Plantilla Clásica de DFS en Cuadrícula 2D (Flood Fill / Hundir Islas).
-    Tiempo: O(R * C) | Espacio: O(R * C) en call stack
+    Classic 2D Grid DFS Template (Flood Fill / Island Sinking).
+    Time: O(R * C) | Space: O(R * C) call stack
     """
     if not grid:
         return 0
     rows, cols = len(grid), len(grid[0])
 
     def dfs(r: int, c: int) -> None:
-        # Caso base: fuera de límites o ya es agua ('0')
+        # Base case: out of bounds or water ('0')
         if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == "0":
             return
-        # Marcamos como visitado convirtiendo tierra '1' en agua '0'
+        # Mark visited in-place by sinking land '1' into water '0'
         grid[r][c] = "0"
         for dr, dc in ((-1, 0), (1, 0), (0, -1), (0, 1)):
             dfs(r + dr, c + dc)
@@ -98,7 +98,7 @@ def num_islands_dfs(grid: list[list[str]]) -> int:
     return islands
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function numIslandsDFS(grid: string[][]): number {
   if (grid.length === 0) return 0;
@@ -109,7 +109,7 @@ export function numIslandsDFS(grid: string[][]): number {
     if (r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] === "0") {
       return;
     }
-    grid[r][c] = "0"; // Marcar como visitado
+    grid[r][c] = "0"; // Mark visited
     dfs(r - 1, c);
     dfs(r + 1, c);
     dfs(r, c - 1);
@@ -131,24 +131,24 @@ export function numIslandsDFS(grid: string[][]): number {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] Teseo en el laberinto: Cómo piensa Depth-First Search
-- **🎬 Visual en Pantalla / Slide:** Un rastro de luz penetrando hasta el fondo de una rama antes de retroceder.
-- **🎙️ Narración / Guion:**
-  > "Depth-First Search tiene una personalidad decidida: elige una dirección y avanza sin detenerse hasta tocar fondo. Solo cuando ya no puede avanzar más, da un paso atrás y prueba la siguiente puerta."
+### [00:00 - 01:45] Theseus in the Labyrinth: How Depth-First Search Thinks
+- **On-Screen Visual / Slide Cue:** A beam of light diving all the way to the bottom of a branch before backtracking.
+- **Narration / Script:**
+  > "Depth-First Search has a bold personality: it picks one direction and plunges all the way to the bottom before ever backing up to try another fork."
 
-### ⏱️ [01:45 - 04:30] Flood Fill en Matrices: Hundiendo islas en O(R × C)
-- **🎬 Visual en Pantalla / Slide:** Mapa de 1s y 0s donde tocar un 1 propaga una onda que apaga toda la isla conectada.
-- **🎙️ Narración / Guion:**
-  > "En 'Number of Islands', cada vez que encontramos una celda de tierra sumamos una isla al contador y lanzamos DFS como un bote de pintura que marca toda esa isla como visitada para no contarla dos veces."
+### [01:45 - 04:30] 2D Grid Flood Fill: Sinking Islands in O(R * C)
+- **On-Screen Visual / Slide Cue:** Grid of 1s and 0s where touching a 1 spreads a wave that zeroes out the entire connected island.
+- **Narration / Script:**
+  > "In Number of Islands, every time we encounter a land cell, we increment our island count by one and launch DFS like a paint bucket to mark that entire connected island as visited."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#200. Number of Islands** | `Medium` | [https://leetcode.com/problems/number-of-islands/](https://leetcode.com/problems/number-of-islands/) | Recorre la matriz; al ver un `'1'`, suma 1 isla y lanza DFS para 'hundir' toda la tierra conectada. |
-| **#695. Max Area of Island** | `Medium` | [https://leetcode.com/problems/max-area-of-island/](https://leetcode.com/problems/max-area-of-island/) | Haz que `dfs(r, c)` retorne `1 + suma(dfs de los 4 vecinos)`. |
-| **#133. Clone Graph** | `Medium` | [https://leetcode.com/problems/clone-graph/](https://leetcode.com/problems/clone-graph/) | Usa un diccionario `{nodo_original: nodo_clonado}` que actúa a la vez como `visited` y mapa de copias. |
+| **#200. Number of Islands** | `Medium` | [https://leetcode.com/problems/number-of-islands/](https://leetcode.com/problems/number-of-islands/) | Scan the grid; upon seeing `'1'`, increment `islands` and run DFS to sink all connected land. |
+| **#695. Max Area of Island** | `Medium` | [https://leetcode.com/problems/max-area-of-island/](https://leetcode.com/problems/max-area-of-island/) | Have `dfs(r, c)` return `1 + sum(dfs of 4 neighbors)`. |
+| **#133. Clone Graph** | `Medium` | [https://leetcode.com/problems/clone-graph/](https://leetcode.com/problems/clone-graph/) | Maintain a hash map `{original_node: cloned_node}` that acts as both `visited` and clone registry. |

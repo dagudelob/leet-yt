@@ -1,80 +1,80 @@
-# 🎬 Episodio #14: Matrices & 2D Grids (Tableros y Cuadrículas)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 2 — Estructura de Datos (`Beginner`)  
-> **Término en Inglés (Flowchart):** `2D Matrices & Grids`  
-> **Prerrequisitos Recomendados:** Arrays → Simulation
+# Episode #14: Matrices & 2D Grids
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 2 — Data Structure (`Beginner`)  
+> **Flowchart Node Term:** `2D Matrices & Grids`  
+> **Recommended Prerequisites:** Arrays -> Simulation
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Presenta las Matrices 2D como el puente entre los arreglos simples y el mundo de los Grafos y la Programación Dinámica. Enseña las 3 recetas imprescindibles: 1) Mapear 1D <-> 2D con `idx = r * cols + c`, 2) Rotar 90° mediante Transponer + Reverse, y 3) Recorrer los 4 vecinos con `0 <= nr < rows and 0 <= nc < cols`.
+Present 2D Matrices as the bridge between simple 1D arrays and Graph/DP algorithms. Teach the 3 essential recipes: 1) Flattening 2D <-> 1D with `idx = r * cols + c`, 2) Rotating 90° via Transpose + Row Reverse, and 3) 4-directional neighbor traversal with strict boundary checks `0 <= nr < rows`.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Matrices / Grids 2D", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (R, C ≤ 1000 (total de celdas R × C ≤ 10⁶)) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Matrices / 2D Grids", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (R, C <= 1000 (total cells R * C <= 10^6)) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Matrices / Grids 2D?
-Arreglos bidimensionales `grid[r][c]` de `R` filas por `C` columnas que modelan mapas, imágenes, tableros y grafos implícitos donde cada celda se conecta con sus 4 u 8 vecinos.
+### What is Matrices / 2D Grids?
+Two-dimensional arrays `grid[r][c]` of `R` rows by `C` columns that model images, game boards, spreadsheets, and implicit graphs where each cell connects to its 4 or 8 neighbors.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Un tablero de ajedrez o una hoja de cálculo de Excel: cada casilla tiene una dirección única `(fila, columna)`. Además, cada casilla es como una habitación con 4 puertas (arriba, abajo, izquierda, derecha) que la conectan con las habitaciones vecinas.
+### Real-World Analogy
+> **Visual Intuition:** A chessboard or spreadsheet: every cell has a unique `(row, col)` address, and every cell acts like a room with 4 doors (`up, down, left, right`) connecting it to adjacent rooms.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Cualquier coordenada `(r, c)` se aplana a un índice 1D único con `id = r * C + c`, y se recupera con `r = id // C`, `c = id % C`.
-2. **Idea Clave #2:** Rotar 90° horario nunca requiere fórmulas complicadas de 4 esquinas: basta Transponer (`r, c -> c, r`) e invertir cada fila.
-3. **Idea Clave #3:** Todo tablero 2D es en realidad un Grafo implícito donde las celdas son nodos y las direcciones `(-1,0), (1,0), (0,-1), (0,1)` son las aristas.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Matrices / Grids 2D)
-- ✅ Operaciones geométricas sobre imágenes o tablas (rotar 90 grados, transponer, poner filas/columnas en cero in-place).
-- ✅ Problemas de islas, laberintos, propagación de fuego o caminos en cuadrículas (puente directo hacia BFS, DFS y DP 2D).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si la cuadrícula es gigantesca (ej. `10⁶ × 10⁶`) pero casi todas las celdas están vacías (matriz dispersa / sparse): no crees la matriz en memoria; guarda solo las coordenadas activas `(r, c)` en un `Hash Set`.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `R, C ≤ 1000 (total de celdas R × C ≤ 10⁶)`
-- **Complejidad Temporal Promedio:** `Recorrido completo: O(R × C) | Acceso a celda: O(1)`
-- **Complejidad Temporal Peor Caso:** `O(R × C)`
-- **Complejidad Espacial:** `O(1) si modificas in-place o O(R × C) con matriz de visitados`
-- **Nota Técnica:** Una cuadrícula de R×C es un grafo con V = R*C nodos y hasta 4*R*C aristas.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Any 2D coordinate `(r, c)` maps to a unique 1D index `id = r * C + c`, and converts back via `r = id // C`, `c = id % C`.
+2. **Key Takeaway #2:** Rotating 90° clockwise never requires complex 4-corner index math: just Transpose (`r, c <-> c, r`) and Reverse each row.
+3. **Key Takeaway #3:** Every 2D grid is an implicit Graph where cells are vertices and `(-1,0), (1,0), (0,-1), (0,1)` are edges.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Extraer siempre `rows = len(grid)` y `cols = len(grid[0])` al inicio de la función.
-2. Al transponer in-place, iniciar `c` desde `r + 1` para no intercambiar dos veces y dejar la matriz igual.
-3. Validar siempre los límites `0 <= nr < rows and 0 <= nc < cols` antes de leer `grid[nr][nc]`.
+### Problem Statement Signals (When to USE Matrices / 2D Grids)
+- [x] In-place geometric transformations on tables or images (rotate 90 degrees, transpose, zero out rows/columns).
+- [x] Island counting, shortest paths in mazes, flood fill, or 2D dynamic programming grids.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** En Python, los índices negativos como `grid[-1][0]` NO lanzan error sino que leen la última fila del tablero por accidente. Siempre escribe `0 <= nr < rows`, nunca solo `nr < rows`.
+### When NOT to Use It (False Positives)
+- [!] If the grid dimensions are huge (e.g., `10^6 x 10^6`) but almost all cells are empty (sparse matrix): do not allocate the 2D matrix; store only active coordinates `(r, c)` in a `Hash Set`.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `R, C <= 1000 (total cells R * C <= 10^6)`
+- **Average Time Complexity:** `Full traversal: O(R * C) | Cell access: O(1)`
+- **Worst-Case Time Complexity:** `O(R * C)`
+- **Space Complexity:** `O(1) if mutated in-place, or O(R * C) with a visited matrix`
+- **Engineering Note:** An R x C grid is an implicit graph with V = R * C vertices and up to 4 * R * C edges.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Always extract `rows = len(grid)` and `cols = len(grid[0])` at the top of the function.
+2. When transposing in-place, start `c` at `r + 1` so you do not swap elements twice back to their original spots.
+3. Always check `0 <= nr < rows and 0 <= nc < cols` before indexing `grid[nr][nc]`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** In Python, negative indices like `grid[-1][0]` do NOT raise `IndexError`—they silently wrap around to the last row of the matrix! Always write `0 <= nr < rows`.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
-def grid_neighbors_and_rotate(matrix: list[list[int]]) -> None:
+def rotate_matrix_90_clockwise(matrix: list[list[int]]) -> None:
     """
-    1. Truco Clásico: Rotar una matriz N x N 90 grados en sentido horario IN-PLACE:
-       Paso A: Transponer (intercambiar matrix[r][c] con matrix[c][r])
-       Paso B: Invertir cada fila
+    1. Classic In-Place 90-Degree Clockwise Matrix Rotation:
+       Step A: Transpose across main diagonal (swap matrix[r][c] with matrix[c][r])
+       Step B: Reverse each row
     """
     n = len(matrix)
     for r in range(n):
@@ -86,7 +86,7 @@ def grid_neighbors_and_rotate(matrix: list[list[int]]) -> None:
 
 def get_valid_4_neighbors(r: int, c: int, rows: int, cols: int) -> list[tuple[int, int]]:
     """
-    2. Generador limpio de los 4 vecinos ortogonales dentro de los límites del tablero.
+    2. Clean 4-directional orthogonal neighbor generator within grid bounds.
     """
     neighbors = []
     for dr, dc in ((-1, 0), (1, 0), (0, -1), (0, 1)):
@@ -96,17 +96,17 @@ def get_valid_4_neighbors(r: int, c: int, rows: int, cols: int) -> list[tuple[in
     return neighbors
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function rotateMatrix90Clockwise(matrix: number[][]): void {
   const n = matrix.length;
-  // 1. Transponer sobre la diagonal principal
+  // 1. Transpose across the main diagonal
   for (let r = 0; r < n; r++) {
     for (let c = r + 1; c < n; c++) {
       [matrix[r][c], matrix[c][r]] = [matrix[c][r], matrix[r][c]];
     }
   }
-  // 2. Invertir cada fila
+  // 2. Reverse each row
   for (let r = 0; r < n; r++) {
     matrix[r].reverse();
   }
@@ -115,24 +115,24 @@ export function rotateMatrix90Clockwise(matrix: number[][]): void {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] De 1D a 2D: Coordenadas, Diagonales y Aplanamiento
-- **🎬 Visual en Pantalla / Slide:** Cuadrícula iluminando filas, columnas, diagonal principal (`r == c`) y secundaria (`r + c == n - 1`).
-- **🎙️ Narración / Guion:**
-  > "Una matriz 2D no es más que un arreglo de arreglos, pero esconde propiedades geométricas geniales: en una misma diagonal principal `r - c` es constante, y en la diagonal inversa `r + c` es constante."
+### [00:00 - 01:45] From 1D to 2D: Coordinates, Diagonals, and Flattening
+- **On-Screen Visual / Slide Cue:** Grid highlighting rows, columns, main diagonal (`r - c == const`), and anti-diagonal (`r + c == const`).
+- **Narration / Script:**
+  > "A 2D matrix is an array of arrays with neat geometric invariants: along any main diagonal `r - c` is constant, and along any anti-diagonal `r + c` is constant."
 
-### ⏱️ [01:45 - 04:30] La trampa de los índices negativos en Python y el puente a Grafos
-- **🎬 Visual en Pantalla / Slide:** Un cursor saliendo por arriba de la fila 0 a `r = -1` y leyendo por error la última fila en Python.
-- **🎙️ Narración / Guion:**
-  > "Atención si programas en Python: si te sales del borde superior hacia la fila `-1`, Python no lanza IndexError: lee silenciosamente la última fila de la matriz y arruina tu búsqueda. Verificar `0 <= nr < rows` es sagrado."
+### [01:45 - 04:30] Python's Negative Index Trap and the Bridge to Graphs
+- **On-Screen Visual / Slide Cue:** Cursor stepping above row 0 to `r = -1` and accidentally reading the bottom row in Python.
+- **Narration / Script:**
+  > "Watch out in Python: if your row index steps above zero to `-1`, Python will not throw an error—it silently reads the bottom row of your grid and corrupts your traversal. Checking `0 <= nr < rows` is mandatory."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#48. Rotate Image** | `Medium` | [https://leetcode.com/problems/rotate-image/](https://leetcode.com/problems/rotate-image/) | Rotar 90° en sentido horario = Transponer la matriz + Invertir cada fila in-place. |
-| **#73. Set Matrix Zeroes** | `Medium` | [https://leetcode.com/problems/set-matrix-zeroes/](https://leetcode.com/problems/set-matrix-zeroes/) | Usa la primera fila y la primera columna como marcadores para lograr O(1) espacio extra. |
-| **#74. Search a 2D Matrix** | `Medium` | [https://leetcode.com/problems/search-a-2d-matrix/](https://leetcode.com/problems/search-a-2d-matrix/) | Mapea un índice 1D `idx` a coordenadas 2D con `r = idx // cols` y `c = idx % cols`. |
+| **#48. Rotate Image** | `Medium` | [https://leetcode.com/problems/rotate-image/](https://leetcode.com/problems/rotate-image/) | Rotate 90° clockwise = Transpose matrix + Reverse each row in-place. |
+| **#73. Set Matrix Zeroes** | `Medium` | [https://leetcode.com/problems/set-matrix-zeroes/](https://leetcode.com/problems/set-matrix-zeroes/) | Use the first row and first column as in-place markers to achieve O(1) extra space. |
+| **#74. Search a 2D Matrix** | `Medium` | [https://leetcode.com/problems/search-a-2d-matrix/](https://leetcode.com/problems/search-a-2d-matrix/) | Map a 1D binary search index `idx` to 2D coordinates via `r = idx // cols` and `c = idx % cols`. |

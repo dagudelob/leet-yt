@@ -1,79 +1,79 @@
-# 🎬 Episodio #23: Binary Search Trees (Árboles Binarios de Búsqueda - BST)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 4 — Estructura de Datos (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Binary Search Trees (BST)`  
-> **Prerrequisitos Recomendados:** Binary Trees → Binary Search
+# Episode #23: Binary Search Trees (BST)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 4 — Data Structure (`Intermediate`)  
+> **Flowchart Node Term:** `Binary Search Trees (BST)`  
+> **Recommended Prerequisites:** Binary Trees -> Binary Search
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica cómo un BST combina la búsqueda rápida de Binary Search con la inserción flexible de una Linked List. Haz énfasis en las 2 grandes lecciones de entrevistas sobre BST: 1) La trampa de 'Validate BST' (por qué comparar solo `node.left.val < node.val` está mal y debes propagar el rango `(low, high)`), y 2) Que el recorrido In-Order aplana cualquier BST en una lista ordenada.
+Explain how a BST combines the fast lookup of Binary Search with the dynamic insertion of a Linked List. Highlight the two classic BST interview lessons: 1) The 'Validate BST' trap (why checking only `node.left.val < node.val` fails and you must pass `(low, high)`), and 2) How In-Order traversal flattens any BST into a sorted array.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "BST", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Árbol con propiedad left < node < right o búsquedas por rango en árbol) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("BST", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Tree with left < node < right invariant or ordered tree queries) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es BST?
-Un árbol binario con una ley de orden global: TODOS los nodos del subárbol izquierdo son estrictamente menores que la raíz, y TODOS los del subárbol derecho son estrictamente mayores. Permite buscar, insertar y borrar en O(log N) cuando está balanceado.
+### What is BST?
+A binary tree governed by a global ordering invariant: EVERY node in the left subtree is strictly smaller than the root, and EVERY node in the right subtree is strictly larger. Enables O(log N) search, insertion, and deletion when balanced.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Un árbol de decisiones donde cada puerta tiene un cartel numérico: si buscas el número 42 y estás en la puerta 50, ni siquiera miras el pasillo derecho porque sabes con certeza que todo a la derecha es mayor que 50; giras a la izquierda descartando la mitad del edificio.
+### Real-World Analogy
+> **Visual Intuition:** A decision hallway where every door has a number: if you are looking for room 42 and stand at door 50, you never even glance down the right corridor because everything to the right is greater than 50—you turn left and eliminate half the building at once.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Invariante global del BST: TODO el subárbol izquierdo debe ser `< root.val`, no solo el hijo izquierdo directo.
-2. **Idea Clave #2:** El recorrido In-Order (`Izq -> Raíz -> Der`) de un BST visita los valores en orden ascendente perfecto.
-3. **Idea Clave #3:** En un BST, navegar hacia un objetivo es idéntico a Binary Search y se puede hacer en O(1) espacio con un simple bucle `while curr:`.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR BST)
-- ✅ Buscar, insertar o encontrar el ancestro común (`LCA`) aprovechando la propiedad de orden `left < root < right` en O(H).
-- ✅ Obtener los elementos ordenados de menor a mayor o hallar el `K-th Smallest Element` mediante un recorrido **In-Order (`Izq -> Raíz -> Der`)**.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si insertas elementos ya ordenados (`1, 2, 3, 4, 5`) en un BST simple sin auto-balanceo, se degenera en una lista enlazada con altura `O(N)`.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Árbol con propiedad left < node < right o búsquedas por rango en árbol`
-- **Complejidad Temporal Promedio:** `Búsqueda / Inserción / Borrado: O(log N) en BST balanceado`
-- **Complejidad Temporal Peor Caso:** `O(H) donde H es la altura (hasta O(N) si no está balanceado)`
-- **Complejidad Espacial:** `O(H) pila de recursión (O(1) si se navega iterativamente)`
-- **Nota Técnica:** Un recorrido In-Order de cualquier BST válido produce un arreglo estrictamente creciente.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Global BST invariant: the ENTIRE left subtree must be `< root.val`, not just the immediate left child.
+2. **Key Takeaway #2:** In-Order traversal (`Left -> Root -> Right`) visits BST nodes in strictly ascending order.
+3. **Key Takeaway #3:** Searching or finding LCA in a BST is iterative and takes O(1) extra space with a simple `while curr:` loop.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Si necesitas buscar un valor o el LCA de dos nodos, compara con `curr.val` para elegir si bajar por `curr.left` o `curr.right`.
-2. Si necesitas validar el BST, pasa `(low, high)` en la recursión actualizando el tope superior al ir a la izquierda y el inferior al ir a la derecha.
-3. Si el problema habla de 'el K-ésimo menor' o 'la diferencia mínima entre valores', piensa inmediatamente en In-Order.
+### Problem Statement Signals (When to USE BST)
+- [x] Searching, inserting, or finding the Lowest Common Ancestor (`LCA`) in O(H) time by exploiting `left < root < right`.
+- [x] Retrieving elements in sorted order or finding the `K-th Smallest Element` via an **In-Order Traversal (`Left -> Root -> Right`)**.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** En `Validate BST`, verificar únicamente `root.left.val < root.val < root.right.val`: falla cuando un nieto a la izquierda de la derecha es menor que la raíz principal.
+### When NOT to Use It (False Positives)
+- [!] If sorted elements (`1, 2, 3, 4, 5`) are inserted into an unbalanced BST, it degenerates into a linked list of height `O(N)`.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Tree with left < node < right invariant or ordered tree queries`
+- **Average Time Complexity:** `Search / Insert / Delete: O(log N) on balanced BST`
+- **Worst-Case Time Complexity:** `O(H) where H is tree height (up to O(N) if unbalanced)`
+- **Space Complexity:** `O(H) recursion stack (or O(1) when navigating iteratively)`
+- **Engineering Note:** An In-Order traversal of any valid BST yields a strictly increasing sequence.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. When searching for a value or LCA, compare with `curr.val` to branch left or right.
+2. When validating a BST, propagate `(low, high)` bounds downward.
+3. When the prompt mentions 'K-th smallest' or 'minimum absolute difference in BST', use In-Order traversal.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** In `Validate BST`, checking only `root.left.val < root.val < root.right.val`—which fails when a grandchild in the right subtree is smaller than the root.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def is_valid_bst(root, low: float = float("-inf"), high: float = float("inf")) -> bool:
     """
-    Validación de BST propagando el rango permitido (low, high) hacia abajo.
-    ¡No basta comparar solo con el padre inmediato!
+    Validate a BST by propagating the allowed (low, high) range top-down.
+    Checking only the immediate parent is NOT enough!
     """
     if not root:
         return True
@@ -87,7 +87,7 @@ def is_valid_bst(root, low: float = float("-inf"), high: float = float("inf")) -
 
 def search_bst_iterative(root, target: int):
     """
-    Búsqueda en O(H) tiempo y O(1) espacio descartando la mitad en cada paso.
+    O(H) time and O(1) space search by halving the tree at each step.
     """
     curr = root
     while curr:
@@ -97,7 +97,7 @@ def search_bst_iterative(root, target: int):
     return None
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 import { TreeNode } from "./trees";
 
@@ -117,24 +117,24 @@ export function isValidBST(
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] Binary Search convertido en Árbol: El invariante del BST
-- **🎬 Visual en Pantalla / Slide:** Un arreglo ordenado elevándose por su punto medio hasta formar un BST balanceado.
-- **🎙️ Narración / Guion:**
-  > "¿Qué pasaría si conviertes cada decisión de Binary Search en un nodo físico con punteros? Obtienes un Binary Search Tree. En cada nodo, todo lo menor vive a la izquierda y todo lo mayor vive a la derecha."
+### [00:00 - 01:45] Binary Search Turned Into a Tree: The BST Invariant
+- **On-Screen Visual / Slide Cue:** A sorted array lifting from its midpoint into a balanced Binary Search Tree.
+- **Narration / Script:**
+  > "What happens if you turn every decision of Binary Search into a physical node with pointers? You get a Binary Search Tree. At every node, everything smaller lives to the left and everything larger lives to the right."
 
-### ⏱️ [01:45 - 04:30] La trampa clásica de Validate BST y el poder del In-Order
-- **🎬 Visual en Pantalla / Slide:** Un nodo nieto violando el límite de su abuelo, detectado por el intervalo `(low, high)`.
-- **🎙️ Narración / Guion:**
-  > "Cuidado con la trampa favorita de los entrevistadores: para que un árbol sea un BST válido, no basta que cada hijo cumpla con su padre directo; debe respetar el rango heredado de todos sus ancestros."
+### [01:45 - 04:30] The Validate BST Trap and the Power of In-Order
+- **On-Screen Visual / Slide Cue:** A grandchild node violating its grandparent's bound, caught by the `(low, high)` interval.
+- **Narration / Script:**
+  > "Watch out for the classic interviewer trap: for a tree to be a valid BST, it is not enough for each child to obey its immediate parent—it must respect the range inherited from all of its ancestors."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#98. Validate Binary Search Tree** | `Medium` | [https://leetcode.com/problems/validate-binary-search-tree/](https://leetcode.com/problems/validate-binary-search-tree/) | Propaga el intervalo abierto `(min_val, max_val)` hacia los hijos o verifica que el recorrido In-Order sea estrictamente creciente. |
-| **#230. Kth Smallest Element in a BST** | `Medium` | [https://leetcode.com/problems/kth-smallest-element-in-a-bst/](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | Recorrido In-Order (`Izq -> Raíz -> Der`) deteniéndote en el K-ésimo nodo visitado. |
-| **#235. Lowest Common Ancestor of a Binary Search Tree** | `Medium` | [https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | Si ambos `p` y `q` son menores que `curr`, baja a la izquierda; si ambos son mayores, baja a la derecha; el primer punto donde se separan es el LCA. |
+| **#98. Validate Binary Search Tree** | `Medium` | [https://leetcode.com/problems/validate-binary-search-tree/](https://leetcode.com/problems/validate-binary-search-tree/) | Pass the open interval `(low, high)` down to children, or verify that In-Order traversal is strictly increasing. |
+| **#230. Kth Smallest Element in a BST** | `Medium` | [https://leetcode.com/problems/kth-smallest-element-in-a-bst/](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | Run In-Order traversal (`Left -> Root -> Right`) and stop at the K-th visited node. |
+| **#235. Lowest Common Ancestor of a Binary Search Tree** | `Medium` | [https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | If both `p` and `q` are smaller than `curr`, go left; if both are larger, go right; the split point is the LCA. |

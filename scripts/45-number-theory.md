@@ -1,79 +1,79 @@
-# 🎬 Episodio #45: Number Theory (Teoría de Números: GCD, Criba de Eratóstenes y Módulo)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 7 — Patrón Algorítmico (`Advanced`)  
-> **Término en Inglés (Flowchart):** `Number Theory (Euclidean GCD, Sieve of Eratosthenes & Modular Arithmetic)`  
-> **Prerrequisitos Recomendados:** Math & Geometry → Arrays
+# Episode #45: Number Theory (Euclidean GCD, Sieve of Eratosthenes & Modular Arithmetic)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 7 — Algorithmic Pattern (`Advanced`)  
+> **Flowchart Node Term:** `Number Theory (Euclidean GCD, Sieve of Eratosthenes & Modular Arithmetic)`  
+> **Recommended Prerequisites:** Math & Geometry -> Arrays
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica las 3 piedras angulares de Number Theory en entrevistas: 1) El Algoritmo de Euclides (`while b: a, b = b, a % b`) y por qué es tan veloz como Binary Search, 2) La Criba de Eratóstenes y por qué el bucle interno empieza en `p * p` (no en `2 * p`), y 3) Las reglas de Aritmética Modular (`10⁹ + 7`), incluyendo el Pequeño Teorema de Fermat (`pow(b, MOD - 2, MOD)`) cuando toca dividir bajo un módulo primo.
+Explain the 3 cornerstones of Number Theory in interviews: 1) The Euclidean Algorithm (`while b: a, b = b, a % b`) and why it is as fast as Binary Search, 2) The Sieve of Eratosthenes and why the inner loop starts at `p * p` (not `2 * p`), and 3) The rules of Modular Arithmetic (`10^9 + 7`), including Fermat's Little Theorem (`pow(b, MOD - 2, MOD)`) when dividing under a prime modulus.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Number Theory", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Primos hasta N ≤ 5·10⁶, divisibilidad, GCD/LCM o respuestas módulo 10⁹ + 7) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Number Theory", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Primes up to N <= 5*10^6, divisibility, GCD/LCM, or answers modulo 10^9 + 7) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Number Theory?
-Los pilares de los números enteros y primos: 1) **Algoritmo de Euclides** para el Máximo Común Divisor (`GCD`) y Mínimo Común Múltiplo (`LCM`) en O(log(min(a,b))), 2) **Criba de Eratóstenes** para hallar todos los primos hasta `N` en $O(N \log \log N)$, 3) **Factorización en $O(\sqrt{N})$**, y 4) **Aritmética Modular (`10⁹ + 7`)**.
+### What is Number Theory?
+The pillars of integers and prime numbers: 1) **Euclidean Algorithm** for Greatest Common Divisor (`GCD`) and Least Common Multiple (`LCM`) in O(log(min(a,b))), 2) **Sieve of Eratosthenes** to find all primes up to `N` in $O(N \log \log N)$, 3) **Prime Factorization in $O(\sqrt{N})$**, and 4) **Modular Arithmetic (`10^9 + 7`)**.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** La Criba de Eratóstenes es como un colador por capas: empiezas en el 2 y tachas todos los múltiplos de 2 (4, 6, 8...); el siguiente número sin tachar es el 3, así que es primo y tachas sus múltiplos desde `3×3 = 9` en adelante. Al llegar a $\sqrt{N}$, todos los números que sobrevivieron sin tachar son primos.
+### Real-World Analogy
+> **Visual Intuition:** The Sieve of Eratosthenes works like a layered strainer: you start at 2 and cross out all multiples of 2 (4, 6, 8...); the next uncrossed number is 3, so it is prime and you cross out its multiples starting from `3*3 = 9` onward. By the time you reach $\sqrt{N}$, every surviving uncrossed number is prime.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** En Euclides, `a % b` reduce el número al menos a la mitad cada 2 pasos, tardando $O(\log(\min(a,b)))$.
-2. **Idea Clave #2:** En la Criba de Eratóstenes, empezar en `p * p` ahorra muchísimo trabajo porque cualquier `k * p` con `k < p` ya fue tachado antes por el factor primo de `k`.
-3. **Idea Clave #3:** Bajo un módulo primo `MOD = 10⁹ + 7`, la suma y la multiplicación distribuyen `(a * b) % MOD`, pero para dividir entre `b` debes multiplicar por su inverso modular `pow(b, MOD - 2, MOD)`.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Number Theory)
-- ✅ El enunciado pide devolver la respuesta **'modulo $10^9 + 7$'** (señal de que la respuesta crece exponencialmente y debes aplicar `% MOD` en cada suma y multiplicación).
-- ✅ Encontrar todos los números primos menores a `N` (`Count Primes`) o descomponer números en sus factores primos (para conectar números con factores comunes vía Union-Find).
-- ✅ Simplificar fracciones, sincronizar ciclos periódicos (`LCM(a, b) = (a * b) // GCD(a, b)`) o saber si es posible medir cierta cantidad de agua (`Water and Jug Problem` — Identidad de Bézout).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Para verificar si un SOLO número individual `X` es primo, no construyas toda la Criba hasta `X`: basta probar divisores hasta `d * d <= X` en $O(\sqrt{X})$.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Primos hasta N ≤ 5·10⁶, divisibilidad, GCD/LCM o respuestas módulo 10⁹ + 7`
-- **Complejidad Temporal Promedio:** `Euclides GCD: O(log(min(a,b))) | Criba de Eratóstenes: O(N log log N) ≈ O(N)`
-- **Complejidad Temporal Peor Caso:** `Factorización de un número X: O(√X)`
-- **Complejidad Espacial:** `O(1) en GCD | O(N) en Criba de Eratóstenes`
-- **Nota Técnica:** En la Criba de Eratóstenes, al tachar múltiplos del primo `p`, empieza siempre desde `p * p` porque los múltiplos menores (`2p, 3p...`) ya fueron tachados por primos más pequeños.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** In Euclid's algorithm, `a % b` shrinks the number by at least half every 2 steps, taking $O(\log(\min(a,b)))$.
+2. **Key Takeaway #2:** In the Sieve of Eratosthenes, starting at `p * p` saves massive work because any `k * p` with `k < p` was already crossed out earlier by the smallest prime factor of `k`.
+3. **Key Takeaway #3:** Under a prime modulus `MOD = 10^9 + 7`, addition and multiplication distribute `(a * b) % MOD`, but to divide by `b` you must multiply by its modular inverse `pow(b, MOD - 2, MOD)`.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Para hallar todos los primos hasta `N`: usar Criba de Eratóstenes con `p * p <= n`.
-2. Para factorizar un número `X`: probar `d = 2` mientras `d * d <= X`, dividiendo `X //= d` mientras sea divisible; si al final `X > 1`, el resto `X` también es un factor primo.
-3. Para cálculos módulo `10⁹ + 7`: aplicar `% MOD` en cada acumulación.
+### Problem Statement Signals (When to USE Number Theory)
+- [x] The problem asks you to return the answer **'modulo $10^9 + 7$'** (a signal that the answer grows exponentially and you must apply `% MOD` at every addition and multiplication).
+- [x] Finding all prime numbers below `N` (`Count Primes`) or decomposing numbers into their prime factors (e.g., to connect numbers sharing a common factor via Union-Find).
+- [x] Simplifying fractions, synchronizing periodic cycles (`LCM(a, b) = (a * b) // GCD(a, b)`), or determining whether a target volume is measurable (`Water and Jug Problem` — Bezout's Identity).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Hacer `(a // b) % MOD` cuando el problema pide el resultado de una división módulo `10⁹ + 7` (por ejemplo en combinatoria $nCr \pmod{10^9+7}$): si `a` ya fue reducido módulo `MOD`, la división entera normal da un resultado completamente falso. Usa el inverso modular `a * pow(b, MOD - 2, MOD) % MOD`.
+### When NOT to Use It (False Positives)
+- [!] To check whether a SINGLE individual number `X` is prime, do not build the entire Sieve up to `X`: just test divisors up to `d * d <= X` in $O(\sqrt{X})$.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Primes up to N <= 5*10^6, divisibility, GCD/LCM, or answers modulo 10^9 + 7`
+- **Average Time Complexity:** `Euclidean GCD: O(log(min(a,b))) | Sieve of Eratosthenes: O(N log log N) ~ O(N)`
+- **Worst-Case Time Complexity:** `Factoring a single number X: O(sqrt(X))`
+- **Space Complexity:** `O(1) for GCD | O(N) for Sieve of Eratosthenes`
+- **Engineering Note:** In the Sieve of Eratosthenes, when crossing out multiples of prime `p`, always start at `p * p` because smaller multiples (`2p, 3p...`) were already crossed out by smaller primes.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. To find all primes up to `N`: use the Sieve of Eratosthenes with `p * p <= n`.
+2. To factor a number `X`: test `d = 2` while `d * d <= X`, dividing `X //= d` while divisible; if `X > 1` at the end, the remaining `X` is also a prime factor.
+3. For calculations modulo `10^9 + 7`: apply `% MOD` at every accumulation step.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Doing `(a // b) % MOD` when the problem asks for the result of a division modulo `10^9 + 7` (for instance in combinatorics $nCr \pmod{10^9+7}$): once `a` has been reduced modulo `MOD`, ordinary integer division produces a completely wrong answer. Use the modular inverse `a * pow(b, MOD - 2, MOD) % MOD`.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def gcd_and_lcm(a: int, b: int) -> tuple[int, int]:
     """
-    1. Algoritmo de Euclides en O(log(min(a, b))):
+    1. Euclidean Algorithm in O(log(min(a, b))):
        gcd(a, b) = gcd(b, a % b)
     """
     x, y = a, b
@@ -86,7 +86,7 @@ def gcd_and_lcm(a: int, b: int) -> tuple[int, int]:
 
 def sieve_of_eratosthenes(n: int) -> list[bool]:
     """
-    2. Criba de Eratóstenes para identificar todos los primos en [0..n] en O(N log log N).
+    2. Sieve of Eratosthenes to identify all primes in [0..n] in O(N log log N).
     """
     if n < 2:
         return [False] * (n + 1)
@@ -96,14 +96,14 @@ def sieve_of_eratosthenes(n: int) -> list[bool]:
     p = 2
     while p * p <= n:
         if is_prime[p]:
-            # Empezamos en p * p e incrementamos de p en p
+            # Start at p * p and step by p
             for multiple in range(p * p, n + 1, p):
                 is_prime[multiple] = False
         p += 1
     return is_prime
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function gcd(a: number, b: number): number {
   while (b !== 0) {
@@ -133,24 +133,24 @@ export function countPrimesSieve(n: number): number {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] El algoritmo más antiguo y elegante de la historia: Euclides en 3 líneas
-- **🎬 Visual en Pantalla / Slide:** Dos barras de longitud A y B reduciéndose con `a % b` hasta hallar la medida común exacta.
-- **🎙️ Narración / Guion:**
-  > "Escrito hace más de dos mil trescientos años, el Algoritmo de Euclides calcula el Máximo Común Divisor de dos números gigantescos en un parpadeo: mientras B no sea cero, reemplazas A y B por B y el residuo de A entre B."
+### [00:00 - 01:45] History's Oldest and Most Elegant Algorithm: Euclid in 3 Lines
+- **On-Screen Visual / Slide Cue:** Two bars of length A and B reducing via `a % b` until finding the exact common measure.
+- **Narration / Script:**
+  > "Written more than two thousand three hundred years ago, the Euclidean Algorithm computes the Greatest Common Divisor of two astronomical numbers in the blink of an eye: while B is non-zero, replace A and B with B and A modulo B."
 
-### ⏱️ [01:45 - 04:45] Criba de Eratóstenes (`p * p`) y el misterio de `10^9 + 7`
-- **🎬 Visual en Pantalla / Slide:** Tablero numérico tachando múltiplos desde `p²` y explicación visual del módulo `10^9 + 7`.
-- **🎙️ Narración / Guion:**
-  > "¿Por qué tantos problemas de LeetCode piden devolver la respuesta módulo 1,000,000,007? Porque es el primer número primo después de mil millones: cabe perfectamente en enteros estándar sin desbordar y, al ser primo, nos permite incluso dividir usando el inverso modular."
+### [01:45 - 04:45] Sieve of Eratosthenes (`p * p`) and the Mystery of `10^9 + 7`
+- **On-Screen Visual / Slide Cue:** Number grid crossing out multiples from `p^2` and a visual breakdown of modulo `10^9 + 7`.
+- **Narration / Script:**
+  > "Why do so many LeetCode problems ask for the answer modulo 1,000,000,007? Because it is the first prime number after one billion: it fits cleanly inside standard integer types without overflowing, and being prime lets us divide using the modular inverse."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#204. Count Primes** | `Medium` | [https://leetcode.com/problems/count-primes/](https://leetcode.com/problems/count-primes/) | Criba de Eratóstenes tachando desde `p * p` con paso `p` hasta `p * p < n`. |
-| **#1979. Find Greatest Common Divisor of Array** | `Easy` | [https://leetcode.com/problems/find-greatest-common-divisor-of-array/](https://leetcode.com/problems/find-greatest-common-divisor-of-array/) | Aplica el algoritmo de Euclides entre `min(nums)` y `max(nums)`. |
-| **#952. Largest Component Size by Common Factor** | `Hard` | [https://leetcode.com/problems/largest-component-size-by-common-factor/](https://leetcode.com/problems/largest-component-size-by-common-factor/) | Descompón cada número en sus factores primos en O(√X) y únelos en un Disjoint Set Union (DSU). |
+| **#204. Count Primes** | `Medium` | [https://leetcode.com/problems/count-primes/](https://leetcode.com/problems/count-primes/) | Sieve of Eratosthenes crossing out from `p * p` with step `p` while `p * p < n`. |
+| **#1979. Find Greatest Common Divisor of Array** | `Easy` | [https://leetcode.com/problems/find-greatest-common-divisor-of-array/](https://leetcode.com/problems/find-greatest-common-divisor-of-array/) | Apply the Euclidean algorithm between `min(nums)` and `max(nums)`. |
+| **#952. Largest Component Size by Common Factor** | `Hard` | [https://leetcode.com/problems/largest-component-size-by-common-factor/](https://leetcode.com/problems/largest-component-size-by-common-factor/) | Decompose each number into its prime factors in O(sqrt(X)) and union them in a Disjoint Set Union (DSU). |

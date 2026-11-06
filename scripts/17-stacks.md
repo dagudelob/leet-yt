@@ -1,98 +1,98 @@
-# 🎬 Episodio #17: Stacks (Pilas LIFO y Evaluación Anidada)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 3 — Estructura de Datos + Patrón Algorítmico (`Beginner`)  
-> **Término en Inglés (Flowchart):** `Stacks (LIFO)`  
-> **Prerrequisitos Recomendados:** Arrays
+# Episode #17: Stacks (LIFO & Nested Expression Evaluation)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 3 — Data Structure + Algorithmic Pattern (`Beginner`)  
+> **Flowchart Node Term:** `Stacks (LIFO)`  
+> **Recommended Prerequisites:** Arrays
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica cómo una Pila (Stack) es la máquina del tiempo para todo lo que tenga anidamiento ('lo último que se abrió debe ser lo primero en cerrarse'). Muestra por qué toda llamada recursiva en la computadora usa internamente un Call Stack y cómo usar una pila explícita resuelve paréntesis, rutas de archivos y decodificación de cadenas.
+Explain how a Stack models nested scopes ('the last scope opened must be the first scope closed'). Show why every recursive function uses a Call Stack under the hood and how an explicit stack solves parentheses matching, calculators, and `Decode String`.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Stacks (LIFO)", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Estructuras anidadas, paréntesis, calculadoras o historial con N ≤ 10⁵) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Stacks (LIFO)", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Nested structures, parentheses, calculators, or path history with N <= 10^5) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Stacks (LIFO)?
-Estructura Last-In, First-Out (el último en entrar es el primero en salir) ideal para recordar el historial reciente, validar estructuras anidadas (paréntesis, HTML), deshacer acciones y simular recursión de forma iterativa.
+### What is Stacks (LIFO)?
+Last-In, First-Out (LIFO) structure ideal for tracking recent history, validating nested scopes (parentheses, HTML tags), undoing actions, and simulating recursion iteratively.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Una torre de platos limpios en una cafetería: siempre colocas el plato nuevo arriba del todo (`push`), y cuando alguien necesita un plato, toma exactamente ese último plato que pusiste arriba (`pop`).
+### Real-World Analogy
+> **Visual Intuition:** A stack of clean plates in a cafeteria: you always place a new plate on the very top (`push`), and the next person takes that exact top plate first (`pop`).
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** LIFO (Last-In, First-Out): el elemento más reciente en entrar es siempre el primero en resolverse.
-2. **Idea Clave #2:** Siempre verifica `if not stack:` antes de leer `stack[-1]` o hacer `stack.pop()`.
-3. **Idea Clave #3:** Al finalizar el recorrido, verifica que `len(stack) == 0` por si quedaron aperturas huérfanas sin cerrar.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Stacks (LIFO))
-- ✅ Validar o emparejar símbolos que abren y cierran en orden anidado (`()`, `{}`, `[]`, etiquetas).
-- ✅ Evaluar expresiones matemáticas (Notación Polaca Inversa / RPN, calculadoras con precedencia, decodificar strings `3[a2[c]]`).
-- ✅ Rastrear el camino actual (historial de directorios `/a/b/../c`, botón Undo/Back).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Cuando necesitas atender elementos en el orden exacto de llegada (ahí usa una Queue FIFO).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Estructuras anidadas, paréntesis, calculadoras o historial con N ≤ 10⁵`
-- **Complejidad Temporal Promedio:** `Push: O(1) | Pop: O(1) | Peek (`stack[-1]`): O(1)`
-- **Complejidad Temporal Peor Caso:** `O(N) para procesar N elementos`
-- **Complejidad Espacial:** `O(N) en el peor caso cuando todos los elementos se apilan`
-- **Nota Técnica:** En Python, una `list` normal funciona como Stack perfecto usando `append()` y `pop()`.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** LIFO (Last-In, First-Out): the most recently opened item is always the first to be resolved.
+2. **Key Takeaway #2:** Always guard with `if not stack:` before reading `stack[-1]` or calling `stack.pop()`.
+3. **Key Takeaway #3:** At the end of the loop, verify `len(stack) == 0` to catch unclosed opening brackets.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Recorrer los tokens o caracteres de izquierda a derecha.
-2. Si inicia un contexto nuevo (paréntesis abierto, operando), hacer `stack.append(x)`.
-3. Si cierra o combina el contexto más reciente, hacer `stack.pop()` y combinar con el nuevo tope.
+### Problem Statement Signals (When to USE Stacks (LIFO))
+- [x] Validating or matching nested opening and closing symbols (`()`, `{}`, `[]`, tags).
+- [x] Evaluating mathematical expressions (Reverse Polish Notation / RPN, calculators, decoding nested strings like `3[a2[c]]`).
+- [x] Tracking active path state (Unix file path simplification `/a/b/../c`, browser Back/Undo history).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Retornar `True` al terminar el bucle en `Valid Parentheses` sin comprobar que la pila quedó vacía (falla en inputs como `'((('`).
+### When NOT to Use It (False Positives)
+- [!] When items must be processed in strict arrival order (use a FIFO Queue instead).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Nested structures, parentheses, calculators, or path history with N <= 10^5`
+- **Average Time Complexity:** `Push: O(1) | Pop: O(1) | Peek (`stack[-1]`): O(1)`
+- **Worst-Case Time Complexity:** `O(N) to process N tokens`
+- **Space Complexity:** `O(N) worst case when all elements are pushed`
+- **Engineering Note:** In Python, a standard `list` serves as a fast Stack using `append()` and `pop()`.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Scan tokens or characters from left to right.
+2. When entering a new nested context (opening bracket, operand), `stack.append(x)`.
+3. When closing or combining the most recent context, `stack.pop()` and merge with the new top.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Returning `True` at the end of `Valid Parentheses` without checking `len(stack) == 0` (fails on inputs like `'((('`).
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def is_valid_parentheses(s: str) -> bool:
     """
-    Patrón Clásico de Emparejamiento LIFO con Stack.
-    Tiempo: O(N) | Espacio: O(N)
+    Classic LIFO Matching Pattern with a Stack.
+    Time: O(N) | Space: O(N)
     """
     closing_to_opening = {")": "(", "]": "[", "}": "{"}
     stack: list[str] = []
 
     for ch in s:
         if ch in closing_to_opening:
-            # Si llega un cierre, el tope de la pila DEBE ser su apertura correspondiente
+            # A closing bracket must match the most recent unclosed opening bracket on top
             if not stack or stack[-1] != closing_to_opening[ch]:
                 return False
             stack.pop()
         else:
             stack.append(ch)
 
-    # Al final la pila debe quedar completamente vacía
+    # Stack must be completely empty at the end
     return len(stack) == 0
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function isValidParentheses(s: string): boolean {
   const pairs: Record<string, string> = { ")": "(", "]": "[", "}": "{" };
@@ -114,24 +114,24 @@ export function isValidParentheses(s: string): boolean {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:30] La ley del anidamiento: El último en abrir es el primero en cerrar
-- **🎬 Visual en Pantalla / Slide:** Cajas rusas (matrioshkas) y paréntesis anidados apilándose y desapilándose.
-- **🎙️ Narración / Guion:**
-  > "Piensa en cómo funcionan los paréntesis en matemáticas o las carpetas en tu computadora: el último bloque que abriste es obligatoriamente el primero que tienes que cerrar. Esa propiedad tiene nombre: LIFO, y su estructura es el Stack."
+### [00:00 - 01:30] The Law of Nesting: Last Opened, First Closed
+- **On-Screen Visual / Slide Cue:** Nested Russian dolls and parentheses pushing and popping from a vertical stack.
+- **Narration / Script:**
+  > "Think about how parentheses work in math or how folders nest on your computer: the last block you opened is strictly the first block you must close. That property is called LIFO, and its data structure is the Stack."
 
-### ⏱️ [01:30 - 04:00] De Valid Parentheses a Calculadoras y Decode String
-- **🎬 Visual en Pantalla / Slide:** Animación de `3[a2[c]]` guardando el contexto previo en la pila al entrar a cada corchete.
-- **🎙️ Narración / Guion:**
-  > "Cuando tienes estructuras dentro de otras estructuras, como en Decode String, la pila te permite pausar lo que estabas construyendo afuera, resolver lo de adentro y luego retomar exactamente donde te quedaste."
+### [01:30 - 04:00] From Valid Parentheses to Calculators and Decode String
+- **On-Screen Visual / Slide Cue:** Animation of `3[a2[c]]` saving outer context on the stack when entering each bracket.
+- **Narration / Script:**
+  > "Whenever you have patterns nested inside other patterns, like in Decode String, a stack lets you pause what you were building outside, solve the inner bracket, and resume right where you left off."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#20. Valid Parentheses** | `Easy` | [https://leetcode.com/problems/valid-parentheses/](https://leetcode.com/problems/valid-parentheses/) | Apila aperturas y verifica el tope al encontrar un cierre. |
-| **#150. Evaluate Reverse Polish Notation** | `Medium` | [https://leetcode.com/problems/evaluate-reverse-polish-notation/](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | Apila números; al ver un operador, saca los 2 últimos (`b = pop()`, `a = pop()`) y apila `a op b`. |
-| **#394. Decode String** | `Medium` | [https://leetcode.com/problems/decode-string/](https://leetcode.com/problems/decode-string/) | Al ver `[`, guarda `(string_previo, numero_k)` en la pila; al ver `]`, desapila y multiplica. |
+| **#20. Valid Parentheses** | `Easy` | [https://leetcode.com/problems/valid-parentheses/](https://leetcode.com/problems/valid-parentheses/) | Push opening brackets and verify the top of the stack upon seeing a closing bracket. |
+| **#150. Evaluate Reverse Polish Notation** | `Medium` | [https://leetcode.com/problems/evaluate-reverse-polish-notation/](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | Push numbers; on an operator, pop the top 2 operands (`b = pop()`, `a = pop()`) and push `a op b`. |
+| **#394. Decode String** | `Medium` | [https://leetcode.com/problems/decode-string/](https://leetcode.com/problems/decode-string/) | On `[`, push `(prev_string, repeat_k)` onto the stack; on `]`, pop and expand. |

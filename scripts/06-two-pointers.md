@@ -1,80 +1,80 @@
-# 🎬 Episodio #06: Two Pointers (Dos Punteros)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 1 — Patrón Algorítmico (`Beginner`)  
-> **Término en Inglés (Flowchart):** `Two Pointers`  
-> **Prerrequisitos Recomendados:** Arrays → Strings
+# Episode #06: Two Pointers (Converging & Same-Direction)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 1 — Algorithmic Pattern (`Beginner`)  
+> **Flowchart Node Term:** `Two Pointers`  
+> **Recommended Prerequisites:** Arrays -> Strings
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica con claridad cristalina las dos modalidades de Two Pointers: 1) Extremos opuestos (`left` y `right` acercándose) y 2) Misma dirección (`write` y `read` para modificar arreglos in-place). Demuestra por qué descartar un extremo nunca pierde la respuesta correcta cuando el arreglo está ordenado.
+Explain the two core flavors of Two Pointers: 1) Converging pointers (`left` and `right` moving inward) and 2) Same-direction pointers (`write` and `read` for in-place filtering). Show why discarding one boundary never misses the optimal pair when the array is sorted.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Two Pointers", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (N ≤ 10⁵ con arreglo ordenado o modificación in-place O(1) espacio) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Two Pointers", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (N <= 10^5 with sorted input or O(1) in-place array compaction) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Two Pointers?
-Utilizar dos índices coordinados que recorren una secuencia (acercándose desde los extremos `left/right` o avanzando en la misma dirección `read/write`) para reducir búsquedas de O(N²) a un solo pase lineal O(N) con espacio O(1).
+### What is Two Pointers?
+Using two coordinated indices across a sequence—either converging inward from opposite ends (`left` and `right`) or marching forward together (`write` and `read`)—to collapse O(N^2) pair searches into a single O(N) pass with O(1) space.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Dos personas buscando un libro en un estante ordenado por precio: una empieza por el más barato a la izquierda y otra por el más caro a la derecha. Si la suma de ambos precios se pasa de tu presupuesto, quien está en el lado caro da un paso a la izquierda; si falta dinero, quien está en el lado barato da un paso a la derecha.
+### Real-World Analogy
+> **Visual Intuition:** Two shoppers looking for two items that add up to an exact gift card balance on a shelf sorted by price: one starts at the cheapest item on the left, the other at the most expensive item on the right. If the total is too high, the right shopper steps left; if too low, the left shopper steps right.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Two Pointers convierte problemas cuadráticos O(N²) en lineales O(N) sin usar memoria extra O(1).
-2. **Idea Clave #2:** En arreglos ordenados, cada comparación te permite descartar toda una fila o columna de pares de un solo golpe.
-3. **Idea Clave #3:** Para `3Sum`, fijas un elemento con un bucle externo y reduces el resto a `Two Sum II` en O(N²).
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Two Pointers)
-- ✅ El arreglo está ordenado (o puedes ordenarlo) y buscas pares o tripletas que cumplan una suma o condición (`Two Sum II`, `3Sum`).
-- ✅ Quieres verificar palíndromos o simetría comparando extremos hacia el centro.
-- ✅ Debes compactar, filtrar o eliminar duplicados de un arreglo in-place en O(1) espacio usando un puntero lector y otro escritor.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Para buscar pares con suma objetivo en un arreglo NO ordenado donde debes devolver los índices originales (ordenarlo destruiría los índices originales; ahí usa un Hash Map).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `N ≤ 10⁵ con arreglo ordenado o modificación in-place O(1) espacio`
-- **Complejidad Temporal Promedio:** `O(N) (o O(N log N) si primero ordenas)`
-- **Complejidad Temporal Peor Caso:** `O(N)`
-- **Complejidad Espacial:** `O(1) espacio auxiliar`
-- **Nota Técnica:** Cada paso mueve al menos uno de los dos punteros, haciendo como máximo N iteraciones.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Two Pointers turns O(N^2) pair scans into O(N) linear passes with O(1) extra space.
+2. **Key Takeaway #2:** On sorted arrays, every comparison eliminates an entire row or column of candidate pairs at once.
+3. **Key Takeaway #3:** For `3Sum`, fixing the first element in an outer loop reduces the remaining problem to `Two Sum II` in O(N^2).
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Identificar si los punteros deben empezar en `(0, n-1)` (convergentes) o en `(0, 0)` (misma dirección).
-2. Definir la condición invariante que decide qué puntero debe moverse en cada iteración.
-3. Asegurar que en cada paso del `while (left < right)` al menos un puntero avance para evitar ciclos infinitos.
+### Problem Statement Signals (When to USE Two Pointers)
+- [x] The input array is SORTED (or can be sorted) and you need pairs or triplets matching a target sum or constraint (`Two Sum II`, `3Sum`).
+- [x] Checking palindromes or symmetry by comparing characters from both ends toward the center.
+- [x] Compacting, filtering, or deduplicating an array in-place in O(1) extra space using a `read` pointer and a `write` pointer.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** En problemas como `3Sum`, olvidar saltar valores duplicados (`while left < right and nums[left] == nums[left-1]: left += 1`), generando tripletas repetidas.
+### When NOT to Use It (False Positives)
+- [!] Finding pair sums in an UNSORTED array where you must return the original indices (sorting destroys original indices; use a Hash Map instead).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `N <= 10^5 with sorted input or O(1) in-place array compaction`
+- **Average Time Complexity:** `O(N) (or O(N log N) if sorting first)`
+- **Worst-Case Time Complexity:** `O(N)`
+- **Space Complexity:** `O(1) auxiliary space`
+- **Engineering Note:** Every iteration advances at least one pointer toward the other, guaranteeing at most N steps.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Decide whether pointers start at `(0, n-1)` (converging) or `(0, 0)` (same direction).
+2. Define the monotonic rule that determines which pointer advances on each iteration.
+3. Ensure every iteration of `while left < right` moves at least one pointer.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** In `3Sum`, forgetting to skip duplicate values (`while left < right and nums[left] == nums[left-1]: left += 1`), producing duplicate triplets.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def two_pointers_converging(nums: list[int], target: int) -> list[int]:
     """
-    Modalidad 1: Punteros convergentes en un arreglo ORDENADO.
-    Tiempo: O(N) | Espacio: O(1)
+    Mode 1: Converging pointers on a SORTED array.
+    Time: O(N) | Space: O(1)
     """
     left, right = 0, len(nums) - 1
     while left < right:
@@ -82,15 +82,15 @@ def two_pointers_converging(nums: list[int], target: int) -> list[int]:
         if current_sum == target:
             return [left, right]
         elif current_sum < target:
-            left += 1   # Necesitamos una suma más grande
+            left += 1   # Need a larger sum
         else:
-            right -= 1  # Necesitamos una suma más pequeña
+            right -= 1  # Need a smaller sum
     return []
 
 
 def remove_duplicates_inplace(nums: list[int]) -> int:
     """
-    Modalidad 2: Punteros en la misma dirección (Write / Read).
+    Mode 2: Same-direction pointers (Write / Read).
     """
     if not nums:
         return 0
@@ -102,7 +102,7 @@ def remove_duplicates_inplace(nums: list[int]) -> int:
     return write
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function twoPointersConverging(nums: number[], target: number): number[] {
   let left = 0;
@@ -120,24 +120,24 @@ export function twoPointersConverging(nums: number[], target: number): number[] 
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:30] De O(N²) a O(N) con dos índices
-- **🎬 Visual en Pantalla / Slide:** Dos flechas (L y R) en los extremos de un arreglo ordenado convergiendo al centro.
-- **🎙️ Narración / Guion:**
-  > "Si el arreglo está ordenado, revisar todos los pares con un doble bucle es desperdiciar información. Con Dos Punteros en los extremos, cada suma fallida nos dice con certeza matemática cuál extremo debemos descartar."
+### [00:00 - 01:30] From O(N^2) to O(N) with Two Coordinated Indices
+- **On-Screen Visual / Slide Cue:** Two arrows (L and R) at opposite ends of a sorted array converging toward the target sum.
+- **Narration / Script:**
+  > "If an array is sorted, checking all pairs with a nested loop throws away valuable information. With Two Pointers at opposite ends, every mismatch tells us with mathematical certainty which boundary we can discard forever."
 
-### ⏱️ [01:30 - 04:30] Las 2 variantes: Convergentes vs Lector/Escritor
-- **🎬 Visual en Pantalla / Slide:** Pantalla dividida mostrando Container With Most Water arriba y Remove Duplicates abajo.
-- **🎙️ Narración / Guion:**
-  > "No todos los Dos Punteros vienen de extremos opuestos. Cuando te piden limpiar un arreglo in-place sin crear otro nuevo, el puntero lector explora hacia adelante mientras el puntero escritor guarda solo los elementos válidos."
+### [01:30 - 04:30] Converging Pointers vs Read/Write Pointers
+- **On-Screen Visual / Slide Cue:** Split screen showing Container With Most Water on top and Remove Duplicates in-place on bottom.
+- **Narration / Script:**
+  > "Not all Two Pointers start at opposite ends. When asked to compact an array in-place without allocating a new array, the Read pointer scouts ahead while the Write pointer overwrites only valid elements."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#167. Two Sum II - Input Array Is Sorted** | `Medium` | [https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) | Punteros `left` al inicio y `right` al final aprovechando el orden ascendente. |
-| **#15. 3Sum** | `Medium` | [https://leetcode.com/problems/3sum/](https://leetcode.com/problems/3sum/) | Ordena el arreglo, fija `i` y ejecuta Two Pointers en `i+1 ... n-1` saltando duplicados. |
-| **#11. Container With Most Water** | `Medium` | [https://leetcode.com/problems/container-with-most-water/](https://leetcode.com/problems/container-with-most-water/) | Mueve siempre el puntero que tenga la pared más baja, porque es el cuello de botella del área. |
+| **#167. Two Sum II - Input Array Is Sorted** | `Medium` | [https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) | Place `left` at 0 and `right` at `n-1`, exploiting the sorted order to eliminate a row or column at each step. |
+| **#15. 3Sum** | `Medium` | [https://leetcode.com/problems/3sum/](https://leetcode.com/problems/3sum/) | Sort the array, fix `i`, and run converging Two Pointers on `i+1 .. n-1` while skipping duplicates. |
+| **#11. Container With Most Water** | `Medium` | [https://leetcode.com/problems/container-with-most-water/](https://leetcode.com/problems/container-with-most-water/) | Always move the pointer with the shorter wall, since it bottlenecks the water height. |

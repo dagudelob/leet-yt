@@ -1,76 +1,76 @@
-# 🎬 Episodio #22: Trees (Árboles Binarios y Recorridos)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 4 — Estructura de Datos (`Beginner`)  
-> **Término en Inglés (Flowchart):** `Binary Trees & Traversals (Pre/In/Post-Order)`  
-> **Prerrequisitos Recomendados:** Divide & Conquer → Linked Lists
+# Episode #22: Binary Trees & Traversals (Pre / In / Post-Order)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 4 — Data Structure (`Beginner`)  
+> **Flowchart Node Term:** `Binary Trees & Traversals (Pre/In/Post-Order)`  
+> **Recommended Prerequisites:** Divide & Conquer -> Linked Lists
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Enseña a pensar en Árboles Binarios desde la perspectiva de UN SOLO NODO: '¿Qué información necesito pasarle a mis hijos hacia abajo (Pre-order) o qué información necesito que mis hijos me devuelvan hacia arriba (Post-order)?'. Explica con 'Diameter of Binary Tree' cómo actualizar una respuesta global mientras retornas la altura hacia el padre.
+Teach the listener to solve Binary Tree problems by focusing on a SINGLE NODE: 'What information do I pass down to my children (Pre-order), and what information do I need my children to return up to me (Post-order)?'. Walk through 'Diameter of Binary Tree' to show how to update a global answer while returning height upward.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Binary Trees", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Estructuras jerárquicas TreeNode con N ≤ 10⁵) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Binary Trees", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Hierarchical TreeNode problems with N <= 10^5) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Binary Trees?
-Estructura jerárquica sin ciclos donde cada nodo tiene un valor y hasta dos hijos (`left` y `right`). Como cada subárbol es a su vez un árbol binario, el 95% de sus problemas se resuelven con funciones recursivas elegantes de 5 líneas.
+### What is Binary Trees?
+Hierarchical acyclic structures where each node holds a value and up to two children (`left` and `right`). Because every subtree is itself a binary tree, 95% of tree problems can be solved with 5-line recursive functions.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** El organigrama de una empresa o un árbol genealógico: el director general (Raíz / `root`) le pide un reporte a su gerente izquierdo y a su gerente derecho; cada gerente hace lo mismo con su equipo hasta llegar a los empleados sin gente a cargo (Hojas / `leaves`), y los resultados suben sumándose hasta la raíz.
+### Real-World Analogy
+> **Visual Intuition:** A company org chart: the CEO (`root`) asks the VP of Engineering (`left`) and VP of Product (`right`) for their headcount; each VP asks their directors down to individual contributors (`leaves`), and the totals bubble back up to the CEO.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** No intentes rastrear en tu cabeza toda la recursión del árbol completo: enfócate solo en la relación entre `root`, `root.left` y `root.right`.
-2. **Idea Clave #2:** Pre-Order pasa información de padres a hijos (Top-Down); Post-Order agrega información de hijos a padres (Bottom-Up).
-3. **Idea Clave #3:** Un árbol binario de N nodos siempre tiene exactamente `N - 1` aristas.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Binary Trees)
-- ✅ Representar datos jerárquicos, expresiones sintácticas (AST), decisiones o estructuras recursivas.
-- ✅ **Pre-order (`Raíz -> Izq -> Der`)**: Clonar o serializar un árbol de arriba hacia abajo.
-- ✅ **In-order (`Izq -> Raíz -> Der`)**: Procesar un Árbol Binario de Búsqueda (BST) en orden ascendente.
-- ✅ **Post-order (`Izq -> Der -> Raíz`)**: Calcular alturas, diámetros, sumas de subárboles o el Ancestro Común Más Bajo (LCA), donde necesitas las respuestas de ambos hijos antes de calcular la del padre.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si el árbol está completamente degenerado en una línea recta (altura `H = N`) y el lenguaje tiene límite de recursión bajo, usa recorrido iterativo con pila o cola.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Estructuras jerárquicas TreeNode con N ≤ 10⁵`
-- **Complejidad Temporal Promedio:** `Recorrido completo: O(N) visitando cada nodo 1 vez`
-- **Complejidad Temporal Peor Caso:** `O(N)`
-- **Complejidad Espacial:** `O(H) altura del árbol en la pila de recursión`
-- **Nota Técnica:** El espacio en el Call Stack es O(H), donde H es la altura del árbol (O(log N) balanceado, O(N) degenerado).
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Never try to trace the entire tree in your head at once: focus only on the contract between `root`, `root.left`, and `root.right`.
+2. **Key Takeaway #2:** Pre-Order pushes context top-down from parent to child; Post-Order aggregates results bottom-up from children to parent.
+3. **Key Takeaway #3:** Any binary tree with N nodes has exactly `N - 1` edges.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Definir qué significa el caso base `if not root:` (normalmente devuelve `0`, `None` o `True`).
-2. Decidir qué valor debe retornar la función recursiva al padre.
-3. Combinar `left_res` y `right_res` con `root.val`.
+### Problem Statement Signals (When to USE Binary Trees)
+- [x] Representing hierarchical data, abstract syntax trees (ASTs), or recursive decision structures.
+- [x] **Pre-order (`Root -> Left -> Right`)**: Cloning, serializing, or passing top-down context from parent to children.
+- [x] **In-order (`Left -> Root -> Right`)**: Visiting a Binary Search Tree (BST) in sorted ascending order.
+- [x] **Post-order (`Left -> Right -> Root`)**: Computing heights, diameters, subtree sums, or Lowest Common Ancestor (LCA) where you need both children's answers before computing the parent's.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** En problemas como `Diameter of Binary Tree` o `Binary Tree Maximum Path Sum`, confundir el camino que 'hace curva en el nodo actual' (`left + right`, que actualiza el máximo global) con el camino que 'puede seguir subiendo hacia el padre' (`max(left, right)`, que solo puede elegir una rama).
+### When NOT to Use It (False Positives)
+- [!] If the tree is degenerate (a skewed chain of height `H = N`) and recursion stack limits are tight, use an explicit stack or queue.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Hierarchical TreeNode problems with N <= 10^5`
+- **Average Time Complexity:** `Full traversal: O(N) visiting each node once`
+- **Worst-Case Time Complexity:** `O(N)`
+- **Space Complexity:** `O(H) height of the tree on the recursion call stack`
+- **Engineering Note:** Call stack space is O(H) where H is the tree height (O(log N) balanced, O(N) skewed).
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Define the base case `if not root:` (usually returns `0`, `None`, or `True`).
+2. Decide what value each recursive call must return to its parent.
+3. Combine `left_res` and `right_res` with `root.val`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** In `Diameter of Binary Tree` or `Binary Tree Maximum Path Sum`, confusing the path that 'curves through the current node as its peak' (`left + right`, which updates the global max) with the path that 'can continue upward to the parent' (`1 + max(left, right)`).
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 class TreeNode:
     def __init__(self, val: int = 0, left: "TreeNode | None" = None, right: "TreeNode | None" = None):
@@ -81,10 +81,10 @@ class TreeNode:
 
 def max_depth_postorder(root: TreeNode | None) -> int:
     """
-    Mentalidad Post-Order:
-    1. Caso base: un árbol vacío tiene altura 0.
-    2. Pide la altura al hijo izquierdo y al hijo derecho.
-    3. Tu altura es 1 + max(izq, der).
+    Post-Order Mindset (Bottom-Up):
+    1. Base case: an empty tree has height 0.
+    2. Ask left child and right child for their heights.
+    3. My height is 1 + max(left_height, right_height).
     """
     if not root:
         return 0
@@ -93,7 +93,7 @@ def max_depth_postorder(root: TreeNode | None) -> int:
     return 1 + max(left_height, right_height)
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export class TreeNode {
   val: number;
@@ -114,24 +114,24 @@ export function maxDepth(root: TreeNode | null): number {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] La definición recursiva de un Árbol Binario
-- **🎬 Visual en Pantalla / Slide:** Árbol binario donde cada hijo se enmarca mostrando que es un árbol idéntico más pequeño.
-- **🎙️ Narración / Guion:**
-  > "Los árboles binarios parecen intimidantes hasta que descubres un secreto: no tienes que resolver todo el árbol. Solo tienes que resolver un nodo suponiendo que tus hijos izquierdo y derecho ya hicieron su trabajo."
+### [00:00 - 01:45] The Recursive Nature of Binary Trees
+- **On-Screen Visual / Slide Cue:** Binary tree where each child is framed to show it is a smaller self-similar binary tree.
+- **Narration / Script:**
+  > "Binary trees look intimidating until you realize a secret: you never have to solve the whole tree. You only write the logic for a single node assuming its left and right children already did their job."
 
-### ⏱️ [01:45 - 04:30] Pre-Order, In-Order y Post-Order: Cuándo usar cada uno
-- **🎬 Visual en Pantalla / Slide:** Un cursor rodeando el contorno del árbol marcando la primera visita (Pre), visita inferior (In) y última visita (Post).
-- **🎙️ Narración / Guion:**
-  > "Pre-order, In-order y Post-order no son tres algoritmos distintos: son el mismo recorrido visto en tres momentos diferentes: al llegar al nodo, al pasar entre sus dos hijos y antes de despedirte hacia arriba."
+### [01:45 - 04:30] Pre-Order, In-Order, and Post-Order: When to Use Each
+- **On-Screen Visual / Slide Cue:** A cursor tracing the outline of a tree marking 1st visit (Pre), bottom visit (In), and final exit visit (Post).
+- **Narration / Script:**
+  > "Pre-order, In-order, and Post-order are not three different walks—they are the exact same walk observed at three moments: when arriving at a node, when passing between its children, and right before returning upward."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#104. Maximum Depth of Binary Tree** | `Easy` | [https://leetcode.com/problems/maximum-depth-of-binary-tree/](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | Caso base `None -> 0`, paso recursivo `1 + max(depth(left), depth(right))`. |
-| **#226. Invert Binary Tree** | `Easy` | [https://leetcode.com/problems/invert-binary-tree/](https://leetcode.com/problems/invert-binary-tree/) | Intercambia `root.left, root.right = invert(root.right), invert(root.left)`. |
-| **#543. Diameter of Binary Tree** | `Easy` | [https://leetcode.com/problems/diameter-of-binary-tree/](https://leetcode.com/problems/diameter-of-binary-tree/) | En cada nodo, el camino más largo que pasa por él como pico es `left_height + right_height`, mientras retornas hacia arriba `1 + max(left_height, right_height)`. |
+| **#104. Maximum Depth of Binary Tree** | `Easy` | [https://leetcode.com/problems/maximum-depth-of-binary-tree/](https://leetcode.com/problems/maximum-depth-of-binary-tree/) | Base case `None -> 0`, recursive step `1 + max(depth(left), depth(right))`. |
+| **#226. Invert Binary Tree** | `Easy` | [https://leetcode.com/problems/invert-binary-tree/](https://leetcode.com/problems/invert-binary-tree/) | Swap `root.left, root.right = invert(root.right), invert(root.left)`. |
+| **#543. Diameter of Binary Tree** | `Easy` | [https://leetcode.com/problems/diameter-of-binary-tree/](https://leetcode.com/problems/diameter-of-binary-tree/) | At each node, the longest path curving through it is `left_h + right_h`, while returning `1 + max(left_h, right_h)` upward. |

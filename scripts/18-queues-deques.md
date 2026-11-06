@@ -1,95 +1,95 @@
-# 🎬 Episodio #18: Queues & Deques (Colas FIFO y Colas de Doble Extremo)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 3 — Estructura de Datos (`Beginner`)  
-> **Término en Inglés (Flowchart):** `Queues (FIFO) & Double-Ended Queues (Deque)`  
-> **Prerrequisitos Recomendados:** Arrays → Linked Lists
+# Episode #18: Queues & Deques (FIFO & Double-Ended Queues)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 3 — Data Structure (`Beginner`)  
+> **Flowchart Node Term:** `Queues (FIFO) & Double-Ended Queues (Deque)`  
+> **Recommended Prerequisites:** Arrays -> Linked Lists
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica la filosofía FIFO (First-In, First-Out) y por qué la estructura `deque` (Double-Ended Queue) es la navaja suiza que puede actuar como Stack, como Queue y como ventana deslizante en O(1). Enseña también cómo funciona una Cola Circular sobre un arreglo fijo usando el operador módulo `% capacity`.
+Explain the FIFO philosophy and why Python's `collections.deque` (Double-Ended Queue) is the Swiss Army knife that acts as a Stack, a Queue, and a Sliding Window buffer in O(1). Also show how a Circular Queue wraps around a fixed array using `% capacity`.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Queues & Deques", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Procesamiento por orden de llegada, buffers circulares o BFS) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Queues & Deques", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Arrival-order processing, circular buffers, or BFS) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Queues & Deques?
-Colas First-In, First-Out (el primero en llegar es el primero en salir) y Deques (`collections.deque`) que permiten insertar y extraer tanto por la izquierda como por la derecha en tiempo constante O(1).
+### What is Queues & Deques?
+First-In, First-Out (FIFO) queues and Double-Ended Queues (`collections.deque`) that support O(1) insertions and pops from both the front and the back.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Una fila de personas en el banco (Queue FIFO): el primero que se formó en la fila es el primero al que atienden en la ventanilla. Una Deque es una fila VIP con puerta adelante y atrás que permite meter o sacar por ambos extremos al instante.
+### Real-World Analogy
+> **Visual Intuition:** A checkout line at a grocery store (FIFO Queue): the first customer in line is the first customer served. A Deque is a VIP hallway with doors at both ends, letting you add or remove from either side in O(1).
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** FIFO procesa por orden de antigüedad o cercanía (por eso es la base de BFS para caminos más cortos).
-2. **Idea Clave #2:** `collections.deque` en Python da `append`, `appendleft`, `pop` y `popleft` todos en O(1).
-3. **Idea Clave #3:** En JavaScript/TypeScript no hay `deque` nativa en la librería estándar: usar un objeto con índices `head` y `tail` o un arreglo circular evita el costo O(N) de `Array.shift()`.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Queues & Deques)
-- ✅ Procesar eventos o tareas en orden estricto de llegada (ventana de tiempo reciente, buffer de streaming).
-- ✅ Recorrer árboles o grafos nivel por nivel (motor fundamental de Breadth-First Search - BFS).
-- ✅ Mantener ventanas deslizantes donde entran elementos por la derecha y salen por la izquierda en O(1).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ En Python, NUNCA uses `list.pop(0)` como cola porque cuesta O(N); importa siempre `from collections import deque` y usa `popleft()` en O(1).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Procesamiento por orden de llegada, buffers circulares o BFS`
-- **Complejidad Temporal Promedio:** `append / appendleft / pop / popleft: O(1)`
-- **Complejidad Temporal Peor Caso:** `O(1) en extremos`
-- **Complejidad Espacial:** `O(N) para los elementos en espera`
-- **Nota Técnica:** `collections.deque` está implementada en C como una lista doblemente enlazada de bloques.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** FIFO processes items in order of arrival or distance (making it the engine of BFS shortest paths).
+2. **Key Takeaway #2:** `collections.deque` gives `append`, `appendleft`, `pop`, and `popleft` all in O(1).
+3. **Key Takeaway #3:** In JavaScript/TypeScript, avoid `Array.shift()` on large queues; use head/tail pointers or a two-array queue.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Importar `from collections import deque`.
-2. Encolar elementos nuevos por la derecha con `q.append(x)`.
-3. Desencolar el elemento más antiguo por la izquierda con `q.popleft()`.
+### Problem Statement Signals (When to USE Queues & Deques)
+- [x] Processing events or tasks in strict arrival order (sliding time windows, rate limiters, stream buffers).
+- [x] Traversing trees or graphs level by level (the engine behind Breadth-First Search - BFS).
+- [x] Maintaining sliding windows where elements enter on the right and expire from the left in O(1).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Usar `Array.shift()` en JS o `list.pop(0)` en Python en una cola con 100,000 elementos, causando TLE.
+### When NOT to Use It (False Positives)
+- [!] In Python, NEVER use `list.pop(0)` as a queue because shifting costs O(N); always import `from collections import deque` and call `popleft()` in O(1).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Arrival-order processing, circular buffers, or BFS`
+- **Average Time Complexity:** `append / appendleft / pop / popleft: O(1)`
+- **Worst-Case Time Complexity:** `O(1) at both ends`
+- **Space Complexity:** `O(N) for buffered elements`
+- **Engineering Note:** `collections.deque` is implemented in C as a doubly linked list of fixed-size blocks.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Import `from collections import deque`.
+2. Enqueue new items at the back with `q.append(x)`.
+3. Dequeue the oldest item from the front with `q.popleft()`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Using `Array.shift()` in JS or `list.pop(0)` in Python on a queue with 100,000 items, causing O(N^2) TLE.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 from collections import deque
 
 class RecentCounter:
     """
-    Ejemplo clásico de Queue FIFO en ventana de tiempo [t - 3000, t].
-    Tiempo: O(1) amortizado por llamada | Espacio: O(W)
+    Classic FIFO Queue over a sliding time window [t - 3000, t].
+    Time: O(1) amortized per call | Space: O(W)
     """
     def __init__(self):
         self.q = deque()
 
     def ping(self, t: int) -> int:
         self.q.append(t)
-        # Sacamos por la izquierda en O(1) todos los eventos que ya caducaron
+        # Evict expired timestamps from the front in O(1)
         while self.q and self.q[0] < t - 3000:
             self.q.popleft()
         return len(self.q)
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export class CircularDeque<T> {
   private items: Record<number, T> = {};
@@ -115,24 +115,24 @@ export class CircularDeque<T> {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:30] FIFO vs LIFO: La justicia del orden de llegada
-- **🎬 Visual en Pantalla / Slide:** Túnel donde los datos entran por la derecha y salen en el mismo orden por la izquierda.
-- **🎙️ Narración / Guion:**
-  > "Mientras la Pila atiende siempre al último en llegar, la Cola respeta el turno de llegada: el primero en entrar es el primero en salir. Es la estructura esencial para procesar eventos en tiempo real y explorar grafos por capas."
+### [00:00 - 01:30] FIFO vs LIFO: Fairness of Arrival Order
+- **On-Screen Visual / Slide Cue:** Tunnel where items enter on the right and exit in the exact same order on the left.
+- **Narration / Script:**
+  > "While a Stack always serves the newest arrival first, a Queue respects the line: First-In, First-Out. It is the essential structure for real-time event streams and level-by-level graph exploration."
 
-### ⏱️ [01:30 - 04:00] Deque y Colas Circulares: O(1) en ambos extremos
-- **🎬 Visual en Pantalla / Slide:** Anillo circular con punteros head y tail avanzando con aritmética `% capacidad`.
-- **🎙️ Narración / Guion:**
-  > "Con una Deque o una Cola Circular obtienes inserciones y extracciones instantáneas tanto al frente como al final, preparando el terreno para dos de los algoritmos más potentes: BFS y Monotonic Queue."
+### [01:30 - 04:00] Deques and Circular Queues: O(1) at Both Ends
+- **On-Screen Visual / Slide Cue:** Circular ring buffer with `head` and `tail` pointers advancing via `% capacity`.
+- **Narration / Script:**
+  > "With a Deque or Circular Queue, you get instant insertions and removals at both the front and the back—setting the stage for BFS and Monotonic Queues."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#933. Number of Recent Calls** | `Easy` | [https://leetcode.com/problems/number-of-recent-calls/](https://leetcode.com/problems/number-of-recent-calls/) | Agrega `t` con `append` y elimina llamadas `< t - 3000` con `popleft()`. |
-| **#622. Design Circular Queue** | `Medium` | [https://leetcode.com/problems/design-circular-queue/](https://leetcode.com/problems/design-circular-queue/) | Arreglo fijo de tamaño `K` con índices `(head + count) % K`. |
-| **#225. Implement Stack using Queues** | `Easy` | [https://leetcode.com/problems/implement-stack-using-queues/](https://leetcode.com/problems/implement-stack-using-queues/) | Al insertar un elemento, rota los `N-1` anteriores detrás de él. |
+| **#933. Number of Recent Calls** | `Easy` | [https://leetcode.com/problems/number-of-recent-calls/](https://leetcode.com/problems/number-of-recent-calls/) | Append `t` and evict calls `< t - 3000` from the front using `popleft()`. |
+| **#622. Design Circular Queue** | `Medium` | [https://leetcode.com/problems/design-circular-queue/](https://leetcode.com/problems/design-circular-queue/) | Fixed array of size `K` with circular index math `(head + count) % K`. |
+| **#225. Implement Stack using Queues** | `Easy` | [https://leetcode.com/problems/implement-stack-using-queues/](https://leetcode.com/problems/implement-stack-using-queues/) | After pushing a new element, rotate the previous `N - 1` elements behind it. |

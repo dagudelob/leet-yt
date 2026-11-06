@@ -1,83 +1,83 @@
-# 🎬 Episodio #25: BFS - Breadth-First Search (Búsqueda en Anchura)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 4 — Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Breadth-First Search (Level Order & Shortest Path)`  
-> **Prerrequisitos Recomendados:** Queues & Deques → Binary Trees → Matrices / Grids 2D
+# Episode #25: BFS - Breadth-First Search (Level Order & Shortest Path)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 4 — Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Breadth-First Search (Level Order & Shortest Path)`  
+> **Recommended Prerequisites:** Queues & Deques -> Binary Trees -> Matrices / 2D Grids
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Enfatiza las 3 joyas de BFS: 1) El patrón `for _ in range(len(queue)):` para procesar piso por piso y contar la distancia exacta, 2) La regla vital de marcar `visited` AL ENCOLAR (y no al sacar de la cola, lo cual causaría duplicados masivos y TLE), y 3) El patrón 'Multi-Source BFS' (`Rotting Oranges`) metiendo todos los focos iniciales en la cola en el minuto 0.
+Highlight the 3 keys to mastering BFS: 1) The `for _ in range(len(queue)):` snapshot trick to track exact distance layers, 2) The golden rule of marking `visited` ON ENQUEUE (not on dequeue, which causes exponential queue duplicates and TLE), and 3) 'Multi-Source BFS' (`Rotting Oranges`) by loading all starting nodes into the queue at t = 0.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "BFS", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones ('Mínimo número de pasos', 'Recorrido por niveles' o propagación simultánea) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("BFS", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint ('Minimum number of steps', 'Level order traversal', or simultaneous multi-source spread) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es BFS?
-Explorar por capas concéntricas (primero todos los nodos a distancia 1, luego todos los de distancia 2, luego distancia 3...) usando una Cola FIFO (`deque`). Garantiza encontrar el **camino más corto** en cualquier grafo o tablero sin pesos.
+### What is BFS?
+Exploring in concentric ripples—first all nodes at distance 1, then distance 2, then distance 3—using a FIFO Queue (`deque`). Guarantees finding the **shortest path** in any unweighted graph or grid.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Dejar caer una piedra en un estanque tranquilo: la onda circular se expande uniformemente en todas direcciones a la misma velocidad. El primer instante en que la onda toca la orilla destino es, por ley física, el camino más corto posible.
+### Real-World Analogy
+> **Visual Intuition:** Dropping a pebble into a calm pond: the circular ripple expands outward at the exact same speed in every direction. The first moment the ripple touches the target shore is mathematically guaranteed to be the shortest path.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Si el problema dice 'mínimo número de pasos/movimientos' y cada paso cuesta 1, la respuesta inmediata en el Flowchart es BFS.
-2. **Idea Clave #2:** El truco `level_size = len(queue)` toma una fotografía de cuántos nodos hay en la capa actual antes de que se mezclen con sus hijos.
-3. **Idea Clave #3:** Marcar `visited.add(vecino)` justo antes de `queue.append(vecino)` es obligatorio para evitar que varios nodos encolen al mismo vecino repetidas veces.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR BFS)
-- ✅ Encontrar la **distancia mínima** o el **menor número de pasos/movimientos** desde un origen hasta un destino en un grafo o matriz sin pesos (`Shortest Path in Binary Matrix`, `Word Ladder`).
-- ✅ Recorrer un árbol binario nivel por nivel (`Binary Tree Level Order Traversal`, `Right Side View`).
-- ✅ **Multi-Source BFS**: Cuando el fenómeno se propaga simultáneamente desde MÚLTIPLES orígenes al mismo tiempo (`Rotting Oranges`, `01 Matrix`) — simplemente metes todos los orígenes iniciales en la cola en el segundo 0.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si las aristas tienen PESOS DISTINTOS (ej. calles con peajes de costo 1, 5, 20): BFS normal ya no garantiza el camino más barato; necesitas el **Algoritmo de Dijkstra**.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `'Mínimo número de pasos', 'Recorrido por niveles' o propagación simultánea`
-- **Complejidad Temporal Promedio:** `O(V + E) en grafos | O(R × C) en cuadrículas`
-- **Complejidad Temporal Peor Caso:** `O(V + E)`
-- **Complejidad Espacial:** `O(V) para la cola `deque` y el conjunto `visited``
-- **Nota Técnica:** Marcar `visited` en el instante de ENCOLAR (`append`) evita meter el mismo nodo duplicado múltiples veces en la cola.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Whenever a problem asks for the 'minimum number of steps/moves' and every step costs 1, the Flowchart points straight to BFS.
+2. **Key Takeaway #2:** `level_size = len(queue)` snapshots how many nodes belong to the current ripple layer before their children are added.
+3. **Key Takeaway #3:** Always call `visited.add(nei)` right before `queue.append(nei)`.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Inicializar `queue = deque([origenes])` y `visited = set(origenes)`.
-2. Mientras la cola no esté vacía, medir `level_size = len(queue)` e iterar esa cantidad de veces.
-3. Para cada vecino válido no visitado, agregarlo a `visited` y luego a `queue`.
-4. Al terminar el bucle del nivel, incrementar `steps += 1`.
+### Problem Statement Signals (When to USE BFS)
+- [x] Finding the **minimum distance** or **minimum number of steps/moves** from a source to a target in an unweighted graph or 2D grid (`Shortest Path in Binary Matrix`, `Word Ladder`).
+- [x] Level-by-level tree traversal (`Binary Tree Level Order Traversal`, `Right Side View`).
+- [x] **Multi-Source BFS**: When a process spreads simultaneously from MULTIPLE starting sources at once (`Rotting Oranges`, `01 Matrix`)—simply enqueue all initial sources into the `deque` at step 0.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Marcar `visited.add(u)` recién cuando haces `u = queue.popleft()`: en una cuadrícula, eso hace que la misma celda se agregue muchas veces a la cola desde distintos vecinos y explote la memoria y el tiempo.
+### When NOT to Use It (False Positives)
+- [!] When edges have DIFFERENT positive weights (e.g., roads with toll costs 1, 5, 20): standard BFS no longer finds the cheapest path; use **Dijkstra's Algorithm**.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `'Minimum number of steps', 'Level order traversal', or simultaneous multi-source spread`
+- **Average Time Complexity:** `O(V + E) on graphs | O(R * C) on 2D grids`
+- **Worst-Case Time Complexity:** `O(V + E)`
+- **Space Complexity:** `O(V) for the `deque` and `visited` set`
+- **Engineering Note:** Marking `visited` at the moment of ENQUEUEING (`append`) prevents pushing duplicate copies of the same node into the queue.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Initialize `queue = deque(sources)` and `visited = set(sources)`.
+2. While the queue is non-empty, snapshot `level_size = len(queue)` and iterate `level_size` times.
+3. For each unvisited valid neighbor, add to `visited` and append to `queue`.
+4. Increment `steps += 1` after finishing the layer loop.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Waiting until `u = queue.popleft()` to mark `visited.add(u)`: on a grid, multiple neighbors will push the same cell into the queue before it gets popped, blowing up memory and time.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 from collections import deque
 
 def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target: tuple[int, int]) -> int:
     """
-    Plantilla Universal de BFS por Niveles (Camino Más Corto en Tablero Sin Pesos).
-    REGLA DE ORO: Marcar como visitado AL ENCOLAR (antes de meter a deque), no al desencolar.
+    Universal Level-by-Level BFS Template (Unweighted Shortest Path).
+    GOLDEN RULE: Mark visited WHEN ENQUEUEING (before append), never wait until popleft()!
     """
     rows, cols = len(grid), len(grid[0])
     queue = deque([start])
@@ -85,7 +85,7 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
     steps = 0
 
     while queue:
-        # Procesamos exactamente todos los nodos del nivel actual
+        # Process all nodes belonging to the current distance layer
         level_size = len(queue)
         for _ in range(level_size):
             r, c = queue.popleft()
@@ -100,14 +100,14 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
                     and grid[nr][nc] == 0
                     and (nr, nc) not in visited
                 ):
-                    visited.add((nr, nc))  # ¡Marcar AL ENCOLAR!
+                    visited.add((nr, nc))  # Mark visited ON ENQUEUE!
                     queue.append((nr, nc))
         steps += 1
 
     return -1
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function bfsLevelOrder(
   adj: number[][],
@@ -124,7 +124,7 @@ export function bfsLevelOrder(
       if (u === target) return steps;
       for (const v of adj[u]) {
         if (!visited.has(v)) {
-          visited.add(v); // Marcar al encolar
+          visited.add(v); // Mark visited when enqueueing
           nextQueue.push(v);
         }
       }
@@ -138,24 +138,24 @@ export function bfsLevelOrder(
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] La onda en el estanque: Por qué BFS garantiza el camino más corto
-- **🎬 Visual en Pantalla / Slide:** Ondas concéntricas de distancia 1, 2, 3 expandiéndose desde el origen hasta tocar la meta.
-- **🎙️ Narración / Guion:**
-  > "Si necesitas el camino más corto en un laberinto donde cada paso vale uno, DFS es una mala idea porque puede irse por un pasillo larguísimo. BFS avanza como una ola circular: explora primero todo lo que está a 1 paso, luego todo lo que está a 2 pasos."
+### [00:00 - 01:45] Ripples in a Pond: Why BFS Guarantees the Shortest Path
+- **On-Screen Visual / Slide Cue:** Concentric rings at distance 1, 2, 3 expanding from the origin until touching the target.
+- **Narration / Script:**
+  > "If you need the shortest path in a maze where every step costs one, DFS is dangerous because it might wander down a thousand-step corridor first. BFS expands like a circular ripple in a pond: checking everything at distance 1, then distance 2."
 
-### ⏱️ [01:45 - 04:45] Multi-Source BFS y la Regla de Oro de `visited`
-- **🎬 Visual en Pantalla / Slide:** Múltiples naranjas podridas expandiendo ondas simultáneas en el minuto 1, 2 y 3.
-- **🎙️ Narración / Guion:**
-  > "¿Y qué pasa cuando tienes múltiples puntos de inicio al mismo tiempo, como en Rotting Oranges? No lances varios BFS separados: mete todos los orígenes juntos en la cola inicial y deja que las olas avancen sincronizadas."
+### [01:45 - 04:45] Multi-Source BFS and the Golden Rule of `visited`
+- **On-Screen Visual / Slide Cue:** Multiple rotten oranges expanding synchronized ripples at minutes 1, 2, and 3.
+- **Narration / Script:**
+  > "What if a contagion starts from multiple sources at the same time, like in Rotting Oranges? Do not run separate BFS searches—load all starting sources into the initial queue together and let their ripples expand in lockstep."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#102. Binary Tree Level Order Traversal** | `Medium` | [https://leetcode.com/problems/binary-tree-level-order-traversal/](https://leetcode.com/problems/binary-tree-level-order-traversal/) | Usa `for _ in range(len(queue)):` para agrupar exactamente los nodos de cada piso. |
-| **#994. Rotting Oranges** | `Medium` | [https://leetcode.com/problems/rotting-oranges/](https://leetcode.com/problems/rotting-oranges/) | Multi-Source BFS: mete TODAS las naranjas podridas iniciales en la cola antes de empezar el `while`. |
-| **#127. Word Ladder** | `Hard` | [https://leetcode.com/problems/word-ladder/](https://leetcode.com/problems/word-ladder/) | Cada palabra es un nodo; dos palabras tienen arista si difieren en 1 sola letra. Busca el camino más corto con BFS. |
+| **#102. Binary Tree Level Order Traversal** | `Medium` | [https://leetcode.com/problems/binary-tree-level-order-traversal/](https://leetcode.com/problems/binary-tree-level-order-traversal/) | Use `for _ in range(len(queue)):` to snapshot and group each level cleanly. |
+| **#994. Rotting Oranges** | `Medium` | [https://leetcode.com/problems/rotting-oranges/](https://leetcode.com/problems/rotting-oranges/) | Multi-Source BFS: push ALL initially rotten oranges into the queue at minute 0 before starting the `while` loop. |
+| **#127. Word Ladder** | `Hard` | [https://leetcode.com/problems/word-ladder/](https://leetcode.com/problems/word-ladder/) | Model words as nodes connected if they differ by 1 letter; find shortest transformation with BFS. |

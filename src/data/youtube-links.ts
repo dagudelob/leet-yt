@@ -1,13 +1,13 @@
 import { YouTubeVideoEntry } from "@/types/dsa";
 
 /**
- * ARCHIVO CENTRAL DE LINKS DE YOUTUBE (LEET-YT)
- * ---------------------------------------------
- * A medida que vayas subiendo cada video a tu canal de YouTube:
- * 1. Pega el link en `youtubeUrl` (ej. "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
- * 2. Cambia `status` a "published" (o "in_production")
- * También puedes editar estos links visualmente desde la pestaña "Gestor YouTube" en la web
- * y exportar este archivo actualizado con un clic.
+ * CENTRAL YOUTUBE LINKS REGISTRY (LEET-YT)
+ * ----------------------------------------
+ * As you publish each video to your YouTube channel:
+ * 1. Paste the URL into `youtubeUrl` (e.g., "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+ * 2. Update `status` to "published" (or "in_production")
+ * You can also edit these links visually from the "YouTube & Scripts Studio" tab in the web app
+ * and export this updated TypeScript file with one click.
  */
 export const DEFAULT_YOUTUBE_LINKS: Record<string, YouTubeVideoEntry> = {
   "basic-dsa": { topicId: "basic-dsa", episodeNumber: 1, youtubeUrl: "", status: "in_production", durationEstimate: "08:30" },

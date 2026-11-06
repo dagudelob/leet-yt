@@ -1,82 +1,82 @@
-# 🎬 Episodio #21: Divide and Conquer (Divide y Vencerás)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 4 — Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Divide and Conquer`  
-> **Prerrequisitos Recomendados:** Arrays → Binary Search
+# Episode #21: Divide and Conquer
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 4 — Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Divide and Conquer`  
+> **Recommended Prerequisites:** Arrays -> Binary Search
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica las 3 fases de Divide & Conquer (Dividir, Conquistar y Combinar) y visualiza el árbol de recursión de Merge Sort para demostrar por qué tiene `log₂ N` pisos y cada piso suma `N` operaciones, dando `O(N log N)`. Contrasta Divide & Conquer (subproblemas disjuntos) con Programación Dinámica (subproblemas repetidos).
+Explain the 3 phases of Divide & Conquer (Divide, Conquer, Combine) and visualize the Merge Sort recursion tree to show why `log2(N)` levels times `O(N)` work per level equals `O(N log N)`. Contrast independent subproblems (Divide & Conquer) with overlapping subproblems (Dynamic Programming).
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Divide & Conquer", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Partición recursiva con N ≤ 10⁵ logrando O(N log N)) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Divide & Conquer", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Recursive halving with N <= 10^5 achieving O(N log N)) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Divide & Conquer?
-Resolver un problema grande partiéndolo en 2 o más subproblemas independientes del mismo tipo (Divide), resolviéndolos recursivamente (Conquer) y combinando sus respuestas para formar la solución total (Combine).
+### What is Divide & Conquer?
+Solving a large problem by splitting it into two or more independent subproblems of the same type (Divide), solving them recursively (Conquer), and merging their results into the final answer (Combine).
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Contar los votos de un país: una sola persona tardaría años, pero si divides el país en estados, cada estado en municipios y cada municipio en mesas electorales, cada mesa cuenta 200 votos en minutos y luego solo sumas los totales hacia arriba.
+### Real-World Analogy
+> **Visual Intuition:** Counting millions of ballots in a national election: one person would take years, but if you split the country into states, districts, and local polling tables, each table counts 200 ballots in minutes and the totals are summed upward.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Todo algoritmo recursivo necesita primero un Caso Base que detenga la recursión (`if len <= 1`).
-2. **Idea Clave #2:** La magia de Merge Sort ocurre en el paso 'Combine': fusionar dos listas ya ordenadas cuesta solo O(N) con dos punteros.
-3. **Idea Clave #3:** Incluso puedes contar inversiones en un arreglo durante el paso Merge en O(N log N).
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Divide & Conquer)
-- ✅ El problema se puede partir en mitades independientes cuyas soluciones se pueden fusionar eficientemente (`Merge Sort`, `Count of Smaller Numbers After Self`, `Merge K Sorted Lists`).
-- ✅ Construcción recursiva de árboles o estructuras geométricas a partir de mitades (`Convert Sorted Array to BST`, `Construct Quad Tree`).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si los subproblemas NO son independientes sino que se repiten una y otra vez calculando lo mismo (subproblemas superpuestos): ahí Divide & Conquer puro se vuelve exponencial y necesitas Memoization / Dynamic Programming.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Partición recursiva con N ≤ 10⁵ logrando O(N log N)`
-- **Complejidad Temporal Promedio:** `O(N log N) cuando partes en 2 mitades y combinas en O(N)`
-- **Complejidad Temporal Peor Caso:** `O(N log N)`
-- **Complejidad Espacial:** `O(N) auxiliar en Merge Sort + O(log N) pila de recursión`
-- **Nota Técnica:** Árbol de recursión de altura `log₂ N` donde cada nivel realiza `O(N)` trabajo total.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Every recursive algorithm starts with a Base Case that stops further splitting (`if len <= 1`).
+2. **Key Takeaway #2:** The magic of Merge Sort happens in the Combine step: merging two already-sorted lists takes only O(N) with two pointers.
+3. **Key Takeaway #3:** You can count inversions or cross-pairs during the Merge step in O(N log N).
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Escribir el caso base para entradas de tamaño 0 o 1.
-2. Calcular el punto medio `mid` y hacer las llamadas recursivas para `[low..mid]` y `[mid+1..high]`.
-3. Combinar los resultados de los hijos en tiempo lineal respecto al tamaño del subproblema.
+### Problem Statement Signals (When to USE Divide & Conquer)
+- [x] The problem splits cleanly into independent halves whose solutions can be merged efficiently (`Merge Sort`, `Count of Smaller Numbers After Self`, `Merge K Sorted Lists`).
+- [x] Recursive construction of balanced trees or geometric structures (`Convert Sorted Array to BST`, `Construct Quad Tree`).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Olvidar el caso base o partir un rango de tamaño 2 en `(0, 2)` y `(0, 0)`, provocando `RecursionError: maximum recursion depth exceeded`.
+### When NOT to Use It (False Positives)
+- [!] When subproblems are NOT independent and recompute the exact same state repeatedly (overlapping subproblems): pure Divide & Conquer becomes exponential—use Memoization / Dynamic Programming instead.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Recursive halving with N <= 10^5 achieving O(N log N)`
+- **Average Time Complexity:** `O(N log N) when splitting in half and merging in O(N)`
+- **Worst-Case Time Complexity:** `O(N log N)`
+- **Space Complexity:** `O(N) auxiliary in Merge Sort + O(log N) recursion stack`
+- **Engineering Note:** A recursion tree of height `log2(N)` performing `O(N)` total work per level.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Define the base case for inputs of size 0 or 1.
+2. Split the input at `mid` and recursively solve the left and right subproblems.
+3. Combine the two child results in linear time.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Missing the base case or failing to shrink one of the halves, causing `RecursionError: maximum recursion depth exceeded`.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def merge_sort(nums: list[int]) -> list[int]:
     """
-    Esqueleto canónico de Divide & Conquer (Merge Sort).
+    Canonical Divide & Conquer Blueprint (Merge Sort).
     1. Base case: len <= 1
-    2. Divide: partir en mid
-    3. Conquer: ordenar left y right recursivamente
-    4. Combine: fusionar ambas mitades ordenadas en O(N)
+    2. Divide: split at mid
+    3. Conquer: recursively sort left and right halves
+    4. Combine: merge two sorted halves in O(N)
     """
     if len(nums) <= 1:
         return nums
@@ -85,7 +85,7 @@ def merge_sort(nums: list[int]) -> list[int]:
     left = merge_sort(nums[:mid])
     right = merge_sort(nums[mid:])
 
-    # Combine (Merge step con dos punteros)
+    # Combine step (two-pointer merge)
     merged: list[int] = []
     i = j = 0
     while i < len(left) and j < len(right):
@@ -100,7 +100,7 @@ def merge_sort(nums: list[int]) -> list[int]:
     return merged
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function mergeSort(nums: number[]): number[] {
   if (nums.length <= 1) return nums;
@@ -124,24 +124,24 @@ export function mergeSort(nums: number[]): number[] {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] Divide, Conquista y Combina: La mentalidad recursiva
-- **🎬 Visual en Pantalla / Slide:** Árbol dividiendo un arreglo de 8 números hasta hojas de 1 elemento y fusionándolas hacia arriba.
-- **🎙️ Narración / Guion:**
-  > "Antes de entrar a los Árboles Binarios, debemos entrenar el músculo de la recursión. Divide y Vencerás nos enseña a confiar en la función recursiva: divide el problema a la mitad, deja que la recursión resuelva cada mitad y concéntrate solo en cómo juntar ambas respuestas."
+### [00:00 - 01:45] Divide, Conquer, and Combine: The Recursive Mindset
+- **On-Screen Visual / Slide Cue:** Tree splitting an 8-element array down to singletons and merging them back up in sorted order.
+- **Narration / Script:**
+  > "Before tackling Binary Trees, we need to build trust in recursion. Divide and Conquer teaches us the recursive leap of faith: split the problem in half, trust the recursive call to solve each half, and focus purely on how to merge the two answers."
 
-### ⏱️ [01:45 - 04:15] Por qué N niveles se convierten en log₂(N) niveles
-- **🎬 Visual en Pantalla / Slide:** Niveles horizontales del árbol donde cada piso suma exactamente N operaciones.
-- **🎙️ Narración / Guion:**
-  > "Cuando partes un problema a la mitad en cada paso, solo puedes partirlo log₂(N) veces antes de llegar a tamaño 1. Si en cada piso haces trabajo lineal O(N), el costo total es O(N log N)."
+### [01:45 - 04:15] Why Halving Creates log2(N) Levels
+- **On-Screen Visual / Slide Cue:** Horizontal tree levels where every floor sums to exactly N operations.
+- **Narration / Script:**
+  > "When you cut a problem in half at each step, you can only cut it log-base-2 of N times before reaching size 1. Doing O(N) merge work across log(N) floors gives O(N log N)."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#912. Sort an Array** | `Medium` | [https://leetcode.com/problems/sort-an-array/](https://leetcode.com/problems/sort-an-array/) | Implementa Merge Sort garantizando O(N log N) en el peor caso. |
-| **#108. Convert Sorted Array to Binary Search Tree** | `Easy` | [https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/) | El elemento central `mid` es la raíz; la mitad izquierda forma el subárbol izquierdo y la derecha el derecho. |
-| **#23. Merge k Sorted Lists** | `Hard` | [https://leetcode.com/problems/merge-k-sorted-lists/](https://leetcode.com/problems/merge-k-sorted-lists/) | Divide las K listas en dos mitades recursivamente y fusiónalas de par en par en O(N log K). |
+| **#912. Sort an Array** | `Medium` | [https://leetcode.com/problems/sort-an-array/](https://leetcode.com/problems/sort-an-array/) | Implement Merge Sort for guaranteed O(N log N) worst-case performance. |
+| **#108. Convert Sorted Array to Binary Search Tree** | `Easy` | [https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/) | Pick `mid` as the root; recursively build the left subtree from `[:mid]` and right subtree from `[mid+1:]`. |
+| **#23. Merge k Sorted Lists** | `Hard` | [https://leetcode.com/problems/merge-k-sorted-lists/](https://leetcode.com/problems/merge-k-sorted-lists/) | Pairwise divide and conquer the K lists in O(N log K) time. |

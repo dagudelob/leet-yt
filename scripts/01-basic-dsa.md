@@ -1,135 +1,135 @@
-# 🎬 Episodio #01: Basic DSA & Big-O Complexity
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 1 — Patrón Algorítmico (`Beginner`)  
-> **Término en Inglés (Flowchart):** `Basic DSA & Time/Space Complexity`  
-> **Prerrequisitos Recomendados:** Ninguno (Punto de partida de la serie)
+# Episode #01: Basic DSA & Big-O Complexity
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 1 — Algorithmic Pattern (`Beginner`)  
+> **Flowchart Node Term:** `Basic DSA & Time/Space Complexity`  
+> **Recommended Prerequisites:** None (Series Starting Point)
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Enfoca este episodio como el Episodio #01 de la serie 'Leet-YT'. Explica con entusiasmo cómo funciona el Flowchart de Decisión de Algoritmos y revela el 'secreto de las restricciones N': cómo al mirar el tamaño del input en LeetCode puedes descartar el 80% de los algoritmos incorrectos antes de programar.
+Frame this as Episode #01 of the 'Leet-YT' series in English. Explain with energy how the Algorithm Decision Flowchart works and reveal the 'Constraint Secret': how looking at the maximum input size N lets you eliminate 80% of wrong algorithms before writing any code.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Basic DSA & Big-O", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (N ≤ 20 → O(2ᴺ) | N ≤ 10³ → O(N²) | N ≤ 10⁵ → O(N log N) o O(N) | N ≥ 10⁹ → O(log N) o O(1)) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Basic DSA & Big-O", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (N <= 20 -> O(2^N) | N <= 10^3 -> O(N^2) | N <= 10^5 -> O(N log N) or O(N) | N >= 10^9 -> O(log N) or O(1)) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Basic DSA & Big-O?
-El mapa maestro antes de escribir una sola línea de código: cómo leer las restricciones (constraints N) de un problema de LeetCode para deducir en 5 segundos qué complejidad temporal (Big-O) y qué familia de algoritmos necesitas.
+### What is Basic DSA & Big-O?
+The master compass before writing a single line of code: how to read the input constraints (N) of any LeetCode problem to deduce in 5 seconds which time complexity (Big-O) and algorithm family you need.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Imagina que debes entregar paquetes en una ciudad. Si son 10 paquetes (N ≤ 10), puedes ir caminando en cualquier orden (O(N!)). Si son 100,000 paquetes (N ≤ 10⁵), ir de uno en uno comparando todos contra todos (O(N²)) te tomaría meses: necesitas una ruta lineal (O(N)) o clasificada por código postal (O(N log N)). Las restricciones del problema son el presupuesto de tiempo que te da el juez.
+### Real-World Analogy
+> **Visual Intuition:** Imagine delivering packages across a city. If there are 10 packages (N <= 10), you can try every possible route order (O(N!)). If there are 100,000 packages (N <= 10^5), comparing every pair of addresses (O(N^2)) would take months: you need a single linear pass (O(N)) or a sorted route (O(N log N)). Problem constraints are your CPU time budget.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** No memorices miles de soluciones; aprende a leer las señales del enunciado.
-2. **Idea Clave #2:** La regla de 10⁸ operaciones por segundo conecta el tamaño del input N con la complejidad Big-O máxima permitida.
-3. **Idea Clave #3:** La complejidad espacial incluye la pila de llamadas (call stack) cuando usas recursión.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Basic DSA & Big-O)
-- ✅ Siempre como Paso 0 antes de resolver cualquier problema de entrevista o programación competitiva.
-- ✅ Cuando ves el límite de N en el enunciado (ej. N ≤ 10⁵ significa que O(N²) dará Time Limit Exceeded - TLE).
-- ✅ Para decidir si vale la pena gastar memoria extra O(N) a cambio de bajar el tiempo de O(N²) a O(N).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ No optimices prematuramente a O(N) complicado si N ≤ 50 y una solución limpia O(N²) o O(N³) pasa en 2 milisegundos.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `N ≤ 20 → O(2ᴺ) | N ≤ 10³ → O(N²) | N ≤ 10⁵ → O(N log N) o O(N) | N ≥ 10⁹ → O(log N) o O(1)`
-- **Complejidad Temporal Promedio:** `O(1) < O(log N) < O(N) < O(N log N)`
-- **Complejidad Temporal Peor Caso:** `O(N²) < O(2ᴺ) < O(N!)`
-- **Complejidad Espacial:** `O(1) Auxiliar a O(N) según estructura o pila de recursión`
-- **Nota Técnica:** Regla de oro: una CPU moderna ejecuta ~10⁸ operaciones simples por segundo.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Never memorize thousands of isolated solutions; learn to decode problem signals and constraints.
+2. **Key Takeaway #2:** The 10^8 operations-per-second rule bridges the input size N to the maximum allowed Big-O complexity.
+3. **Key Takeaway #3:** Space complexity always includes the recursion Call Stack depth.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Leer el enunciado e identificar el tipo de dato de entrada (Array, String, Árbol, Grafo).
-2. Bajar inmediatamente a la sección 'Constraints' y mirar el valor máximo de N.
-3. Cruzar el valor de N con la tabla de complejidades para fijar tu techo de Big-O.
-4. Usar el Flowchart de Leet-YT para elegir la estructura de datos y el patrón exacto.
+### Problem Statement Signals (When to USE Basic DSA & Big-O)
+- [x] Always as Step 0 before solving any coding interview or competitive programming problem.
+- [x] Whenever you check the maximum value of N in the Constraints section (e.g., N <= 10^5 means O(N^2) will trigger Time Limit Exceeded - TLE).
+- [x] When deciding whether to trade O(N) extra memory in exchange for reducing time from O(N^2) down to O(N).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Ignorar el costo oculto de operaciones como slicing `arr[i:j]` o concatenación de strings dentro de un bucle, que convierten un O(N) aparente en O(N²).
-- 🚨 **Trampa de Entrevista:** Olvidar que la recursión de profundidad N consume O(N) de memoria en el Call Stack.
+### When NOT to Use It (False Positives)
+- [!] Do not over-engineer a complex O(N) solution if N <= 50 and a clean O(N^2) or O(N^3) solution runs in 2 milliseconds.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `N <= 20 -> O(2^N) | N <= 10^3 -> O(N^2) | N <= 10^5 -> O(N log N) or O(N) | N >= 10^9 -> O(log N) or O(1)`
+- **Average Time Complexity:** `O(1) < O(log N) < O(N) < O(N log N)`
+- **Worst-Case Time Complexity:** `O(N^2) < O(2^N) < O(N!)`
+- **Space Complexity:** `O(1) auxiliary up to O(N) depending on data structures or recursion call stack`
+- **Engineering Note:** Rule of thumb: a modern judge CPU executes ~10^8 simple operations per second.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Read the problem statement and identify the primary input structure (Array, String, Tree, Graph).
+2. Jump immediately to the 'Constraints' section and inspect the upper bound of N.
+3. Map N to the complexity ceiling table to lock in your target Big-O.
+4. Follow the Leet-YT Decision Flowchart to pick the exact pattern.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Ignoring hidden O(N) costs inside loops—such as array slicing `arr[i:j]` or string concatenation—which silently turn an O(N) loop into O(N^2).
+- **Interview Trap:** Forgetting that recursion of depth N consumes O(N) auxiliary Call Stack memory.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def analyze_constraints(n: int) -> str:
     """
-    Traductor de restricciones N -> Complejidad objetivo en LeetCode.
-    Regla práctica: ~10^8 operaciones máximas por segundo.
+    Constraint-to-Complexity translator for coding interviews.
+    Rule of thumb: ~10^8 simple operations per second.
     """
     if n <= 11:
-        return "O(N!) - Permutaciones / Backtracking exhaustivo"
+        return "O(N!) - Permutations / Exhaustive Backtracking"
     elif n <= 20:
-        return "O(2^N) o O(N * 2^N) - Backtracking / Bitmask DP"
+        return "O(2^N) or O(N * 2^N) - Subsets / Bitmask DP"
     elif n <= 500:
-        return "O(N^3) - Floyd-Warshall / DP de intervalos"
+        return "O(N^3) - Floyd-Warshall / Interval DP"
     elif n <= 5_000:
-        return "O(N^2) - Doble bucle / DP 2D"
+        return "O(N^2) - Nested loops / 2D Dynamic Programming"
     elif n <= 200_000:
-        return "O(N log N) o O(N) - Sorting, Heap, Two Pointers, Sliding Window, Hash"
+        return "O(N log N) or O(N) - Sorting, Heap, Two Pointers, Sliding Window, Hash"
     else:
-        return "O(log N) o O(1) - Binary Search, Math / Number Theory"
+        return "O(log N) or O(1) - Binary Search or Closed-Form Math"
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function analyzeConstraints(n: number): string {
-  // Regla práctica: ~10^8 operaciones simples por segundo
-  if (n <= 11) return "O(N!) - Permutaciones / Backtracking";
-  if (n <= 20) return "O(2^N) - Subconjuntos / Bitmask DP";
-  if (n <= 500) return "O(N^3) - DP Cúbica / Floyd-Warshall";
-  if (n <= 5000) return "O(N^2) - Doble ciclo / DP 2D";
-  if (n <= 200000) return "O(N log N) u O(N) - Sorting, Heap, Two Pointers, Hash";
-  return "O(log N) u O(1) - Binary Search o Fórmula Matemática";
+  // Rule of thumb: ~10^8 simple operations per second
+  if (n <= 11) return "O(N!) - Permutations / Backtracking";
+  if (n <= 20) return "O(2^N) - Subsets / Bitmask DP";
+  if (n <= 500) return "O(N^3) - Cubic DP / Floyd-Warshall";
+  if (n <= 5000) return "O(N^2) - Nested loops / 2D DP";
+  if (n <= 200000) return "O(N log N) or O(N) - Sorting, Heap, Two Pointers, Hash";
+  return "O(log N) or O(1) - Binary Search or Direct Math Formula";
 }
 ```
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:15] Gancho: Por qué fallamos en LeetCode
-- **🎬 Visual en Pantalla / Slide:** Mostrar el Flowchart completo de Leet-YT iluminándose desde la raíz.
-- **🎙️ Narración / Guion:**
-  > "¿Alguna vez abriste un problema de entrevista, te quedaste mirando la pantalla en blanco y pensaste 'por dónde empiezo'? El error número uno es intentar adivinar el código sin antes leer las pistas que el propio problema te regala."
+### [00:00 - 01:15] Hook: Why We Freeze in Coding Interviews
+- **On-Screen Visual / Slide Cue:** Show the full Leet-YT Decision Flowchart lighting up from root to leaf nodes.
+- **Narration / Script:**
+  > "Have you ever opened a coding interview problem, stared at a blank editor, and wondered where to even begin? The number one mistake is guessing code before reading the clues the problem gives you for free."
 
-### ⏱️ [01:15 - 03:30] La Regla de Oro: El Truco de las Constraints (N)
-- **🎬 Visual en Pantalla / Slide:** Tabla animada comparando N <= 20, N <= 10^3, N <= 10^5 y N <= 10^9 contra tiempos de ejecución.
-- **🎙️ Narración / Guion:**
-  > "Los servidores de evaluación ejecutan cerca de cien millones de operaciones por segundo. Eso significa que si el problema dice que N llega a cien mil (10^5), un doble ciclo anidado hará diez mil millones de operaciones y dará Time Limit Exceeded. Solo con ver N <= 10^5 ya sabes que necesitas O(N) u O(N log N)."
+### [01:15 - 03:30] The Golden Rule: Decoding Constraints (N)
+- **On-Screen Visual / Slide Cue:** Animated table comparing N <= 20, N <= 10^3, N <= 10^5, and N <= 10^9 against execution times.
+- **Narration / Script:**
+  > "Online judges execute roughly one hundred million operations per second. That means if N is one hundred thousand, a nested O(N^2) loop performs ten billion operations and hits Time Limit Exceeded. Just seeing N <= 10^5 tells you immediately that you need O(N) or O(N log N)."
 
-### ⏱️ [03:30 - 06:00] Cómo usar este Flowchart y Roadmap
-- **🎬 Visual en Pantalla / Slide:** Recorrido visual por los 7 niveles del proyecto y cierre con llamada a la acción.
-- **🎙️ Narración / Guion:**
-  > "En esta serie recorreremos los 46 bloques fundamentales: desde Arrays y Dos Punteros hasta Programación Dinámica y Árboles de Segmentos. Cada video desbloquea un nodo del Flowchart."
+### [03:30 - 06:00] How to Navigate the 46-Node Flowchart
+- **On-Screen Visual / Slide Cue:** Visual walkthrough across the 7 progressive levels of the platform.
+- **Narration / Script:**
+  > "Across this series, we will master all 46 core building blocks—from Arrays and Two Pointers to Dynamic Programming and Segment Trees. Every episode unlocks a new node on the flowchart."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#1480. Running Sum of 1d Array** | `Easy` | [https://leetcode.com/problems/running-sum-of-1d-array/](https://leetcode.com/problems/running-sum-of-1d-array/) | Compara recalcular desde cero O(N²) vs acumular en un pase O(N). |
-| **#412. Fizz Buzz** | `Easy` | [https://leetcode.com/problems/fizz-buzz/](https://leetcode.com/problems/fizz-buzz/) | Recorrido lineal O(N) y uso de memoria de salida. |
-| **#1342. Number of Steps to Reduce a Number to Zero** | `Easy` | [https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/](https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/) | Dividir entre 2 repetidamente introduce complejidad logarítmica O(log N). |
+| **#1480. Running Sum of 1d Array** | `Easy` | [https://leetcode.com/problems/running-sum-of-1d-array/](https://leetcode.com/problems/running-sum-of-1d-array/) | Compare recomputing from index 0 in O(N^2) vs accumulating in a single O(N) pass. |
+| **#412. Fizz Buzz** | `Easy` | [https://leetcode.com/problems/fizz-buzz/](https://leetcode.com/problems/fizz-buzz/) | Single linear O(N) scan and output memory analysis. |
+| **#1342. Number of Steps to Reduce a Number to Zero** | `Easy` | [https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/](https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/) | Dividing by 2 repeatedly introduces logarithmic time complexity O(log N). |

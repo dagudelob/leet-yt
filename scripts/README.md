@@ -1,64 +1,64 @@
-# 🎙️ Guiones y Paquetes Híbridos para Google NotebookLM & YouTube (`leet-yt`)
+# Google NotebookLM & YouTube Hybrid Script Packages (`leet-yt`)
 
-Esta carpeta contiene los **46 paquetes de producción completos** organizados en **7 niveles progresivos** (enseñando cada estructura de datos justo antes de los algoritmos que la utilizan).
+This folder contains all **46 complete production packages** organized across **7 progressive levels** (teaching each foundational data structure right before the algorithmic patterns that build upon it).
 
-## 🚀 Cómo producir cada video con Google NotebookLM
+## How to Produce Each Video with Google NotebookLM
 
-1. Abre [Google NotebookLM](https://notebooklm.google.com/) y crea un nuevo cuaderno para el episodio (ej. `Episodio #07 - Sliding Window`).
-2. Sube el archivo Markdown correspondiente de esta carpeta (ej. [`07-sliding-window.md`](./07-sliding-window.md)) como **Fuente (Source)**.
-3. Abre la sección **Audio Overview** o **Video Overview**, haz clic en **Customize (Personalizar)** y pega el bloque de la **Sección 1 (Prompt de Dirección para Google NotebookLM)** que viene al inicio del archivo.
-4. Usa la **Sección 5 (Plantilla Python)** y la **Sección 6 (Guion Narrado por Bloques + Visuales/Slides)** como apoyo visual en pantalla.
-5. Una vez publicado el video en YouTube, pega la URL en [`src/data/youtube-links.ts`](../src/data/youtube-links.ts) (o desde la pestaña **Estudio YouTube & NotebookLM** de la web).
+1. Open [Google NotebookLM](https://notebooklm.google.com/) and create a new notebook for the episode (e.g., `Episode #07 - Sliding Window`).
+2. Upload the corresponding Markdown file from this folder (e.g., [`07-sliding-window.md`](./07-sliding-window.md)) as a **Source**.
+3. Open the **Audio Overview** or **Video Overview** panel, click **Customize**, and paste the prompt block from **Section 1 (Google NotebookLM Direction Prompt)** at the top of the file.
+4. Use **Section 5 (Python & TypeScript Templates)** and **Section 6 (Timestamped Narrative Script & Visual Cues)** for your slides and on-screen code walkthrough.
+5. Once your video is published on YouTube, paste the URL into [`src/data/youtube-links.ts`](../src/data/youtube-links.ts) (or directly inside the **YouTube & Script Studio** tab of the web app).
 
 ---
 
-## 📋 Índice Maestro de los 46 Episodios
+## Master Index of All 46 Episodes
 
-| Episodio | Nivel | Guion y Documento Fuente (.md) | Tipo | Complejidad Promedio |
+| Episode | Level | Script & Source Document (.md) | Kind | Average Time Complexity |
 | :---: | :---: | :--- | :---: | :--- |
-| **#01** | Nivel 1 | [Basic DSA & Big-O Complexity](./01-basic-dsa.md) | `Algoritmo` | `O(1) < O(log N) < O(N) < O(N log N)` |
-| **#02** | Nivel 1 | [Brute Force (Fuerza Bruta)](./02-brute-force.md) | `Algoritmo` | `O(N²) o O(N³) en pares/tripletas` |
-| **#03** | Nivel 1 | [Simulation (Simulación Paso a Paso)](./03-simulation.md) | `Algoritmo` | `O(Pasos × Costo por paso)` |
-| **#04** | Nivel 1 | [Arrays (Arreglos Estáticos y Dinámicos)](./04-arrays.md) | `Estructura` | `Acceso: O(1) | Append final: O(1) amortizado` |
-| **#05** | Nivel 1 | [Strings (Cadenas de Caracteres)](./05-strings.md) | `Estructura` | `Lectura `s[i]`: O(1) | Comparación/Copia/Slice: O(N)` |
-| **#06** | Nivel 1 | [Two Pointers (Dos Punteros)](./06-two-pointers.md) | `Algoritmo` | `O(N) (o O(N log N) si primero ordenas)` |
-| **#07** | Nivel 1 | [Sliding Window (Ventana Deslizante)](./07-sliding-window.md) | `Algoritmo` | `O(N)` |
-| **#08** | Nivel 2 | [Prefix Sums (Sumas de Prefijos 1D y 2D)](./08-prefix-sum.md) | `Algoritmo` | `Preprocesamiento: O(N) | Consulta de rango `[L, R]`: O(1)` |
-| **#09** | Nivel 2 | [Hash Tables (Hash Map & Hash Set)](./09-hash-table.md) | `Híbrido` | `Insertar / Buscar / Borrar: O(1)` |
-| **#10** | Nivel 2 | [Counting & Bucket Sort (Ordenamiento por Conteo)](./10-counting.md) | `Algoritmo` | `O(N + K) donde K es el número de cubetas` |
-| **#11** | Nivel 2 | [Sorting + Interval Scan ( Barrido de Intervalos)](./11-sorting-intervals.md) | `Algoritmo` | `O(N log N) dominado por el ordenamiento inicial` |
-| **#12** | Nivel 2 | [Partitioning (QuickSelect & Dutch National Flag)](./12-partitioning.md) | `Algoritmo` | `O(N) (QuickSelect: N + N/2 + N/4 + ... = 2N)` |
-| **#13** | Nivel 2 | [Binary Search (Búsqueda Binaria y Espacio de Respuestas)](./13-binary-search.md) | `Algoritmo` | `O(log N) en arreglo | O(N log(Max - Min)) en Binary Search on Answer` |
-| **#14** | Nivel 2 | [Matrices & 2D Grids (Tableros y Cuadrículas)](./14-matrices-grids.md) | `Estructura` | `Recorrido completo: O(R × C) | Acceso a celda: O(1)` |
-| **#15** | Nivel 3 | [Linked Lists (Listas Enlazadas Simples y Dobles)](./15-linked-list.md) | `Estructura` | `Insertar/Borrar con puntero al nodo: O(1) | Buscar por índice/valor: O(N)` |
-| **#16** | Nivel 3 | [Linked List Manipulation (Fast & Slow Pointers y Reversión)](./16-linkedlist-manipulation.md) | `Algoritmo` | `O(N)` |
-| **#17** | Nivel 3 | [Stacks (Pilas LIFO y Evaluación Anidada)](./17-stacks.md) | `Híbrido` | `Push: O(1) | Pop: O(1) | Peek (`stack[-1]`): O(1)` |
-| **#18** | Nivel 3 | [Queues & Deques (Colas FIFO y Colas de Doble Extremo)](./18-queues-deques.md) | `Estructura` | `append / appendleft / pop / popleft: O(1)` |
-| **#19** | Nivel 3 | [Monotonic Stack & Queue (Pila y Cola Monótona)](./19-monotonic-stack.md) | `Algoritmo` | `O(N)` |
-| **#20** | Nivel 3 | [Design + Supporting Data Structures (LRU Cache, O(1) Set)](./20-system-ds-design.md) | `Híbrido` | `O(1) para todas las operaciones diseñadas` |
-| **#21** | Nivel 4 | [Divide and Conquer (Divide y Vencerás)](./21-divide-and-conquer.md) | `Algoritmo` | `O(N log N) cuando partes en 2 mitades y combinas en O(N)` |
-| **#22** | Nivel 4 | [Trees (Árboles Binarios y Recorridos)](./22-trees.md) | `Estructura` | `Recorrido completo: O(N) visitando cada nodo 1 vez` |
-| **#23** | Nivel 4 | [Binary Search Trees (Árboles Binarios de Búsqueda - BST)](./23-bst.md) | `Estructura` | `Búsqueda / Inserción / Borrado: O(log N) en BST balanceado` |
-| **#24** | Nivel 4 | [DFS - Depth-First Search (Búsqueda en Profundidad)](./24-dfs.md) | `Algoritmo` | `O(V + E) en grafos | O(R × C) en cuadrículas` |
-| **#25** | Nivel 4 | [BFS - Breadth-First Search (Búsqueda en Anchura)](./25-bfs.md) | `Algoritmo` | `O(V + E) en grafos | O(R × C) en cuadrículas` |
-| **#26** | Nivel 4 | [Backtracking (Búsqueda Exhaustiva con Poda)](./26-backtracking.md) | `Algoritmo` | `Subconjuntos: O(N · 2ᴺ) | Permutaciones: O(N · N!)` |
-| **#27** | Nivel 4 | [Heaps / Priority Queues (Montículos y Colas de Prioridad)](./27-heaps.md) | `Estructura` | `Peek (`heap[0]`): O(1) | Push / Pop: O(log N) | `heapify(lista)`: O(N)` |
-| **#28** | Nivel 4 | [Heap Patterns (Top-K, K-Way Merge, Two Heaps & Heap Sort)](./28-heap-sorting.md) | `Algoritmo` | `Top-K: O(N log K) | Two Heaps insert: O(log N), median: O(1) | Heap Sort: O(N log N)` |
-| **#29** | Nivel 5 | [Graphs (Representación de Grafos: Lista y Matriz de Adyacencia)](./29-graphs.md) | `Estructura` | `Construir Lista de Adyacencia: O(V + E) | Recorrer vecinos de u: O(grado(u))` |
-| **#30** | Nivel 5 | [Topological Sort & DAG-Related (Orden Topológico y DP en DAGs)](./30-topological-sort-dag.md) | `Algoritmo` | `O(V + E)` |
-| **#31** | Nivel 5 | [Dijkstra & Shortest Paths (Caminos Más Cortos con Pesos)](./31-dijkstra.md) | `Algoritmo` | `O((V + E) log V) usando Min-Heap` |
-| **#32** | Nivel 5 | [Disjoint Set Union (DSU / Union-Find & Kruskal MST)](./32-disjoint-set-union.md) | `Híbrido` | `O(α(N)) ≈ O(1) por operación `find` o `union`` |
-| **#33** | Nivel 5 | [Tries / Prefix Trees (Árboles de Prefijos)](./33-tries.md) | `Híbrido` | `Insert / Search / StartsWith: O(L) donde L es la longitud de la palabra` |
-| **#34** | Nivel 6 | [Greedy Algorithms (Algoritmos Voraces)](./34-greedy.md) | `Algoritmo` | `O(N) en barrido directo | O(N log N) si requiere ordenar antes` |
-| **#35** | Nivel 6 | [Memoization (Programación Dinámica Top-Down)](./35-memoization.md) | `Algoritmo` | `O(Número de Estados Únicos × Costo de Transición por Estado)` |
-| **#36** | Nivel 6 | [Dynamic Programming (DP Bottom-Up y Patrones Clásicos)](./36-dynamic-programming.md) | `Algoritmo` | `1D: O(N) o O(N·K) | 2D / Knapsack / LCS: O(N × M)` |
-| **#37** | Nivel 6 | [Bitmask DP (Programación Dinámica con Máscaras de Bits)](./37-bitmask-dp.md) | `Algoritmo` | `O(N · 2ᴺ) o O(N² · 2ᴺ)` |
-| **#38** | Nivel 7 | [Ordered Set & Balanced BSTs (Conjuntos Ordenados Dinámicos)](./38-ordered-set.md) | `Híbrido` | `add / remove / bisect_left / index `s[k]`: O(log N)` |
-| **#39** | Nivel 7 | [Fenwick Tree / Binary Indexed Tree (BIT)](./39-fenwick-tree.md) | `Híbrido` | `Update: O(log N) | Prefix/Range Query: O(log N)` |
-| **#40** | Nivel 7 | [Segment Tree (Árbol de Segmentos y Lazy Propagation)](./40-segment-tree.md) | `Híbrido` | `Build: O(N) | Update: O(log N) | Range Query `[L, R]`: O(log N)` |
-| **#41** | Nivel 7 | [Rolling Hash (Hash Rodante y Rabin-Karp)](./41-rolling-hash.md) | `Algoritmo` | `Precalcular o deslizar ventana: O(N) | Consultar hash de substring `s[L..R]`: O(1)` |
-| **#42** | Nivel 7 | [String Matching (Algoritmo KMP y Función Prefijo LPS)](./42-string-matching.md) | `Algoritmo` | `Construir LPS: O(M) | Buscar en texto: O(N) → Total: O(N + M)` |
-| **#43** | Nivel 7 | [Bit Manipulation (Manipulación de Bits y Trucos XOR)](./43-bit-manipulation.md) | `Algoritmo` | `O(1) por operación de bit | O(N) en barrido sobre arreglo` |
-| **#44** | Nivel 7 | [Math & Geometry (Matemáticas, Combinatoria y Geometría)](./44-math.md) | `Algoritmo` | `Fórmulas de Gauss: O(1) | Binary Exponentiation: O(log N)` |
-| **#45** | Nivel 7 | [Number Theory (Teoría de Números: GCD, Criba de Eratóstenes y Módulo)](./45-number-theory.md) | `Algoritmo` | `Euclides GCD: O(log(min(a,b))) | Criba de Eratóstenes: O(N log log N) ≈ O(N)` |
-| **#46** | Nivel 7 | [Specialized Advanced Patterns (Sweep Line, Boyer-Moore, Tarjan & Euler)](./46-specialized-advanced.md) | `Algoritmo` | `Boyer-Moore: O(N) tiempo, O(1) espacio | Sweep Line: O(N log N) | Tarjan / Hierholzer: O(V + E)` |
+| **#01** | Level 1 | [Basic DSA & Big-O Complexity](./01-basic-dsa.md) | `Pattern` | `O(1) < O(log N) < O(N) < O(N log N)` |
+| **#02** | Level 1 | [Brute Force & Exhaustive Search](./02-brute-force.md) | `Pattern` | `O(N^2) or O(N^3) for pairs/triplets` |
+| **#03** | Level 1 | [Simulation (Step-by-Step State Execution)](./03-simulation.md) | `Pattern` | `O(Steps * Cost per step)` |
+| **#04** | Level 1 | [Arrays (Static & Dynamic Arrays)](./04-arrays.md) | `Structure` | `Index Access: O(1) | Append at end: O(1) amortized` |
+| **#05** | Level 1 | [Strings & Character Manipulation](./05-strings.md) | `Structure` | `Index read `s[i]`: O(1) | Slice / Copy / Compare: O(N)` |
+| **#06** | Level 1 | [Two Pointers (Converging & Same-Direction)](./06-two-pointers.md) | `Pattern` | `O(N) (or O(N log N) if sorting first)` |
+| **#07** | Level 1 | [Sliding Window (Fixed & Dynamic)](./07-sliding-window.md) | `Pattern` | `O(N)` |
+| **#08** | Level 2 | [Prefix Sums (1D, 2D & Subarray Sum = K)](./08-prefix-sum.md) | `Pattern` | `Build: O(N) | Range Query `[L, R]`: O(1)` |
+| **#09** | Level 2 | [Hash Tables (Hash Map & Hash Set)](./09-hash-table.md) | `Hybrid` | `Insert / Lookup / Delete: O(1)` |
+| **#10** | Level 2 | [Counting & Bucket Sort](./10-counting.md) | `Pattern` | `O(N + K) where K is the bucket range` |
+| **#11** | Level 2 | [Sorting + Interval Scan (Merge Intervals)](./11-sorting-intervals.md) | `Pattern` | `O(N log N) dominated by the initial sort` |
+| **#12** | Level 2 | [Partitioning (QuickSelect & Dutch National Flag)](./12-partitioning.md) | `Pattern` | `O(N) (QuickSelect geometric series: N + N/2 + N/4 + ... = 2N)` |
+| **#13** | Level 2 | [Binary Search (Sorted Arrays & Monotonic Search Space)](./13-binary-search.md) | `Pattern` | `O(log N) on arrays | O(N log(Max - Min)) on Answer Space` |
+| **#14** | Level 2 | [Matrices & 2D Grids](./14-matrices-grids.md) | `Structure` | `Full traversal: O(R * C) | Cell access: O(1)` |
+| **#15** | Level 3 | [Linked Lists (Singly & Doubly Linked)](./15-linked-list.md) | `Structure` | `Insert/Delete given node pointer: O(1) | Search by index/value: O(N)` |
+| **#16** | Level 3 | [Linked List Manipulation (Fast & Slow Pointers & Reversal)](./16-linkedlist-manipulation.md) | `Pattern` | `O(N)` |
+| **#17** | Level 3 | [Stacks (LIFO & Nested Expression Evaluation)](./17-stacks.md) | `Hybrid` | `Push: O(1) | Pop: O(1) | Peek (`stack[-1]`): O(1)` |
+| **#18** | Level 3 | [Queues & Deques (FIFO & Double-Ended Queues)](./18-queues-deques.md) | `Structure` | `append / appendleft / pop / popleft: O(1)` |
+| **#19** | Level 3 | [Monotonic Stack & Monotonic Deque](./19-monotonic-stack.md) | `Pattern` | `O(N)` |
+| **#20** | Level 3 | [Design + Supporting Data Structures (LRU Cache, O(1) Set)](./20-system-ds-design.md) | `Hybrid` | `O(1) across all custom methods` |
+| **#21** | Level 4 | [Divide and Conquer](./21-divide-and-conquer.md) | `Pattern` | `O(N log N) when splitting in half and merging in O(N)` |
+| **#22** | Level 4 | [Binary Trees & Traversals (Pre / In / Post-Order)](./22-trees.md) | `Structure` | `Full traversal: O(N) visiting each node once` |
+| **#23** | Level 4 | [Binary Search Trees (BST)](./23-bst.md) | `Structure` | `Search / Insert / Delete: O(log N) on balanced BST` |
+| **#24** | Level 4 | [DFS - Depth-First Search (Trees, Grids & Graphs)](./24-dfs.md) | `Pattern` | `O(V + E) on graphs | O(R * C) on 2D grids` |
+| **#25** | Level 4 | [BFS - Breadth-First Search (Level Order & Shortest Path)](./25-bfs.md) | `Pattern` | `O(V + E) on graphs | O(R * C) on 2D grids` |
+| **#26** | Level 4 | [Backtracking (Exhaustive Search with Pruning)](./26-backtracking.md) | `Pattern` | `Subsets: O(N * 2^N) | Permutations: O(N * N!)` |
+| **#27** | Level 4 | [Heaps / Priority Queues (Min-Heap & Max-Heap)](./27-heaps.md) | `Structure` | `Peek (`heap[0]`): O(1) | Push / Pop: O(log N) | `heapify(list)`: O(N)` |
+| **#28** | Level 4 | [Heap Patterns (Top-K, K-Way Merge, Two Heaps & Heap Sort)](./28-heap-sorting.md) | `Pattern` | `Top-K: O(N log K) | Two Heaps insert: O(log N), median: O(1) | Heap Sort: O(N log N)` |
+| **#29** | Level 5 | [Graphs (Adjacency List, Matrix & Bipartite Coloring)](./29-graphs.md) | `Structure` | `Build Adjacency List: O(V + E) | Iterate neighbors of u: O(degree(u))` |
+| **#30** | Level 5 | [Topological Sort & DAG Dynamic Programming](./30-topological-sort-dag.md) | `Pattern` | `O(V + E)` |
+| **#31** | Level 5 | [Dijkstra's Algorithm & Weighted Shortest Paths](./31-dijkstra.md) | `Pattern` | `O((V + E) log V) using a Min-Heap` |
+| **#32** | Level 5 | [Disjoint Set Union (DSU / Union-Find & Kruskal MST)](./32-disjoint-set-union.md) | `Hybrid` | `O(α(N)) ≈ O(1) per `find` or `union` call` |
+| **#33** | Level 5 | [Tries / Prefix Trees](./33-tries.md) | `Hybrid` | `Insert / Search / StartsWith: O(L) where L is word length` |
+| **#34** | Level 6 | [Greedy Algorithms](./34-greedy.md) | `Pattern` | `O(N) single scan | O(N log N) when sorting first` |
+| **#35** | Level 6 | [Memoization (Top-Down Dynamic Programming)](./35-memoization.md) | `Pattern` | `O(Number of Unique States * Work per State Transition)` |
+| **#36** | Level 6 | [Dynamic Programming (Bottom-Up Tabulation & Classic Patterns)](./36-dynamic-programming.md) | `Pattern` | `1D: O(N) or O(N * K) | 2D / Knapsack / LCS: O(N * M)` |
+| **#37** | Level 6 | [Bitmask DP (Subset States & Traveling Salesperson)](./37-bitmask-dp.md) | `Pattern` | `O(N * 2^N) or O(N^2 * 2^N)` |
+| **#38** | Level 7 | [Ordered Set & Balanced BSTs (Dynamic Sorted Collections)](./38-ordered-set.md) | `Hybrid` | `add / remove / bisect_left / index `s[k]`: O(log N)` |
+| **#39** | Level 7 | [Fenwick Tree / Binary Indexed Tree (BIT)](./39-fenwick-tree.md) | `Hybrid` | `Update: O(log N) | Prefix/Range Query: O(log N)` |
+| **#40** | Level 7 | [Segment Tree & Lazy Propagation](./40-segment-tree.md) | `Hybrid` | `Build: O(N) | Update: O(log N) | Range Query `[L, R]`: O(log N)` |
+| **#41** | Level 7 | [Rolling Hash & Rabin-Karp Algorithm](./41-rolling-hash.md) | `Pattern` | `Precompute or slide window: O(N) | Query hash of substring `s[L..R]`: O(1)` |
+| **#42** | Level 7 | [String Matching (KMP Algorithm & LPS Prefix Function)](./42-string-matching.md) | `Pattern` | `Build LPS: O(M) | Search text: O(N) -> Total: O(N + M)` |
+| **#43** | Level 7 | [Bit Manipulation & XOR Tricks](./43-bit-manipulation.md) | `Pattern` | `O(1) per bit operation | O(N) across an array scan` |
+| **#44** | Level 7 | [Math, Combinatorics & Computational Geometry](./44-math.md) | `Pattern` | `Gauss formulas: O(1) | Binary Exponentiation: O(log N)` |
+| **#45** | Level 7 | [Number Theory (Euclidean GCD, Sieve of Eratosthenes & Modular Arithmetic)](./45-number-theory.md) | `Pattern` | `Euclidean GCD: O(log(min(a,b))) | Sieve of Eratosthenes: O(N log log N) ~ O(N)` |
+| **#46** | Level 7 | [Specialized Advanced Patterns (Sweep Line, Boyer-Moore, Tarjan & Euler)](./46-specialized-advanced.md) | `Pattern` | `Boyer-Moore: O(N) time, O(1) space | Sweep Line: O(N log N) | Tarjan / Hierholzer: O(V + E)` |

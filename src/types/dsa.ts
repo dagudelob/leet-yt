@@ -27,9 +27,27 @@ export interface NotebookLMPackage {
   narrativeBlocks: NarrativeBlock[];
 }
 
+export interface VisualStateStep {
+  stepTitle: string;
+  explanation: string;
+  items: string[];
+  activeIndices: number[]; // highlighted in amber (current pointers/focus)
+  matchedIndices?: number[]; // highlighted in emerald (resolved/valid state)
+  discardedIndices?: number[]; // highlighted in rose/muted (pruned/eliminated)
+  pointerLabels?: Record<number, string>; // e.g. { 0: "L", 3: "R" }
+  stateNote?: string;
+}
+
+export interface MicroChallenge {
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
 export interface DSATopic {
   id: string;
-  order: number; // Video #01 to #46
+  order: number; // Episode #01 to #46
   title: string;
   shortTitle: string;
   englishTerm: string;
@@ -61,6 +79,8 @@ export interface DSATopic {
   typescriptTemplate: string;
   leetcodeProblems: LeetCodeProblem[];
   notebookLM: NotebookLMPackage;
+  visualSteps?: VisualStateStep[];
+  microChallenge?: MicroChallenge;
 }
 
 export interface YouTubeVideoEntry {
@@ -80,7 +100,7 @@ export interface FlowchartQuestionNode {
   options: Array<{
     label: string;
     conditionHint?: string;
-    targetNodeId: string; // either another question id ('q-...') or a topic id
+    targetNodeId: string;
     isTopic: boolean;
   }>;
 }

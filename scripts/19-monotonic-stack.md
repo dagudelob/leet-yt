@@ -1,89 +1,89 @@
-# 🎬 Episodio #19: Monotonic Stack & Queue (Pila y Cola Monótona)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 3 — Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Monotonic Stack & Monotonic Deque`  
-> **Prerrequisitos Recomendados:** Stacks (LIFO) → Queues & Deques
+# Episode #19: Monotonic Stack & Monotonic Deque
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 3 — Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Monotonic Stack & Monotonic Deque`  
+> **Recommended Prerequisites:** Stacks (LIFO) -> Queues & Deques
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Desmitifica el Monotonic Stack, uno de los temas que más intimida en entrevistas pero que tiene una plantilla de apenas 10 líneas. Explica la regla de oro: 'Guarda siempre ÍNDICES en la pila, nunca solo los valores', y muestra cómo al hacer `pop()` descubres simultáneamente el límite derecho e izquierdo de un elemento (clave para `Largest Rectangle in Histogram`).
+Demystify the Monotonic Stack—a topic that intimidates many candidates yet boils down to a 10-line template. Emphasize the golden rule: 'Always push INDICES onto the stack, not just values', and show how popping reveals both the right and left boundaries of a bar in `Largest Rectangle in Histogram`.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Monotonic Stack", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Next Greater/Smaller Element, Histogramas o Sliding Window Maximum con N ≤ 10⁵) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Monotonic Stack", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Next Greater/Smaller Element, Histograms, or Sliding Window Maximum with N <= 10^5) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Monotonic Stack?
-Mantener una pila o deque cuyos elementos están estrictamente ordenados (crecientes o decrecientes). Al llegar un nuevo elemento que rompe el orden, desapilamos los anteriores, descubriendo en O(N) total cuál es el 'Siguiente Elemento Mayor o Menor' de cada posición.
+### What is Monotonic Stack?
+Maintaining a stack or deque whose elements are kept strictly sorted (increasing or decreasing). Whenever a new element breaks the monotonic order, we pop smaller/larger elements from the top—resolving the 'Next Greater or Smaller Element' for every index in O(N) total time.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Una fila de edificios mirando hacia el mar: si se construye un rascacielos nuevo muy alto adelante, tapa la vista de todos los edificios más bajos que estaban detrás de él. Esos edificios bajos ya nunca serán el 'edificio más alto visible', así que podemos retirarlos de la lista de candidatos.
+### Real-World Analogy
+> **Visual Intuition:** A line of buildings facing the ocean: when a tall new skyscraper is built in front, it blocks the view of all shorter buildings behind it. Those shorter buildings can never be the 'tallest visible building' for anyone further back, so we can pop and retire them immediately.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Para buscar el 'Siguiente Mayor' (Next Greater), mantén una pila monótona DECRECIENTE: el primer número mayor que llegue disparará los `pop()`.
-2. **Idea Clave #2:** Para buscar el 'Siguiente Menor' (Next Smaller), mantén una pila monótona CRECIENTE.
-3. **Idea Clave #3:** Guarda siempre ÍNDICES en la pila: con el índice `i` puedes calcular distancias (`i - prev_idx`) y también consultar el valor `nums[i]`.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Monotonic Stack)
-- ✅ El problema pide para cada índice `i` encontrar el **Next Greater Element** (siguiente mayor a la derecha), **Next Smaller Element**, o cuántos días faltan para un día más cálido (`Daily Temperatures`).
-- ✅ Encontrar el rectángulo de mayor área en un histograma (`Largest Rectangle in Histogram`) o cuánta agua atrapa un relieve (`Trapping Rain Water`).
-- ✅ **Monotonic Deque**: Encontrar el máximo o mínimo dentro de una ventana deslizante de tamaño `K` en tiempo O(N) (`Sliding Window Maximum`).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si solo necesitas el máximo o mínimo global de todo el arreglo hasta ahora (para eso basta una simple variable `max_so_far`).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Next Greater/Smaller Element, Histogramas o Sliding Window Maximum con N ≤ 10⁵`
-- **Complejidad Temporal Promedio:** `O(N)`
-- **Complejidad Temporal Peor Caso:** `O(N)`
-- **Complejidad Espacial:** `O(N) para la pila de índices`
-- **Nota Técnica:** Cada índice entra a la pila exactamente 1 vez y sale como máximo 1 vez (máximo 2N operaciones).
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** To find the **Next Greater** element, maintain a **Monotonic Decreasing** stack: the first larger element triggers pops.
+2. **Key Takeaway #2:** To find the **Next Smaller** element, maintain a **Monotonic Increasing** stack.
+3. **Key Takeaway #3:** Always store INDICES in the stack so you can compute widths (`i - prev_idx`) and look up values (`nums[i]`).
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Crear una lista `stack = []` que almacenará índices pendientes de encontrar su respuesta.
-2. Por cada nuevo índice `i`, usar un `while stack and nums[i] > nums[stack[-1]]:` para resolver y desapilar.
-3. Apilar el índice actual `stack.append(i)`.
+### Problem Statement Signals (When to USE Monotonic Stack)
+- [x] Finding the **Next Greater Element**, **Next Smaller Element**, or **Previous Greater/Smaller Element** for every index `i` (`Daily Temperatures`, `Next Greater Element`).
+- [x] Finding the largest rectangle in a histogram (`Largest Rectangle in Histogram`) or trapped rainwater (`Trapping Rain Water`).
+- [x] **Monotonic Deque**: Finding the maximum or minimum inside a sliding window of length `K` in O(N) time (`Sliding Window Maximum`).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Guardar solo el valor `nums[i]` en vez del índice `i` en la pila, impidiendo saber en qué posición del arreglo de respuesta escribir o qué ancho tiene una ventana/rectángulo.
+### When NOT to Use It (False Positives)
+- [!] If you only need the global running maximum or minimum from index 0 to `i` (a single variable `max_so_far` suffices).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Next Greater/Smaller Element, Histograms, or Sliding Window Maximum with N <= 10^5`
+- **Average Time Complexity:** `O(N)`
+- **Worst-Case Time Complexity:** `O(N)`
+- **Space Complexity:** `O(N) for the stack of indices`
+- **Engineering Note:** Each index is pushed onto the stack once and popped at most once (at most 2N operations total).
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Initialize `stack = []` to hold indices waiting for their next greater/smaller match.
+2. For each index `i`, run `while stack and nums[i] > nums[stack[-1]]:` to pop and resolve waiting indices.
+3. Push the current index `stack.append(i)`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Pushing raw values `nums[i]` instead of indices `i`, making it impossible to calculate distances or histogram widths.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def daily_temperatures(temps: list[int]) -> list[int]:
     """
-    Plantilla Universal de Monotonic Decreasing Stack (guardamos ÍNDICES, no valores).
-    Encuentra para cada posición cuántos pasos faltan hasta el primer elemento MAYOR a su derecha.
-    Tiempo: O(N) | Espacio: O(N)
+    Universal Monotonic Decreasing Stack Template (always store INDICES, not raw values).
+    Finds for each day how many days until the next warmer temperature.
+    Time: O(N) | Space: O(N)
     """
     n = len(temps)
     ans = [0] * n
-    stack: list[int] = []  # Pila de índices con temperaturas decrecientes
+    stack: list[int] = []  # Stack of indices with strictly decreasing temperatures
 
     for i, curr_temp in enumerate(temps):
-        # Mientras el día actual sea MÁS CÁLIDO que el día en el tope de la pila,
-        # ¡acabamos de encontrar el Next Greater Element para stack[-1]!
+        # While today's temperature is WARMER than the day at the top of the stack,
+        # today 'i' is the Next Greater Element for stack[-1]!
         while stack and curr_temp > temps[stack[-1]]:
             prev_idx = stack.pop()
             ans[prev_idx] = i - prev_idx
@@ -92,12 +92,12 @@ def daily_temperatures(temps: list[int]) -> list[int]:
     return ans
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function dailyTemperatures(temps: number[]): number[] {
   const n = temps.length;
   const ans = new Array<number>(n).fill(0);
-  const stack: number[] = []; // Guarda índices
+  const stack: number[] = []; // Stores indices
 
   for (let i = 0; i < n; i++) {
     while (stack.length > 0 && temps[i] > temps[stack[stack.length - 1]]) {
@@ -112,24 +112,24 @@ export function dailyTemperatures(temps: number[]): number[] {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] La intuición de los rascacielos: ¿Qué es una Pila Monótona?
-- **🎬 Visual en Pantalla / Slide:** Barras de distintas alturas; al entrar una barra alta, las barras pequeñas previas se resuelven y salen de la pila.
-- **🎙️ Narración / Guion:**
-  > "Si para cada día de la semana quieres saber cuándo llegará un día más caluroso, comparar cada día con todos los futuros toma O(N²). Pero con una Pila Monótona, mantenemos en espera los días fríos y, en cuanto llega una ola de calor, resolvemos todos esos días pendientes de golpe en O(N)."
+### [00:00 - 01:45] The Skyscraper Intuition: What Is a Monotonic Stack?
+- **On-Screen Visual / Slide Cue:** Bars of varying heights; when a tall bar arrives, shorter waiting bars pop and record their distance.
+- **Narration / Script:**
+  > "If you want to know for every day of the year how soon a warmer day will arrive, checking every future day takes O(N^2). With a Monotonic Stack, cooler days wait in line until a warm day arrives and resolves all of them in a single O(N) sweep."
 
-### ⏱️ [01:45 - 04:45] Histogramas y Sliding Window Maximum (Monotonic Deque)
-- **🎬 Visual en Pantalla / Slide:** Animación de `Largest Rectangle in Histogram` y `Sliding Window Maximum` con una Deque decreciente.
-- **🎙️ Narración / Guion:**
-  > "Lo más hermoso de una pila creciente es que cuando desapilas una barra porque llegó una más baja, el elemento que la saca es su límite derecho y el que quedó debajo en la pila es su límite izquierdo."
+### [01:45 - 04:45] Histograms and Sliding Window Maximum (Monotonic Deque)
+- **On-Screen Visual / Slide Cue:** Animation of `Largest Rectangle in Histogram` and `Sliding Window Maximum` with a decreasing Deque.
+- **Narration / Script:**
+  > "The magic of an increasing stack is that when a bar is popped because a shorter bar arrived, the incoming bar is its right boundary and the new stack top below it is its left boundary."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#739. Daily Temperatures** | `Medium` | [https://leetcode.com/problems/daily-temperatures/](https://leetcode.com/problems/daily-temperatures/) | Pila monótona decreciente de índices: desapila cuando `temps[i] > temps[stack[-1]]`. |
-| **#84. Largest Rectangle in Histogram** | `Hard` | [https://leetcode.com/problems/largest-rectangle-in-histogram/](https://leetcode.com/problems/largest-rectangle-in-histogram/) | Pila monótona creciente: cuando una barra baja, sabemos hasta dónde podía extenderse la barra alta anterior. |
-| **#239. Sliding Window Maximum** | `Hard` | [https://leetcode.com/problems/sliding-window-maximum/](https://leetcode.com/problems/sliding-window-maximum/) | Monotonic Deque decreciente: saca por atrás los menores al nuevo y por delante los que salieron de la ventana `i - k`. |
+| **#739. Daily Temperatures** | `Medium` | [https://leetcode.com/problems/daily-temperatures/](https://leetcode.com/problems/daily-temperatures/) | Monotonic decreasing stack of indices: pop whenever `temps[i] > temps[stack[-1]]`. |
+| **#84. Largest Rectangle in Histogram** | `Hard` | [https://leetcode.com/problems/largest-rectangle-in-histogram/](https://leetcode.com/problems/largest-rectangle-in-histogram/) | Monotonic increasing stack: when a shorter bar arrives, popped bars know both their left and right smaller boundaries. |
+| **#239. Sliding Window Maximum** | `Hard` | [https://leetcode.com/problems/sliding-window-maximum/](https://leetcode.com/problems/sliding-window-maximum/) | Monotonic decreasing Deque: pop smaller elements from the back and evict out-of-window indices `< i - k + 1` from the front. |

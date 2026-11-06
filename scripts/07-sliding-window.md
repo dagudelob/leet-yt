@@ -1,104 +1,105 @@
-# 🎬 Episodio #07: Sliding Window (Ventana Deslizante)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 1 — Patrón Algorítmico (`Beginner`)  
-> **Término en Inglés (Flowchart):** `Sliding Window (Fixed & Dynamic)`  
-> **Prerrequisitos Recomendados:** Arrays → Strings → Two Pointers
+# Episode #07: Sliding Window (Fixed & Dynamic)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 1 — Algorithmic Pattern (`Beginner`)  
+> **Flowchart Node Term:** `Sliding Window (Fixed & Dynamic)`  
+> **Recommended Prerequisites:** Arrays -> Strings -> Two Pointers
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Presenta la 'Plantilla Universal de 3 Pasos de Sliding Window' (1. Expandir con `right`, 2. Contraer con `while` desde `left`, 3. Actualizar respuesta). Explica la diferencia entre buscar la ventana MÁS LARGA (actualizar fuera del while) vs la ventana MÁS CORTA (actualizar dentro del while), y por qué el `while` dentro del `for` sigue siendo O(N) y no O(N²).
+Teach the 'Universal 3-Step Sliding Window Template' (1. Expand with `right`, 2. Shrink with `while` from `left`, 3. Update answer). Explain the difference between finding the LONGEST valid window (update outside the `while`) vs the SHORTEST valid window (update inside the `while`), and why a `while` inside a `for` is still O(N) amortized.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Sliding Window", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Subarray/Substring contiguo óptimo con N ≤ 10⁵ (y valores no negativos si es por suma)) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Sliding Window", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Optimal contiguous subarray/substring with N <= 10^5 (and non-negative values for sum windows)) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Sliding Window?
-Mantener un subsegmento contiguo `[left..right]` que se desliza sobre un arreglo o string como una oruga: se expande por la derecha (`right++`) y se contrae por la izquierda (`left++`) reutilizando el cálculo anterior en O(N).
+### What is Sliding Window?
+Maintaining a contiguous subsegment `[left..right]` that glides across an array or string like a caterpillar: expanding on the right (`right++`) and shrinking from the left (`left++`) whenever the window constraint is violated, achieving O(N) time.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Una oruga avanzando por una rama: estira la cabeza hacia adelante (`right`) para comer hojas mientras la ventana sea válida, y cuando se pasa del límite permitido, encoge la cola (`left`) hasta volver a cumplir la regla, sin volver a contar las hojas del medio.
+### Real-World Analogy
+> **Visual Intuition:** A caterpillar crawling along a branch: it stretches its head forward (`right`) to include new leaves while the window is valid, and whenever it exceeds its limit, it pulls its tail forward (`left`) until the rule is restored—without ever recounting the leaves in the middle.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Palabra clave en el enunciado: 'subarray contiguo' o 'substring' + 'más largo / más corto / suma máxima'.
-2. **Idea Clave #2:** Complejidad O(N) amortizada: ningún elemento entra más de una vez por `right` ni sale más de una vez por `left`.
-3. **Idea Clave #3:** Diferencia clave: en ventana máxima encoges cuando es INVÁLIDA; en ventana mínima encoges mientras sea VÁLIDA para exprimir su tamaño.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Sliding Window)
-- ✅ El problema pide el subarreglo o substring CONTIGUO más largo, más corto o de suma máxima/mínima que cumpla cierta condición.
-- ✅ Ventana de tamaño fijo `K`: 'encuentra el promedio/suma máxima de cualquier subarreglo de longitud K'.
-- ✅ Ventana de tamaño dinámico: 'el substring más largo sin caracteres repetidos' o 'con a lo sumo K ceros'.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ ¡CUIDADO! Si el arreglo tiene números NEGATIVOS y buscas una suma objetivo o ventana válida por suma, agregar un elemento a la derecha puede disminuir la suma en vez de aumentarla, rompiendo la monotonía de Sliding Window (ahí usa Prefix Sum + Hash Map o Monotonic Deque).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Subarray/Substring contiguo óptimo con N ≤ 10⁵ (y valores no negativos si es por suma)`
-- **Complejidad Temporal Promedio:** `O(N)`
-- **Complejidad Temporal Peor Caso:** `O(N)`
-- **Complejidad Espacial:** `O(1) o O(K) para el mapa de frecuencias de la ventana`
-- **Nota Técnica:** Aunque hay un `while` dentro de un `for`, tanto `left` como `right` avanzan como máximo N veces en total (2N pasos = O(N)).
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Trigger keywords: 'contiguous subarray' or 'substring' + 'longest / shortest / maximum sum'.
+2. **Key Takeaway #2:** Amortized O(N) complexity: each element enters the window once via `right` and leaves at most once via `left`.
+3. **Key Takeaway #3:** For longest window: shrink while INVALID, then record length. For shortest window: record length and shrink while VALID.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Inicializar `left = 0`, el estado de la ventana (suma o diccionario de conteo) y la variable de mejor respuesta.
-2. Iterar `right` de `0` a `N-1` agregando el elemento `nums[right]` al estado de la ventana.
-3. Usar un ciclo `while` para avanzar `left` y restar `nums[left]` cuando la ventana necesita ajustarse.
-4. Calcular el tamaño de la ventana con la fórmula `right - left + 1`.
+### Problem Statement Signals (When to USE Sliding Window)
+- [x] The problem asks for the longest, shortest, or optimal CONTIGUOUS subarray or substring satisfying a condition.
+- [x] Fixed-size window `K`: 'Find the maximum sum or average of any contiguous subarray of length K'.
+- [x] Dynamic-size window: 'Longest substring without repeating characters' or 'Smallest subarray with sum >= S'.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Intentar usar Sliding Window de suma cuando el arreglo tiene números negativos (ej. LeetCode 560 Subarray Sum Equals K). Con negativos, usa Prefix Sum + Hash Map.
-- 🚨 **Trampa de Entrevista:** Equivocarse por 1 en el tamaño de la ventana: la cantidad de elementos entre `left` y `right` inclusive es `right - left + 1`.
+### When NOT to Use It (False Positives)
+- [!] WARNING: If the array contains NEGATIVE numbers and the condition depends on subarray sum, adding elements to the right can decrease the sum, breaking monotonicity! For negative numbers, use `Prefix Sum + Hash Map`.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Optimal contiguous subarray/substring with N <= 10^5 (and non-negative values for sum windows)`
+- **Average Time Complexity:** `O(N)`
+- **Worst-Case Time Complexity:** `O(N)`
+- **Space Complexity:** `O(1) or O(K) for the window frequency counter`
+- **Engineering Note:** Even though there is a `while` loop inside a `for` loop, `left` and `right` each move forward at most N times (at most 2N total operations).
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Initialize `left = 0`, the window state (running sum or frequency map), and the best answer.
+2. Iterate `right` from `0` to `N-1`, adding `nums[right]` into the window state.
+3. Use a `while` loop to advance `left` and remove `nums[left]` whenever the window needs adjustment.
+4. Compute the window size using `right - left + 1`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Using sum-based Sliding Window when the array contains negative numbers (e.g., LeetCode 560 Subarray Sum Equals K). With negatives, use Prefix Sum + Hash Map.
+- **Interview Trap:** Off-by-one error on window length: the number of elements from `left` to `right` inclusive is `right - left + 1`.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def sliding_window_dynamic(s: str) -> int:
     """
-    Plantilla Universal de Sliding Window Dinámica (ej. Longest Substring Without Repeating Chars).
-    Tiempo: O(N) | Espacio: O(alfabeto)
+    Universal 3-Step Dynamic Sliding Window Template
+    (e.g., Longest Substring Without Repeating Characters).
+    Time: O(N) | Space: O(alphabet)
     """
     window_counts: dict[str, int] = {}
     left = 0
     max_len = 0
 
     for right, ch in enumerate(s):
-        # 1. Expandir la ventana incluyendo s[right]
+        # 1. EXPAND window by including s[right]
         window_counts[ch] = window_counts.get(ch, 0) + 1
 
-        # 2. Contraer desde 'left' mientras la ventana viole la condición
+        # 2. SHRINK from 'left' while window violates the invariant
         while window_counts[ch] > 1:
             left_ch = s[left]
             window_counts[left_ch] -= 1
             left += 1
 
-        # 3. Actualizar la mejor respuesta con la ventana válida [left..right]
+        # 3. UPDATE best answer on valid window [left..right]
         max_len = max(max_len, right - left + 1)
 
     return max_len
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function slidingWindowDynamic(s: string): number {
   const counts = new Map<string, number>();
@@ -109,7 +110,7 @@ export function slidingWindowDynamic(s: string): number {
     const ch = s[right];
     counts.set(ch, (counts.get(ch) ?? 0) + 1);
 
-    // Contraer mientras la condición sea inválida
+    // Shrink while window invariant is broken
     while ((counts.get(ch) ?? 0) > 1) {
       const leftCh = s[left];
       counts.set(leftCh, (counts.get(leftCh) ?? 1) - 1);
@@ -124,24 +125,24 @@ export function slidingWindowDynamic(s: string): number {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:30] La Oruga: Por qué no recalcular desde cero
-- **🎬 Visual en Pantalla / Slide:** Marco luminoso deslizándose sobre un arreglo: entra el elemento derecho y sale el izquierdo.
-- **🎙️ Narración / Guion:**
-  > "Si calculas la suma de cinco elementos y luego te mueves un paso a la derecha, ¿para qué volver a sumar los cuatro del medio? Solo suma el que entra por la derecha y resta el que sale por la izquierda. Eso es Sliding Window."
+### [00:00 - 01:30] The Caterpillar Mental Model: Stop Recomputing Sums
+- **On-Screen Visual / Slide Cue:** Glowing frame sliding across an array: adding the right element and subtracting the left element.
+- **Narration / Script:**
+  > "If you just summed five elements and slide your window one step right, why re-add the four elements in the middle? Just add the new element entering on the right and subtract the old one leaving on the left. That is Sliding Window."
 
-### ⏱️ [01:30 - 04:30] La Plantilla Universal de Ventana Dinámica
-- **🎬 Visual en Pantalla / Slide:** Código con los 3 bloques numerados: Expandir, Contraer y Actualizar.
-- **🎙️ Narración / Guion:**
-  > "El 95% de los problemas de ventana deslizante caen con la misma plantilla de diez líneas: un bucle for para avanzar right, y un while interno que avanza left solo cuando rompemos la regla."
+### [01:30 - 04:30] The 10-Line Universal Dynamic Window Template
+- **On-Screen Visual / Slide Cue:** Code highlighted in 3 blocks: Expand, Shrink, and Update.
+- **Narration / Script:**
+  > "Ninety-five percent of dynamic sliding window problems fall to the exact same ten-line template: a `for` loop advancing `right`, and an inner `while` loop advancing `left` whenever our rule is broken."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#3. Longest Substring Without Repeating Characters** | `Medium` | [https://leetcode.com/problems/longest-substring-without-repeating-characters/](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | Expande `right` y encoge `left` mientras el carácter recién agregado tenga frecuencia > 1. |
-| **#209. Minimum Size Subarray Sum** | `Medium` | [https://leetcode.com/problems/minimum-size-subarray-sum/](https://leetcode.com/problems/minimum-size-subarray-sum/) | Para ventana MÍNIMA, actualiza la respuesta DENTRO del `while` mientras la condición se cumpla y encoge `left`. |
-| **#424. Longest Repeating Character Replacement** | `Medium` | [https://leetcode.com/problems/longest-repeating-character-replacement/](https://leetcode.com/problems/longest-repeating-character-replacement/) | La ventana es válida si `(right - left + 1) - max_frecuencia <= k`. |
+| **#3. Longest Substring Without Repeating Characters** | `Medium` | [https://leetcode.com/problems/longest-substring-without-repeating-characters/](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | Expand `right` and shrink `left` whenever the newly added character's count exceeds 1. |
+| **#209. Minimum Size Subarray Sum** | `Medium` | [https://leetcode.com/problems/minimum-size-subarray-sum/](https://leetcode.com/problems/minimum-size-subarray-sum/) | For a MINIMUM window, update the answer INSIDE the `while` loop while the sum is valid and shrink `left`. |
+| **#424. Longest Repeating Character Replacement** | `Medium` | [https://leetcode.com/problems/longest-repeating-character-replacement/](https://leetcode.com/problems/longest-repeating-character-replacement/) | Window `[left..right]` is valid as long as `(right - left + 1) - max_freq <= k`. |

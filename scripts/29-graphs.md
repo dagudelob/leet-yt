@@ -1,75 +1,75 @@
-# 🎬 Episodio #29: Graphs (Representación de Grafos: Lista y Matriz de Adyacencia)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 5 — Estructura de Datos (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Graph Representations (Adjacency List & Matrix)`  
-> **Prerrequisitos Recomendados:** Binary Trees → Hash Table → DFS → BFS
+# Episode #29: Graphs (Adjacency List, Matrix & Bipartite Coloring)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 5 — Data Structure (`Intermediate`)  
+> **Flowchart Node Term:** `Graph Representations (Adjacency List & Matrix)`  
+> **Recommended Prerequisites:** Binary Trees -> Hash Table -> DFS -> BFS
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Enseña el 'Diccionario de Traducción de Grafos': cómo problemas disfrazados de cursos universitarios, llaves y cuartos, alianzas o vuelos son todos Grafos. Explica las 3 propiedades fundamentales (Dirigido vs No Dirigido, Ponderado vs No Ponderado, Grados de Entrada `in-degree` y Salida `out-degree`) y el patrón de Bipartición (2-Coloración).
+Teach the 'Graph Translation Dictionary': how problems disguised as university courses, keys and rooms, alliances, or flights are all Graphs. Cover the 3 core properties (Directed vs Undirected, Weighted vs Unweighted, In-Degree vs Out-Degree) and the 2-Coloring Bipartite check.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Graphs", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (V, E ≤ 10⁵ → Lista de Adyacencia obligatoria) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Graphs", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (V, E <= 10^5 -> Adjacency List is mandatory) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Graphs?
-La estructura universal que modela redes de ciudades, vuelos, dependencias, internet y relaciones sociales mediante Vértices (`V`) y Aristas (`E`). En entrevistas, el 95% de las veces debes convertir la lista de aristas de entrada en una **Lista de Adyacencia** (`adj[u] = [v1, v2, ...]`) antes de aplicar cualquier algoritmo.
+### What is Graphs?
+The universal data structure modeling networks of cities, flights, dependencies, and social connections via Vertices (`V`) and Edges (`E`). In 95% of interviews, your first step is converting an edge list `edges = [[u, v], ...]` into an **Adjacency List** (`adj[u] = [v1, v2, ...]`).
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Tu agenda de contactos del teléfono (Lista de Adyacencia): debajo del nombre de cada persona tienes únicamente la lista de amigos con los que se comunica directamente, en lugar de una tabla gigante de 8 mil millones × 8 mil millones con todos los habitantes del planeta (Matriz de Adyacencia).
+### Real-World Analogy
+> **Visual Intuition:** Your phone's contact list (Adjacency List): under each person's name, you store only the friends they directly call—rather than carrying an 8-billion-by-8-billion spreadsheet of every person on Earth (Adjacency Matrix).
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** En LeetCode casi nunca te dan objetos `GraphNode`: te dan un entero `n` y una lista `edges = [[u, v], ...]`. Tu primera línea siempre es armar la Lista de Adyacencia.
-2. **Idea Clave #2:** En un grafo no dirigido debes agregar TANTO `adj[u].append(v)` COMO `adj[v].append(u)`.
-3. **Idea Clave #3:** Un grafo es Bipartito (divisible en 2 bandos sin conflictos internos) si y solo si no tiene ciclos de longitud impar.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Graphs)
-- ✅ El problema entrega pares de conexiones `edges = [[u, v], ...]` (carreteras, vuelos, prerrequisitos, amistades).
-- ✅ **Lista de Adyacencia (`defaultdict(list)`)**: Estándar para grafos dispersos (sparse) donde `E` es mucho menor que `V²`.
-- ✅ **Matriz de Adyacencia (`grid[u][v]`)**: Solo cuando el grafo es pequeño y denso (`V ≤ 500`, como en Floyd-Warshall) o necesitas consultar si existe la arista `(u, v)` en O(1).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Nunca crees una Matriz de Adyacencia `V × V` si `V = 10⁵`: una matriz de `10⁵ × 10⁵` requiere `10¹⁰` celdas (~40 GB de RAM) y provocará `Memory Limit Exceeded` de inmediato.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `V, E ≤ 10⁵ → Lista de Adyacencia obligatoria`
-- **Complejidad Temporal Promedio:** `Construir Lista de Adyacencia: O(V + E) | Recorrer vecinos de u: O(grado(u))`
-- **Complejidad Temporal Peor Caso:** `O(V + E)`
-- **Complejidad Espacial:** `O(V + E) en Lista de Adyacencia vs O(V²) en Matriz de Adyacencia`
-- **Nota Técnica:** Verifica siempre si el grafo es Dirigido (1 sola dirección `u -> v`) o No Dirigido (ambas direcciones `u <-> v`).
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** LeetCode rarely gives you `GraphNode` objects: it gives an integer `n` and `edges = [[u, v], ...]`. Your first 5 lines always build the Adjacency List.
+2. **Key Takeaway #2:** In an undirected graph, always add BOTH `adj[u].append(v)` AND `adj[v].append(u)`.
+3. **Key Takeaway #3:** A graph is Bipartite (splittable into 2 teams with zero internal conflicts) if and only if it has no odd-length cycles.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Identificar qué son los nodos `V` y qué son las aristas `E` en la historia del problema.
-2. Preguntarse: ¿la relación es de una sola vía (Dirigido) o mutua (No Dirigido)? ¿Tiene costo (Ponderado)?
-3. Construir `adj` y, si el grafo puede estar desconectado, envolver tu búsqueda en un bucle `for i in range(n): if i not in visited:`.
+### Problem Statement Signals (When to USE Graphs)
+- [x] The input gives connection pairs `edges = [[u, v], ...]` (roads, flights, prerequisites, friendships).
+- [x] **Adjacency List (`defaultdict(list)`)**: Default choice for sparse graphs where `E` is much smaller than `V^2`.
+- [x] **Adjacency Matrix (`grid[u][v]`)**: Only when the graph is small and dense (`V <= 500`, such as Floyd-Warshall) or requires O(1) edge existence checks.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Lanzar DFS/BFS solo desde el nodo `0` asumiendo que todo el grafo está conectado en una sola pieza, ignorando componentes conexas aisladas.
+### When NOT to Use It (False Positives)
+- [!] Never allocate a `V x V` Adjacency Matrix when `V = 10^5`: `10^5 x 10^5` is `10^10` cells (~40 GB of RAM) and immediately triggers `Memory Limit Exceeded`.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `V, E <= 10^5 -> Adjacency List is mandatory`
+- **Average Time Complexity:** `Build Adjacency List: O(V + E) | Iterate neighbors of u: O(degree(u))`
+- **Worst-Case Time Complexity:** `O(V + E)`
+- **Space Complexity:** `O(V + E) for Adjacency List vs O(V^2) for Adjacency Matrix`
+- **Engineering Note:** Always check whether edges are Directed (`u -> v` one way) or Undirected (`u <-> v` both ways).
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Identify what the vertices `V` and edges `E` represent in the problem story.
+2. Ask: is the relationship one-way (Directed) or mutual (Undirected)? Does each edge have a cost (Weighted)?
+3. Build `adj` and wrap your traversal in `for i in range(n): if i not in visited:` in case the graph is disconnected.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Starting DFS/BFS only from node `0` assuming the graph is a single connected component, missing isolated components.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 from collections import defaultdict
 
@@ -77,9 +77,9 @@ def build_adjacency_list(
     n: int, edges: list[list[int]], directed: bool = False
 ) -> dict[int, list[int]]:
     """
-    Paso 0 de todo problema de Grafos en LeetCode:
-    Convertir la lista de aristas [[u, v], ...] en una Lista de Adyacencia.
-    Tiempo: O(V + E) | Espacio: O(V + E)
+    Step 0 of every Graph problem in LeetCode:
+    Convert an edge list [[u, v], ...] into an Adjacency List.
+    Time: O(V + E) | Space: O(V + E)
     """
     adj: dict[int, list[int]] = defaultdict(list)
     for u, v in edges:
@@ -91,8 +91,8 @@ def build_adjacency_list(
 
 def is_bipartite_coloring(n: int, edges: list[list[int]]) -> bool:
     """
-    Patrón Clásico de Grafos: 2-Coloración (Bipartite Graph Check).
-    color[u] = 0 (sin pintar), 1 (Azul), -1 (Rojo)
+    Classic Graph Pattern: 2-Coloring (Bipartite Graph Check).
+    color[u] = 0 (uncolored), 1 (Blue), -1 (Red)
     """
     adj = build_adjacency_list(n, edges, directed=False)
     color = [0] * n
@@ -101,7 +101,7 @@ def is_bipartite_coloring(n: int, edges: list[list[int]]) -> bool:
         color[u] = c
         for v in adj[u]:
             if color[v] == c:
-                return False  # Conflicto: dos vecinos con el mismo color
+                return False  # Conflict: two adjacent nodes share the same color
             if color[v] == 0 and not dfs(v, -c):
                 return False
         return True
@@ -112,7 +112,7 @@ def is_bipartite_coloring(n: int, edges: list[list[int]]) -> bool:
     return True
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function buildAdjacencyList(
   n: number,
@@ -132,24 +132,24 @@ export function buildAdjacencyList(
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] Todos los árboles son grafos, pero los grafos rompen las reglas
-- **🎬 Visual en Pantalla / Slide:** Un árbol conectando sus hojas entre sí y formando ciclos hasta convertirse en una red de grafo.
-- **🎙️ Narración / Guion:**
-  > "Un Árbol no es más que un grafo bien portado sin ciclos. En cuanto permitimos que cualquier nodo se conecte con cualquier otro, entramos al mundo de los Grafos: la estructura que modela desde Google Maps hasta las dependencias de paquetes de software."
+### [00:00 - 01:45] Every Tree Is a Graph, Carry No Rules
+- **On-Screen Visual / Slide Cue:** A binary tree connecting its leaves and forming cycles until it transforms into a general graph network.
+- **Narration / Script:**
+  > "A Tree is simply a well-behaved graph with no cycles. The moment we allow any node to connect to any other node, we enter the world of Graphs—the structure modeling everything from Google Maps to package dependencies."
 
-### ⏱️ [01:45 - 04:30] Lista de Adyacencia, Grados (In-Degree/Out-Degree) y 2-Coloración
-- **🎬 Visual en Pantalla / Slide:** Transformación de `edges = [[0,1], [1,2]]` en una lista `adj` y pintado de nodos en rojo y azul.
-- **🎙️ Narración / Guion:**
-  > "Tu reflejo automático al ver una lista de aristas debe ser construir la Lista de Adyacencia en cinco líneas. A partir de ahí, contar cuántas flechas entran o salen de cada nodo o colorear en dos bandos se vuelve inmediato."
+### [01:45 - 04:30] Adjacency Lists, In-Degree / Out-Degree, and 2-Coloring
+- **On-Screen Visual / Slide Cue:** Converting `edges = [[0,1], [1,2]]` into an `adj` list and coloring nodes red and blue.
+- **Narration / Script:**
+  > "Your automatic reflex upon seeing an edge list should be building an Adjacency List in five lines. From there, counting incoming arrows or 2-coloring a bipartite network becomes effortless."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#785. Is Graph Bipartite?** | `Medium` | [https://leetcode.com/problems/is-graph-bipartite/](https://leetcode.com/problems/is-graph-bipartite/) | Colorea los nodos alternando `1` y `-1` con BFS o DFS; si un vecino ya tiene tu mismo color, hay un ciclo impar y NO es bipartito. |
-| **#841. Keys and Rooms** | `Medium` | [https://leetcode.com/problems/keys-and-rooms/](https://leetcode.com/problems/keys-and-rooms/) | La entrada ya es una Lista de Adyacencia; verifica si un DFS/BFS desde el cuarto 0 visita los N cuartos. |
-| **#997. Find the Town Judge** | `Easy` | [https://leetcode.com/problems/find-the-town-judge/](https://leetcode.com/problems/find-the-town-judge/) | Calcula grados de entrada (`in_degree`) y salida (`out_degree`): el juez tiene `in_degree == N - 1` y `out_degree == 0`. |
+| **#785. Is Graph Bipartite?** | `Medium` | [https://leetcode.com/problems/is-graph-bipartite/](https://leetcode.com/problems/is-graph-bipartite/) | Color nodes alternating `1` and `-1` via BFS or DFS; if a neighbor already has your color, an odd cycle exists. |
+| **#841. Keys and Rooms** | `Medium` | [https://leetcode.com/problems/keys-and-rooms/](https://leetcode.com/problems/keys-and-rooms/) | The input is already an Adjacency List; check if DFS/BFS from room 0 visits all N rooms. |
+| **#997. Find the Town Judge** | `Easy` | [https://leetcode.com/problems/find-the-town-judge/](https://leetcode.com/problems/find-the-town-judge/) | Track `in_degree` and `out_degree`: the judge has `in_degree == N - 1` and `out_degree == 0`. |

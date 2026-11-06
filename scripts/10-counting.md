@@ -1,90 +1,89 @@
-# 🎬 Episodio #10: Counting & Bucket Sort (Ordenamiento por Conteo)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 2 — Patrón Algorítmico (`Beginner`)  
-> **Término en Inglés (Flowchart):** `Counting Sort & Bucket Sort`  
-> **Prerrequisitos Recomendados:** Arrays → Hash Table
+# Episode #10: Counting & Bucket Sort
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 2 — Algorithmic Pattern (`Beginner`)  
+> **Flowchart Node Term:** `Counting Sort & Bucket Sort`  
+> **Recommended Prerequisites:** Arrays -> Hash Table
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica cómo es posible ordenar en O(N) sin romper las leyes de la computación (evitando comparaciones directas y usando los propios valores o frecuencias como índices de un arreglo de cubetas). Destaca el truco de Bucket Sort por Frecuencia en 'Top K Frequent Elements'.
+Explain how we can sort in O(N) time without violating computer science laws (by avoiding pairwise comparisons and indexing directly into buckets). Highlight the 'Bucket Sort by Frequency' pattern for Top K Frequent Elements.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Counting / Buckets", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Rango de valores K ≤ 10⁵ o ordenar por frecuencia (frecuencia ≤ N)) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Counting / Buckets", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Bounded value range K <= 10^5 or sorting by frequency (max frequency <= N)) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Counting / Buckets?
-Romper la barrera teórica del O(N log N) de los ordenamientos por comparación: cuando los valores o frecuencias caen en un rango acotado `[0..K]`, podemos agruparlos en cubetas (buckets) y ordenarlos en tiempo lineal O(N + K).
+### What is Counting / Buckets?
+Breaking the O(N log N) comparison-sort barrier: when values or frequencies fall within a bounded range `[0..K]`, we can group them into buckets and sort in linear O(N + K) time.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Ordenar un mazo de 500 monedas de 1, 5, 10 y 20 pesos. En lugar de comparar monedas de dos en dos (QuickSort/MergeSort), simplemente pones 4 cajas en la mesa, tiras cada moneda en su caja correspondiente y al final juntas las cajas en orden.
+### Real-World Analogy
+> **Visual Intuition:** Sorting 500 coins of denominations 1, 5, 10, and 25 cents. Instead of comparing coins two by two (QuickSort/MergeSort), you place 4 labeled boxes on the table, drop each coin into its box in one pass, and collect the boxes in order.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Todo algoritmo de ordenamiento basado en comparaciones (`<`, `>`) tarda al menos O(N log N), pero Counting/Bucket Sort no compara: indexa directamente.
-2. **Idea Clave #2:** Aunque los números de entrada sean enormes (`-10⁹` a `10⁹`), sus FRECUENCIAS siempre están entre `1` y `N`, permitiendo usar Bucket Sort por frecuencia en O(N).
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Counting / Buckets)
-- ✅ El rango de valores posibles `K` es pequeño o proporcional a `N` (ej. edades `0..120`, colores `0, 1, 2`, calificaciones `0..100`).
-- ✅ Quieres ordenar elementos por su FRECUENCIA de aparición (la frecuencia máxima nunca supera `N`, por lo que puedes crear `N + 1` cubetas donde el índice `f` guarda los elementos que aparecen `f` veces).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Cuando los valores pueden ser gigantescos o arbitrarios (ej. enteros de hasta `10⁹` o flotantes sin acotar), ya que crear un arreglo de tamaño `10⁹` agotaría la memoria RAM.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Rango de valores K ≤ 10⁵ o ordenar por frecuencia (frecuencia ≤ N)`
-- **Complejidad Temporal Promedio:** `O(N + K) donde K es el número de cubetas`
-- **Complejidad Temporal Peor Caso:** `O(N + K)`
-- **Complejidad Espacial:** `O(N + K) para los contadores y cubetas`
-- **Nota Técnica:** Supera a O(N log N) cuando K = O(N).
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Every comparison-based sort (`<`, `>`) requires at least O(N log N), but Counting/Bucket Sort indexes directly without comparing.
+2. **Key Takeaway #2:** Even if input numbers are huge (`-10^9` to `10^9`), their FREQUENCIES are bounded between `1` and `N`, enabling O(N) Bucket Sort by frequency.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Identificar la variable acotada (el valor del elemento si es pequeño, o su frecuencia si ya contamos con un Hash Map).
-2. Crear un arreglo de cubetas `buckets` cuyo índice representa esa cantidad acotada.
-3. Recorrer las cubetas en orden ascendente o descendente para recolectar la respuesta en O(N).
+### Problem Statement Signals (When to USE Counting / Buckets)
+- [x] The range of possible values `K` is small or proportional to `N` (e.g., ages `0..120`, colors `0, 1, 2`, scores `0..100`).
+- [x] Sorting elements by their **FREQUENCY of occurrence**: since no element in an array of length `N` can appear more than `N` times, you can allocate `N + 1` buckets indexed by frequency (`Top K Frequent Elements` in O(N)).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Inicializar cubetas en Python con `buckets = [[]] * (n + 1)`: eso crea `n + 1` referencias a la MISMA lista en memoria. Siempre usa `[[] for _ in range(n + 1)]`.
+### When NOT to Use It (False Positives)
+- [!] When values span an huge arbitrary range (e.g., integers up to `10^9`), since allocating `10^9` buckets would exhaust memory.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Bounded value range K <= 10^5 or sorting by frequency (max frequency <= N)`
+- **Average Time Complexity:** `O(N + K) where K is the bucket range`
+- **Worst-Case Time Complexity:** `O(N + K)`
+- **Space Complexity:** `O(N + K) for the bucket array`
+- **Engineering Note:** Beats O(N log N) whenever K = O(N).
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Identify the bounded quantity (either the element value itself or its frequency count).
+2. Allocate a `buckets` list indexed by that bounded value.
+3. Scan the buckets in ascending or descending order to collect the sorted output in O(N).
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Initializing buckets in Python with `buckets = [[]] * (n + 1)`—which creates `n + 1` references to the SAME list object. Always use `[[] for _ in range(n + 1)]`.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def top_k_frequent_buckets(nums: list[int], k: int) -> list[int]:
     """
-    Bucket Sort por Frecuencia (LeetCode 347) en O(N) puro, sin usar Heap.
-    Como ningún elemento puede aparecer más de N veces, creamos N+1 cubetas.
+    Bucket Sort by Frequency (LeetCode 347) in pure O(N) time without a Heap.
+    Since no number can appear more than N times, we create N + 1 buckets.
     """
     freq_map: dict[int, int] = {}
     for x in nums:
         freq_map[x] = freq_map.get(x, 0) + 1
 
-    # buckets[f] contiene la lista de números que aparecieron exactamente 'f' veces
+    # buckets[f] stores all numbers that appeared exactly 'f' times
     buckets: list[list[int]] = [[] for _ in range(len(nums) + 1)]
     for num, freq in freq_map.items():
         buckets[freq].append(num)
 
     result: list[int] = []
-    # Recorremos las cubetas desde la mayor frecuencia hacia abajo
     for freq in range(len(nums), 0, -1):
         for num in buckets[freq]:
             result.append(num)
@@ -93,7 +92,7 @@ def top_k_frequent_buckets(nums: list[int], k: int) -> list[int]:
     return result
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function topKFrequentBuckets(nums: number[], k: number): number[] {
   const freqMap = new Map<number, number>();
@@ -119,24 +118,24 @@ export function topKFrequentBuckets(nums: number[], k: number): number[] {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:30] Rompiendo el límite de O(N log N)
-- **🎬 Visual en Pantalla / Slide:** Comparación de árbol de decisiones O(N log N) vs caída directa en cubetas numeradas O(N).
-- **🎙️ Narración / Guion:**
-  > "En la universidad nos enseñan que ordenar toma N log N. Pero eso solo aplica si ordenas comparando elementos entre sí. Si sabes que tus datos caen en un rango pequeño, puedes usar los propios números como índices de casilleros."
+### [00:00 - 01:30] Breaking the O(N log N) Speed Limit
+- **On-Screen Visual / Slide Cue:** Comparison decision tree O(N log N) vs direct drop into numbered buckets O(N).
+- **Narration / Script:**
+  > "In CS 101 we learn that sorting takes N log N. But that lower bound only applies when sorting via pairwise comparisons. When your keys or frequencies fall in a bounded range, you can use the numbers themselves as array indices."
 
-### ⏱️ [01:30 - 04:00] Bucket Sort por Frecuencia (El truco de Top-K en O(N))
-- **🎬 Visual en Pantalla / Slide:** Arreglo de cubetas de 0 a N donde cada índice guarda los números con esa frecuencia.
-- **🎙️ Narración / Guion:**
-  > "Incluso si los números del arreglo son gigantescos, ¿cuántas veces puede repetirse un número en un arreglo de tamaño N? Como máximo N veces. Eso nos permite ordenar por frecuencia en tiempo 100% lineal."
+### [01:30 - 04:00] Bucket Sort by Frequency (Top-K in Pure O(N))
+- **On-Screen Visual / Slide Cue:** Bucket array from 0 to N where each index holds numbers appearing that many times.
+- **Narration / Script:**
+  > "Even when input integers are arbitrarily large, how many times can any number appear in an array of length N? At most N times. That lets us sort by frequency in 100% linear time."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#347. Top K Frequent Elements** | `Medium` | [https://leetcode.com/problems/top-k-frequent-elements/](https://leetcode.com/problems/top-k-frequent-elements/) | Usa `buckets[frecuencia]` de tamaño `N+1` para lograr O(N) en vez de O(N log K) con Heap. |
-| **#451. Sort Characters By Frequency** | `Medium` | [https://leetcode.com/problems/sort-characters-by-frequency/](https://leetcode.com/problems/sort-characters-by-frequency/) | Cuenta frecuencias y reconstruye el string recorriendo las cubetas de `N` a `1`. |
-| **#274. H-Index** | `Medium` | [https://leetcode.com/problems/h-index/](https://leetcode.com/problems/h-index/) | Trunca citas mayores a `N` en la cubeta `N` y acumula de derecha a izquierda en O(N). |
+| **#347. Top K Frequent Elements** | `Medium` | [https://leetcode.com/problems/top-k-frequent-elements/](https://leetcode.com/problems/top-k-frequent-elements/) | Use `buckets[frequency]` of size `N + 1` to achieve O(N) time instead of O(N log K) with a Heap. |
+| **#451. Sort Characters By Frequency** | `Medium` | [https://leetcode.com/problems/sort-characters-by-frequency/](https://leetcode.com/problems/sort-characters-by-frequency/) | Count frequencies and rebuild the string by scanning buckets from `N` down to `1`. |
+| **#274. H-Index** | `Medium` | [https://leetcode.com/problems/h-index/](https://leetcode.com/problems/h-index/) | Cap citations larger than `N` into bucket `N` and accumulate from right to left in O(N). |

@@ -1,82 +1,82 @@
-# 🎬 Episodio #44: Math & Geometry (Matemáticas, Combinatoria y Geometría)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 7 — Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Math, Combinatorics & Computational Geometry`  
-> **Prerrequisitos Recomendados:** Basic DSA & Big-O → Arrays
+# Episode #44: Math, Combinatorics & Computational Geometry
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 7 — Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Math, Combinatorics & Computational Geometry`  
+> **Recommended Prerequisites:** Basic DSA & Big-O -> Arrays
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Enseña las herramientas matemáticas que salvan entrevistas: 1) Cómo contar pares `N*(N-1)//2` y subarreglos `L*(L+1)//2` al instante, 2) Exponenciación Binaria (`Pow(x, n)`) en O(log N), y 3) La regla de oro en Geometría Computacional: 'El punto flotante es tu enemigo; usa distancias al cuadrado y pendientes reducidas con GCD'.
+Teach the mathematical tools that save interviews: 1) How to count pairs `N*(N-1)//2` and subarrays `L*(L+1)//2` instantly, 2) Binary Exponentiation (`Pow(x, n)`) in O(log N), and 3) The golden rule of Computational Geometry: 'Floating point is your enemy; use squared distances and GCD-reduced slopes'.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Math & Geometry", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (N ≥ 10⁹ exigiendo O(1)/O(log N), conteo combinatorio o puntos en el plano 2D) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Math & Geometry", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (N >= 10^9 requiring O(1)/O(log N), combinatorial counting, or points on a 2D plane) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Math & Geometry?
-Reemplazar simulaciones lentas por fórmulas cerradas en O(1) u O(log N): series aritméticas de Gauss, combinatoria ($nCr$), exponenciación rápida (`pow(x, n)` en O(log N)), pendientes representadas como fracciones irreducibles `(dy // g, dx // g)` y producto cruz en geometría 2D.
+### What is Math & Geometry?
+Replace slow simulations with closed-form O(1) or O(log N) formulas: Gauss arithmetic series, combinatorics ($nCr$), binary exponentiation (`pow(x, n)` in O(log N)), slopes represented as irreducible fractions `(dy // g, dx // g)`, and 2D cross products.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Cuando el profesor le pidió al niño Carl Friedrich Gauss sumar los números del 1 al 100 para mantenerlo ocupado una hora, en lugar de sumar uno por uno (O(N)), emparejó `1+100 = 101`, `2+99 = 101`... 50 parejas de 101 = `5050` en un segundo (O(1)).
+### Real-World Analogy
+> **Visual Intuition:** When young Carl Friedrich Gauss's teacher asked the class to sum the numbers from 1 to 100 to keep them busy for an hour, instead of adding one by one (O(N)), Gauss paired `1+100 = 101`, `2+99 = 101`... 50 pairs of 101 = `5050` in a single second (O(1)).
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** En un grupo de `K` elementos iguales, el número de pares que puedes formar es `K * (K - 1) // 2`.
-2. **Idea Clave #2:** En un segmento válido de longitud `L`, el número de subarreglos contiguos contenidos es `L * (L + 1) // 2`.
-3. **Idea Clave #3:** Para comparar distancias en el plano, compara `dx*dx + dy*dy` con enteros en vez de `sqrt(dx*dx + dy*dy)`.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Math & Geometry)
-- ✅ Sumas de series (`n * (n + 1) // 2`), conteo de pares (`n * (n - 1) // 2`) o caminos en cuadrícula con combinatoria $inom{m+n-2}{m-1}$.
-- ✅ **Exponenciación Binaria**: Calcular $x^n$ en $O(\log n)$ usando que $x^{2k} = (x^2)^k$.
-- ✅ **Geometría 2D**: Colinealidad de puntos (`Max Points on a Line`), orientación de giros con **Producto Cruz** y distancias euclidianas al cuadrado (`dx² + dy²` sin usar `sqrt` para evitar errores de punto flotante).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ ¡NUNCA dividas flotantes `dy / dx` para usar pendientes como llaves de un Hash Map! `0.1 + 0.2 != 0.3` en IEEE 754 y la división por cero falla en líneas verticales. Simplifica siempre por el `gcd(dy, dx)` y guarda la tupla entera `(dy // g, dx // g)`.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `N ≥ 10⁹ exigiendo O(1)/O(log N), conteo combinatorio o puntos en el plano 2D`
-- **Complejidad Temporal Promedio:** `Fórmulas de Gauss: O(1) | Binary Exponentiation: O(log N)`
-- **Complejidad Temporal Peor Caso:** `O(log N)`
-- **Complejidad Espacial:** `O(1)`
-- **Nota Técnica:** Evita `math.sqrt` y `float` siempre que puedas comparar distancias al cuadrado con enteros exactos.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** In a group of `K` identical items, the number of pairs you can form is `K * (K - 1) // 2`.
+2. **Key Takeaway #2:** In a valid segment of length `L`, the number of contiguous subarrays contained within it is `L * (L + 1) // 2`.
+3. **Key Takeaway #3:** To compare distances in the plane, compare `dx*dx + dy*dy` with integers instead of `sqrt(dx*dx + dy*dy)`.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Verificar si una simulación O(N) se puede colapsar en una división, módulo o suma de Gauss O(1).
-2. En potencias grandes, elevar la base al cuadrado y dividir el exponente entre 2 en cada iteración.
-3. En problemas de rectas y puntos, representar cada dirección como `(dy // gcd, dx // gcd)`.
+### Problem Statement Signals (When to USE Math & Geometry)
+- [x] Series sums (`n * (n + 1) // 2`), pair counting (`n * (n - 1) // 2`), or grid paths via combinatorics $\binom{m+n-2}{m-1}$.
+- [x] **Binary Exponentiation**: Compute $x^n$ in $O(\log n)$ using $x^{2k} = (x^2)^k$.
+- [x] **2D Geometry**: Point collinearity (`Max Points on a Line`), turn orientation via **Cross Product**, and squared Euclidean distances (`dx^2 + dy^2` without `sqrt` to avoid floating-point inaccuracy).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Usar `dy / dx` en punto flotante para agrupar puntos colineales: falla con `ZeroDivisionError` en rectas verticales y por pérdida de precisión en números grandes.
+### When NOT to Use It (False Positives)
+- [!] NEVER divide floats `dy / dx` to use slopes as Hash Map keys! `0.1 + 0.2 != 0.3` in IEEE 754 and division by zero crashes on vertical lines. Always reduce by `gcd(dy, dx)` and store the integer tuple `(dy // g, dx // g)`.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `N >= 10^9 requiring O(1)/O(log N), combinatorial counting, or points on a 2D plane`
+- **Average Time Complexity:** `Gauss formulas: O(1) | Binary Exponentiation: O(log N)`
+- **Worst-Case Time Complexity:** `O(log N)`
+- **Space Complexity:** `O(1)`
+- **Engineering Note:** Avoid `math.sqrt` and `float` whenever you can compare squared distances with exact integers.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Check whether an O(N) simulation can be collapsed into an O(1) division, modulo, or Gauss sum.
+2. For large exponents, square the base and halve the exponent on each iteration.
+3. For line and point problems, represent each direction as `(dy // gcd, dx // gcd)`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Using floating-point `dy / dx` to group collinear points: it crashes with `ZeroDivisionError` on vertical lines and suffers from precision loss on large coordinates.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 import math
 
 def fast_power(x: float, n: int) -> float:
     """
-    1. Exponenciación Binaria (Pow(x, n)) en O(log N).
-    Si n es par: x^n = (x * x)^(n // 2).
+    1. Binary Exponentiation (Pow(x, n)) in O(log N).
+    If n is even: x^n = (x * x)^(n // 2).
     """
     if n < 0:
         x = 1.0 / x
@@ -92,8 +92,8 @@ def fast_power(x: float, n: int) -> float:
 
 def normalized_slope(p1: list[int], p2: list[int]) -> tuple[int, int]:
     """
-    2. Pendiente Exacta en Geometría sin punto flotante (para usar en Hash Map).
-    Reduce (dy, dx) por su Máximo Común Divisor y normaliza el signo.
+    2. Exact Float-Free Slope in Geometry (safe as a Hash Map key).
+    Reduce (dy, dx) by their Greatest Common Divisor and normalize the sign.
     """
     dy = p2[1] - p1[1]
     dx = p2[0] - p1[0]
@@ -107,7 +107,7 @@ def normalized_slope(p1: list[int], p2: list[int]) -> tuple[int, int]:
     return (dy // g, dx // g)
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function fastPower(x: number, n: number): number {
   let exp = BigInt(n);
@@ -127,24 +127,24 @@ export function fastPower(x: number, n: number): number {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] El atajo de Gauss y el conteo instantáneo de pares y subarreglos
-- **🎬 Visual en Pantalla / Slide:** Triángulo de pares mostrando por qué `1 + 2 + ... + (N-1) = N*(N-1)/2`.
-- **🎙️ Narración / Guion:**
-  > "Muchas veces ya encontraste los grupos válidos con un Hash Map o una ventana deslizante, y para rematar el problema solo necesitas contar cuántos pares o subarreglos se forman sin hacer un bucle extra. La fórmula de Gauss `N*(N-1)//2` lo resuelve en O(1)."
+### [00:00 - 01:45] Gauss's Shortcut and Instant Pair & Subarray Counting
+- **On-Screen Visual / Slide Cue:** Triangle of pairs showing why `1 + 2 + ... + (N-1) = N*(N-1)/2`.
+- **Narration / Script:**
+  > "Often you have already found the valid groups with a Hash Map or a sliding window, and to finish the problem you just need to count how many pairs or subarrays they form without running an extra loop. Gauss's formula `N*(N-1)//2` solves it in O(1)."
 
-### ⏱️ [01:45 - 04:30] Exponenciación Binaria O(log N) y Geometría libre de punto flotante
-- **🎬 Visual en Pantalla / Slide:** Cálculo de `x^1024` en solo 10 multiplicaciones y reducción de fracción `(dy, dx)` por su GCD.
-- **🎙️ Narración / Guion:**
-  > "En geometría para entrevistas hay un mandamiento: aléjate de los números decimales siempre que puedas. Representar una pendiente como una fracción simplificada por su Máximo Común Divisor elimina tanto la división por cero como los errores de redondeo."
+### [01:45 - 04:30] O(log N) Binary Exponentiation and Float-Free Geometry
+- **On-Screen Visual / Slide Cue:** Computing `x^1024` in just 10 multiplications and reducing fraction `(dy, dx)` by its GCD.
+- **Narration / Script:**
+  > "In interview geometry there is one commandment: stay away from floating-point decimals whenever possible. Representing a slope as a fraction simplified by its Greatest Common Divisor eliminates both division by zero and rounding errors."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#50. Pow(x, n)** | `Medium` | [https://leetcode.com/problems/powx-n/](https://leetcode.com/problems/powx-n/) | Exponenciación binaria dividiendo el exponente `n` entre 2 en cada paso en O(log N). |
-| **#149. Max Points on a Line** | `Hard` | [https://leetcode.com/problems/max-points-on-a-line/](https://leetcode.com/problems/max-points-on-a-line/) | Para cada punto base, agrupa los demás en un Hash Map usando la pendiente entera reducida `(dy // gcd, dx // gcd)`. |
-| **#62. Unique Paths** | `Medium` | [https://leetcode.com/problems/unique-paths/](https://leetcode.com/problems/unique-paths/) | Además de DP, es combinatoria pura: elegir dónde van los `m-1` pasos hacia abajo entre `(m-1) + (n-1)` pasos totales: `math.comb(m + n - 2, m - 1)`. |
+| **#50. Pow(x, n)** | `Medium` | [https://leetcode.com/problems/powx-n/](https://leetcode.com/problems/powx-n/) | Binary exponentiation halving the exponent `n` at each step in O(log N). |
+| **#149. Max Points on a Line** | `Hard` | [https://leetcode.com/problems/max-points-on-a-line/](https://leetcode.com/problems/max-points-on-a-line/) | For each anchor point, group other points in a Hash Map using the reduced integer slope `(dy // gcd, dx // gcd)`. |
+| **#62. Unique Paths** | `Medium` | [https://leetcode.com/problems/unique-paths/](https://leetcode.com/problems/unique-paths/) | Beyond DP, it is pure combinatorics: choose where the `m-1` down steps go among `(m-1) + (n-1)` total steps: `math.comb(m + n - 2, m - 1)`. |

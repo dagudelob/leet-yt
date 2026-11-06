@@ -1,75 +1,75 @@
-# 🎬 Episodio #33: Tries / Prefix Trees (Árboles de Prefijos)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 5 — Estructura de Datos + Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Tries / Prefix Trees & Bitwise Tries`  
-> **Prerrequisitos Recomendados:** Binary Trees → Hash Table → Strings
+# Episode #33: Tries / Prefix Trees
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 5 — Data Structure + Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Tries / Prefix Trees & Bitwise Tries`  
+> **Recommended Prerequisites:** Binary Trees -> Hash Table -> Strings
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica cómo un Trie fusiona los prefijos repetidos de miles de palabras en un solo árbol y por qué la bandera `is_end` es indispensable para distinguir entre el prefijo `'app'` y la palabra completa `'apple'`. Muestra el caso de estudio estrella: cómo pasar de TLE a una solución rapidísima en 'Word Search II' guiando el Backtracking con un Trie.
+Explain how a Trie merges shared prefixes across thousands of words into a single tree and why the `is_end` boolean flag is essential to distinguish the prefix `'app'` from the complete word `'apple'`. Walk through 'Word Search II' to show how guiding board DFS with a Trie prunes millions of dead branches.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Tries (Prefix Tree)", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Consultas de prefijos startsWith, diccionarios en tableros o Maximum XOR) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Tries (Prefix Tree)", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Prefix queries startsWith, multi-word board search, or Maximum XOR) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Tries (Prefix Tree)?
-Un árbol especializado para diccionarios de cadenas (o bits) donde cada arista representa un carácter y los nodos comparten prefijos comunes. Permite buscar palabras o verificar si existe cualquier palabra que empiece con un prefijo `P` en tiempo $O(|P|)$, independientemente de cuántas miles de palabras haya en el diccionario.
+### What is Tries (Prefix Tree)?
+A tree specialized for string (or bit) dictionaries where each edge represents a character and words share common prefix paths. Searches for a word or checks if any word starts with prefix `P` in $O(|P|)$ time—independent of how many thousands of words are in the dictionary.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** El autocompletado del buscador de tu celular: cuando escribes `A -> L -> G`, no revisa las 500,000 palabras del idioma español una por una; simplemente baja tres escalones por las ramas `A`, `L` y `G` del árbol, y todo lo que cuelga debajo de ese nodo son las palabras que empiezan por `ALG` (`Algoritmo`, `Álgebra`, `Alguien`).
+### Real-World Analogy
+> **Visual Intuition:** Your phone's search autocomplete: when you type `A -> L -> G`, it does not scan 500,000 dictionary words one by one—it walks 3 steps down the `A`, `L`, and `G` branches of a tree, and everything hanging below that node is a word starting with `ALG` (`Algorithm`, `Algebra`).
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** La diferencia entre `search(word)` y `startsWith(prefix)` es únicamente verificar `node.is_end == True` al final.
-2. **Idea Clave #2:** En problemas de tableros + diccionarios (`Word Search II`), invertir la perspectiva metiendo las palabras en un Trie evita buscar palabras una por una.
-3. **Idea Clave #3:** Un Bitwise Trie inserta los 32 bits de un entero del bit más significativo al menos significativo para maximizar el XOR buscando siempre el bit opuesto.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Tries (Prefix Tree))
-- ✅ Autocompletado, búsqueda por **prefijos** (`startsWith`), correctores ortográficos o comodines (`.`).
-- ✅ Buscar simultáneamente muchas palabras de un diccionario dentro de un tablero de letras (`Word Search II`: un Trie poda de golpe miles de búsquedas en el tablero cuando un prefijo no existe).
-- ✅ **Bitwise Trie (Trie de Bits 0 y 1)**: Encontrar el par de números que maximiza el XOR (`Maximum XOR of Two Numbers in an Array`).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si solo necesitas buscar palabras exactas completas sin consultar prefijos (un `Hash Set` normal de strings es más simple y rápido para coincidencias exactas).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Consultas de prefijos startsWith, diccionarios en tableros o Maximum XOR`
-- **Complejidad Temporal Promedio:** `Insert / Search / StartsWith: O(L) donde L es la longitud de la palabra`
-- **Complejidad Temporal Peor Caso:** `O(L)`
-- **Complejidad Espacial:** `O(Total de caracteres insertados) compartiendo prefijos comunes`
-- **Nota Técnica:** El tiempo NO depende del número de palabras N en el diccionario, solo del largo L de la palabra consultada.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** The only difference between `search(word)` and `startsWith(prefix)` is checking `node.is_end == True` at the final character.
+2. **Key Takeaway #2:** In grid + dictionary problems (`Word Search II`), inserting the dictionary into a Trie lets a single board DFS match all words at once.
+3. **Key Takeaway #3:** A Bitwise Trie inserts 32-bit integers from most-significant bit to least-significant bit to greedily pick opposite bits for Maximum XOR.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Definir `TrieNode` con un diccionario `children` y un booleano `is_end = False`.
-2. Al insertar, recorrer letra por letra creando nodos si no existen y marcar `curr.is_end = True` en la última letra.
-3. Extraer una función auxiliar `_find_node(prefix)` que reutilizan tanto `search` como `startsWith`.
+### Problem Statement Signals (When to USE Tries (Prefix Tree))
+- [x] Autocomplete, **prefix matching** (`startsWith`), spell checkers, or wildcard word search (`.`).
+- [x] Searching for many dictionary words simultaneously on a 2D letter board (`Word Search II`: a Trie prunes dead-end board paths immediately).
+- [x] **Bitwise Trie (0/1 Binary Trie)**: Finding the pair of numbers in an array that maximizes `a XOR b` (`Maximum XOR of Two Numbers in an Array`).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Olvidar la bandera `is_end`: si insertas `'apple'`, `search('app')` devolvería `True` por error si no distingues entre un nodo de paso y un final de palabra.
+### When NOT to Use It (False Positives)
+- [!] If you only need exact full-word lookups without prefix queries (a standard `Hash Set` of strings is simpler and faster for exact matches).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Prefix queries startsWith, multi-word board search, or Maximum XOR`
+- **Average Time Complexity:** `Insert / Search / StartsWith: O(L) where L is word length`
+- **Worst-Case Time Complexity:** `O(L)`
+- **Space Complexity:** `O(Total characters inserted) sharing common prefixes`
+- **Engineering Note:** Lookup time depends ONLY on the length L of the query word, not the number of words N in the dictionary.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Define `TrieNode` with a `children` map and `is_end = False`.
+2. To insert, walk character by character creating missing nodes and set `curr.is_end = True` at the end.
+3. Write a helper `_find_node(prefix)` shared by both `search` and `startsWith`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Forgetting `is_end`: after inserting `'apple'`, `search('app')` would falsely return `True` if you do not mark word endings.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 class TrieNode:
     def __init__(self):
@@ -79,8 +79,8 @@ class TrieNode:
 
 class Trie:
     """
-    Implementación Limpia y Estándar de Trie (Prefix Tree).
-    Tiempo por operación: O(L) donde L = len(word).
+    Clean Standard Trie (Prefix Tree) Implementation.
+    Time per operation: O(L) where L = len(word).
     """
     def __init__(self):
         self.root = TrieNode()
@@ -109,7 +109,7 @@ class Trie:
         return curr
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 class TrieNode {
   children = new Map<string, TrieNode>();
@@ -153,24 +153,24 @@ export class Trie {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] Cómo funciona el autocompletado en tiempo O(Longitud)
-- **🎬 Visual en Pantalla / Slide:** Las palabras 'CASA', 'CASO', 'CAMA' compartiendo las ramas C -> A en un árbol.
-- **🎙️ Narración / Guion:**
-  > "Si tienes un diccionario con un millón de palabras y quieres saber cuáles empiezan con 'PRO', un Hash Set no te sirve porque solo busca palabras completas. Un Trie organiza las palabras letra por letra en un árbol donde todos los prefijos comunes comparten el mismo camino."
+### [00:00 - 01:45] How Autocomplete Runs in O(Word Length)
+- **On-Screen Visual / Slide Cue:** Words 'CAT', 'CAR', 'CARD' sharing the C -> A branch in a tree.
+- **Narration / Script:**
+  > "If you have a million words and want to find all words starting with 'PRO', a Hash Set cannot help because it only hashes complete strings. A Trie organizes words character by character so every shared prefix walks the exact same path."
 
-### ⏱️ [01:45 - 04:30] El combo Trie + Backtracking en Word Search II
-- **🎬 Visual en Pantalla / Slide:** Un tablero de sopa de letras podando inmediatamente ramas que no existen en el Trie.
-- **🎙️ Narración / Guion:**
-  > "Cuando combinas un Trie con DFS en un tablero 2D, si en la segunda casilla se forma la combinación 'XZ' y ves que en tu Trie no hay rama 'XZ', cortas la búsqueda al instante ahorrando millones de pasos."
+### [01:45 - 04:30] The Trie + Backtracking Combo in Word Search II
+- **On-Screen Visual / Slide Cue:** A 2D letter board immediately pruning paths whose 2-letter prefix does not exist in the Trie.
+- **Narration / Script:**
+  > "When you pair a Trie with 2D grid DFS, the moment a board path forms 'XZ' and no 'XZ' branch exists in your Trie, you prune the entire search branch on the spot."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#208. Implement Trie (Prefix Tree)** | `Medium` | [https://leetcode.com/problems/implement-trie-prefix-tree/](https://leetcode.com/problems/implement-trie-prefix-tree/) | Estructura base con `children = {}` y bandera booleana `is_end`. |
-| **#211. Design Add and Search Words Data Structure** | `Medium` | [https://leetcode.com/problems/design-add-and-search-words-data-structure/](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | Cuando el carácter buscado es `'.'`, lanza recursión sobre todos los valores de `curr.children.values()`. |
-| **#212. Word Search II** | `Hard` | [https://leetcode.com/problems/word-search-ii/](https://leetcode.com/problems/word-search-ii/) | Mete las palabras en un Trie y camina simultáneamente por el tablero 2D y por los nodos del Trie. |
+| **#208. Implement Trie (Prefix Tree)** | `Medium` | [https://leetcode.com/problems/implement-trie-prefix-tree/](https://leetcode.com/problems/implement-trie-prefix-tree/) | Core TrieNode with `children = {}` and boolean `is_end` flag. |
+| **#211. Design Add and Search Words Data Structure** | `Medium` | [https://leetcode.com/problems/design-add-and-search-words-data-structure/](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | When the current character is `'.'`, branch recursively across all `curr.children.values()`. |
+| **#212. Word Search II** | `Hard` | [https://leetcode.com/problems/word-search-ii/](https://leetcode.com/problems/word-search-ii/) | Insert all target words into a Trie and walk the 2D board and the Trie simultaneously. |

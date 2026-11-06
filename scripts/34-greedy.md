@@ -1,91 +1,91 @@
-# 🎬 Episodio #34: Greedy Algorithms (Algoritmos Voraces)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 6 — Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Greedy Algorithms`  
-> **Prerrequisitos Recomendados:** Sorting + Intervals → Heaps (Priority Queue)
+# Episode #34: Greedy Algorithms
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 6 — Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Greedy Algorithms`  
+> **Recommended Prerequisites:** Sorting + Intervals -> Heaps (Priority Queue)
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Contrasta Greedy con Dynamic Programming: en DP desconfías y pruebas todas las opciones guardando resultados; en Greedy confías en una regla local que descarta el resto sin arrepentirse. Enseña cómo distinguir en 30 segundos en una entrevista si un problema es Greedy o DP intentando construir un contraejemplo pequeño.
+Contrast Greedy with Dynamic Programming: in DP we distrust single choices and cache all subproblems; in Greedy we prove a local rule works and never look back. Show how to test in 30 seconds whether a problem is Greedy or DP by trying to construct a small counterexample.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Greedy", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Optimización con N ≤ 10⁵ donde existe propiedad de elección voraz) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Greedy", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Optimization with N <= 10^5 where the greedy exchange property holds) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Greedy?
-Tomar en cada paso la decisión que parece mejor **en ese preciso instante** (óptimo local) sin mirar atrás ni explorar otras ramas, demostrando que esa regla voraz conduce garantizadamente al óptimo global en O(N) o O(N log N).
+### What is Greedy?
+Making the locally optimal choice at each step without looking back or exploring alternative branches—when the problem satisfies the greedy choice property, this leads directly to the global optimum in O(N) or O(N log N) time.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Si quieres meter la mayor cantidad de reuniones posibles en tu día (sin importar cuánto duren), la regla voraz infalible es elegir siempre la reunión que **termine más temprano**: así liberas tu sala lo antes posible para las siguientes.
+### Real-World Analogy
+> **Visual Intuition:** Fitting the maximum number of meetings into your day: the provably optimal greedy rule is always picking the meeting that **finishes earliest**, freeing up your room as soon as possible for future meetings.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** En problemas de selección de intervalos sin solapamiento, ordenar por hora de FIN (`end`) es óptimo; ordenar por inicio falla cuando una reunión empieza temprano pero dura todo el día.
-2. **Idea Clave #2:** En `Jump Game` y `Gas Station`, en lugar de simular cada punto de partida, mantienes una frontera o acumulador que descarta rangos enteros de una sola vez.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Greedy)
-- ✅ Problemas de **alcance máximo** o saltos (`Jump Game I & II`: mantener siempre `max_reach = max(max_reach, i + nums[i])`).
-- ✅ **Interval Scheduling**: Elegir la mayor cantidad de intervalos que no se solapen (ordenando por punto de **FIN** `end`).
-- ✅ Asignación con ordenamiento o Heaps (`Gas Station`, `Candy`, `Boats to Save People`, `Partition Labels`).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Cuando una elección voraz temprana te bloquea una recompensa mucho mayor más adelante (ej. `0/1 Knapsack` o cambio de monedas con denominaciones como `[1, 3, 4]` para sumar `6`, donde el voraz elige `4+1+1` (3 monedas) en vez del óptimo `3+3` (2 monedas)). Si el voraz falla, necesitas **Dynamic Programming**.
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Optimización con N ≤ 10⁵ donde existe propiedad de elección voraz`
-- **Complejidad Temporal Promedio:** `O(N) en barrido directo | O(N log N) si requiere ordenar antes`
-- **Complejidad Temporal Peor Caso:** `O(N log N)`
-- **Complejidad Espacial:** `O(1) adicional`
-- **Nota Técnica:** Siempre pon a prueba tu idea Greedy intentando inventar un contraejemplo pequeño de 3 o 4 elementos antes de programarla.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** For maximum non-overlapping intervals, sorting by END time (`x[1]`) is provably optimal; sorting by start time fails when an early meeting lasts all day.
+2. **Key Takeaway #2:** In `Jump Game` and `Gas Station`, tracking a running frontier eliminates entire ranges in a single O(N) pass.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Proponer la regla voraz candidata (ej. ordenar por menor fin, mayor ratio valor/peso, o mantener alcance máximo).
-2. Intentar romperla con un contraejemplo de 3 elementos. Si resiste y cumple la propiedad de intercambio, programarla en O(N) u O(N log N).
+### Problem Statement Signals (When to USE Greedy)
+- [x] Reachability and jump problems (`Jump Game I & II`: tracking `max_reach = max(max_reach, i + nums[i])`).
+- [x] **Interval Scheduling**: Selecting the maximum number of non-overlapping intervals by sorting by **END time (`x[1]`)**.
+- [x] Greedy pairing after sorting (`Boats to Save People`, `Gas Station`, `Candy`, `Partition Labels`).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Aplicar Greedy en problemas tipo `Coin Change` con monedas arbitrarias o `House Robber` donde tomar el máximo inmediato te impide tomar dos vecinos que sumaban más.
+### When NOT to Use It (False Positives)
+- [!] When a greedy early choice blocks a much better future combination (e.g., `0/1 Knapsack` or `Coin Change` with coins `[1, 3, 4]` for target `6`, where greedy picks `4+1+1` (3 coins) instead of `3+3` (2 coins)). When greedy fails a counterexample, use **Dynamic Programming**.
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Optimization with N <= 10^5 where the greedy exchange property holds`
+- **Average Time Complexity:** `O(N) single scan | O(N log N) when sorting first`
+- **Worst-Case Time Complexity:** `O(N log N)`
+- **Space Complexity:** `O(1) auxiliary space`
+- **Engineering Note:** Always test your greedy hypothesis against a small 3-element counterexample before coding.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Formulate the candidate greedy rule (e.g., earliest finish time, furthest reach, largest ratio).
+2. Try to break it with a 3-element counterexample. If no counterexample exists, code it in O(N) or O(N log N).
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Applying Greedy to `Coin Change` with arbitrary denominations or `House Robber`, where picking the largest immediate value blocks two neighbors that sum to more.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def can_jump_greedy(nums: list[int]) -> bool:
     """
-    Patrón Greedy de Alcance Máximo (Jump Game).
-    En lugar de probar todos los saltos con DP O(N^2), rastreamos hasta qué índice máximo podemos llegar.
-    Tiempo: O(N) | Espacio: O(1)
+    Greedy Maximum Reach Pattern (Jump Game).
+    Instead of O(N^2) DP over all jumps, track the furthest index reachable so far.
+    Time: O(N) | Space: O(1)
     """
     max_reach = 0
     for i, jump in enumerate(nums):
         if i > max_reach:
-            return False  # Quedamos atrapados antes de poder pisar la casilla 'i'
+            return False  # Index 'i' is unreachable!
         max_reach = max(max_reach, i + jump)
     return True
 
 
 def max_non_overlapping_intervals(intervals: list[list[int]]) -> int:
     """
-    Patrón Greedy de Intervalos: Ordenar por FIN (x[1]), nunca por inicio.
+    Greedy Interval Scheduling: Sort by END time (x[1]), never start time!
     """
     intervals.sort(key=lambda x: x[1])
     count = 0
@@ -97,7 +97,7 @@ def max_non_overlapping_intervals(intervals: list[list[int]]) -> int:
     return count
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function canJumpGreedy(nums: number[]): boolean {
   let maxReach = 0;
@@ -111,24 +111,24 @@ export function canJumpGreedy(nums: number[]): boolean {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] Greedy vs DP: ¿Cuándo vale la pena ser voraz?
-- **🎬 Visual en Pantalla / Slide:** Un escalador tomando el camino más alto inmediato vs un mapa con vista aérea.
-- **🎙️ Narración / Guion:**
-  > "Un algoritmo Greedy toma la mejor decisión del momento y jamás mira por el espejo retrovisor. Cuando la propiedad matemática se cumple, transforma problemas que parecerían requerir Programación Dinámica en un simple barrido lineal con O(1) de memoria."
+### [00:00 - 01:45] Greedy vs DP: When Can You Trust a Local Choice?
+- **On-Screen Visual / Slide Cue:** A climber picking the steepest immediate step vs a map showing all paths.
+- **Narration / Script:**
+  > "A Greedy algorithm makes the best decision right now and never looks in the rearview mirror. When the greedy exchange property holds, it turns problems that look like Dynamic Programming into a simple O(N) scan with O(1) memory."
 
-### ⏱️ [01:45 - 04:30] Jump Game, Gas Station y la Regla de Ordenar por Final
-- **🎬 Visual en Pantalla / Slide:** Animación de `max_reach` avanzando como una ola sobre las casillas de Jump Game.
-- **🎙️ Narración / Guion:**
-  > "En Jump Game no nos importa qué combinación exacta de saltos dimos: solo nos importa cuál es la casilla más lejana que podemos alcanzar hasta este momento."
+### [01:45 - 04:30] Jump Game, Gas Station, and Sorting by End Time
+- **On-Screen Visual / Slide Cue:** Animation of `max_reach` advancing like a wave across the cells of Jump Game.
+- **Narration / Script:**
+  > "In Jump Game, we do not care which exact sequence of jumps we took—we only care about the furthest index reachable so far."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#55. Jump Game** | `Medium` | [https://leetcode.com/problems/jump-game/](https://leetcode.com/problems/jump-game/) | Mantén la frontera más lejana alcanzable `max_reach = max(max_reach, i + nums[i])`. |
-| **#134. Gas Station** | `Medium` | [https://leetcode.com/problems/gas-station/](https://leetcode.com/problems/gas-station/) | Si `sum(gas) >= sum(cost)`, existe solución; si el tanque cae `< 0` en `i`, ninguna estación anterior podía ser el inicio, así que reinicia en `i + 1`. |
-| **#763. Partition Labels** | `Medium` | [https://leetcode.com/problems/partition-labels/](https://leetcode.com/problems/partition-labels/) | Precalcula la última aparición de cada letra y extiende el corte actual hasta `max(end, last_pos[ch])`. |
+| **#55. Jump Game** | `Medium` | [https://leetcode.com/problems/jump-game/](https://leetcode.com/problems/jump-game/) | Track the furthest reachable index `max_reach = max(max_reach, i + nums[i])`. |
+| **#134. Gas Station** | `Medium` | [https://leetcode.com/problems/gas-station/](https://leetcode.com/problems/gas-station/) | If `sum(gas) >= sum(cost)`, a unique start exists; whenever `tank < 0` at `i`, reset start to `i + 1`. |
+| **#763. Partition Labels** | `Medium` | [https://leetcode.com/problems/partition-labels/](https://leetcode.com/problems/partition-labels/) | Precompute the last index of each character and extend the current partition end to `max(end, last_pos[ch])`. |

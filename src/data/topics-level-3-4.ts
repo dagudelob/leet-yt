@@ -2,12 +2,12 @@ import { DSATopic } from "@/types/dsa";
 
 export const TOPICS_LEVEL_3_4: DSATopic[] = [
   // ============================================================================
-  // NIVEL 3: PUNTEROS ENLAZADOS, PILAS, COLAS Y DISEÑO DE ESTRUCTURAS (15 - 20)
+  // LEVEL 3: LINKED POINTERS, STACKS, QUEUES & DATA STRUCTURE DESIGN (15 - 20)
   // ============================================================================
   {
     id: "linked-list",
     order: 15,
-    title: "Linked Lists (Listas Enlazadas Simples y Dobles)",
+    title: "Linked Lists (Singly & Doubly Linked)",
     shortTitle: "Linked Lists",
     englishTerm: "Singly & Doubly Linked Lists",
     kind: "data-structure",
@@ -16,23 +16,23 @@ export const TOPICS_LEVEL_3_4: DSATopic[] = [
     branchCategory: "linked-stacks-queues",
     prerequisites: ["arrays"],
     summary:
-      "Nodos independientes dispersos en memoria donde cada uno guarda su valor y una flecha (`next`, y `prev` en listas dobles) al siguiente nodo. Permiten insertar o eliminar en O(1) en cualquier punto si ya tienes la referencia al nodo.",
+      "Independent nodes scattered across memory where each node holds a value and a pointer (`next`, plus `prev` in doubly linked lists) to the adjacent node. Enables O(1) insertion and deletion anywhere once you hold a reference to the node.",
     analogy:
-      "Una búsqueda del tesoro con pistas en sobres: el primer sobre no está pegado físicamente al segundo, pero adentro tiene un papel que dice 'la siguiente pista está debajo de la maceta azul'. Para llegar a la pista #5 debes abrir las pistas 1, 2, 3 y 4 en orden.",
+      "A treasure hunt of envelopes: the first envelope is not physically glued to the second, but inside it is a note saying 'the next clue is under the blue flowerpot'. To reach clue #5, you must follow clues 1, 2, 3, and 4 in sequence.",
     whenToUse: [
-      "Necesitas insertar o eliminar elementos en O(1) en medio o en los extremos sin desplazar memoria contigua.",
-      "Listas Doblemente Enlazadas (`prev` y `next`): cuando necesitas quitar un nodo específico de en medio de una cola en O(1) teniendo su referencia directa (pieza clave de LRU Cache).",
+      "You need O(1) insertion or deletion at the head, tail, or middle without shifting contiguous array memory.",
+      "Doubly Linked Lists (`prev` and `next`): when you need to unlink an arbitrary node from the middle of a queue in O(1) given its direct pointer (the backbone of LRU Cache).",
     ],
     whenNotToUse: [
-      "Cuando necesitas acceso aleatorio por índice (`get(i)` cuesta O(N) porque debes caminar desde la cabeza `head`).",
+      "When you need O(1) random access by index (`get(i)` takes O(N) because you must walk from `head`).",
     ],
     timeComplexity: {
-      average: "Insertar/Borrar con puntero al nodo: O(1) | Buscar por índice/valor: O(N)",
+      average: "Insert/Delete given node pointer: O(1) | Search by index/value: O(N)",
       worst: "O(N)",
-      note: "Usar un nodo centinela `dummy = ListNode(0, head)` elimina los casos especiales al borrar o cambiar la cabeza.",
+      note: "Using a sentinel `dummy = ListNode(0, head)` eliminates special-case edge logic when deleting or replacing the head node.",
     },
-    spaceComplexity: "O(N) nodos y punteros",
-    constraintHint: "Manipulación de punteros in-place en O(1) memoria extra",
+    spaceComplexity: "O(N) nodes and pointers",
+    constraintHint: "In-place pointer rewiring in O(1) extra memory",
     pythonTemplate: `class ListNode:
     def __init__(self, val: int = 0, next: "ListNode | None" = None):
         self.val = val
@@ -41,14 +41,14 @@ export const TOPICS_LEVEL_3_4: DSATopic[] = [
 
 def delete_value_with_dummy(head: ListNode | None, target: int) -> ListNode | None:
     """
-    El Truco del Nodo Dummy (Centinela):
-    Evita tener que escribir un 'if' especial cuando el nodo a borrar es el propio 'head'.
+    The Dummy Sentinel Node Trick:
+    Eliminates special-case checks when the node to remove is 'head' itself.
     """
     dummy = ListNode(0, head)
     curr = dummy
     while curr.next:
         if curr.next.val == target:
-            curr.next = curr.next.next  # Saltamos el nodo objetivo en O(1)
+            curr.next = curr.next.next  # Bypass target node in O(1)
         else:
             curr = curr.next
     return dummy.next`,
@@ -79,53 +79,53 @@ export function deleteValueWithDummy(head: ListNode | null, target: number): Lis
         title: "Merge Two Sorted Lists",
         slug: "merge-two-sorted-lists",
         difficulty: "Easy",
-        patternHint: "Crea un nodo `dummy` y ve cosiendo el menor entre `l1` y `l2`.",
+        patternHint: "Create a `dummy` node and stitch the smaller head between `l1` and `l2` at each step.",
       },
       {
         number: 203,
         title: "Remove Linked List Elements",
         slug: "remove-linked-list-elements",
         difficulty: "Easy",
-        patternHint: "Usa `dummy.next = head` por si los primeros nodos también deben eliminarse.",
+        patternHint: "Use `dummy.next = head` so leading target nodes are removed cleanly.",
       },
       {
         number: 707,
         title: "Design Linked List",
         slug: "design-linked-list",
         difficulty: "Medium",
-        patternHint: "Implementa con centinelas `head_dummy` y `tail_dummy` para simplificar inserciones.",
+        patternHint: "Implement with `head_dummy` and `tail_dummy` sentinels to simplify boundary insertions.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Contrasta visualmente un Array (casilleros pegados en memoria) con una Linked List (nodos unidos por flechas/punteros). Enseña por qué el 'Nodo Dummy (Centinela)' es el mejor amigo del programador para evitar errores de `NullPointerException` cuando la cabeza de la lista cambia.",
+        "Contrast an Array (contiguous lockers in RAM) with a Linked List (nodes linked by pointer arrows). Explain why the 'Dummy Sentinel Node' is a developer's best friend for avoiding null-pointer bugs when the head of the list changes.",
       keyTakeaways: [
-        "En una Linked List no existen índices automáticos: perder la referencia a `head` significa perder toda la lista.",
-        "El orden en que reasignas punteros importa: guarda `nxt = curr.next` antes de sobrescribir `curr.next`.",
-        "Un nodo `dummy` antes de `head` hace que todos los nodos tengan un nodo previo real.",
+        "In a Linked List there are no automatic indices: losing the reference to `head` loses the entire list.",
+        "The order of pointer reassignment matters: always save `nxt = curr.next` before overwriting `curr.next`.",
+        "Placing a `dummy` node before `head` guarantees every real node has a valid predecessor.",
       ],
       stepByStepWalkthrough: [
-        "Dibujar siempre 3 cajitas con flechas antes de escribir código de punteros.",
-        "Crear `dummy = ListNode(0, head)` siempre que la cabeza original pueda cambiar o eliminarse.",
-        "Retornar `dummy.next` al final.",
+        "Sketch 3 boxes and arrows before writing any pointer manipulation code.",
+        "Create `dummy = ListNode(0, head)` whenever the original head might be deleted or moved.",
+        "Return `dummy.next` at the end.",
       ],
       interviewTraps: [
-        "Hacer `curr.next = nuevo` antes de conectar `nuevo.next = curr.next`, cortando la cadena y perdiendo el resto de la lista en memoria.",
+        "Overwriting `curr.next = new_node` before setting `new_node.next = curr.next`, severing the chain and losing the rest of the list.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:30",
-          sectionTitle: "Arrays vs Linked Lists: Cajas contiguas vs Búsqueda del tesoro",
-          visualCue: "Animación de nodos enlazados flotando en memoria conectados por flechas luminosas.",
+          sectionTitle: "Arrays vs Linked Lists: Contiguous Lockers vs Treasure Hunt",
+          visualCue: "Animation of nodes floating in memory connected by glowing pointer arrows.",
           narration:
-            "Si los Arrays son casilleros pegados en una pared, una Linked List es una cadena de pistas donde cada nodo solo sabe dónde vive el siguiente. Eso hace que buscar por posición sea lento, pero insertar o cortar eslabones sea instantáneo.",
+            "If Arrays are numbered lockers along a wall, a Linked List is a chain of clues where each node only knows where the next node lives. That makes indexing slow, but splicing links in O(1) instant.",
         },
         {
           timestamp: "01:30 - 04:00",
-          sectionTitle: "El superpoder del Nodo Dummy (Centinela)",
-          visualCue: "Un nodo gris 'Dummy' colocado delante de 'head' permitiendo borrar el primer elemento sin casos borde.",
+          sectionTitle: "The Superpower of the Dummy Sentinel Node",
+          visualCue: "A gray 'Dummy' node placed ahead of 'head', allowing the first element to be deleted without edge cases.",
           narration:
-            "El 80% de los bugs en listas enlazadas ocurren cuando te toca borrar o mover el primer nodo. La solución profesional es colocar un nodo fantasma Dummy al inicio y devolver `dummy.next` al final.",
+            "Eighty percent of linked list bugs happen when deleting or moving the very first node. The clean engineering fix is placing a dummy sentinel node at the front and returning `dummy.next`.",
         },
       ],
     },
@@ -133,7 +133,7 @@ export function deleteValueWithDummy(head: ListNode | null, target: number): Lis
   {
     id: "linkedlist-manipulation",
     order: 16,
-    title: "Linked List Manipulation (Fast & Slow Pointers y Reversión)",
+    title: "Linked List Manipulation (Fast & Slow Pointers & Reversal)",
     shortTitle: "LL Manipulation",
     englishTerm: "Fast & Slow Pointers & In-Place Reversal",
     kind: "algorithm",
@@ -142,49 +142,49 @@ export function deleteValueWithDummy(head: ListNode | null, target: number): Lis
     branchCategory: "linked-stacks-queues",
     prerequisites: ["linked-list", "two-pointers"],
     summary:
-      "Las dos técnicas quirúrgicas sobre listas enlazadas: 1) Tortuga y Liebre (`slow` avanza 1 paso, `fast` avanza 2 pasos) para hallar el nodo central o detectar ciclos en O(1) espacio, y 2) Inversión de punteros in-place con `prev, curr, nxt`.",
+      "The two surgical techniques on linked lists: 1) Tortoise and Hare (`slow` moves 1 step, `fast` moves 2 steps) to locate the middle node or detect cycles in O(1) space, and 2) In-place pointer reversal using `prev, curr, nxt`.",
     analogy:
-      "Dos corredores en una pista: si la pista es recta, cuando el corredor que va al doble de velocidad llega a la meta, el corredor lento va exactamente por la mitad. Y si la pista es circular (hay un ciclo), el corredor rápido inevitablemente alcanzará al lento dándole una vuelta de ventaja.",
+      "Two runners on a track: on a straight track, when the runner moving at 2x speed reaches the finish line, the 1x runner is at the exact midpoint. On a circular track (a cycle), the faster runner is guaranteed to lap and meet the slower runner.",
     whenToUse: [
-      "Encontrar el nodo del medio de una lista en una sola pasada sin contar su longitud previamente.",
-      "Detectar si una lista (o secuencia de estados funcionales) tiene un ciclo y hallar el nodo exacto donde empieza el ciclo (Algoritmo de Floyd).",
-      "Invertir toda la lista o un subsegmento `[left, right]` in-place sin crear nodos nuevos.",
+      "Finding the middle node of a linked list in a single pass without pre-counting its length.",
+      "Detecting whether a linked list (or functional state sequence) contains a cycle and finding the cycle entry point (Floyd's Cycle Detection).",
+      "Reversing an entire linked list or a subsegment `[left, right]` in-place in O(1) extra space.",
     ],
     whenNotToUse: [
-      "Nunca hagas `fast.next.next` sin verificar primero `while fast and fast.next:` en la condición del bucle.",
+      "Never access `fast.next.next` without first checking `while fast and fast.next:` in your loop guard.",
     ],
     timeComplexity: {
       average: "O(N)",
       worst: "O(N)",
-      note: "Usa O(1) de memoria auxiliar frente a O(N) que usaría un Hash Set o pila recursiva.",
+      note: "Achieves O(1) auxiliary space compared to O(N) for a Hash Set or recursive call stack.",
     },
-    spaceComplexity: "O(1) punteros in-place",
-    constraintHint: "Operaciones sobre listas o secuencias cíclicas exigiendo O(1) memoria extra",
+    spaceComplexity: "O(1) in-place pointers",
+    constraintHint: "Linked list or functional cycle problems requiring O(1) extra memory",
     pythonTemplate: `def reverse_linked_list(head):
     """
-    1. Reversión In-Place con 3 punteros: prev, curr, nxt.
-    Tiempo: O(N) | Espacio: O(1)
+    1. In-Place Reversal with 3 pointers: prev, curr, nxt.
+    Time: O(N) | Space: O(1)
     """
     prev = None
     curr = head
     while curr:
-        nxt = curr.next      # 1. Guardar el siguiente antes de romper el enlace
-        curr.next = prev     # 2. Invertir la flecha hacia atrás
-        prev = curr          # 3. Avanzar prev
-        curr = nxt           # 4. Avanzar curr
+        nxt = curr.next      # 1. Save next node before breaking the link
+        curr.next = prev     # 2. Reverse arrow backward
+        prev = curr          # 3. Advance prev
+        curr = nxt           # 4. Advance curr
     return prev
 
 
 def middle_and_cycle_detection(head):
     """
-    2. Tortuga y Liebre (Fast & Slow Pointers de Floyd).
+    2. Floyd's Tortoise and Hare (Fast & Slow Pointers).
     """
     slow = fast = head
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
         if slow is fast:
-            return True  # ¡Ciclo detectado!
+            return True  # Cycle detected!
     return False`,
     typescriptTemplate: `import { ListNode } from "./linked-list";
 
@@ -216,53 +216,53 @@ export function hasCycleFloyd(head: ListNode | null): boolean {
         title: "Reverse Linked List",
         slug: "reverse-linked-list",
         difficulty: "Easy",
-        patternHint: "Baile de 4 líneas con `prev = None`, `curr = head` y `nxt = curr.next`.",
+        patternHint: "4-line pointer dance with `prev = None`, `curr = head`, and `nxt = curr.next`.",
       },
       {
         number: 141,
         title: "Linked List Cycle",
         slug: "linked-list-cycle",
         difficulty: "Easy",
-        patternHint: "Tortuga (`slow.next`) y Liebre (`fast.next.next`) en O(1) espacio.",
+        patternHint: "Tortoise (`slow.next`) and Hare (`fast.next.next`) in O(1) space.",
       },
       {
         number: 143,
         title: "Reorder List",
         slug: "reorder-list",
         difficulty: "Medium",
-        patternHint: "El combo definitivo: 1) Halla la mitad con Slow/Fast, 2) Invierte la 2ª mitad, 3) Intercala ambas mitades.",
+        patternHint: "The ultimate combo: 1) Find middle with Slow/Fast, 2) Reverse second half in-place, 3) Zipper-merge both halves.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Haz que el oyente domine de memoria las dos coreografías más preguntadas en entrevistas: 1) El baile de 4 pasos para invertir una lista (`nxt = curr.next`, `curr.next = prev`, `prev = curr`, `curr = nxt`) y 2) El algoritmo de la Tortuga y la Liebre de Floyd, cerrando con cómo ambos se combinan en 'Reorder List' o 'Palindrome Linked List'.",
+        "Make the listener master the two most-asked linked list choreographies: 1) The 4-step in-place reversal dance (`nxt = curr.next`, `curr.next = prev`, `prev = curr`, `curr = nxt`) and 2) Floyd's Tortoise and Hare algorithm, showing how both combine in 'Reorder List' and 'Palindrome Linked List'.",
       keyTakeaways: [
-        "Invertir una lista in-place solo requiere 3 variables (`prev`, `curr`, `nxt`) y 4 asignaciones en orden cíclico.",
-        "Cuando `fast` llega al final, `slow` está exactamente en el medio.",
-        "En detección de ciclos de Floyd, si tras chocar reinicias un puntero en `head` y avanzas ambos de 1 en 1, se encuentran en la entrada exacta del ciclo.",
+        "Reversing a list in-place requires only 3 variables (`prev`, `curr`, `nxt`) and 4 cyclical assignments.",
+        "When `fast` reaches the end of the list, `slow` sits at the exact midpoint.",
+        "In Floyd's cycle detection, resetting one pointer to `head` after collision and advancing both by 1 step meets at the exact cycle entrance.",
       ],
       stepByStepWalkthrough: [
-        "Para hallar mitad/ciclo: inicializar `slow = fast = head` y ciclar con `while fast and fast.next:`.",
-        "Para invertir: inicializar `prev = None`, `curr = head`, respaldar `nxt = curr.next` en cada paso y retornar `prev`.",
-        "Para problemas compuestos (ej. `Reorder List`), partir la lista poniendo `slow.next = None` antes de invertir la segunda mitad.",
+        "For midpoint/cycle: initialize `slow = fast = head` and loop with `while fast and fast.next:`.",
+        "For reversal: initialize `prev = None`, `curr = head`, save `nxt = curr.next` on each step, and return `prev`.",
+        "For composite problems (`Reorder List`), sever the two halves with `slow.next = None` before reversing the second half.",
       ],
       interviewTraps: [
-        "En `Reorder List`, olvidar cortar el enlace entre la primera y la segunda mitad (`slow.next = None`), provocando un ciclo infinito al mezclar las listas.",
+        "In `Reorder List`, forgetting to cut the link between the first and second halves (`slow.next = None`), causing an infinite cycle when merging.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 02:00",
-          sectionTitle: "La coreografía de 4 pasos: Invertir una Linked List in-place",
-          visualCue: "Animación de las flechas girando 180 grados nodo por nodo con `prev`, `curr` y `nxt`.",
+          sectionTitle: "The 4-Step Choreography: In-Place Linked List Reversal",
+          visualCue: "Animation of arrows flipping 180 degrees node by node using `prev`, `curr`, and `nxt`.",
           narration:
-            "Invertir una lista enlazada es una pregunta tan clásica que deberías poder escribirla con los ojos cerrados. No intentes memorizar código: memoriza el ciclo visual donde cada variable toma el lugar de la siguiente.",
+            "Reversing a linked list is such a foundational interview question that you should be able to write it with your eyes closed. Do not memorize raw text—visualize the four-step cycle where each pointer takes the previous pointer's spot.",
         },
         {
           timestamp: "02:00 - 04:45",
-          sectionTitle: "Tortuga y Liebre (Floyd) y el Combo de Reorder List",
-          visualCue: "Dos cursores a velocidad 1x y 2x hallando la mitad y luego intercalando extremos.",
+          sectionTitle: "Tortoise & Hare (Floyd) and the Reorder List Combo",
+          visualCue: "Two cursors moving at 1x and 2x speed finding the middle and zipper-merging both halves.",
           narration:
-            "¿Cómo encuentras la mitad de una lista sin saber cuántos nodos tiene? Con un puntero lento y uno rápido. Y cuando combinas eso con invertir la segunda mitad, resuelves problemas Medium y Hard en O(1) de memoria.",
+            "How do you find the middle of a list without knowing its length? Use a slow pointer and a fast pointer. Combine that with reversing the second half, and you can solve Medium and Hard linked list problems in O(1) memory.",
         },
       ],
     },
@@ -270,7 +270,7 @@ export function hasCycleFloyd(head: ListNode | null): boolean {
   {
     id: "stacks",
     order: 17,
-    title: "Stacks (Pilas LIFO y Evaluación Anidada)",
+    title: "Stacks (LIFO & Nested Expression Evaluation)",
     shortTitle: "Stacks (LIFO)",
     englishTerm: "Stacks (LIFO)",
     kind: "hybrid",
@@ -279,42 +279,42 @@ export function hasCycleFloyd(head: ListNode | null): boolean {
     branchCategory: "linked-stacks-queues",
     prerequisites: ["arrays"],
     summary:
-      "Estructura Last-In, First-Out (el último en entrar es el primero en salir) ideal para recordar el historial reciente, validar estructuras anidadas (paréntesis, HTML), deshacer acciones y simular recursión de forma iterativa.",
+      "Last-In, First-Out (LIFO) structure ideal for tracking recent history, validating nested scopes (parentheses, HTML tags), undoing actions, and simulating recursion iteratively.",
     analogy:
-      "Una torre de platos limpios en una cafetería: siempre colocas el plato nuevo arriba del todo (`push`), y cuando alguien necesita un plato, toma exactamente ese último plato que pusiste arriba (`pop`).",
+      "A stack of clean plates in a cafeteria: you always place a new plate on the very top (`push`), and the next person takes that exact top plate first (`pop`).",
     whenToUse: [
-      "Validar o emparejar símbolos que abren y cierran en orden anidado (`()`, `{}`, `[]`, etiquetas).",
-      "Evaluar expresiones matemáticas (Notación Polaca Inversa / RPN, calculadoras con precedencia, decodificar strings `3[a2[c]]`).",
-      "Rastrear el camino actual (historial de directorios `/a/b/../c`, botón Undo/Back).",
+      "Validating or matching nested opening and closing symbols (`()`, `{}`, `[]`, tags).",
+      "Evaluating mathematical expressions (Reverse Polish Notation / RPN, calculators, decoding nested strings like `3[a2[c]]`).",
+      "Tracking active path state (Unix file path simplification `/a/b/../c`, browser Back/Undo history).",
     ],
     whenNotToUse: [
-      "Cuando necesitas atender elementos en el orden exacto de llegada (ahí usa una Queue FIFO).",
+      "When items must be processed in strict arrival order (use a FIFO Queue instead).",
     ],
     timeComplexity: {
       average: "Push: O(1) | Pop: O(1) | Peek (`stack[-1]`): O(1)",
-      worst: "O(N) para procesar N elementos",
-      note: "En Python, una `list` normal funciona como Stack perfecto usando `append()` y `pop()`.",
+      worst: "O(N) to process N tokens",
+      note: "In Python, a standard `list` serves as a fast Stack using `append()` and `pop()`.",
     },
-    spaceComplexity: "O(N) en el peor caso cuando todos los elementos se apilan",
-    constraintHint: "Estructuras anidadas, paréntesis, calculadoras o historial con N ≤ 10⁵",
+    spaceComplexity: "O(N) worst case when all elements are pushed",
+    constraintHint: "Nested structures, parentheses, calculators, or path history with N <= 10^5",
     pythonTemplate: `def is_valid_parentheses(s: str) -> bool:
     """
-    Patrón Clásico de Emparejamiento LIFO con Stack.
-    Tiempo: O(N) | Espacio: O(N)
+    Classic LIFO Matching Pattern with a Stack.
+    Time: O(N) | Space: O(N)
     """
     closing_to_opening = {")": "(", "]": "[", "}": "{"}
     stack: list[str] = []
 
     for ch in s:
         if ch in closing_to_opening:
-            # Si llega un cierre, el tope de la pila DEBE ser su apertura correspondiente
+            # A closing bracket must match the most recent unclosed opening bracket on top
             if not stack or stack[-1] != closing_to_opening[ch]:
                 return False
             stack.pop()
         else:
             stack.append(ch)
 
-    # Al final la pila debe quedar completamente vacía
+    # Stack must be completely empty at the end
     return len(stack) == 0`,
     typescriptTemplate: `export function isValidParentheses(s: string): boolean {
   const pairs: Record<string, string> = { ")": "(", "]": "[", "}": "{" };
@@ -338,53 +338,53 @@ export function hasCycleFloyd(head: ListNode | null): boolean {
         title: "Valid Parentheses",
         slug: "valid-parentheses",
         difficulty: "Easy",
-        patternHint: "Apila aperturas y verifica el tope al encontrar un cierre.",
+        patternHint: "Push opening brackets and verify the top of the stack upon seeing a closing bracket.",
       },
       {
         number: 150,
         title: "Evaluate Reverse Polish Notation",
         slug: "evaluate-reverse-polish-notation",
         difficulty: "Medium",
-        patternHint: "Apila números; al ver un operador, saca los 2 últimos (`b = pop()`, `a = pop()`) y apila `a op b`.",
+        patternHint: "Push numbers; on an operator, pop the top 2 operands (`b = pop()`, `a = pop()`) and push `a op b`.",
       },
       {
         number: 394,
         title: "Decode String",
         slug: "decode-string",
         difficulty: "Medium",
-        patternHint: "Al ver `[`, guarda `(string_previo, numero_k)` en la pila; al ver `]`, desapila y multiplica.",
+        patternHint: "On `[`, push `(prev_string, repeat_k)` onto the stack; on `]`, pop and expand.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica cómo una Pila (Stack) es la máquina del tiempo para todo lo que tenga anidamiento ('lo último que se abrió debe ser lo primero en cerrarse'). Muestra por qué toda llamada recursiva en la computadora usa internamente un Call Stack y cómo usar una pila explícita resuelve paréntesis, rutas de archivos y decodificación de cadenas.",
+        "Explain how a Stack models nested scopes ('the last scope opened must be the first scope closed'). Show why every recursive function uses a Call Stack under the hood and how an explicit stack solves parentheses matching, calculators, and `Decode String`.",
       keyTakeaways: [
-        "LIFO (Last-In, First-Out): el elemento más reciente en entrar es siempre el primero en resolverse.",
-        "Siempre verifica `if not stack:` antes de leer `stack[-1]` o hacer `stack.pop()`.",
-        "Al finalizar el recorrido, verifica que `len(stack) == 0` por si quedaron aperturas huérfanas sin cerrar.",
+        "LIFO (Last-In, First-Out): the most recently opened item is always the first to be resolved.",
+        "Always guard with `if not stack:` before reading `stack[-1]` or calling `stack.pop()`.",
+        "At the end of the loop, verify `len(stack) == 0` to catch unclosed opening brackets.",
       ],
       stepByStepWalkthrough: [
-        "Recorrer los tokens o caracteres de izquierda a derecha.",
-        "Si inicia un contexto nuevo (paréntesis abierto, operando), hacer `stack.append(x)`.",
-        "Si cierra o combina el contexto más reciente, hacer `stack.pop()` y combinar con el nuevo tope.",
+        "Scan tokens or characters from left to right.",
+        "When entering a new nested context (opening bracket, operand), `stack.append(x)`.",
+        "When closing or combining the most recent context, `stack.pop()` and merge with the new top.",
       ],
       interviewTraps: [
-        "Retornar `True` al terminar el bucle en `Valid Parentheses` sin comprobar que la pila quedó vacía (falla en inputs como `'((('`).",
+        "Returning `True` at the end of `Valid Parentheses` without checking `len(stack) == 0` (fails on inputs like `'((('`).",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:30",
-          sectionTitle: "La ley del anidamiento: El último en abrir es el primero en cerrar",
-          visualCue: "Cajas rusas (matrioshkas) y paréntesis anidados apilándose y desapilándose.",
+          sectionTitle: "The Law of Nesting: Last Opened, First Closed",
+          visualCue: "Nested Russian dolls and parentheses pushing and popping from a vertical stack.",
           narration:
-            "Piensa en cómo funcionan los paréntesis en matemáticas o las carpetas en tu computadora: el último bloque que abriste es obligatoriamente el primero que tienes que cerrar. Esa propiedad tiene nombre: LIFO, y su estructura es el Stack.",
+            "Think about how parentheses work in math or how folders nest on your computer: the last block you opened is strictly the first block you must close. That property is called LIFO, and its data structure is the Stack.",
         },
         {
           timestamp: "01:30 - 04:00",
-          sectionTitle: "De Valid Parentheses a Calculadoras y Decode String",
-          visualCue: "Animación de `3[a2[c]]` guardando el contexto previo en la pila al entrar a cada corchete.",
+          sectionTitle: "From Valid Parentheses to Calculators and Decode String",
+          visualCue: "Animation of `3[a2[c]]` saving outer context on the stack when entering each bracket.",
           narration:
-            "Cuando tienes estructuras dentro de otras estructuras, como en Decode String, la pila te permite pausar lo que estabas construyendo afuera, resolver lo de adentro y luego retomar exactamente donde te quedaste.",
+            "Whenever you have patterns nested inside other patterns, like in Decode String, a stack lets you pause what you were building outside, solve the inner bracket, and resume right where you left off.",
         },
       ],
     },
@@ -392,7 +392,7 @@ export function hasCycleFloyd(head: ListNode | null): boolean {
   {
     id: "queues-deques",
     order: 18,
-    title: "Queues & Deques (Colas FIFO y Colas de Doble Extremo)",
+    title: "Queues & Deques (FIFO & Double-Ended Queues)",
     shortTitle: "Queues & Deques",
     englishTerm: "Queues (FIFO) & Double-Ended Queues (Deque)",
     kind: "data-structure",
@@ -401,37 +401,37 @@ export function hasCycleFloyd(head: ListNode | null): boolean {
     branchCategory: "linked-stacks-queues",
     prerequisites: ["arrays", "linked-list"],
     summary:
-      "Colas First-In, First-Out (el primero en llegar es el primero en salir) y Deques (`collections.deque`) que permiten insertar y extraer tanto por la izquierda como por la derecha en tiempo constante O(1).",
+      "First-In, First-Out (FIFO) queues and Double-Ended Queues (`collections.deque`) that support O(1) insertions and pops from both the front and the back.",
     analogy:
-      "Una fila de personas en el banco (Queue FIFO): el primero que se formó en la fila es el primero al que atienden en la ventanilla. Una Deque es una fila VIP con puerta adelante y atrás que permite meter o sacar por ambos extremos al instante.",
+      "A checkout line at a grocery store (FIFO Queue): the first customer in line is the first customer served. A Deque is a VIP hallway with doors at both ends, letting you add or remove from either side in O(1).",
     whenToUse: [
-      "Procesar eventos o tareas en orden estricto de llegada (ventana de tiempo reciente, buffer de streaming).",
-      "Recorrer árboles o grafos nivel por nivel (motor fundamental de Breadth-First Search - BFS).",
-      "Mantener ventanas deslizantes donde entran elementos por la derecha y salen por la izquierda en O(1).",
+      "Processing events or tasks in strict arrival order (sliding time windows, rate limiters, stream buffers).",
+      "Traversing trees or graphs level by level (the engine behind Breadth-First Search - BFS).",
+      "Maintaining sliding windows where elements enter on the right and expire from the left in O(1).",
     ],
     whenNotToUse: [
-      "En Python, NUNCA uses `list.pop(0)` como cola porque cuesta O(N); importa siempre `from collections import deque` y usa `popleft()` en O(1).",
+      "In Python, NEVER use `list.pop(0)` as a queue because shifting costs O(N); always import `from collections import deque` and call `popleft()` in O(1).",
     ],
     timeComplexity: {
       average: "append / appendleft / pop / popleft: O(1)",
-      worst: "O(1) en extremos",
-      note: "`collections.deque` está implementada en C como una lista doblemente enlazada de bloques.",
+      worst: "O(1) at both ends",
+      note: "`collections.deque` is implemented in C as a doubly linked list of fixed-size blocks.",
     },
-    spaceComplexity: "O(N) para los elementos en espera",
-    constraintHint: "Procesamiento por orden de llegada, buffers circulares o BFS",
+    spaceComplexity: "O(N) for buffered elements",
+    constraintHint: "Arrival-order processing, circular buffers, or BFS",
     pythonTemplate: `from collections import deque
 
 class RecentCounter:
     """
-    Ejemplo clásico de Queue FIFO en ventana de tiempo [t - 3000, t].
-    Tiempo: O(1) amortizado por llamada | Espacio: O(W)
+    Classic FIFO Queue over a sliding time window [t - 3000, t].
+    Time: O(1) amortized per call | Space: O(W)
     """
     def __init__(self):
         self.q = deque()
 
     def ping(self, t: int) -> int:
         self.q.append(t)
-        # Sacamos por la izquierda en O(1) todos los eventos que ya caducaron
+        # Evict expired timestamps from the front in O(1)
         while self.q and self.q[0] < t - 3000:
             self.q.popleft()
         return len(self.q)`,
@@ -461,53 +461,53 @@ class RecentCounter:
         title: "Number of Recent Calls",
         slug: "number-of-recent-calls",
         difficulty: "Easy",
-        patternHint: "Agrega `t` con `append` y elimina llamadas `< t - 3000` con `popleft()`.",
+        patternHint: "Append `t` and evict calls `< t - 3000` from the front using `popleft()`.",
       },
       {
         number: 622,
         title: "Design Circular Queue",
         slug: "design-circular-queue",
         difficulty: "Medium",
-        patternHint: "Arreglo fijo de tamaño `K` con índices `(head + count) % K`.",
+        patternHint: "Fixed array of size `K` with circular index math `(head + count) % K`.",
       },
       {
         number: 225,
         title: "Implement Stack using Queues",
         slug: "implement-stack-using-queues",
         difficulty: "Easy",
-        patternHint: "Al insertar un elemento, rota los `N-1` anteriores detrás de él.",
+        patternHint: "After pushing a new element, rotate the previous `N - 1` elements behind it.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica la filosofía FIFO (First-In, First-Out) y por qué la estructura `deque` (Double-Ended Queue) es la navaja suiza que puede actuar como Stack, como Queue y como ventana deslizante en O(1). Enseña también cómo funciona una Cola Circular sobre un arreglo fijo usando el operador módulo `% capacity`.",
+        "Explain the FIFO philosophy and why Python's `collections.deque` (Double-Ended Queue) is the Swiss Army knife that acts as a Stack, a Queue, and a Sliding Window buffer in O(1). Also show how a Circular Queue wraps around a fixed array using `% capacity`.",
       keyTakeaways: [
-        "FIFO procesa por orden de antigüedad o cercanía (por eso es la base de BFS para caminos más cortos).",
-        "`collections.deque` en Python da `append`, `appendleft`, `pop` y `popleft` todos en O(1).",
-        "En JavaScript/TypeScript no hay `deque` nativa en la librería estándar: usar un objeto con índices `head` y `tail` o un arreglo circular evita el costo O(N) de `Array.shift()`.",
+        "FIFO processes items in order of arrival or distance (making it the engine of BFS shortest paths).",
+        "`collections.deque` gives `append`, `appendleft`, `pop`, and `popleft` all in O(1).",
+        "In JavaScript/TypeScript, avoid `Array.shift()` on large queues; use head/tail pointers or a two-array queue.",
       ],
       stepByStepWalkthrough: [
-        "Importar `from collections import deque`.",
-        "Encolar elementos nuevos por la derecha con `q.append(x)`.",
-        "Desencolar el elemento más antiguo por la izquierda con `q.popleft()`.",
+        "Import `from collections import deque`.",
+        "Enqueue new items at the back with `q.append(x)`.",
+        "Dequeue the oldest item from the front with `q.popleft()`.",
       ],
       interviewTraps: [
-        "Usar `Array.shift()` en JS o `list.pop(0)` en Python en una cola con 100,000 elementos, causando TLE.",
+        "Using `Array.shift()` in JS or `list.pop(0)` in Python on a queue with 100,000 items, causing O(N^2) TLE.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:30",
-          sectionTitle: "FIFO vs LIFO: La justicia del orden de llegada",
-          visualCue: "Túnel donde los datos entran por la derecha y salen en el mismo orden por la izquierda.",
+          sectionTitle: "FIFO vs LIFO: Fairness of Arrival Order",
+          visualCue: "Tunnel where items enter on the right and exit in the exact same order on the left.",
           narration:
-            "Mientras la Pila atiende siempre al último en llegar, la Cola respeta el turno de llegada: el primero en entrar es el primero en salir. Es la estructura esencial para procesar eventos en tiempo real y explorar grafos por capas.",
+            "While a Stack always serves the newest arrival first, a Queue respects the line: First-In, First-Out. It is the essential structure for real-time event streams and level-by-level graph exploration.",
         },
         {
           timestamp: "01:30 - 04:00",
-          sectionTitle: "Deque y Colas Circulares: O(1) en ambos extremos",
-          visualCue: "Anillo circular con punteros head y tail avanzando con aritmética `% capacidad`.",
+          sectionTitle: "Deques and Circular Queues: O(1) at Both Ends",
+          visualCue: "Circular ring buffer with `head` and `tail` pointers advancing via `% capacity`.",
           narration:
-            "Con una Deque o una Cola Circular obtienes inserciones y extracciones instantáneas tanto al frente como al final, preparando el terreno para dos de los algoritmos más potentes: BFS y Monotonic Queue.",
+            "With a Deque or Circular Queue, you get instant insertions and removals at both the front and the back—setting the stage for BFS and Monotonic Queues.",
         },
       ],
     },
@@ -515,7 +515,7 @@ class RecentCounter:
   {
     id: "monotonic-stack",
     order: 19,
-    title: "Monotonic Stack & Queue (Pila y Cola Monótona)",
+    title: "Monotonic Stack & Monotonic Deque",
     shortTitle: "Monotonic Stack",
     englishTerm: "Monotonic Stack & Monotonic Deque",
     kind: "algorithm",
@@ -524,37 +524,37 @@ class RecentCounter:
     branchCategory: "linked-stacks-queues",
     prerequisites: ["stacks", "queues-deques"],
     summary:
-      "Mantener una pila o deque cuyos elementos están estrictamente ordenados (crecientes o decrecientes). Al llegar un nuevo elemento que rompe el orden, desapilamos los anteriores, descubriendo en O(N) total cuál es el 'Siguiente Elemento Mayor o Menor' de cada posición.",
+      "Maintaining a stack or deque whose elements are kept strictly sorted (increasing or decreasing). Whenever a new element breaks the monotonic order, we pop smaller/larger elements from the top—resolving the 'Next Greater or Smaller Element' for every index in O(N) total time.",
     analogy:
-      "Una fila de edificios mirando hacia el mar: si se construye un rascacielos nuevo muy alto adelante, tapa la vista de todos los edificios más bajos que estaban detrás de él. Esos edificios bajos ya nunca serán el 'edificio más alto visible', así que podemos retirarlos de la lista de candidatos.",
+      "A line of buildings facing the ocean: when a tall new skyscraper is built in front, it blocks the view of all shorter buildings behind it. Those shorter buildings can never be the 'tallest visible building' for anyone further back, so we can pop and retire them immediately.",
     whenToUse: [
-      "El problema pide para cada índice `i` encontrar el **Next Greater Element** (siguiente mayor a la derecha), **Next Smaller Element**, o cuántos días faltan para un día más cálido (`Daily Temperatures`).",
-      "Encontrar el rectángulo de mayor área en un histograma (`Largest Rectangle in Histogram`) o cuánta agua atrapa un relieve (`Trapping Rain Water`).",
-      "**Monotonic Deque**: Encontrar el máximo o mínimo dentro de una ventana deslizante de tamaño `K` en tiempo O(N) (`Sliding Window Maximum`).",
+      "Finding the **Next Greater Element**, **Next Smaller Element**, or **Previous Greater/Smaller Element** for every index `i` (`Daily Temperatures`, `Next Greater Element`).",
+      "Finding the largest rectangle in a histogram (`Largest Rectangle in Histogram`) or trapped rainwater (`Trapping Rain Water`).",
+      "**Monotonic Deque**: Finding the maximum or minimum inside a sliding window of length `K` in O(N) time (`Sliding Window Maximum`).",
     ],
     whenNotToUse: [
-      "Si solo necesitas el máximo o mínimo global de todo el arreglo hasta ahora (para eso basta una simple variable `max_so_far`).",
+      "If you only need the global running maximum or minimum from index 0 to `i` (a single variable `max_so_far` suffices).",
     ],
     timeComplexity: {
       average: "O(N)",
       worst: "O(N)",
-      note: "Cada índice entra a la pila exactamente 1 vez y sale como máximo 1 vez (máximo 2N operaciones).",
+      note: "Each index is pushed onto the stack once and popped at most once (at most 2N operations total).",
     },
-    spaceComplexity: "O(N) para la pila de índices",
-    constraintHint: "Next Greater/Smaller Element, Histogramas o Sliding Window Maximum con N ≤ 10⁵",
+    spaceComplexity: "O(N) for the stack of indices",
+    constraintHint: "Next Greater/Smaller Element, Histograms, or Sliding Window Maximum with N <= 10^5",
     pythonTemplate: `def daily_temperatures(temps: list[int]) -> list[int]:
     """
-    Plantilla Universal de Monotonic Decreasing Stack (guardamos ÍNDICES, no valores).
-    Encuentra para cada posición cuántos pasos faltan hasta el primer elemento MAYOR a su derecha.
-    Tiempo: O(N) | Espacio: O(N)
+    Universal Monotonic Decreasing Stack Template (always store INDICES, not raw values).
+    Finds for each day how many days until the next warmer temperature.
+    Time: O(N) | Space: O(N)
     """
     n = len(temps)
     ans = [0] * n
-    stack: list[int] = []  # Pila de índices con temperaturas decrecientes
+    stack: list[int] = []  # Stack of indices with strictly decreasing temperatures
 
     for i, curr_temp in enumerate(temps):
-        # Mientras el día actual sea MÁS CÁLIDO que el día en el tope de la pila,
-        # ¡acabamos de encontrar el Next Greater Element para stack[-1]!
+        # While today's temperature is WARMER than the day at the top of the stack,
+        # today 'i' is the Next Greater Element for stack[-1]!
         while stack and curr_temp > temps[stack[-1]]:
             prev_idx = stack.pop()
             ans[prev_idx] = i - prev_idx
@@ -564,7 +564,7 @@ class RecentCounter:
     typescriptTemplate: `export function dailyTemperatures(temps: number[]): number[] {
   const n = temps.length;
   const ans = new Array<number>(n).fill(0);
-  const stack: number[] = []; // Guarda índices
+  const stack: number[] = []; // Stores indices
 
   for (let i = 0; i < n; i++) {
     while (stack.length > 0 && temps[i] > temps[stack[stack.length - 1]]) {
@@ -581,53 +581,53 @@ class RecentCounter:
         title: "Daily Temperatures",
         slug: "daily-temperatures",
         difficulty: "Medium",
-        patternHint: "Pila monótona decreciente de índices: desapila cuando `temps[i] > temps[stack[-1]]`.",
+        patternHint: "Monotonic decreasing stack of indices: pop whenever `temps[i] > temps[stack[-1]]`.",
       },
       {
         number: 84,
         title: "Largest Rectangle in Histogram",
         slug: "largest-rectangle-in-histogram",
         difficulty: "Hard",
-        patternHint: "Pila monótona creciente: cuando una barra baja, sabemos hasta dónde podía extenderse la barra alta anterior.",
+        patternHint: "Monotonic increasing stack: when a shorter bar arrives, popped bars know both their left and right smaller boundaries.",
       },
       {
         number: 239,
         title: "Sliding Window Maximum",
         slug: "sliding-window-maximum",
         difficulty: "Hard",
-        patternHint: "Monotonic Deque decreciente: saca por atrás los menores al nuevo y por delante los que salieron de la ventana `i - k`.",
+        patternHint: "Monotonic decreasing Deque: pop smaller elements from the back and evict out-of-window indices `< i - k + 1` from the front.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Desmitifica el Monotonic Stack, uno de los temas que más intimida en entrevistas pero que tiene una plantilla de apenas 10 líneas. Explica la regla de oro: 'Guarda siempre ÍNDICES en la pila, nunca solo los valores', y muestra cómo al hacer `pop()` descubres simultáneamente el límite derecho e izquierdo de un elemento (clave para `Largest Rectangle in Histogram`).",
+        "Demystify the Monotonic Stack—a topic that intimidates many candidates yet boils down to a 10-line template. Emphasize the golden rule: 'Always push INDICES onto the stack, not just values', and show how popping reveals both the right and left boundaries of a bar in `Largest Rectangle in Histogram`.",
       keyTakeaways: [
-        "Para buscar el 'Siguiente Mayor' (Next Greater), mantén una pila monótona DECRECIENTE: el primer número mayor que llegue disparará los `pop()`.",
-        "Para buscar el 'Siguiente Menor' (Next Smaller), mantén una pila monótona CRECIENTE.",
-        "Guarda siempre ÍNDICES en la pila: con el índice `i` puedes calcular distancias (`i - prev_idx`) y también consultar el valor `nums[i]`.",
+        "To find the **Next Greater** element, maintain a **Monotonic Decreasing** stack: the first larger element triggers pops.",
+        "To find the **Next Smaller** element, maintain a **Monotonic Increasing** stack.",
+        "Always store INDICES in the stack so you can compute widths (`i - prev_idx`) and look up values (`nums[i]`).",
       ],
       stepByStepWalkthrough: [
-        "Crear una lista `stack = []` que almacenará índices pendientes de encontrar su respuesta.",
-        "Por cada nuevo índice `i`, usar un `while stack and nums[i] > nums[stack[-1]]:` para resolver y desapilar.",
-        "Apilar el índice actual `stack.append(i)`.",
+        "Initialize `stack = []` to hold indices waiting for their next greater/smaller match.",
+        "For each index `i`, run `while stack and nums[i] > nums[stack[-1]]:` to pop and resolve waiting indices.",
+        "Push the current index `stack.append(i)`.",
       ],
       interviewTraps: [
-        "Guardar solo el valor `nums[i]` en vez del índice `i` en la pila, impidiendo saber en qué posición del arreglo de respuesta escribir o qué ancho tiene una ventana/rectángulo.",
+        "Pushing raw values `nums[i]` instead of indices `i`, making it impossible to calculate distances or histogram widths.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "La intuición de los rascacielos: ¿Qué es una Pila Monótona?",
-          visualCue: "Barras de distintas alturas; al entrar una barra alta, las barras pequeñas previas se resuelven y salen de la pila.",
+          sectionTitle: "The Skyscraper Intuition: What Is a Monotonic Stack?",
+          visualCue: "Bars of varying heights; when a tall bar arrives, shorter waiting bars pop and record their distance.",
           narration:
-            "Si para cada día de la semana quieres saber cuándo llegará un día más caluroso, comparar cada día con todos los futuros toma O(N²). Pero con una Pila Monótona, mantenemos en espera los días fríos y, en cuanto llega una ola de calor, resolvemos todos esos días pendientes de golpe en O(N).",
+            "If you want to know for every day of the year how soon a warmer day will arrive, checking every future day takes O(N^2). With a Monotonic Stack, cooler days wait in line until a warm day arrives and resolves all of them in a single O(N) sweep.",
         },
         {
           timestamp: "01:45 - 04:45",
-          sectionTitle: "Histogramas y Sliding Window Maximum (Monotonic Deque)",
-          visualCue: "Animación de `Largest Rectangle in Histogram` y `Sliding Window Maximum` con una Deque decreciente.",
+          sectionTitle: "Histograms and Sliding Window Maximum (Monotonic Deque)",
+          visualCue: "Animation of `Largest Rectangle in Histogram` and `Sliding Window Maximum` with a decreasing Deque.",
           narration:
-            "Lo más hermoso de una pila creciente es que cuando desapilas una barra porque llegó una más baja, el elemento que la saca es su límite derecho y el que quedó debajo en la pila es su límite izquierdo.",
+            "The magic of an increasing stack is that when a bar is popped because a shorter bar arrived, the incoming bar is its right boundary and the new stack top below it is its left boundary.",
         },
       ],
     },
@@ -644,31 +644,31 @@ class RecentCounter:
     branchCategory: "linked-stacks-queues",
     prerequisites: ["hash-table", "linked-list", "arrays", "stacks"],
     summary:
-      "Combinar dos o más estructuras de datos (como `Hash Map + Doubly Linked List` o `Hash Map + Dynamic Array`) para superar las debilidades individuales de cada una y lograr que TODAS las operaciones compuestas corran en O(1).",
+      "Combining two or more data structures—such as `Hash Map + Doubly Linked List` or `Hash Map + Dynamic Array`—so each structure covers the weakness of the other and EVERY operation runs in O(1) time.",
     analogy:
-      "Un bibliotecario con un índice digital (Hash Map) que le dice en un segundo exactamente en qué eslabón de una cadena móvil (Doubly Linked List) está cualquier libro. Así puede encontrar el libro en O(1) con el índice y moverlo al frente de 'los más leídos recientemente' en O(1) desenganchando su eslabón.",
+      "A librarian with a digital index (Hash Map) that points directly to the exact link in a movable chain of books (Doubly Linked List). The index finds any book in O(1), and the doubly linked chain moves that book to the 'most recently read' front in O(1).",
     whenToUse: [
-      "El problema empieza con `Design a data structure that supports...` exigiendo O(1) en múltiples operaciones aparentemente contradictorias.",
-      "**LRU Cache** (`get` y `put` en O(1) expulsando el menos usado recientemente): `Hash Map + Doubly Linked List`.",
-      "**Insert / Delete / GetRandom en O(1)** (`RandomizedSet`): `Hash Map {val: idx} + Dynamic Array` (intercambiando el elemento a borrar con el último del array antes de hacer `pop()`).",
-      "**Min Stack** (`push`, `pop`, `getMin` en O(1)): Pila que guarda pares `(valor, minimo_hasta_aqui)`.",
+      "The prompt starts with `Design a data structure that supports...` requiring O(1) across multiple seemingly conflicting operations.",
+      "**LRU Cache** (`get` and `put` in O(1) evicting the least recently used): `Hash Map + Doubly Linked List`.",
+      "**Insert / Delete / GetRandom in O(1)** (`RandomizedSet`): `Hash Map {val: idx} + Dynamic Array` (swapping the deleted element with the last element before popping).",
+      "**Min Stack** (`push`, `pop`, `getMin` in O(1)): Stack storing pairs `(value, min_so_far)`.",
     ],
     whenNotToUse: [
-      "Cuando una sola estructura estándar ya cumple los requisitos de tiempo.",
+      "When a single built-in data structure already satisfies all required time bounds.",
     ],
     timeComplexity: {
-      average: "O(1) para todas las operaciones diseñadas",
+      average: "O(1) across all custom methods",
       worst: "O(1)",
-      note: "Cada estructura soporta la operación donde la otra sería O(N).",
+      note: "Each supporting structure handles the operation where the other would be O(N).",
     },
-    spaceComplexity: "O(N) o O(Capacidad)",
-    constraintHint: "Diseño de clases con múltiples métodos exigiendo O(1) por operación",
+    spaceComplexity: "O(N) or O(Capacity)",
+    constraintHint: "Class design problems requiring O(1) per method call",
     pythonTemplate: `import random
 
 class RandomizedSet:
     """
-    Combo Clásico: Dynamic Array + Hash Map para Insert, Remove y GetRandom en O(1).
-    Truco clave: Para borrar nums[idx] en O(1), copiamos el ÚLTIMO elemento en idx y hacemos pop().
+    Classic Combo: Dynamic Array + Hash Map for O(1) Insert, Remove, and GetRandom.
+    Key trick: To delete nums[idx] in O(1), overwrite nums[idx] with nums[-1] and pop()!
     """
     def __init__(self):
         self.nums: list[int] = []
@@ -686,10 +686,10 @@ class RandomizedSet:
             return False
         idx = self.val_to_idx[val]
         last_val = self.nums[-1]
-        # Movemos el último elemento al hueco 'idx'
+        # Move the last element into the deleted slot 'idx'
         self.nums[idx] = last_val
         self.val_to_idx[last_val] = idx
-        # Eliminamos el último en O(1)
+        # Pop from the end in O(1)
         self.nums.pop()
         del self.val_to_idx[val]
         return True
@@ -723,64 +723,64 @@ class RandomizedSet:
         title: "LRU Cache",
         slug: "lru-cache",
         difficulty: "Medium",
-        patternHint: "Hash Map `{key: Node}` + Lista Doblemente Enlazada con nodos centinela `head` y `tail`.",
+        patternHint: "Hash Map `{key: Node}` + Doubly Linked List with `head` and `tail` dummy sentinels.",
       },
       {
         number: 380,
         title: "Insert Delete GetRandom O(1)",
         slug: "insert-delete-getrandom-o1",
         difficulty: "Medium",
-        patternHint: "Array + Hash Map: para borrar en O(1), haz swap con `nums[-1]`, actualiza su índice en el mapa y haz `pop()`.",
+        patternHint: "Array + Hash Map: to delete in O(1), swap with `nums[-1]`, update its index in the map, and `pop()`.",
       },
       {
         number: 155,
         title: "Min Stack",
         slug: "min-stack",
         difficulty: "Medium",
-        patternHint: "Guarda en cada piso de la pila el par `(valor, minimo_acumulado)`.",
+        patternHint: "Store `(val, min_up_to_this_level)` at each entry of the stack.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Presenta este episodio como 'Arquitectura de Estructuras Híbridas': cómo fusionar dos estructuras básicas para conseguir superpoderes O(1). Explica los 3 diseños más preguntados en la historia de las entrevistas: 1) LRU Cache (Hash Map + Doubly Linked List), 2) RandomizedSet (Array + Hash Map con el truco de intercambiar con el último elemento al borrar), y 3) Min Stack.",
+        "Frame this episode as 'Hybrid Data Structure Architecture': how pairing two simple structures unlocks O(1) superpowers. Cover the 3 most-asked design questions in interview history: 1) LRU Cache (Hash Map + Doubly Linked List), 2) RandomizedSet (Array + Hash Map with the swap-with-last trick), and 3) Min Stack.",
       keyTakeaways: [
-        "Ninguna estructura básica lo hace todo en O(1): el Array tiene `getRandom` O(1) pero borrado O(N); el Hash Map tiene búsqueda O(1) pero no tiene índices aleatorios. ¡Juntos logran todo en O(1)!",
-        "En LRU Cache, los dos nodos centinela `left_dummy` (LRU) y `right_dummy` (MRU) eliminan todos los errores de punteros nulos.",
+        "No single basic structure does everything in O(1): an Array has O(1) `getRandom` but O(N) delete; a Hash Map has O(1) delete but no random index. Together, they do everything in O(1)!",
+        "In LRU Cache, two sentinel nodes (`left_lru_dummy` and `right_mru_dummy`) eliminate all null-pointer edge cases.",
       ],
       stepByStepWalkthrough: [
-        "Listar las operaciones pedidas y qué complejidad exige cada una.",
-        "Elegir la estructura primaria (ej. Hash Map para búsqueda O(1)) y la estructura de soporte (ej. Doubly Linked List para orden de uso O(1)).",
-        "Mantener ambas estructuras sincronizadas en cada inserción o borrado.",
+        "List every required method and its target time complexity.",
+        "Pick the primary lookup structure (e.g., Hash Map for O(1) key lookup) and the ordering structure (e.g., Doubly Linked List for O(1) recency updates).",
+        "Keep both structures strictly synchronized on every mutation.",
       ],
       interviewTraps: [
-        "En `RandomizedSet.remove(val)`, borrar primero `del val_to_idx[val]` antes de actualizar `val_to_idx[last_val] = idx` falla cuando el elemento a borrar ES precisamente el último elemento del arreglo.",
+        "In `RandomizedSet.remove(val)`, deleting `del val_to_idx[val]` BEFORE setting `val_to_idx[last_val] = idx` breaks when the removed element IS the last element of the array.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 02:00",
-          sectionTitle: "El arte de fusionar estructuras de datos",
-          visualCue: "Diagrama uniendo un Hash Map con una Lista Doblemente Enlazada (LRU Cache).",
+          sectionTitle: "The Art of Pairing Data Structures",
+          visualCue: "Diagram linking Hash Map keys directly to nodes inside a Doubly Linked List (LRU Cache).",
           narration:
-            "En las entrevistas de diseño de estructuras te pedirán cosas que parecen imposibles: buscar por llave en O(1), mantener el orden de uso reciente en O(1) y borrar de en medio en O(1). El secreto es hacer que dos estructuras trabajen en equipo.",
+            "In data structure design interviews, you are asked for combinations that seem impossible at first: O(1) key lookup, O(1) recency ordering, and O(1) arbitrary deletion. The secret is making two data structures work as a team.",
         },
         {
           timestamp: "02:00 - 05:00",
-          sectionTitle: "LRU Cache y el truco del Swap-Pop en RandomizedSet",
-          visualCue: "Animación de cómo borrar el índice 2 de un Array en O(1) copiando el último elemento encima.",
+          sectionTitle: "LRU Cache and the Swap-and-Pop Trick in RandomizedSet",
+          visualCue: "Animation showing index 2 deleted from an Array in O(1) by copying the last element into slot 2.",
           narration:
-            "¿Cómo borras un elemento en medio de un Array en tiempo O(1) si no te importa el orden? Copias el último elemento sobre el que quieres borrar, actualizas su posición en el Hash Map y haces pop al final.",
+            "How do you delete an element from the middle of an Array in O(1) time when order does not matter? Copy the last element over the slot you want to delete, update its index in the Hash Map, and pop the back.",
         },
       ],
     },
   },
 
   // ============================================================================
-  // NIVEL 4: RECURSIÓN, ÁRBOLES, HEAPS Y TRIES (21 - 28)
+  // LEVEL 4: RECURSION, TREES, HEAPS & BACKTRACKING (21 - 28)
   // ============================================================================
   {
     id: "divide-and-conquer",
     order: 21,
-    title: "Divide and Conquer (Divide y Vencerás)",
+    title: "Divide and Conquer",
     shortTitle: "Divide & Conquer",
     englishTerm: "Divide and Conquer",
     kind: "algorithm",
@@ -789,30 +789,30 @@ class RandomizedSet:
     branchCategory: "trees-heaps-backtracking",
     prerequisites: ["arrays", "binary-search"],
     summary:
-      "Resolver un problema grande partiéndolo en 2 o más subproblemas independientes del mismo tipo (Divide), resolviéndolos recursivamente (Conquer) y combinando sus respuestas para formar la solución total (Combine).",
+      "Solving a large problem by splitting it into two or more independent subproblems of the same type (Divide), solving them recursively (Conquer), and merging their results into the final answer (Combine).",
     analogy:
-      "Contar los votos de un país: una sola persona tardaría años, pero si divides el país en estados, cada estado en municipios y cada municipio en mesas electorales, cada mesa cuenta 200 votos en minutos y luego solo sumas los totales hacia arriba.",
+      "Counting millions of ballots in a national election: one person would take years, but if you split the country into states, districts, and local polling tables, each table counts 200 ballots in minutes and the totals are summed upward.",
     whenToUse: [
-      "El problema se puede partir en mitades independientes cuyas soluciones se pueden fusionar eficientemente (`Merge Sort`, `Count of Smaller Numbers After Self`, `Merge K Sorted Lists`).",
-      "Construcción recursiva de árboles o estructuras geométricas a partir de mitades (`Convert Sorted Array to BST`, `Construct Quad Tree`).",
+      "The problem splits cleanly into independent halves whose solutions can be merged efficiently (`Merge Sort`, `Count of Smaller Numbers After Self`, `Merge K Sorted Lists`).",
+      "Recursive construction of balanced trees or geometric structures (`Convert Sorted Array to BST`, `Construct Quad Tree`).",
     ],
     whenNotToUse: [
-      "Si los subproblemas NO son independientes sino que se repiten una y otra vez calculando lo mismo (subproblemas superpuestos): ahí Divide & Conquer puro se vuelve exponencial y necesitas Memoization / Dynamic Programming.",
+      "When subproblems are NOT independent and recompute the exact same state repeatedly (overlapping subproblems): pure Divide & Conquer becomes exponential—use Memoization / Dynamic Programming instead.",
     ],
     timeComplexity: {
-      average: "O(N log N) cuando partes en 2 mitades y combinas en O(N)",
+      average: "O(N log N) when splitting in half and merging in O(N)",
       worst: "O(N log N)",
-      note: "Árbol de recursión de altura `log₂ N` donde cada nivel realiza `O(N)` trabajo total.",
+      note: "A recursion tree of height `log2(N)` performing `O(N)` total work per level.",
     },
-    spaceComplexity: "O(N) auxiliar en Merge Sort + O(log N) pila de recursión",
-    constraintHint: "Partición recursiva con N ≤ 10⁵ logrando O(N log N)",
+    spaceComplexity: "O(N) auxiliary in Merge Sort + O(log N) recursion stack",
+    constraintHint: "Recursive halving with N <= 10^5 achieving O(N log N)",
     pythonTemplate: `def merge_sort(nums: list[int]) -> list[int]:
     """
-    Esqueleto canónico de Divide & Conquer (Merge Sort).
+    Canonical Divide & Conquer Blueprint (Merge Sort).
     1. Base case: len <= 1
-    2. Divide: partir en mid
-    3. Conquer: ordenar left y right recursivamente
-    4. Combine: fusionar ambas mitades ordenadas en O(N)
+    2. Divide: split at mid
+    3. Conquer: recursively sort left and right halves
+    4. Combine: merge two sorted halves in O(N)
     """
     if len(nums) <= 1:
         return nums
@@ -821,7 +821,7 @@ class RandomizedSet:
     left = merge_sort(nums[:mid])
     right = merge_sort(nums[mid:])
 
-    # Combine (Merge step con dos punteros)
+    # Combine step (two-pointer merge)
     merged: list[int] = []
     i = j = 0
     while i < len(left) and j < len(right):
@@ -858,53 +858,53 @@ class RandomizedSet:
         title: "Sort an Array",
         slug: "sort-an-array",
         difficulty: "Medium",
-        patternHint: "Implementa Merge Sort garantizando O(N log N) en el peor caso.",
+        patternHint: "Implement Merge Sort for guaranteed O(N log N) worst-case performance.",
       },
       {
         number: 108,
         title: "Convert Sorted Array to Binary Search Tree",
         slug: "convert-sorted-array-to-binary-search-tree",
         difficulty: "Easy",
-        patternHint: "El elemento central `mid` es la raíz; la mitad izquierda forma el subárbol izquierdo y la derecha el derecho.",
+        patternHint: "Pick `mid` as the root; recursively build the left subtree from `[:mid]` and right subtree from `[mid+1:]`.",
       },
       {
         number: 23,
         title: "Merge k Sorted Lists",
         slug: "merge-k-sorted-lists",
         difficulty: "Hard",
-        patternHint: "Divide las K listas en dos mitades recursivamente y fusiónalas de par en par en O(N log K).",
+        patternHint: "Pairwise divide and conquer the K lists in O(N log K) time.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica las 3 fases de Divide & Conquer (Dividir, Conquistar y Combinar) y visualiza el árbol de recursión de Merge Sort para demostrar por qué tiene `log₂ N` pisos y cada piso suma `N` operaciones, dando `O(N log N)`. Contrasta Divide & Conquer (subproblemas disjuntos) con Programación Dinámica (subproblemas repetidos).",
+        "Explain the 3 phases of Divide & Conquer (Divide, Conquer, Combine) and visualize the Merge Sort recursion tree to show why `log2(N)` levels times `O(N)` work per level equals `O(N log N)`. Contrast independent subproblems (Divide & Conquer) with overlapping subproblems (Dynamic Programming).",
       keyTakeaways: [
-        "Todo algoritmo recursivo necesita primero un Caso Base que detenga la recursión (`if len <= 1`).",
-        "La magia de Merge Sort ocurre en el paso 'Combine': fusionar dos listas ya ordenadas cuesta solo O(N) con dos punteros.",
-        "Incluso puedes contar inversiones en un arreglo durante el paso Merge en O(N log N).",
+        "Every recursive algorithm starts with a Base Case that stops further splitting (`if len <= 1`).",
+        "The magic of Merge Sort happens in the Combine step: merging two already-sorted lists takes only O(N) with two pointers.",
+        "You can count inversions or cross-pairs during the Merge step in O(N log N).",
       ],
       stepByStepWalkthrough: [
-        "Escribir el caso base para entradas de tamaño 0 o 1.",
-        "Calcular el punto medio `mid` y hacer las llamadas recursivas para `[low..mid]` y `[mid+1..high]`.",
-        "Combinar los resultados de los hijos en tiempo lineal respecto al tamaño del subproblema.",
+        "Define the base case for inputs of size 0 or 1.",
+        "Split the input at `mid` and recursively solve the left and right subproblems.",
+        "Combine the two child results in linear time.",
       ],
       interviewTraps: [
-        "Olvidar el caso base o partir un rango de tamaño 2 en `(0, 2)` y `(0, 0)`, provocando `RecursionError: maximum recursion depth exceeded`.",
+        "Missing the base case or failing to shrink one of the halves, causing `RecursionError: maximum recursion depth exceeded`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "Divide, Conquista y Combina: La mentalidad recursiva",
-          visualCue: "Árbol dividiendo un arreglo de 8 números hasta hojas de 1 elemento y fusionándolas hacia arriba.",
+          sectionTitle: "Divide, Conquer, and Combine: The Recursive Mindset",
+          visualCue: "Tree splitting an 8-element array down to singletons and merging them back up in sorted order.",
           narration:
-            "Antes de entrar a los Árboles Binarios, debemos entrenar el músculo de la recursión. Divide y Vencerás nos enseña a confiar en la función recursiva: divide el problema a la mitad, deja que la recursión resuelva cada mitad y concéntrate solo en cómo juntar ambas respuestas.",
+            "Before tackling Binary Trees, we need to build trust in recursion. Divide and Conquer teaches us the recursive leap of faith: split the problem in half, trust the recursive call to solve each half, and focus purely on how to merge the two answers.",
         },
         {
           timestamp: "01:45 - 04:15",
-          sectionTitle: "Por qué N niveles se convierten en log₂(N) niveles",
-          visualCue: "Niveles horizontales del árbol donde cada piso suma exactamente N operaciones.",
+          sectionTitle: "Why Halving Creates log2(N) Levels",
+          visualCue: "Horizontal tree levels where every floor sums to exactly N operations.",
           narration:
-            "Cuando partes un problema a la mitad en cada paso, solo puedes partirlo log₂(N) veces antes de llegar a tamaño 1. Si en cada piso haces trabajo lineal O(N), el costo total es O(N log N).",
+            "When you cut a problem in half at each step, you can only cut it log-base-2 of N times before reaching size 1. Doing O(N) merge work across log(N) floors gives O(N log N).",
         },
       ],
     },
@@ -912,7 +912,7 @@ class RandomizedSet:
   {
     id: "trees",
     order: 22,
-    title: "Trees (Árboles Binarios y Recorridos)",
+    title: "Binary Trees & Traversals (Pre / In / Post-Order)",
     shortTitle: "Binary Trees",
     englishTerm: "Binary Trees & Traversals (Pre/In/Post-Order)",
     kind: "data-structure",
@@ -921,25 +921,25 @@ class RandomizedSet:
     branchCategory: "trees-heaps-backtracking",
     prerequisites: ["divide-and-conquer", "linked-list"],
     summary:
-      "Estructura jerárquica sin ciclos donde cada nodo tiene un valor y hasta dos hijos (`left` y `right`). Como cada subárbol es a su vez un árbol binario, el 95% de sus problemas se resuelven con funciones recursivas elegantes de 5 líneas.",
+      "Hierarchical acyclic structures where each node holds a value and up to two children (`left` and `right`). Because every subtree is itself a binary tree, 95% of tree problems can be solved with 5-line recursive functions.",
     analogy:
-      "El organigrama de una empresa o un árbol genealógico: el director general (Raíz / `root`) le pide un reporte a su gerente izquierdo y a su gerente derecho; cada gerente hace lo mismo con su equipo hasta llegar a los empleados sin gente a cargo (Hojas / `leaves`), y los resultados suben sumándose hasta la raíz.",
+      "A company org chart: the CEO (`root`) asks the VP of Engineering (`left`) and VP of Product (`right`) for their headcount; each VP asks their directors down to individual contributors (`leaves`), and the totals bubble back up to the CEO.",
     whenToUse: [
-      "Representar datos jerárquicos, expresiones sintácticas (AST), decisiones o estructuras recursivas.",
-      "**Pre-order (`Raíz -> Izq -> Der`)**: Clonar o serializar un árbol de arriba hacia abajo.",
-      "**In-order (`Izq -> Raíz -> Der`)**: Procesar un Árbol Binario de Búsqueda (BST) en orden ascendente.",
-      "**Post-order (`Izq -> Der -> Raíz`)**: Calcular alturas, diámetros, sumas de subárboles o el Ancestro Común Más Bajo (LCA), donde necesitas las respuestas de ambos hijos antes de calcular la del padre.",
+      "Representing hierarchical data, abstract syntax trees (ASTs), or recursive decision structures.",
+      "**Pre-order (`Root -> Left -> Right`)**: Cloning, serializing, or passing top-down context from parent to children.",
+      "**In-order (`Left -> Root -> Right`)**: Visiting a Binary Search Tree (BST) in sorted ascending order.",
+      "**Post-order (`Left -> Right -> Root`)**: Computing heights, diameters, subtree sums, or Lowest Common Ancestor (LCA) where you need both children's answers before computing the parent's.",
     ],
     whenNotToUse: [
-      "Si el árbol está completamente degenerado en una línea recta (altura `H = N`) y el lenguaje tiene límite de recursión bajo, usa recorrido iterativo con pila o cola.",
+      "If the tree is degenerate (a skewed chain of height `H = N`) and recursion stack limits are tight, use an explicit stack or queue.",
     ],
     timeComplexity: {
-      average: "Recorrido completo: O(N) visitando cada nodo 1 vez",
+      average: "Full traversal: O(N) visiting each node once",
       worst: "O(N)",
-      note: "El espacio en el Call Stack es O(H), donde H es la altura del árbol (O(log N) balanceado, O(N) degenerado).",
+      note: "Call stack space is O(H) where H is the tree height (O(log N) balanced, O(N) skewed).",
     },
-    spaceComplexity: "O(H) altura del árbol en la pila de recursión",
-    constraintHint: "Estructuras jerárquicas TreeNode con N ≤ 10⁵",
+    spaceComplexity: "O(H) height of the tree on the recursion call stack",
+    constraintHint: "Hierarchical TreeNode problems with N <= 10^5",
     pythonTemplate: `class TreeNode:
     def __init__(self, val: int = 0, left: "TreeNode | None" = None, right: "TreeNode | None" = None):
         self.val = val
@@ -949,10 +949,10 @@ class RandomizedSet:
 
 def max_depth_postorder(root: TreeNode | None) -> int:
     """
-    Mentalidad Post-Order:
-    1. Caso base: un árbol vacío tiene altura 0.
-    2. Pide la altura al hijo izquierdo y al hijo derecho.
-    3. Tu altura es 1 + max(izq, der).
+    Post-Order Mindset (Bottom-Up):
+    1. Base case: an empty tree has height 0.
+    2. Ask left child and right child for their heights.
+    3. My height is 1 + max(left_height, right_height).
     """
     if not root:
         return 0
@@ -980,53 +980,53 @@ export function maxDepth(root: TreeNode | null): number {
         title: "Maximum Depth of Binary Tree",
         slug: "maximum-depth-of-binary-tree",
         difficulty: "Easy",
-        patternHint: "Caso base `None -> 0`, paso recursivo `1 + max(depth(left), depth(right))`.",
+        patternHint: "Base case `None -> 0`, recursive step `1 + max(depth(left), depth(right))`.",
       },
       {
         number: 226,
         title: "Invert Binary Tree",
         slug: "invert-binary-tree",
         difficulty: "Easy",
-        patternHint: "Intercambia `root.left, root.right = invert(root.right), invert(root.left)`.",
+        patternHint: "Swap `root.left, root.right = invert(root.right), invert(root.left)`.",
       },
       {
         number: 543,
         title: "Diameter of Binary Tree",
         slug: "diameter-of-binary-tree",
         difficulty: "Easy",
-        patternHint: "En cada nodo, el camino más largo que pasa por él como pico es `left_height + right_height`, mientras retornas hacia arriba `1 + max(left_height, right_height)`.",
+        patternHint: "At each node, the longest path curving through it is `left_h + right_h`, while returning `1 + max(left_h, right_h)` upward.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Enseña a pensar en Árboles Binarios desde la perspectiva de UN SOLO NODO: '¿Qué información necesito pasarle a mis hijos hacia abajo (Pre-order) o qué información necesito que mis hijos me devuelvan hacia arriba (Post-order)?'. Explica con 'Diameter of Binary Tree' cómo actualizar una respuesta global mientras retornas la altura hacia el padre.",
+        "Teach the listener to solve Binary Tree problems by focusing on a SINGLE NODE: 'What information do I pass down to my children (Pre-order), and what information do I need my children to return up to me (Post-order)?'. Walk through 'Diameter of Binary Tree' to show how to update a global answer while returning height upward.",
       keyTakeaways: [
-        "No intentes rastrear en tu cabeza toda la recursión del árbol completo: enfócate solo en la relación entre `root`, `root.left` y `root.right`.",
-        "Pre-Order pasa información de padres a hijos (Top-Down); Post-Order agrega información de hijos a padres (Bottom-Up).",
-        "Un árbol binario de N nodos siempre tiene exactamente `N - 1` aristas.",
+        "Never try to trace the entire tree in your head at once: focus only on the contract between `root`, `root.left`, and `root.right`.",
+        "Pre-Order pushes context top-down from parent to child; Post-Order aggregates results bottom-up from children to parent.",
+        "Any binary tree with N nodes has exactly `N - 1` edges.",
       ],
       stepByStepWalkthrough: [
-        "Definir qué significa el caso base `if not root:` (normalmente devuelve `0`, `None` o `True`).",
-        "Decidir qué valor debe retornar la función recursiva al padre.",
-        "Combinar `left_res` y `right_res` con `root.val`.",
+        "Define the base case `if not root:` (usually returns `0`, `None`, or `True`).",
+        "Decide what value each recursive call must return to its parent.",
+        "Combine `left_res` and `right_res` with `root.val`.",
       ],
       interviewTraps: [
-        "En problemas como `Diameter of Binary Tree` o `Binary Tree Maximum Path Sum`, confundir el camino que 'hace curva en el nodo actual' (`left + right`, que actualiza el máximo global) con el camino que 'puede seguir subiendo hacia el padre' (`max(left, right)`, que solo puede elegir una rama).",
+        "In `Diameter of Binary Tree` or `Binary Tree Maximum Path Sum`, confusing the path that 'curves through the current node as its peak' (`left + right`, which updates the global max) with the path that 'can continue upward to the parent' (`1 + max(left, right)`).",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "La definición recursiva de un Árbol Binario",
-          visualCue: "Árbol binario donde cada hijo se enmarca mostrando que es un árbol idéntico más pequeño.",
+          sectionTitle: "The Recursive Nature of Binary Trees",
+          visualCue: "Binary tree where each child is framed to show it is a smaller self-similar binary tree.",
           narration:
-            "Los árboles binarios parecen intimidantes hasta que descubres un secreto: no tienes que resolver todo el árbol. Solo tienes que resolver un nodo suponiendo que tus hijos izquierdo y derecho ya hicieron su trabajo.",
+            "Binary trees look intimidating until you realize a secret: you never have to solve the whole tree. You only write the logic for a single node assuming its left and right children already did their job.",
         },
         {
           timestamp: "01:45 - 04:30",
-          sectionTitle: "Pre-Order, In-Order y Post-Order: Cuándo usar cada uno",
-          visualCue: "Un cursor rodeando el contorno del árbol marcando la primera visita (Pre), visita inferior (In) y última visita (Post).",
+          sectionTitle: "Pre-Order, In-Order, and Post-Order: When to Use Each",
+          visualCue: "A cursor tracing the outline of a tree marking 1st visit (Pre), bottom visit (In), and final exit visit (Post).",
           narration:
-            "Pre-order, In-order y Post-order no son tres algoritmos distintos: son el mismo recorrido visto en tres momentos diferentes: al llegar al nodo, al pasar entre sus dos hijos y antes de despedirte hacia arriba.",
+            "Pre-order, In-order, and Post-order are not three different walks—they are the exact same walk observed at three moments: when arriving at a node, when passing between its children, and right before returning upward.",
         },
       ],
     },
@@ -1034,7 +1034,7 @@ export function maxDepth(root: TreeNode | null): number {
   {
     id: "bst",
     order: 23,
-    title: "Binary Search Trees (Árboles Binarios de Búsqueda - BST)",
+    title: "Binary Search Trees (BST)",
     shortTitle: "BST",
     englishTerm: "Binary Search Trees (BST)",
     kind: "data-structure",
@@ -1043,27 +1043,27 @@ export function maxDepth(root: TreeNode | null): number {
     branchCategory: "trees-heaps-backtracking",
     prerequisites: ["trees", "binary-search"],
     summary:
-      "Un árbol binario con una ley de orden global: TODOS los nodos del subárbol izquierdo son estrictamente menores que la raíz, y TODOS los del subárbol derecho son estrictamente mayores. Permite buscar, insertar y borrar en O(log N) cuando está balanceado.",
+      "A binary tree governed by a global ordering invariant: EVERY node in the left subtree is strictly smaller than the root, and EVERY node in the right subtree is strictly larger. Enables O(log N) search, insertion, and deletion when balanced.",
     analogy:
-      "Un árbol de decisiones donde cada puerta tiene un cartel numérico: si buscas el número 42 y estás en la puerta 50, ni siquiera miras el pasillo derecho porque sabes con certeza que todo a la derecha es mayor que 50; giras a la izquierda descartando la mitad del edificio.",
+      "A decision hallway where every door has a number: if you are looking for room 42 and stand at door 50, you never even glance down the right corridor because everything to the right is greater than 50—you turn left and eliminate half the building at once.",
     whenToUse: [
-      "Buscar, insertar o encontrar el ancestro común (`LCA`) aprovechando la propiedad de orden `left < root < right` en O(H).",
-      "Obtener los elementos ordenados de menor a mayor o hallar el `K-th Smallest Element` mediante un recorrido **In-Order (`Izq -> Raíz -> Der`)**.",
+      "Searching, inserting, or finding the Lowest Common Ancestor (`LCA`) in O(H) time by exploiting `left < root < right`.",
+      "Retrieving elements in sorted order or finding the `K-th Smallest Element` via an **In-Order Traversal (`Left -> Root -> Right`)**.",
     ],
     whenNotToUse: [
-      "Si insertas elementos ya ordenados (`1, 2, 3, 4, 5`) en un BST simple sin auto-balanceo, se degenera en una lista enlazada con altura `O(N)`.",
+      "If sorted elements (`1, 2, 3, 4, 5`) are inserted into an unbalanced BST, it degenerates into a linked list of height `O(N)`.",
     ],
     timeComplexity: {
-      average: "Búsqueda / Inserción / Borrado: O(log N) en BST balanceado",
-      worst: "O(H) donde H es la altura (hasta O(N) si no está balanceado)",
-      note: "Un recorrido In-Order de cualquier BST válido produce un arreglo estrictamente creciente.",
+      average: "Search / Insert / Delete: O(log N) on balanced BST",
+      worst: "O(H) where H is tree height (up to O(N) if unbalanced)",
+      note: "An In-Order traversal of any valid BST yields a strictly increasing sequence.",
     },
-    spaceComplexity: "O(H) pila de recursión (O(1) si se navega iterativamente)",
-    constraintHint: "Árbol con propiedad left < node < right o búsquedas por rango en árbol",
+    spaceComplexity: "O(H) recursion stack (or O(1) when navigating iteratively)",
+    constraintHint: "Tree with left < node < right invariant or ordered tree queries",
     pythonTemplate: `def is_valid_bst(root, low: float = float("-inf"), high: float = float("inf")) -> bool:
     """
-    Validación de BST propagando el rango permitido (low, high) hacia abajo.
-    ¡No basta comparar solo con el padre inmediato!
+    Validate a BST by propagating the allowed (low, high) range top-down.
+    Checking only the immediate parent is NOT enough!
     """
     if not root:
         return True
@@ -1077,7 +1077,7 @@ export function maxDepth(root: TreeNode | null): number {
 
 def search_bst_iterative(root, target: int):
     """
-    Búsqueda en O(H) tiempo y O(1) espacio descartando la mitad en cada paso.
+    O(H) time and O(1) space search by halving the tree at each step.
     """
     curr = root
     while curr:
@@ -1105,53 +1105,53 @@ export function isValidBST(
         title: "Validate Binary Search Tree",
         slug: "validate-binary-search-tree",
         difficulty: "Medium",
-        patternHint: "Propaga el intervalo abierto `(min_val, max_val)` hacia los hijos o verifica que el recorrido In-Order sea estrictamente creciente.",
+        patternHint: "Pass the open interval `(low, high)` down to children, or verify that In-Order traversal is strictly increasing.",
       },
       {
         number: 230,
         title: "Kth Smallest Element in a BST",
         slug: "kth-smallest-element-in-a-bst",
         difficulty: "Medium",
-        patternHint: "Recorrido In-Order (`Izq -> Raíz -> Der`) deteniéndote en el K-ésimo nodo visitado.",
+        patternHint: "Run In-Order traversal (`Left -> Root -> Right`) and stop at the K-th visited node.",
       },
       {
         number: 235,
         title: "Lowest Common Ancestor of a Binary Search Tree",
         slug: "lowest-common-ancestor-of-a-binary-search-tree",
         difficulty: "Medium",
-        patternHint: "Si ambos `p` y `q` son menores que `curr`, baja a la izquierda; si ambos son mayores, baja a la derecha; el primer punto donde se separan es el LCA.",
+        patternHint: "If both `p` and `q` are smaller than `curr`, go left; if both are larger, go right; the split point is the LCA.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica cómo un BST combina la búsqueda rápida de Binary Search con la inserción flexible de una Linked List. Haz énfasis en las 2 grandes lecciones de entrevistas sobre BST: 1) La trampa de 'Validate BST' (por qué comparar solo `node.left.val < node.val` está mal y debes propagar el rango `(low, high)`), y 2) Que el recorrido In-Order aplana cualquier BST en una lista ordenada.",
+        "Explain how a BST combines the fast lookup of Binary Search with the dynamic insertion of a Linked List. Highlight the two classic BST interview lessons: 1) The 'Validate BST' trap (why checking only `node.left.val < node.val` fails and you must pass `(low, high)`), and 2) How In-Order traversal flattens any BST into a sorted array.",
       keyTakeaways: [
-        "Invariante global del BST: TODO el subárbol izquierdo debe ser `< root.val`, no solo el hijo izquierdo directo.",
-        "El recorrido In-Order (`Izq -> Raíz -> Der`) de un BST visita los valores en orden ascendente perfecto.",
-        "En un BST, navegar hacia un objetivo es idéntico a Binary Search y se puede hacer en O(1) espacio con un simple bucle `while curr:`.",
+        "Global BST invariant: the ENTIRE left subtree must be `< root.val`, not just the immediate left child.",
+        "In-Order traversal (`Left -> Root -> Right`) visits BST nodes in strictly ascending order.",
+        "Searching or finding LCA in a BST is iterative and takes O(1) extra space with a simple `while curr:` loop.",
       ],
       stepByStepWalkthrough: [
-        "Si necesitas buscar un valor o el LCA de dos nodos, compara con `curr.val` para elegir si bajar por `curr.left` o `curr.right`.",
-        "Si necesitas validar el BST, pasa `(low, high)` en la recursión actualizando el tope superior al ir a la izquierda y el inferior al ir a la derecha.",
-        "Si el problema habla de 'el K-ésimo menor' o 'la diferencia mínima entre valores', piensa inmediatamente en In-Order.",
+        "When searching for a value or LCA, compare with `curr.val` to branch left or right.",
+        "When validating a BST, propagate `(low, high)` bounds downward.",
+        "When the prompt mentions 'K-th smallest' or 'minimum absolute difference in BST', use In-Order traversal.",
       ],
       interviewTraps: [
-        "En `Validate BST`, verificar únicamente `root.left.val < root.val < root.right.val`: falla cuando un nieto a la izquierda de la derecha es menor que la raíz principal.",
+        "In `Validate BST`, checking only `root.left.val < root.val < root.right.val`—which fails when a grandchild in the right subtree is smaller than the root.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "Binary Search convertido en Árbol: El invariante del BST",
-          visualCue: "Un arreglo ordenado elevándose por su punto medio hasta formar un BST balanceado.",
+          sectionTitle: "Binary Search Turned Into a Tree: The BST Invariant",
+          visualCue: "A sorted array lifting from its midpoint into a balanced Binary Search Tree.",
           narration:
-            "¿Qué pasaría si conviertes cada decisión de Binary Search en un nodo físico con punteros? Obtienes un Binary Search Tree. En cada nodo, todo lo menor vive a la izquierda y todo lo mayor vive a la derecha.",
+            "What happens if you turn every decision of Binary Search into a physical node with pointers? You get a Binary Search Tree. At every node, everything smaller lives to the left and everything larger lives to the right.",
         },
         {
           timestamp: "01:45 - 04:30",
-          sectionTitle: "La trampa clásica de Validate BST y el poder del In-Order",
-          visualCue: "Un nodo nieto violando el límite de su abuelo, detectado por el intervalo `(low, high)`.",
+          sectionTitle: "The Validate BST Trap and the Power of In-Order",
+          visualCue: "A grandchild node violating its grandparent's bound, caught by the `(low, high)` interval.",
           narration:
-            "Cuidado con la trampa favorita de los entrevistadores: para que un árbol sea un BST válido, no basta que cada hijo cumpla con su padre directo; debe respetar el rango heredado de todos sus ancestros.",
+            "Watch out for the classic interviewer trap: for a tree to be a valid BST, it is not enough for each child to obey its immediate parent—it must respect the range inherited from all of its ancestors.",
         },
       ],
     },
@@ -1159,7 +1159,7 @@ export function isValidBST(
   {
     id: "dfs",
     order: 24,
-    title: "DFS - Depth-First Search (Búsqueda en Profundidad)",
+    title: "DFS - Depth-First Search (Trees, Grids & Graphs)",
     shortTitle: "DFS",
     englishTerm: "Depth-First Search (Trees, Grids & Graphs)",
     kind: "algorithm",
@@ -1168,38 +1168,38 @@ export function isValidBST(
     branchCategory: "trees-heaps-backtracking",
     prerequisites: ["trees", "matrices-grids", "stacks"],
     summary:
-      "Explorar un camino hasta llegar lo más profundo posible antes de retroceder y probar otra bifurcación. Es el algoritmo estándar para contar componentes conexas (islas), verificar conectividad, detectar ciclos y recorrer árboles.",
+      "Exploring a branch as deep as possible before backtracking to try the next branch. It is the go-to algorithm for counting connected components (islands), checking reachability, detecting cycles, and traversing trees.",
     analogy:
-      "Explorar un laberinto con un ovillo de hilo (como Teseo y el Minotauro): avanzas siempre por el primer pasillo disponible hasta topar con una pared sin salida; entonces rebobinas el hilo hasta la última intersección que tenía una puerta sin explorar y entras por ahí.",
+      "Exploring a maze with a ball of yarn: you walk down the first available corridor until you hit a dead end, then rewind your yarn back to the last intersection with an unexplored door and try that path next.",
     whenToUse: [
-      "Recorrer todos los nodos de un árbol, cuadrícula 2D o grafo para contar componentes conexas (`Number of Islands`, `Max Area of Island`).",
-      "Verificar si existe algún camino de `A` a `B`, clonar un grafo o detectar ciclos.",
-      "Calcular propiedades de subárboles o caminos de la raíz a las hojas (`Path Sum`).",
+      "Exploring all nodes of a tree, 2D grid, or graph to count connected components (`Number of Islands`, `Max Area of Island`).",
+      "Checking path reachability from `A` to `B`, cloning a graph, or detecting cycles.",
+      "Computing subtree properties or root-to-leaf paths (`Path Sum`).",
     ],
     whenNotToUse: [
-      "Cuando necesitas encontrar el **camino MÁS CORTO** en un grafo o cuadrícula sin pesos: DFS puede encontrar primero un camino larguísimo que da mil vueltas; para camino más corto sin pesos usa siempre **BFS**.",
+      "When you need the **SHORTEST PATH** in an unweighted graph or grid: DFS might snake through a 1,000-step detour before finding a 2-step path; for unweighted shortest path, always use **BFS**.",
     ],
     timeComplexity: {
-      average: "O(V + E) en grafos | O(R × C) en cuadrículas",
+      average: "O(V + E) on graphs | O(R * C) on 2D grids",
       worst: "O(V + E)",
-      note: "Con un conjunto `visited`, cada nodo y arista se procesa una constante de veces.",
+      note: "Marking nodes `visited` ensures each vertex and edge is processed a constant number of times.",
     },
-    spaceComplexity: "O(V) para el conjunto `visited` y la pila de recursión",
-    constraintHint: "Islas, componentes conexas, caminos en árboles/grafos con V, E ≤ 10⁵",
+    spaceComplexity: "O(V) for the `visited` set and recursion stack",
+    constraintHint: "Islands, connected components, or tree/graph paths with V, E <= 10^5",
     pythonTemplate: `def num_islands_dfs(grid: list[list[str]]) -> int:
     """
-    Plantilla Clásica de DFS en Cuadrícula 2D (Flood Fill / Hundir Islas).
-    Tiempo: O(R * C) | Espacio: O(R * C) en call stack
+    Classic 2D Grid DFS Template (Flood Fill / Island Sinking).
+    Time: O(R * C) | Space: O(R * C) call stack
     """
     if not grid:
         return 0
     rows, cols = len(grid), len(grid[0])
 
     def dfs(r: int, c: int) -> None:
-        # Caso base: fuera de límites o ya es agua ('0')
+        # Base case: out of bounds or water ('0')
         if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == "0":
             return
-        # Marcamos como visitado convirtiendo tierra '1' en agua '0'
+        # Mark visited in-place by sinking land '1' into water '0'
         grid[r][c] = "0"
         for dr, dc in ((-1, 0), (1, 0), (0, -1), (0, 1)):
             dfs(r + dr, c + dc)
@@ -1220,7 +1220,7 @@ export function isValidBST(
     if (r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] === "0") {
       return;
     }
-    grid[r][c] = "0"; // Marcar como visitado
+    grid[r][c] = "0"; // Mark visited
     dfs(r - 1, c);
     dfs(r + 1, c);
     dfs(r, c - 1);
@@ -1244,53 +1244,53 @@ export function isValidBST(
         title: "Number of Islands",
         slug: "number-of-islands",
         difficulty: "Medium",
-        patternHint: "Recorre la matriz; al ver un `'1'`, suma 1 isla y lanza DFS para 'hundir' toda la tierra conectada.",
+        patternHint: "Scan the grid; upon seeing `'1'`, increment `islands` and run DFS to sink all connected land.",
       },
       {
         number: 695,
         title: "Max Area of Island",
         slug: "max-area-of-island",
         difficulty: "Medium",
-        patternHint: "Haz que `dfs(r, c)` retorne `1 + suma(dfs de los 4 vecinos)`.",
+        patternHint: "Have `dfs(r, c)` return `1 + sum(dfs of 4 neighbors)`.",
       },
       {
         number: 133,
         title: "Clone Graph",
         slug: "clone-graph",
         difficulty: "Medium",
-        patternHint: "Usa un diccionario `{nodo_original: nodo_clonado}` que actúa a la vez como `visited` y mapa de copias.",
+        patternHint: "Maintain a hash map `{original_node: cloned_node}` that acts as both `visited` and clone registry.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica cómo funciona DFS tanto en Árboles (donde no hace falta `visited` porque no hay ciclos) como en Grafos y Grids 2D (donde marcar `visited` ANTES de explorar vecinos es obligatorio para no caer en un bucle infinito). Usa el ejemplo visual de 'Number of Islands' (Flood Fill).",
+        "Explain how DFS works on Trees (where no `visited` set is needed because trees have no cycles) vs Graphs and 2D Grids (where marking `visited` IMMEDIATELY upon entering `dfs(u)` is mandatory to avoid infinite loops). Use 'Number of Islands' (Flood Fill) as the visual anchor.",
       keyTakeaways: [
-        "En árboles no hay ciclos, pero en Grafos y Matrices 2D SIEMPRE debes marcar el nodo como visitado apenas entras a `dfs(u)`.",
-        "DFS es más corto de programar que BFS porque usa la propia recursión del lenguaje como pila.",
-        "Para contar el tamaño de una región, haz que `dfs` devuelva `1 + sum(dfs(vecino))`.",
+        "Trees have no cycles, but on Graphs and 2D Grids you MUST mark a node `visited` as soon as you enter `dfs(u)`.",
+        "DFS is concise to write because it uses the language's own call stack.",
+        "To measure the size of a connected component, return `1 + sum(dfs(neighbor))`.",
       ],
       stepByStepWalkthrough: [
-        "Verificar primero el caso base (fuera de límites, obstáculo o nodo ya visitado).",
-        "Marcar inmediatamente el nodo actual como visitado (`visited.add(u)` o `grid[r][c] = '0'`).",
-        "Iterar sobre todos los vecinos y llamar recursivamente a `dfs(vecino)`.",
+        "Check base cases first (out of bounds, obstacle, or already visited).",
+        "Immediately mark the current cell/node as visited (`visited.add(u)` or `grid[r][c] = '0'`).",
+        "Loop over all neighbors and recursively call `dfs(neighbor)`.",
       ],
       interviewTraps: [
-        "Olvidar marcar un nodo como visitado en un grafo con ciclos, provocando `Maximum Call Stack Size Exceeded` en milisegundos.",
+        "Forgetting to mark nodes as visited on a cyclic graph, triggering `Maximum Call Stack Size Exceeded`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "Teseo en el laberinto: Cómo piensa Depth-First Search",
-          visualCue: "Un rastro de luz penetrando hasta el fondo de una rama antes de retroceder.",
+          sectionTitle: "Theseus in the Labyrinth: How Depth-First Search Thinks",
+          visualCue: "A beam of light diving all the way to the bottom of a branch before backtracking.",
           narration:
-            "Depth-First Search tiene una personalidad decidida: elige una dirección y avanza sin detenerse hasta tocar fondo. Solo cuando ya no puede avanzar más, da un paso atrás y prueba la siguiente puerta.",
+            "Depth-First Search has a bold personality: it picks one direction and plunges all the way to the bottom before ever backing up to try another fork.",
         },
         {
           timestamp: "01:45 - 04:30",
-          sectionTitle: "Flood Fill en Matrices: Hundiendo islas en O(R × C)",
-          visualCue: "Mapa de 1s y 0s donde tocar un 1 propaga una onda que apaga toda la isla conectada.",
+          sectionTitle: "2D Grid Flood Fill: Sinking Islands in O(R * C)",
+          visualCue: "Grid of 1s and 0s where touching a 1 spreads a wave that zeroes out the entire connected island.",
           narration:
-            "En 'Number of Islands', cada vez que encontramos una celda de tierra sumamos una isla al contador y lanzamos DFS como un bote de pintura que marca toda esa isla como visitada para no contarla dos veces.",
+            "In Number of Islands, every time we encounter a land cell, we increment our island count by one and launch DFS like a paint bucket to mark that entire connected island as visited.",
         },
       ],
     },
@@ -1298,7 +1298,7 @@ export function isValidBST(
   {
     id: "bfs",
     order: 25,
-    title: "BFS - Breadth-First Search (Búsqueda en Anchura)",
+    title: "BFS - Breadth-First Search (Level Order & Shortest Path)",
     shortTitle: "BFS",
     englishTerm: "Breadth-First Search (Level Order & Shortest Path)",
     kind: "algorithm",
@@ -1307,30 +1307,30 @@ export function isValidBST(
     branchCategory: "trees-heaps-backtracking",
     prerequisites: ["queues-deques", "trees", "matrices-grids"],
     summary:
-      "Explorar por capas concéntricas (primero todos los nodos a distancia 1, luego todos los de distancia 2, luego distancia 3...) usando una Cola FIFO (`deque`). Garantiza encontrar el **camino más corto** en cualquier grafo o tablero sin pesos.",
+      "Exploring in concentric ripples—first all nodes at distance 1, then distance 2, then distance 3—using a FIFO Queue (`deque`). Guarantees finding the **shortest path** in any unweighted graph or grid.",
     analogy:
-      "Dejar caer una piedra en un estanque tranquilo: la onda circular se expande uniformemente en todas direcciones a la misma velocidad. El primer instante en que la onda toca la orilla destino es, por ley física, el camino más corto posible.",
+      "Dropping a pebble into a calm pond: the circular ripple expands outward at the exact same speed in every direction. The first moment the ripple touches the target shore is mathematically guaranteed to be the shortest path.",
     whenToUse: [
-      "Encontrar la **distancia mínima** o el **menor número de pasos/movimientos** desde un origen hasta un destino en un grafo o matriz sin pesos (`Shortest Path in Binary Matrix`, `Word Ladder`).",
-      "Recorrer un árbol binario nivel por nivel (`Binary Tree Level Order Traversal`, `Right Side View`).",
-      "**Multi-Source BFS**: Cuando el fenómeno se propaga simultáneamente desde MÚLTIPLES orígenes al mismo tiempo (`Rotting Oranges`, `01 Matrix`) — simplemente metes todos los orígenes iniciales en la cola en el segundo 0.",
+      "Finding the **minimum distance** or **minimum number of steps/moves** from a source to a target in an unweighted graph or 2D grid (`Shortest Path in Binary Matrix`, `Word Ladder`).",
+      "Level-by-level tree traversal (`Binary Tree Level Order Traversal`, `Right Side View`).",
+      "**Multi-Source BFS**: When a process spreads simultaneously from MULTIPLE starting sources at once (`Rotting Oranges`, `01 Matrix`)—simply enqueue all initial sources into the `deque` at step 0.",
     ],
     whenNotToUse: [
-      "Si las aristas tienen PESOS DISTINTOS (ej. calles con peajes de costo 1, 5, 20): BFS normal ya no garantiza el camino más barato; necesitas el **Algoritmo de Dijkstra**.",
+      "When edges have DIFFERENT positive weights (e.g., roads with toll costs 1, 5, 20): standard BFS no longer finds the cheapest path; use **Dijkstra's Algorithm**.",
     ],
     timeComplexity: {
-      average: "O(V + E) en grafos | O(R × C) en cuadrículas",
+      average: "O(V + E) on graphs | O(R * C) on 2D grids",
       worst: "O(V + E)",
-      note: "Marcar `visited` en el instante de ENCOLAR (`append`) evita meter el mismo nodo duplicado múltiples veces en la cola.",
+      note: "Marking `visited` at the moment of ENQUEUEING (`append`) prevents pushing duplicate copies of the same node into the queue.",
     },
-    spaceComplexity: "O(V) para la cola `deque` y el conjunto `visited`",
-    constraintHint: "'Mínimo número de pasos', 'Recorrido por niveles' o propagación simultánea",
+    spaceComplexity: "O(V) for the `deque` and `visited` set",
+    constraintHint: "'Minimum number of steps', 'Level order traversal', or simultaneous multi-source spread",
     pythonTemplate: `from collections import deque
 
 def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target: tuple[int, int]) -> int:
     """
-    Plantilla Universal de BFS por Niveles (Camino Más Corto en Tablero Sin Pesos).
-    REGLA DE ORO: Marcar como visitado AL ENCOLAR (antes de meter a deque), no al desencolar.
+    Universal Level-by-Level BFS Template (Unweighted Shortest Path).
+    GOLDEN RULE: Mark visited WHEN ENQUEUEING (before append), never wait until popleft()!
     """
     rows, cols = len(grid), len(grid[0])
     queue = deque([start])
@@ -1338,7 +1338,7 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
     steps = 0
 
     while queue:
-        # Procesamos exactamente todos los nodos del nivel actual
+        # Process all nodes belonging to the current distance layer
         level_size = len(queue)
         for _ in range(level_size):
             r, c = queue.popleft()
@@ -1353,7 +1353,7 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
                     and grid[nr][nc] == 0
                     and (nr, nc) not in visited
                 ):
-                    visited.add((nr, nc))  # ¡Marcar AL ENCOLAR!
+                    visited.add((nr, nc))  # Mark visited ON ENQUEUE!
                     queue.append((nr, nc))
         steps += 1
 
@@ -1373,7 +1373,7 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
       if (u === target) return steps;
       for (const v of adj[u]) {
         if (!visited.has(v)) {
-          visited.add(v); // Marcar al encolar
+          visited.add(v); // Mark visited when enqueueing
           nextQueue.push(v);
         }
       }
@@ -1389,54 +1389,54 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
         title: "Binary Tree Level Order Traversal",
         slug: "binary-tree-level-order-traversal",
         difficulty: "Medium",
-        patternHint: "Usa `for _ in range(len(queue)):` para agrupar exactamente los nodos de cada piso.",
+        patternHint: "Use `for _ in range(len(queue)):` to snapshot and group each level cleanly.",
       },
       {
         number: 994,
         title: "Rotting Oranges",
         slug: "rotting-oranges",
         difficulty: "Medium",
-        patternHint: "Multi-Source BFS: mete TODAS las naranjas podridas iniciales en la cola antes de empezar el `while`.",
+        patternHint: "Multi-Source BFS: push ALL initially rotten oranges into the queue at minute 0 before starting the `while` loop.",
       },
       {
         number: 127,
         title: "Word Ladder",
         slug: "word-ladder",
         difficulty: "Hard",
-        patternHint: "Cada palabra es un nodo; dos palabras tienen arista si difieren en 1 sola letra. Busca el camino más corto con BFS.",
+        patternHint: "Model words as nodes connected if they differ by 1 letter; find shortest transformation with BFS.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Enfatiza las 3 joyas de BFS: 1) El patrón `for _ in range(len(queue)):` para procesar piso por piso y contar la distancia exacta, 2) La regla vital de marcar `visited` AL ENCOLAR (y no al sacar de la cola, lo cual causaría duplicados masivos y TLE), y 3) El patrón 'Multi-Source BFS' (`Rotting Oranges`) metiendo todos los focos iniciales en la cola en el minuto 0.",
+        "Highlight the 3 keys to mastering BFS: 1) The `for _ in range(len(queue)):` snapshot trick to track exact distance layers, 2) The golden rule of marking `visited` ON ENQUEUE (not on dequeue, which causes exponential queue duplicates and TLE), and 3) 'Multi-Source BFS' (`Rotting Oranges`) by loading all starting nodes into the queue at t = 0.",
       keyTakeaways: [
-        "Si el problema dice 'mínimo número de pasos/movimientos' y cada paso cuesta 1, la respuesta inmediata en el Flowchart es BFS.",
-        "El truco `level_size = len(queue)` toma una fotografía de cuántos nodos hay en la capa actual antes de que se mezclen con sus hijos.",
-        "Marcar `visited.add(vecino)` justo antes de `queue.append(vecino)` es obligatorio para evitar que varios nodos encolen al mismo vecino repetidas veces.",
+        "Whenever a problem asks for the 'minimum number of steps/moves' and every step costs 1, the Flowchart points straight to BFS.",
+        "`level_size = len(queue)` snapshots how many nodes belong to the current ripple layer before their children are added.",
+        "Always call `visited.add(nei)` right before `queue.append(nei)`.",
       ],
       stepByStepWalkthrough: [
-        "Inicializar `queue = deque([origenes])` y `visited = set(origenes)`.",
-        "Mientras la cola no esté vacía, medir `level_size = len(queue)` e iterar esa cantidad de veces.",
-        "Para cada vecino válido no visitado, agregarlo a `visited` y luego a `queue`.",
-        "Al terminar el bucle del nivel, incrementar `steps += 1`.",
+        "Initialize `queue = deque(sources)` and `visited = set(sources)`.",
+        "While the queue is non-empty, snapshot `level_size = len(queue)` and iterate `level_size` times.",
+        "For each unvisited valid neighbor, add to `visited` and append to `queue`.",
+        "Increment `steps += 1` after finishing the layer loop.",
       ],
       interviewTraps: [
-        "Marcar `visited.add(u)` recién cuando haces `u = queue.popleft()`: en una cuadrícula, eso hace que la misma celda se agregue muchas veces a la cola desde distintos vecinos y explote la memoria y el tiempo.",
+        "Waiting until `u = queue.popleft()` to mark `visited.add(u)`: on a grid, multiple neighbors will push the same cell into the queue before it gets popped, blowing up memory and time.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "La onda en el estanque: Por qué BFS garantiza el camino más corto",
-          visualCue: "Ondas concéntricas de distancia 1, 2, 3 expandiéndose desde el origen hasta tocar la meta.",
+          sectionTitle: "Ripples in a Pond: Why BFS Guarantees the Shortest Path",
+          visualCue: "Concentric rings at distance 1, 2, 3 expanding from the origin until touching the target.",
           narration:
-            "Si necesitas el camino más corto en un laberinto donde cada paso vale uno, DFS es una mala idea porque puede irse por un pasillo larguísimo. BFS avanza como una ola circular: explora primero todo lo que está a 1 paso, luego todo lo que está a 2 pasos.",
+            "If you need the shortest path in a maze where every step costs one, DFS is dangerous because it might wander down a thousand-step corridor first. BFS expands like a circular ripple in a pond: checking everything at distance 1, then distance 2.",
         },
         {
           timestamp: "01:45 - 04:45",
-          sectionTitle: "Multi-Source BFS y la Regla de Oro de `visited`",
-          visualCue: "Múltiples naranjas podridas expandiendo ondas simultáneas en el minuto 1, 2 y 3.",
+          sectionTitle: "Multi-Source BFS and the Golden Rule of `visited`",
+          visualCue: "Multiple rotten oranges expanding synchronized ripples at minutes 1, 2, and 3.",
           narration:
-            "¿Y qué pasa cuando tienes múltiples puntos de inicio al mismo tiempo, como en Rotting Oranges? No lances varios BFS separados: mete todos los orígenes juntos en la cola inicial y deja que las olas avancen sincronizadas.",
+            "What if a contagion starts from multiple sources at the same time, like in Rotting Oranges? Do not run separate BFS searches—load all starting sources into the initial queue together and let their ripples expand in lockstep.",
         },
       ],
     },
@@ -1444,7 +1444,7 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
   {
     id: "backtracking",
     order: 26,
-    title: "Backtracking (Búsqueda Exhaustiva con Poda)",
+    title: "Backtracking (Exhaustive Search with Pruning)",
     shortTitle: "Backtracking",
     englishTerm: "Backtracking (Subsets, Permutations & Pruning)",
     kind: "algorithm",
@@ -1453,40 +1453,40 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
     branchCategory: "trees-heaps-backtracking",
     prerequisites: ["dfs", "trees"],
     summary:
-      "Un DFS sobre un árbol de decisiones implícito que construye una solución paso a paso y sigue el mantra de 3 tiempos: **1) Elegir (`append`) -> 2) Explorar (`backtrack`) -> 3) Deshacer la elección (`pop`)**, podando de raíz las ramas que ya violan las reglas.",
+      "A DFS over an implicit decision tree that builds candidate solutions step-by-step following the 3-beat rhythm: **1) Choose (`append`) -> 2) Explore (`backtrack`) -> 3) Unchoose (`pop`)**, pruning invalid branches early.",
     analogy:
-      "Resolver un Sudoku con lápiz y borrador: escribes un 5 en una casilla (Elegir), intentas llenar las siguientes casillas (Explorar), y si llegas a una contradicción donde ningún número cabe, borras ese 5 (Deshacer / Backtrack) y pruebas con un 6.",
+      "Solving a Sudoku puzzle in pencil: you write a 5 in a cell (Choose), try filling subsequent cells (Explore), and if you hit a contradiction where no number fits, you erase that 5 (Unchoose / Backtrack) and try a 6.",
     whenToUse: [
-      "El problema pide **GENERAR TODAS** las combinaciones, subconjuntos (`Subsets`), permutaciones (`Permutations`), particiones de palíndromos o tableros válidos (`N-Queens`, `Sudoku Solver`).",
-      "Las restricciones son pequeñas (`N ≤ 15` o `N ≤ 20`), señal inequívoca de complejidad exponencial $O(2^N)$ u $O(N!)$.",
+      "The problem asks to **GENERATE ALL** valid combinations, subsets (`Subsets`), permutations (`Permutations`), palindrome partitions, or board placements (`N-Queens`, `Sudoku Solver`).",
+      "Input constraints are tiny (**`N <= 15` or `N <= 20`**), signaling exponential $O(2^N)$ or factorial $O(N!)$ complexity.",
     ],
     whenNotToUse: [
-      "Si el problema NO pide listar todas las configuraciones sino solo **CONTAR cuántas hay** o **hallar el valor máximo/mínimo** con `N ≥ 100`: ahí no enumeres una por una con Backtracking; usa **Dynamic Programming**.",
+      "If the problem only asks to **COUNT how many ways** or **find the max/min cost** with `N >= 100`: do not enumerate every path one by one with Backtracking—use **Dynamic Programming**.",
     ],
     timeComplexity: {
-      average: "Subconjuntos: O(N · 2ᴺ) | Permutaciones: O(N · N!)",
-      worst: "Exponencial o Factorial (reducido drásticamente en la práctica gracias a la Poda / Pruning)",
-      note: "Al guardar un resultado en `res`, debes guardar una COPIA (`path[:]`), nunca la referencia a la misma lista mutable.",
+      average: "Subsets: O(N * 2^N) | Permutations: O(N * N!)",
+      worst: "Exponential or Factorial (drastically reduced in practice via Pruning)",
+      note: "When recording a valid path into `res`, always append a SHALLOW COPY (`path[:]`), never the mutable list reference itself.",
     },
-    spaceComplexity: "O(N) profundidad de la pila de recursión y de la lista `path` actual",
-    constraintHint: "'Return all possible...' con N ≤ 20",
+    spaceComplexity: "O(N) recursion stack depth and active `path` list",
+    constraintHint: "'Return all possible...' with N <= 20",
     pythonTemplate: `def subsets_backtracking(nums: list[int]) -> list[list[int]]:
     """
-    Plantilla Universal de Backtracking: Elegir -> Explorar -> Deshacer.
-    Genera los 2^N subconjuntos de 'nums'.
+    Universal Backtracking Template: Choose -> Explore -> Unchoose.
+    Generates all 2^N subsets of 'nums'.
     """
     res: list[list[int]] = []
     path: list[int] = []
 
     def backtrack(start_idx: int) -> None:
-        # 1. Guardar una COPIA de la configuración actual
+        # 1. Record a COPY of the current valid configuration
         res.append(path[:])
 
-        # 2. Probar cada candidato disponible desde start_idx
+        # 2. Try every remaining candidate from start_idx onward
         for i in range(start_idx, len(nums)):
-            path.append(nums[i])      # A) ELEGIR (Choose)
-            backtrack(i + 1)          # B) EXPLORAR (Explore)
-            path.pop()                # C) DESHACER (Unchoose / Backtrack)
+            path.append(nums[i])      # A) CHOOSE
+            backtrack(i + 1)          # B) EXPLORE
+            path.pop()                # C) UNCHOOSE (Backtrack)
 
     backtrack(0)
     return res`,
@@ -1495,12 +1495,12 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
   const path: number[] = [];
 
   function backtrack(startIdx: number): void {
-    res.push([...path]); // Copia de la solución actual
+    res.push([...path]); // Copy current state
 
     for (let i = startIdx; i < nums.length; i++) {
-      path.push(nums[i]);     // 1. Elegir
-      backtrack(i + 1);       // 2. Explorar
-      path.pop();             // 3. Deshacer
+      path.push(nums[i]);     // 1. Choose
+      backtrack(i + 1);       // 2. Explore
+      path.pop();             // 3. Unchoose
     }
   }
 
@@ -1513,53 +1513,53 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
         title: "Subsets",
         slug: "subsets",
         difficulty: "Medium",
-        patternHint: "En cada nodo del árbol guarda `path[:]` y explora candidatos con índice `i >= start_idx`.",
+        patternHint: "At every node record `path[:]` and branch over candidates `i >= start_idx`.",
       },
       {
         number: 46,
         title: "Permutations",
         slug: "permutations",
         difficulty: "Medium",
-        patternHint: "El orden sí importa: itera sobre todos los elementos usando un conjunto/arreglo `used` para no repetir el mismo índice.",
+        patternHint: "Order matters: iterate over all elements using a `used` boolean array so indices are not reused in the same permutation.",
       },
       {
         number: 39,
         title: "Combination Sum",
         slug: "combination-sum",
         difficulty: "Medium",
-        patternHint: "Como puedes reutilizar el mismo número, llama a `backtrack(i, rem - nums[i])` sin sumar 1 al índice `i`.",
+        patternHint: "Because candidates can be reused unlimited times, recurse with `backtrack(i, rem - nums[i])` without incrementing `i`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Enseña el mantra de los 3 pasos del Backtracking ('Elegir, Explorar, Deshacer') y muestra cómo la misma plantilla resuelve los 3 grandes problemas cambiando una sola línea: 1) Subsets (`backtrack(i + 1)`), 2) Combination Sum con repetición (`backtrack(i)`), y 3) Permutations (usando un arreglo `used[i]`). Advierte sobre el bug clásico de hacer `res.append(path)` sin copiar `path[:]`.",
+        "Teach the 3-beat mantra of Backtracking ('Choose, Explore, Unchoose') and show how the exact same template solves Subsets (`backtrack(i + 1)`), Combination Sum with repetition (`backtrack(i)`), and Permutations (using a `used[i]` array) by changing a single line. Warn about the classic `res.append(path)` reference bug.",
       keyTakeaways: [
-        "El mantra del Backtracking: `path.append(x)` -> `backtrack(...)` -> `path.pop()`.",
-        "Diferencia clave: en Combinaciones/Subconjuntos el orden NO importa (usamos `start_idx` para mirar solo hacia adelante); en Permutaciones el orden SÍ importa (miramos desde 0 usando un marcador `used`).",
-        "La Poda (Pruning) corta una rama entera antes de entrar en ella si la suma ya se pasó del objetivo o una reina ya es atacada.",
+        "The Backtracking rhythm: `path.append(x)` -> `backtrack(...)` -> `path.pop()`.",
+        "In Combinations/Subsets order does NOT matter (pass `start_idx` forward); in Permutations order DOES matter (scan from `0` with a `used` mask).",
+        "Pruning cuts off an entire subtree early as soon as `current_sum > target` or a queen placement conflicts.",
       ],
       stepByStepWalkthrough: [
-        "Definir el estado parcial `path` que se modifica in-place a medida que bajamos y subimos por el árbol.",
-        "En el caso base (cuando `path` es una solución completa), hacer `res.append(path[:])`.",
-        "En el bucle de opciones, verificar si la opción es válida (Poda), hacer `append`, llamar recursivamente y hacer `pop`.",
+        "Maintain a single shared `path` list mutated in-place as you descend and ascend the decision tree.",
+        "At base cases, append a snapshot copy `res.append(path[:])`.",
+        "In the candidate loop, prune invalid choices, `append`, recurse, and `pop`.",
       ],
       interviewTraps: [
-        "Hacer `res.append(path)` en vez de `res.append(path[:])` (o `[...path]` en JS): como `path` se vacía al final con `pop()`, terminarás con una lista llena de listas vacías `[[], [], []]`.",
+        "Writing `res.append(path)` instead of `res.append(path[:])` (or `[...path]` in JS): since `path` is emptied by `pop()` as the recursion unwinds, `res` ends up filled with empty lists `[[], [], []]`.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "Elegir, Explorar y Deshacer: El ritmo del Backtracking",
-          visualCue: "Árbol de decisiones donde una lista `path` agrega un elemento al bajar y hace `pop()` al subir.",
+          sectionTitle: "Choose, Explore, Unchoose: The Rhythm of Backtracking",
+          visualCue: "Decision tree where a shared `path` list appends an item going down and pops it going back up.",
           narration:
-            "Cuando el problema te pide encontrar TODAS las combinaciones o permutaciones posibles, estás ante un árbol de decisiones. Backtracking recorre ese árbol usando una sola lista compartida gracias a su ritmo de tres pasos: elegir, explorar y deshacer.",
+            "Whenever a problem asks you to return ALL possible combinations or permutations, you are exploring a decision tree. Backtracking walks that entire tree using a single shared list thanks to its three-step rhythm: choose, explore, and unchoose.",
         },
         {
           timestamp: "01:45 - 04:45",
-          sectionTitle: "Subsets vs Combination Sum vs Permutations y el bug de `path[:]`",
-          visualCue: "Tres bloques de código casi idénticos resaltando la única línea que cambia entre los tres.",
+          sectionTitle: "Subsets vs Combination Sum vs Permutations and the `path[:]` Bug",
+          visualCue: "Three nearly identical code blocks highlighting the single line that changes between them.",
           narration:
-            "No necesitas aprender veinte códigos distintos. Si entiendes la diferencia entre avanzar con `start_idx` para combinaciones y usar un booleano `used` para permutaciones, dominas toda la familia.",
+            "You do not need twenty separate templates. Once you understand the difference between advancing `start_idx` for combinations and tracking a `used` array for permutations, you own the entire family.",
         },
       ],
     },
@@ -1567,7 +1567,7 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
   {
     id: "heaps",
     order: 27,
-    title: "Heaps / Priority Queues (Montículos y Colas de Prioridad)",
+    title: "Heaps / Priority Queues (Min-Heap & Max-Heap)",
     shortTitle: "Heaps (Priority Queue)",
     englishTerm: "Binary Heaps & Priority Queues",
     kind: "data-structure",
@@ -1576,39 +1576,39 @@ def bfs_shortest_path_grid(grid: list[list[int]], start: tuple[int, int], target
     branchCategory: "trees-heaps-backtracking",
     prerequisites: ["arrays", "trees"],
     summary:
-      "Un árbol binario casi completo almacenado de forma compacta dentro de un Array (sin punteros) donde cada padre es menor o igual que sus hijos (`Min-Heap`) o mayor o igual (`Max-Heap`). Permite consultar el mínimo/máximo en O(1) e insertar o extraer el extremo en O(log N).",
+      "A complete binary tree packed compactly inside a flat Array (zero pointers) where every parent is `<=` its children (`Min-Heap`) or `>=` its children (`Max-Heap`). Provides O(1) peek at the extreme element and O(log N) insertion and extraction.",
     analogy:
-      "La sala de urgencias de un hospital (Triage): no atienden por orden de llegada como en el banco, sino que siempre pasa primero el paciente con mayor urgencia (`pop` en O(log N)), sin importar si acaba de entrar hace un minuto (`push` en O(log N)).",
+      "A hospital emergency room triage (Priority Queue): patients are not treated in arrival order like at a bank—the patient with the highest urgency always goes next (`pop` in O(log N)), even if they walked in a minute ago (`push` in O(log N)).",
     whenToUse: [
-      "Necesitas consultar y extraer repetidamente el elemento **MÍNIMO** o **MÁXIMO** de una colección dinámica que sigue recibiendo nuevos elementos.",
-      "Simular eventos ordenados por su timestamp más próximo o elegir siempre la tarea más prioritaria.",
-      "Motor interno del algoritmo de Dijkstra, Prim MST y codificación de Huffman.",
+      "You need to repeatedly query and extract the **MINIMUM** or **MAXIMUM** element from a dynamic collection that keeps receiving new items.",
+      "Scheduling tasks by earliest deadline or highest priority.",
+      "Internal engine of Dijkstra's shortest path, Prim's MST, and Huffman coding.",
     ],
     whenNotToUse: [
-      "Si el conjunto de datos es estático y solo necesitas el mínimo una sola vez (usa `min(nums)` en O(N)).",
-      "Si necesitas buscar un elemento arbitrario de en medio: un Heap solo garantiza acceso instantáneo a la cima `heap[0]`, no es un BST completo.",
+      "If the dataset is static and you only need the minimum once (just call `min(nums)` in O(N)).",
+      "If you need to search for an arbitrary middle value: a Heap only exposes its root `heap[0]` in O(1), not arbitrary elements.",
     ],
     timeComplexity: {
-      average: "Peek (`heap[0]`): O(1) | Push / Pop: O(log N) | `heapify(lista)`: O(N)",
+      average: "Peek (`heap[0]`): O(1) | Push / Pop: O(log N) | `heapify(list)`: O(N)",
       worst: "Push / Pop: O(log N)",
-      note: "¡Convertir una lista existente en un Heap con `heapq.heapify(nums)` toma O(N) lineal, NO O(N log N)!",
+      note: "Converting an existing array into a Heap via `heapq.heapify(nums)` takes linear O(N) time, NOT O(N log N)!",
     },
-    spaceComplexity: "O(N) almacenado en un arreglo contiguo",
-    constraintHint: "Extracción continua del mínimo/máximo con N ≤ 10⁵",
+    spaceComplexity: "O(N) stored in a contiguous array",
+    constraintHint: "Repeated extraction of min/max from a changing set with N <= 10^5",
     pythonTemplate: `import heapq
 
 def heap_fundamentals_demo(nums: list[int]) -> tuple[int, int]:
     """
-    En Python, 'heapq' implementa un MIN-HEAP sobre una lista normal.
-    TRUCO PARA MAX-HEAP: Guardar los números con signo NEGATIVO (-x).
+    Python's 'heapq' implements a MIN-HEAP on a standard list.
+    MAX-HEAP TRICK: Negate values (-x) when pushing and popping!
     """
-    # 1. Min-Heap: convertir lista en heap en tiempo lineal O(N)
+    # 1. Min-Heap: build heap in-place in O(N) linear time
     min_heap = nums[:]
     heapq.heapify(min_heap)
     heapq.heappush(min_heap, 5)          # O(log N)
     smallest = heapq.heappop(min_heap)   # O(log N)
 
-    # 2. Max-Heap: multiplicamos por -1 al insertar y al extraer
+    # 2. Max-Heap: negate numbers by multiplying by -1
     max_heap = [-x for x in nums]
     heapq.heapify(max_heap)
     heapq.heappush(max_heap, -5)
@@ -1671,53 +1671,53 @@ def heap_fundamentals_demo(nums: list[int]) -> tuple[int, int]:
         title: "Last Stone Weight",
         slug: "last-stone-weight",
         difficulty: "Easy",
-        patternHint: "Usa un Max-Heap (negando los valores en `heapq`) para sacar siempre las 2 piedras más pesadas en O(log N).",
+        patternHint: "Use a Max-Heap (negating values in `heapq`) to repeatedly smash the 2 heaviest stones in O(log N).",
       },
       {
         number: 703,
         title: "Kth Largest Element in a Stream",
         slug: "kth-largest-element-in-a-stream",
         difficulty: "Easy",
-        patternHint: "Mantén un Min-Heap de tamaño fijo `K`: la raíz `heap[0]` siempre será el K-ésimo más grande.",
+        patternHint: "Maintain a Min-Heap of fixed size `K`: the root `heap[0]` is always the K-th largest element.",
       },
       {
         number: 621,
         title: "Task Scheduler",
         slug: "task-scheduler",
         difficulty: "Medium",
-        patternHint: "Max-Heap con las frecuencias restantes + una cola de enfriamiento `(frecuencia, tiempo_disponible)`.",
+        patternHint: "Max-Heap of remaining task counts paired with a cooldown queue `(count, available_time)`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica cómo un Heap logra representar un árbol binario dentro de un simple Array sin gastar memoria en punteros (`left = 2*i + 1`, `right = 2*i + 2`, `parent = (i - 1) // 2`). Enseña por qué `heapify` toma O(N) y el truco indispensable en Python: cómo convertir el Min-Heap de `heapq` en un Max-Heap multiplicando los números por `-1`.",
+        "Explain how a Binary Heap packs a complete binary tree inside a flat Array without pointers (`left = 2*i + 1`, `right = 2*i + 2`, `parent = (i - 1) // 2`). Explain why bottom-up `heapify` runs in O(N) time and how to simulate a Max-Heap in Python's `heapq` by negating numbers (`-x`).",
       keyTakeaways: [
-        "Un Heap NO está completamente ordenado: solo garantiza que cada padre domina a sus dos hijos y que el extremo global está en `heap[0]`.",
-        "En Python, `heapq` es siempre un Min-Heap; para simular un Max-Heap guarda `-valor` o tuplas `(-prioridad, item)`.",
-        "`heapq.heapify(arr)` construye el montículo de abajo hacia arriba en tiempo O(N) lineal.",
+        "A Heap is NOT fully sorted: it only guarantees that every parent dominates its children so the global extreme sits at `heap[0]`.",
+        "In Python, `heapq` is a Min-Heap; store `-val` or `(-priority, item)` to turn it into a Max-Heap.",
+        "`heapq.heapify(arr)` sifts down from the bottom up in linear O(N) time.",
       ],
       stepByStepWalkthrough: [
-        "Decidir si necesitas extraer repetidamente el menor (Min-Heap) o el mayor (Max-Heap con `-x`).",
-        "Si partes de una lista inicial, usar `heapq.heapify(lista)` en O(N).",
-        "Usar `heappop` y `heappush` para mantener la invariante en O(log N) por operación.",
+        "Decide whether you need repeated minimum extraction (Min-Heap) or maximum extraction (Max-Heap via `-x`).",
+        "Convert an initial list in O(N) using `heapq.heapify(nums)`.",
+        "Use `heappop` and `heappush` to maintain the heap invariant in O(log N) per step.",
       ],
       interviewTraps: [
-        "Llamar a `nums.sort()` dentro de un bucle cada vez que se inserta un elemento nuevo (cuesta O(N² log N)) en lugar de usar un Heap (O(N log N)).",
+        "Calling `nums.sort()` inside a loop every time a new element is inserted (O(N^2 log N)) instead of pushing to a Heap (O(N log N)).",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 01:45",
-          sectionTitle: "Un árbol escondido dentro de un Array",
-          visualCue: "Árbol binario mapeando sus nodos directamente a las casillas 0..N-1 de un arreglo con `2i+1` y `2i+2`.",
+          sectionTitle: "A Binary Tree Hidden Inside an Array",
+          visualCue: "Complete binary tree mapping its nodes directly to array indices `0..N-1` via `2i+1` and `2i+2`.",
           narration:
-            "¿Y si te dijera que el Heap es un árbol binario que no usa ni un solo objeto nodo ni punteros? Como se llena de izquierda a derecha sin huecos, los hijos del índice `i` viven matemáticamente en `2i + 1` y `2i + 2`.",
+            "What if I told you a Binary Heap is a tree that uses zero node objects and zero pointers? Because it fills level by level from left to right without gaps, the children of index `i` live mathematically at `2i + 1` and `2i + 2`.",
         },
         {
           timestamp: "01:45 - 04:15",
-          sectionTitle: "Sift-Up, Sift-Down y el truco del signo negativo en Python",
-          visualCue: "Un elemento nuevo subiendo por el árbol en `log N` saltos y ejemplo de Max-Heap con `-x`.",
+          sectionTitle: "Sift-Up, Sift-Down, and Python's Negation Trick",
+          visualCue: "A new element bubbling up a branch in `log N` swaps and Max-Heap negation `-x`.",
           narration:
-            "Mantener todo un arreglo ordenado cuando entran y salen datos es carísimo. Pero si solo te importa quién va ganando en la cima, un Heap reacomoda una rama de altura log(N) en un parpadeo.",
+            "Keeping an entire array sorted while items arrive and leave is expensive. When you only care about who is currently winning at the top, a Heap rebalances a single branch of height log(N) in an instant.",
         },
       ],
     },
@@ -1734,47 +1734,47 @@ def heap_fundamentals_demo(nums: list[int]) -> tuple[int, int]:
     branchCategory: "trees-heaps-backtracking",
     prerequisites: ["heaps", "sorting-intervals"],
     summary:
-      "Los 4 patrones algorítmicos construidos sobre Heaps: 1) **Top-K Elements** (usar un Min-Heap de tamaño `K` para quedarte con los `K` más grandes en O(N log K)), 2) **K-Way Merge** (fusionar `K` listas ordenadas), 3) **Two Heaps** (Max-Heap + Min-Heap para calcular la mediana en vivo), y 4) **Heap Sort**.",
+      "The 4 high-yield algorithmic patterns powered by Heaps: 1) **Top-K Elements** (using a Min-Heap of size `K` to keep the `K` largest elements in O(N log K)), 2) **K-Way Merge** (merging `K` sorted streams), 3) **Two Heaps** (Max-Heap + Min-Heap to track the running median), and 4) **Heap Sort**.",
     analogy:
-      "Para quedarte con los 3 atletas más rápidos de una maratón de 100,000 corredores (Top-3), no necesitas una tarima para 100,000 personas: pon un podio con solo 3 sillas (un Min-Heap de tamaño 3). Cada vez que llega alguien más rápido que el peor de los 3 sentados en el podio, ese peor cede su silla. Al final quedan exactamente los 3 mejores.",
+      "To find the 3 fastest runners in a 100,000-person marathon (Top-3), you only need a VIP podium with 3 chairs (a Min-Heap of size 3). Whenever a new runner finishes faster than the slowest person currently sitting on the 3-chair podium, that slowest person gives up their seat. At the end, the 3 chairs hold the top 3 champions.",
     whenToUse: [
-      "**Patrón Top-K**: 'Encuentra los K elementos más grandes / más pequeños / más cercanos / más frecuentes' en O(N log K) tiempo y O(K) memoria.",
-      "**Patrón K-Way Merge**: Fusionar `K` listas o arreglos ordenados o hallar el K-ésimo menor en una matriz ordenada.",
-      "**Patrón Two Heaps**: Mantener la **Mediana** de un flujo de datos en tiempo real (un `Max-Heap` para la mitad inferior y un `Min-Heap` para la mitad superior).",
+      "**Top-K Pattern**: 'Find the K largest / smallest / closest / most frequent elements' in O(N log K) time and O(K) memory.",
+      "**K-Way Merge Pattern**: Merging `K` sorted linked lists or arrays, or finding the K-th smallest element in a sorted matrix.",
+      "**Two Heaps Pattern**: Maintaining the **Running Median** of a live stream (a `Max-Heap` for the lower half and a `Min-Heap` for the upper half).",
     ],
     whenNotToUse: [
-      "Nunca confundas qué Heap usar para Top-K: para conservar los K MÁS GRANDES necesitas un **MIN-HEAP** de tamaño K (para expulsar rápidamente al más pequeño cuando el tamaño supera K).",
+      "Do not mix up which heap to use for Top-K: to keep the **K LARGEST** elements, use a **MIN-HEAP** of size K (so `heappop()` evicts the smallest of the K+1 candidates).",
     ],
     timeComplexity: {
       average: "Top-K: O(N log K) | Two Heaps insert: O(log N), median: O(1) | Heap Sort: O(N log N)",
-      worst: "O(N log K) o O(N log N)",
-      note: "Cuando K es pequeño frente a N, O(N log K) es mucho más rápido y usa mucha menos memoria que ordenar todo en O(N log N).",
+      worst: "O(N log K) or O(N log N)",
+      note: "When K << N, O(N log K) uses far less memory and time than sorting all N items.",
     },
-    spaceComplexity: "O(K) en Top-K y K-Way Merge | O(1) en Heap Sort in-place",
-    constraintHint: "'Top K', 'K closest', 'Merge K sorted' o 'Median from Data Stream'",
+    spaceComplexity: "O(K) for Top-K and K-Way Merge | O(1) for in-place Heap Sort",
+    constraintHint: "'Top K', 'K closest', 'Merge K sorted', or 'Median from Data Stream'",
     pythonTemplate: `import heapq
 
 def find_k_largest_with_min_heap(nums: list[int], k: int) -> list[int]:
     """
-    Patrón 1: Top-K Más Grandes usando un MIN-HEAP de tamaño K.
-    Tiempo: O(N log K) | Espacio: O(K)
+    Pattern 1: Top-K Largest using a MIN-HEAP of size K.
+    Time: O(N log K) | Space: O(K)
     """
     min_heap: list[int] = []
     for x in nums:
         heapq.heappush(min_heap, x)
         if len(min_heap) > k:
-            heapq.heappop(min_heap)  # Expulsamos al menor de los K+1
+            heapq.heappop(min_heap)  # Evict the smallest among the K+1 items
     return min_heap
 
 
 class MedianFinderTwoHeaps:
     """
-    Patrón 2: Two Heaps para Mediana en Streaming.
-    small_half: Max-Heap (valores negados) con la mitad menor de los datos.
-    large_half: Min-Heap con la mitad mayor de los datos.
+    Pattern 2: Two Heaps for Streaming Median.
+    small: Max-Heap (negated values) storing the smaller half of numbers.
+    large: Min-Heap storing the larger half of numbers.
     """
     def __init__(self):
-        self.small: list[int] = []  # Max-Heap (negado)
+        self.small: list[int] = []  # Max-Heap (negated)
         self.large: list[int] = []  # Min-Heap
 
     def addNum(self, num: int) -> None:
@@ -1794,7 +1794,7 @@ export function findKLargest(nums: number[], k: number): number {
   for (const x of nums) {
     minHeap.push(x);
     if (minHeap.size > k) {
-      minHeap.pop(); // Expulsa el más pequeño para conservar los K más grandes
+      minHeap.pop(); // Evict smallest to retain K largest
     }
   }
   return minHeap.peek()!;
@@ -1805,52 +1805,52 @@ export function findKLargest(nums: number[], k: number): number {
         title: "K Closest Points to Origin",
         slug: "k-closest-points-to-origin",
         difficulty: "Medium",
-        patternHint: "Para quedarte con los K MÁS PEQUEÑOS en distancia, usa un Max-Heap de tamaño K (`(-dist, x, y)`).",
+        patternHint: "To keep the K SMALLEST distances, maintain a Max-Heap of size K (`(-dist_sq, x, y)`).",
       },
       {
         number: 295,
         title: "Find Median from Data Stream",
         slug: "find-median-from-data-stream",
         difficulty: "Hard",
-        patternHint: "Two Heaps: un Max-Heap para la mitad izquierda y un Min-Heap para la mitad derecha balanceados en tamaño.",
+        patternHint: "Two Heaps: a Max-Heap for the lower half and a Min-Heap for the upper half kept balanced in size.",
       },
       {
         number: 373,
         title: "Find K Pairs with Smallest Sums",
         slug: "find-k-pairs-with-smallest-sums",
         difficulty: "Medium",
-        patternHint: "K-Way Merge con un Min-Heap guardando `(nums1[i] + nums2[j], i, j)`.",
+        patternHint: "K-Way Merge using a Min-Heap seeded with `(nums1[i] + nums2[0], i, 0)`.",
       },
     ],
     notebookLM: {
       customDirectionPrompt:
-        "Explica la paradoja intuitiva de Top-K: por qué para quedarte con los K MÁS GRANDES usas un MIN-Heap (el portero de un club VIP de K sillas que solo mira quién es el menos importante sentado adentro para ver si el recién llegado lo supera), y para los K MÁS PEQUEÑOS usas un MAX-Heap. Luego explica la elegancia visual del patrón Two Heaps para calcular la mediana en tiempo real.",
+        "Explain the counter-intuitive Top-K rule: why keeping the K LARGEST elements requires a MIN-Heap of size K (the bouncer at a K-seat VIP lounge only needs to know who the weakest member currently inside is to see if a newcomer beats them), while keeping the K SMALLEST requires a MAX-Heap. Then explain the Two Heaps pattern for live median tracking.",
       keyTakeaways: [
-        "Regla invertida de Top-K: ¿Quieres los K mayores? Usa Min-Heap de tamaño K. ¿Quieres los K menores? Usa Max-Heap de tamaño K.",
-        "En Two Heaps (`Find Median from Data Stream`), el tope del Max-Heap izquierdo y el tope del Min-Heap derecho abrazan exactamente el centro de los datos.",
-        "K-Way Merge usa un Min-Heap con 1 representante de cada una de las K listas para extraer el menor global en O(log K).",
+        "Inverted Top-K rule: Want the K largest? Use a Min-Heap of size K. Want the K smallest? Use a Max-Heap of size K.",
+        "In Two Heaps (`Find Median from Data Stream`), the top of the left Max-Heap and the top of the right Min-Heap bracket the exact median in O(1).",
+        "K-Way Merge keeps 1 head item from each of the K sorted lists inside a Min-Heap to extract the global minimum in O(log K).",
       ],
       stepByStepWalkthrough: [
-        "Para Top-K: mantener un Heap de capacidad máxima `K`; cada vez que `len(heap) > K`, hacer `heappop`.",
-        "Para Two Heaps: pasar cada número nuevo por `small` hacia `large` y luego reequilibrar tamaños para que `len(small)` sea igual o `1` mayor que `len(large)`.",
+        "For Top-K: maintain a heap capped at size `K`; whenever `len(heap) > K`, call `heappop`.",
+        "For Two Heaps: push each new number through `small` into `large`, then rebalance so `len(small)` equals `len(large)` or `len(large) + 1`.",
       ],
       interviewTraps: [
-        "Meter los `N` elementos al Heap en vez de limitar su tamaño a `K`, perdiendo la ventaja de memoria O(K) y tiempo O(N log K).",
+        "Pushing all `N` elements into the heap instead of capping its size at `K`, losing the O(K) space and O(N log K) time advantage.",
       ],
       narrativeBlocks: [
         {
           timestamp: "00:00 - 02:00",
-          sectionTitle: "El secreto del Podio VIP: Por qué los K Mayores usan un Min-Heap",
-          visualCue: "Un podio con 3 sillas donde el más bajo de los 3 está en la puerta listo para ser reemplazado.",
+          sectionTitle: "The VIP Podium Paradox: Why Top-K Largest Uses a Min-Heap",
+          visualCue: "A 3-seat podium where the lowest of the 3 champions sits by the door ready to be replaced.",
           narration:
-            "Aquí viene una pregunta clásica con trampa: si quieres conservar los K números más grandes de un millón de datos, ¿usas un Max-Heap o un Min-Heap? Aunque suene al revés, usas un Min-Heap de tamaño K, porque a quien necesitas expulsar cada vez que entra alguien mejor es al más pequeño del grupo VIP.",
+            "Here is a classic interview riddle: if you want to keep the K largest numbers out of a million items, do you use a Max-Heap or a Min-Heap? You use a Min-Heap of size K—because the member you need to evict whenever someone better arrives is the smallest member of your VIP club.",
         },
         {
           timestamp: "02:00 - 05:00",
-          sectionTitle: "Two Heaps: Encontrando la Mediana en vivo en O(1)",
-          visualCue: "Dos triángulos enfrentados por sus puntas (Max-Heap abajo y Min-Heap arriba) mostrando la mediana justo en medio.",
+          sectionTitle: "Two Heaps: Computing the Live Median in O(1)",
+          visualCue: "Two triangles facing tip-to-tip (Max-Heap below, Min-Heap above) framing the median right in the center.",
           narration:
-            "¿Cómo mantienes la mediana cuando llegan miles de números por segundo? Partes el universo en dos mitades: un Max-Heap para los números pequeños y un Min-Heap para los números grandes. Sus dos cimas te dan la mediana al instante.",
+            "How do you maintain the median when thousands of numbers stream in every second? Split the numbers into two balanced halves: a Max-Heap for the smaller half and a Min-Heap for the larger half. Their two peaks give you the median instantly.",
         },
       ],
     },

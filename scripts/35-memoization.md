@@ -1,85 +1,85 @@
-# 🎬 Episodio #35: Memoization (Programación Dinámica Top-Down)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 6 — Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Memoization / Top-Down Dynamic Programming`  
-> **Prerrequisitos Recomendados:** Divide & Conquer → Binary Trees → Hash Table → Backtracking
+# Episode #35: Memoization (Top-Down Dynamic Programming)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 6 — Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Memoization / Top-Down Dynamic Programming`  
+> **Recommended Prerequisites:** Divide & Conquer -> Binary Trees -> Hash Table -> Backtracking
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Quítale todo el miedo a la Programación Dinámica: explica que Memoization NO es más que una función recursiva normal (`dfs`) a la que le pones una libreta de notas (`memo` o `@cache` en Python). Muestra visualmente cómo el árbol exponencial de `Climbing Stairs` o `House Robber` se poda hasta convertirse en una línea recta O(N).
+Remove all fear of Dynamic Programming: explain that Memoization is simply a standard recursive `dfs` function with a sticky-note cache (`memo` or `@cache` in Python). Visually show how the exponential tree of `Climbing Stairs` or `House Robber` collapses into a linear O(N) chain.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Memoization (Top-Down DP)", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (Decisiones recursivas con estados repetidos (N ≤ 10³ para 2D, N ≤ 10⁵ para 1D)) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Memoization (Top-Down DP)", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (Recursive choices with overlapping subproblems (N <= 10^3 for 2D, N <= 10^5 for 1D)) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Memoization (Top-Down DP)?
-La forma más natural e intuitiva de dominar la Programación Dinámica: escribes primero la solución recursiva de decisiones (como en DFS/Backtracking) y le agregas una **caché (`memo` o `@cache`)** para que cada subproblema único se calcule **una sola vez** y luego se responda en O(1).
+### What is Memoization (Top-Down DP)?
+The most natural gateway into Dynamic Programming: write the recursive decision tree first (just like DFS/Backtracking) and attach a **cache (`memo` dict or `@cache`)** so every unique subproblem state is computed **only once** and returned in O(1) thereafter.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Si alguien te pregunta cuánto es `347 × 89`, haces la cuenta en un papel y te toma 30 segundos, pero anotas el resultado en un post-it. Si cinco minutos después te vuelven a preguntar `347 × 89`, no vuelves a multiplicar: miras tu post-it y respondes en medio segundo.
+### Real-World Analogy
+> **Visual Intuition:** If someone asks you `347 x 89`, you work it out on paper in 30 seconds and write the answer on a sticky note. If they ask `347 x 89` again five minutes later, you do not multiply again—you read the sticky note in half a second.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Ecuación fundamental: `Backtracking (fuerza bruta recursiva) + Caché de estados = Memoization (Top-Down DP)`.
-2. **Idea Clave #2:** El 'Estado' son únicamente los parámetros que cambian de una llamada recursiva a otra (ej. `i`, o `(i, capacidad_restante)`).
-3. **Idea Clave #3:** En Python 3.9+, el decorador `@functools.cache` convierte cualquier función recursiva pura en Programación Dinámica Top-Down en 1 sola línea.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Memoization (Top-Down DP))
-- ✅ El problema pide el **máximo, mínimo o número total de formas** de hacer algo, y al dibujar el árbol de decisiones ves que **el mismo estado se repite por distintos caminos** (Subproblemas Superpuestos).
-- ✅ Cuando no todos los estados posibles son alcanzables o cuando el orden de transición es complejo de ordenar iterativamente.
-- ✅ Como primer paso en cualquier problema de DP antes de (opcionalmente) pasarlo a una tabla Bottom-Up.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si la profundidad de recursión supera el límite de la pila en lenguajes con stack pequeño o necesitas optimizar el espacio de O(N) a O(1) (ahí traduce tu Memoization a DP Bottom-Up).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `Decisiones recursivas con estados repetidos (N ≤ 10³ para 2D, N ≤ 10⁵ para 1D)`
-- **Complejidad Temporal Promedio:** `O(Número de Estados Únicos × Costo de Transición por Estado)`
-- **Complejidad Temporal Peor Caso:** `Polinomial (pasa de O(2ᴺ) a O(N) u O(N²))`
-- **Complejidad Espacial:** `O(Estados Únicos) en el diccionario `memo` + O(Profundidad) en Call Stack`
-- **Nota Técnica:** Fórmula universal para calcular el Big-O de cualquier Memoization: `(Estados posibles de los argumentos) × (Trabajo dentro de 1 llamada sin contar la recursión)`.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Core equation: `Backtracking (recursive brute force) + State Cache = Memoization (Top-Down DP)`.
+2. **Key Takeaway #2:** The 'State' consists strictly of the parameters that change across recursive calls (e.g., `i`, or `(i, remaining_capacity)`).
+3. **Key Takeaway #3:** In Python 3.9+, `@functools.cache` turns any pure recursive function into Top-Down DP in a single line.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Identificar qué decisiones tomas en cada paso (ej. tomar o saltar el elemento `i`) y qué variables definen el Estado.
-2. Escribir la función recursiva `dfs(estado)` con sus casos base.
-3. Agregar un diccionario `memo` (o `@cache`): si `estado in memo`, retornar `memo[estado]` inmediatamente antes de calcular.
+### Problem Statement Signals (When to USE Memoization (Top-Down DP))
+- [x] The problem asks for the **maximum, minimum, or total number of ways** to do something, and drawing the recursion tree reveals **identical states reached via different paths** (Overlapping Subproblems).
+- [x] When not all states in the state space are reachable, or when topological iteration order is tricky to write bottom-up.
+- [x] As Step 1 of any DP problem in an interview before (optionally) converting to a bottom-up table.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Pasar listas mutables o variables innecesarias como argumentos de `dfs(...)`, haciendo que el estado no sea hasheable o que el número de estados explote.
+### When NOT to Use It (False Positives)
+- [!] If recursion depth exceeds stack limits or you need O(1) rolling-row space optimization (convert your Memoization recurrence into Bottom-Up DP).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `Recursive choices with overlapping subproblems (N <= 10^3 for 2D, N <= 10^5 for 1D)`
+- **Average Time Complexity:** `O(Number of Unique States * Work per State Transition)`
+- **Worst-Case Time Complexity:** `Polynomial (collapses O(2^N) into O(N) or O(N^2))`
+- **Space Complexity:** `O(Unique States) in `memo` + O(Recursion Depth) on Call Stack`
+- **Engineering Note:** Universal formula for Memoization time complexity: `(Total unique combinations of function arguments) * (Work inside 1 call excluding recursive calls)`.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Identify the choices at each step (e.g., take or skip element `i`) and the minimal variables that define the State.
+2. Write the recursive `dfs(state)` function with its base cases.
+3. Add a `memo` dictionary (or `@cache`): if `state in memo`, return `memo[state]` immediately.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Passing mutable lists or redundant accumulators as arguments to `dfs(...)`, either causing `unhashable type` errors or blowing up the number of states.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 from functools import cache
 
 def house_robber_memo(nums: list[int]) -> int:
     """
-    Plantilla Universal de Memoization (Top-Down DP).
-    En cada casa 'i' tenemos 2 decisiones:
-      1) Saltar la casa 'i' -> dfs(i + 1)
-      2) Robar la casa 'i'  -> nums[i] + dfs(i + 2)
-    Sin @cache: O(2^N) | Con @cache: O(N) tiempo y O(N) espacio.
+    Universal Memoization (Top-Down DP) Template.
+    At house 'i' we have 2 choices:
+      1) Skip house 'i' -> dfs(i + 1)
+      2) Rob house 'i'  -> nums[i] + dfs(i + 2)
+    Without @cache: O(2^N) | With @cache: O(N) time and O(N) space.
     """
     n = len(nums)
 
@@ -94,7 +94,7 @@ def house_robber_memo(nums: list[int]) -> int:
     return dfs(0)
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function houseRobberMemo(nums: number[]): number {
   const memo = new Map<number, number>();
@@ -114,24 +114,24 @@ export function houseRobberMemo(nums: number[]): number {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 02:00] Desmitificando DP: Solo es Recursión con Memoria
-- **🎬 Visual en Pantalla / Slide:** Árbol de Fibonacci donde todas las ramas repetidas se iluminan en verde y se leen en O(1) de una tabla.
-- **🎙️ Narración / Guion:**
-  > "Si ya entiendes recursión en árboles y Backtracking, ya sabes el 90% de Programación Dinámica. El único problema de la recursión pura es que tiene amnesia: resuelve el mismo subproblema miles de veces. Memoization le regala una libreta de apuntes."
+### [00:00 - 02:00] Demystifying DP: It Is Just Recursion with a Notepad
+- **On-Screen Visual / Slide Cue:** Fibonacci tree where duplicate subtrees light up green and return in O(1) from a lookup table.
+- **Narration / Script:**
+  > "If you already understand tree recursion and Backtracking, you already know 90% of Dynamic Programming. The only flaw of pure recursion is amnesia: it solves the exact same subproblem thousands of times. Memoization hands it a notepad."
 
-### ⏱️ [02:00 - 04:45] Cómo definir el Estado y calcular la complejidad en 5 segundos
-- **🎬 Visual en Pantalla / Slide:** Fórmula en pantalla: Complejidad = (# Estados Únicos) × (Costo por Transición).
-- **🎙️ Narración / Guion:**
-  > "Para saber cuánto tarda tu solución con Memoization ni siquiera tienes que dibujar el árbol: cuenta cuántos valores posibles pueden tomar los parámetros de tu función y multiplícalo por el trabajo interno de una llamada."
+### [02:00 - 04:45] Defining the State and Computing Big-O in 5 Seconds
+- **On-Screen Visual / Slide Cue:** On-screen formula: Time Complexity = (# of Unique States) x (Work per Transition).
+- **Narration / Script:**
+  > "To find the time complexity of any Memoization function, count how many possible values your function parameters can take and multiply by the work inside a single call."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#70. Climbing Stairs** | `Easy` | [https://leetcode.com/problems/climbing-stairs/](https://leetcode.com/problems/climbing-stairs/) | `dfs(i) = dfs(i + 1) + dfs(i + 2)` con `memo`: poda el árbol de Fibonacci de O(2ᴺ) a O(N). |
-| **#198. House Robber** | `Medium` | [https://leetcode.com/problems/house-robber/](https://leetcode.com/problems/house-robber/) | Decisión binaria en cada índice: `max(dfs(i + 1), nums[i] + dfs(i + 2))`. |
-| **#494. Target Sum** | `Medium` | [https://leetcode.com/problems/target-sum/](https://leetcode.com/problems/target-sum/) | Estado de 2 variables `dfs(i, current_sum)` memoizado en diccionario `(i, current_sum)`. |
+| **#70. Climbing Stairs** | `Easy` | [https://leetcode.com/problems/climbing-stairs/](https://leetcode.com/problems/climbing-stairs/) | `dfs(i) = dfs(i + 1) + dfs(i + 2)` with `memo` prunes the Fibonacci tree from O(2^N) down to O(N). |
+| **#198. House Robber** | `Medium` | [https://leetcode.com/problems/house-robber/](https://leetcode.com/problems/house-robber/) | Binary choice at each index: `max(dfs(i + 1), nums[i] + dfs(i + 2))`. |
+| **#494. Target Sum** | `Medium` | [https://leetcode.com/problems/target-sum/](https://leetcode.com/problems/target-sum/) | 2-parameter state `dfs(i, current_sum)` cached by tuple `(i, current_sum)`. |

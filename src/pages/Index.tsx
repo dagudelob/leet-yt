@@ -157,7 +157,7 @@ const Index: React.FC = () => {
         toggleTheme={() => setIsDark((d) => !d)}
       />
 
-      <main className="flex-1 container mx-auto px-4 py-6">
+      <main className="flex-1 container mx-auto px-6 py-8">
         {activeView === "flowchart" && (
           <FlowchartView
             topics={ALL_DSA_TOPICS}
@@ -208,35 +208,36 @@ const Index: React.FC = () => {
       />
 
       {/* Footer */}
-      <footer className="border-t border-border/80 bg-card/50 py-6 mt-12">
-        <div className="container mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+      <footer className="border-t border-border/80 bg-card/50 py-8 mt-14">
+        <div className="container mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-violet-400" />
             <span>
-              <strong className="text-foreground">Leet-YT</strong> — Flowchart
-              Interactivo de Algoritmos y Estructuras de Datos (46 Episodios +
-              Guiones NotebookLM)
+              <strong className="text-foreground">Leet-YT</strong> — Interactive
+              Data Structures &amp; Algorithms Decision Flowchart (46 Visual
+              Lessons + NotebookLM Scripts)
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <button
               onClick={() => setActiveView("studio")}
-              className="hover:text-foreground inline-flex items-center gap-1 transition-colors"
+              className="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
             >
-              <Youtube className="h-3.5 w-3.5 text-rose-400" /> Gestor de Videos
+              <Youtube className="h-3.5 w-3.5 text-rose-400" /> Video &amp;
+              Script Studio
             </button>
             <button
               onClick={() => setActiveView("roadmap")}
-              className="hover:text-foreground inline-flex items-center gap-1 transition-colors"
+              className="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
             >
-              <BookOpen className="h-3.5 w-3.5 text-cyan-400" /> 7 Niveles
+              <BookOpen className="h-3.5 w-3.5 text-cyan-400" /> 7-Level Path
             </button>
             <a
               href="https://github.com/dagudelob/leet-yt"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-foreground inline-flex items-center gap-1 transition-colors"
+              className="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
             >
               <Github className="h-3.5 w-3.5" /> GitHub (MIT)
             </a>

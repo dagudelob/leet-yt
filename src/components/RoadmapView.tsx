@@ -10,7 +10,6 @@ import {
   Code2,
   Sparkles,
   ArrowRight,
-  ExternalLink,
 } from "lucide-react";
 
 interface RoadmapViewProps {
@@ -43,27 +42,27 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Intro Banner */}
-      <div className="rounded-2xl border border-violet-500/30 bg-gradient-to-r from-violet-950/35 via-card to-cyan-950/25 p-5 shadow-md">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="rounded-3xl border border-violet-500/30 bg-gradient-to-r from-violet-950/35 via-card to-cyan-950/25 p-6 sm:p-8 shadow-md">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h2 className="text-lg font-extrabold text-foreground">
-              Ruta Pedagógica Progresiva en 7 Niveles (Episodios #01 al #46)
+            <h2 className="text-xl font-extrabold text-foreground">
+              7-Level Progressive Learning Path (Episodes #01 to #46)
             </h2>
-            <p className="text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed">
-              En lugar de memorizar todas las estructuras primero y todos los algoritmos después, esta secuencia introduce{" "}
-              <strong className="text-foreground">cada estructura de datos justo antes de los patrones algorítmicos que la utilizan</strong>.
-              Ideal tanto para estudiar desde cero como para publicar los videos en orden en tu canal de YouTube.
+            <p className="text-sm text-muted-foreground mt-2 max-w-3xl leading-relaxed">
+              Instead of memorizing all data structures in isolation and all algorithms later, this curriculum introduces{" "}
+              <strong className="text-foreground">each data structure right before the algorithmic patterns that rely on it</strong>.
+              Designed for bite-sized interactive mastery and sequential YouTube video production.
             </p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
-            <div className="rounded-xl border border-border bg-secondary/50 px-4 py-2.5 text-center">
-              <div className="text-xl font-black font-mono text-emerald-400">
+            <div className="rounded-2xl border border-border bg-secondary/50 px-5 py-3 text-center">
+              <div className="text-2xl font-black font-mono text-emerald-400">
                 {Math.round((completedTopics.size / topics.length) * 100)}%
               </div>
-              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">
-                Progreso Total ({completedTopics.size}/{topics.length})
+              <div className="text-[11px] text-muted-foreground uppercase tracking-wider mt-0.5">
+                Mastered ({completedTopics.size}/{topics.length})
               </div>
             </div>
           </div>
@@ -89,41 +88,41 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
         return (
           <section
             key={lvl.level}
-            className={`rounded-2xl border ${lvl.borderClass} bg-card/80 p-5 sm:p-6 shadow-lg`}
+            className={`rounded-3xl border ${lvl.borderClass} bg-card/85 p-6 sm:p-8 shadow-lg`}
           >
             {/* Level Header */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-border">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-border">
               <div>
-                <div className="flex items-center gap-2.5 flex-wrap">
+                <div className="flex items-center gap-3 flex-wrap">
                   <span
-                    className={`rounded-full border px-2.5 py-0.5 text-xs font-bold ${lvl.badgeClass}`}
+                    className={`rounded-full border px-3 py-0.5 text-xs font-bold ${lvl.badgeClass}`}
                   >
-                    Fase {lvl.level} de 7
+                    Level {lvl.level} of 7
                   </span>
-                  <h3 className={`text-lg font-extrabold ${lvl.colorClass}`}>
+                  <h3 className={`text-lg sm:text-xl font-extrabold ${lvl.colorClass}`}>
                     {lvl.title}
                   </h3>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1.5 leading-relaxed">
                   {lvl.goalDescription}
                 </p>
               </div>
 
               <div className="flex items-center gap-3 shrink-0">
-                <div className="w-36 bg-secondary rounded-full h-2 overflow-hidden">
+                <div className="w-36 bg-secondary rounded-full h-2.5 overflow-hidden">
                   <div
                     className="bg-emerald-500 h-full transition-all duration-300"
                     style={{ width: `${pct}%` }}
                   />
                 </div>
                 <span className="font-mono text-xs font-semibold text-muted-foreground">
-                  {completedInLevel}/{allLevelTopics.length} completados
+                  {completedInLevel}/{allLevelTopics.length} completed
                 </span>
               </div>
             </div>
 
             {/* Topic Cards Grid */}
-            <div className="mt-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
               {levelTopics.map((topic) => {
                 const isDone = completedTopics.has(topic.id);
                 const yt = youtubeLinks[topic.id];
@@ -133,7 +132,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                   <div
                     key={topic.id}
                     onClick={() => onSelectTopic(topic)}
-                    className={`group cursor-pointer rounded-xl border p-4 transition-all flex flex-col justify-between ${
+                    className={`group cursor-pointer rounded-2xl border p-5 transition-all flex flex-col justify-between ${
                       isDone
                         ? "border-emerald-500/45 bg-emerald-950/15 hover:border-emerald-400"
                         : "border-border bg-secondary/25 hover:border-violet-400 hover:bg-secondary/50 hover:shadow-md"
@@ -141,22 +140,22 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                   >
                     <div>
                       {/* Card Top Row */}
-                      <div className="flex items-center justify-between gap-2 mb-2.5">
+                      <div className="flex items-center justify-between gap-2 mb-3">
                         <div className="flex items-center gap-2">
-                          <span className="rounded-md bg-violet-500/20 border border-violet-500/30 px-2 py-0.5 font-mono text-xs font-extrabold text-violet-300">
-                            Video #{String(topic.order).padStart(2, "0")}
+                          <span className="rounded-lg bg-violet-500/20 border border-violet-500/30 px-2.5 py-0.5 font-mono text-xs font-extrabold text-violet-300">
+                            Ep #{String(topic.order).padStart(2, "0")}
                           </span>
                           {topic.kind === "data-structure" ? (
-                            <span className="inline-flex items-center gap-1 rounded bg-cyan-500/15 px-2 py-0.5 text-[10px] font-semibold text-cyan-300">
-                              <Database className="h-3 w-3" /> Estructura
+                            <span className="inline-flex items-center gap-1 rounded-md bg-cyan-500/15 px-2 py-0.5 text-[10px] font-semibold text-cyan-300">
+                              <Database className="h-3 w-3" /> Structure
                             </span>
                           ) : topic.kind === "hybrid" ? (
-                            <span className="inline-flex items-center gap-1 rounded bg-fuchsia-500/15 px-2 py-0.5 text-[10px] font-semibold text-fuchsia-300">
-                              <Sparkles className="h-3 w-3" /> Híbrido
+                            <span className="inline-flex items-center gap-1 rounded-md bg-fuchsia-500/15 px-2 py-0.5 text-[10px] font-semibold text-fuchsia-300">
+                              <Sparkles className="h-3 w-3" /> Hybrid
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 rounded bg-violet-500/15 px-2 py-0.5 text-[10px] font-semibold text-violet-300">
-                              <Code2 className="h-3 w-3" /> Algoritmo
+                            <span className="inline-flex items-center gap-1 rounded-md bg-violet-500/15 px-2 py-0.5 text-[10px] font-semibold text-violet-300">
+                              <Code2 className="h-3 w-3" /> Pattern
                             </span>
                           )}
                         </div>
@@ -165,8 +164,8 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                           onClick={(e) => onToggleComplete(topic.id, e)}
                           title={
                             isDone
-                              ? "Marcar como pendiente"
-                              : "Marcar como dominado"
+                              ? "Mark as incomplete"
+                              : "Mark as mastered"
                           }
                           className="text-muted-foreground hover:text-emerald-400 transition-colors"
                         >
@@ -179,23 +178,23 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                       </div>
 
                       {/* Title & Summary */}
-                      <h4 className="text-sm font-bold text-foreground group-hover:text-violet-300 transition-colors">
+                      <h4 className="text-base font-bold text-foreground group-hover:text-violet-300 transition-colors leading-snug">
                         {topic.title}
                       </h4>
-                      <p className="mt-1.5 text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                      <p className="mt-2 text-xs text-muted-foreground line-clamp-2 leading-relaxed">
                         {topic.summary}
                       </p>
 
                       {/* Prerequisites */}
                       {topic.prerequisites.length > 0 && (
-                        <div className="mt-2.5 flex items-center gap-1 flex-wrap text-[10px] text-muted-foreground">
-                          <span>Prerrequisito:</span>
+                        <div className="mt-3 flex items-center gap-1.5 flex-wrap text-[10px] text-muted-foreground">
+                          <span>Prerequisites:</span>
                           {topic.prerequisites.map((preId) => {
                             const pre = TOPICS_BY_ID[preId];
                             return (
                               <span
                                 key={preId}
-                                className="rounded bg-secondary px-1.5 py-0.5 font-medium text-foreground"
+                                className="rounded-md bg-secondary px-2 py-0.5 font-medium text-foreground"
                               >
                                 #{String(pre?.order ?? 0).padStart(2, "0")}{" "}
                                 {pre?.shortTitle ?? preId}
@@ -207,21 +206,21 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                     </div>
 
                     {/* Footer */}
-                    <div className="mt-4 pt-3 border-t border-border/60 flex items-center justify-between gap-2 text-xs">
+                    <div className="mt-5 pt-3 border-t border-border/60 flex items-center justify-between gap-2 text-xs">
                       <div className="flex items-center gap-2">
                         {hasVideo ? (
                           <span className="inline-flex items-center gap-1 text-rose-400 font-semibold text-[11px]">
-                            <PlayCircle className="h-3.5 w-3.5" /> Video Publicado
+                            <PlayCircle className="h-3.5 w-3.5" /> Video Live
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1 text-amber-300 font-medium text-[11px]">
-                            <FileText className="h-3.5 w-3.5" /> Guion NotebookLM Listo
+                            <FileText className="h-3.5 w-3.5" /> Interactive Lesson Ready
                           </span>
                         )}
                       </div>
 
-                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-violet-300 group-hover:translate-x-0.5 transition-transform">
-                        Estudiar <ArrowRight className="h-3 w-3" />
+                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-violet-300 group-hover:translate-x-0.5 transition-transform">
+                        Start Lesson <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
                   </div>

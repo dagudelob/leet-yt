@@ -1,87 +1,87 @@
-# 🎬 Episodio #36: Dynamic Programming (DP Bottom-Up y Patrones Clásicos)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 6 — Patrón Algorítmico (`Advanced`)  
-> **Término en Inglés (Flowchart):** `Bottom-Up Dynamic Programming (1D, 2D, Knapsack, LCS, LIS)`  
-> **Prerrequisitos Recomendados:** Memoization (Top-Down DP) → Arrays → Matrices / Grids 2D
+# Episode #36: Dynamic Programming (Bottom-Up Tabulation & Classic Patterns)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 6 — Algorithmic Pattern (`Advanced`)  
+> **Flowchart Node Term:** `Bottom-Up Dynamic Programming (1D, 2D, Knapsack, LCS, LIS)`  
+> **Recommended Prerequisites:** Memoization (Top-Down DP) -> Arrays -> Matrices / 2D Grids
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Estructura este episodio como la guía definitiva de las 4 grandes familias de Programación Dinámica Bottom-Up: 1) DP Lineal 1D (`House Robber`), 2) Mochila / Knapsack (`Coin Change`, `Partition Equal Subset Sum`), 3) DP de Dos Secuencias (`Longest Common Subsequence`, `Edit Distance`), y 4) LIS (`Longest Increasing Subsequence`). Enseña la receta de 4 pasos: Definición de `dp[i]`, Caso Base, Ecuación de Transición y Orden de Llenado.
+Structure this episode as the field guide to the 4 classic Bottom-Up DP families: 1) 1D Linear DP (`House Robber`), 2) Knapsack DP (`Coin Change`, `Partition Equal Subset Sum`), 3) Two-String Alignment (`Longest Common Subsequence`, `Edit Distance`), and 4) LIS (`Longest Increasing Subsequence`). Teach the 4-step framework: State Definition, Base Case, Recurrence Relation, and Iteration Order.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Dynamic Programming", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones ('Min/Max/Number of ways' con subproblemas superpuestos y N ≤ 10³ - 10⁵) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Dynamic Programming", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint ('Min/Max/Number of ways' with overlapping subproblems and N <= 10^3 - 10^5) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Dynamic Programming?
-Construir la solución óptima de abajo hacia arriba (Bottom-Up) llenando iterativamente una tabla `dp` desde los casos más pequeños hasta `N`, sin usar recursión y permitiendo **optimizar la memoria** (ej. de una tabla `O(N)` a solo 2 variables `O(1)`, o de `O(N × M)` a una sola fila `O(M)`).
+### What is Dynamic Programming?
+Building the optimal solution from the ground up (Bottom-Up) by iteratively filling a `dp` table from base cases up to `N`—eliminating recursion overhead and enabling **space optimization** (shrinking an `O(N)` table to 2 variables `O(1)`, or an `O(N x M)` grid to a single row `O(M)`).
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Subir una escalera construyendo cada escalón apoyándote firmemente en los dos escalones anteriores que ya dejaste terminados. Como para construir el escalón #10 solo necesitas apoyarte en el #9 y el #8, ni siquiera necesitas guardar los escalones del #1 al #7 en memoria.
+### Real-World Analogy
+> **Visual Intuition:** Climbing a staircase where each step is built from the two steps directly beneath it. Because step #10 only depends on step #9 and step #8, you only ever need to remember the last two steps in memory.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Antes de escribir un bucle de DP, escribe en un comentario en español qué significa exactamente `dp[i]` o `dp[i][j]`.
-2. **Idea Clave #2:** En 0/1 Knapsack (cada objeto se usa máximo 1 vez), si optimizas a un arreglo 1D debes recorrer la capacidad **hacia atrás** (`for w in range(target, num - 1, -1)`) para no reutilizar el mismo objeto dos veces.
-3. **Idea Clave #3:** En DP de dos strings (`LCS`, `Edit Distance`), agregar una fila 0 y columna 0 para el string vacío elimina todos los `if` de bordes.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Dynamic Programming)
-- ✅ **DP 1D Lineal / Secuencias**: `House Robber`, `Coin Change`, `Decode Ways`, `Longest Increasing Subsequence (LIS)`.
-- ✅ **DP de Mochila (0/1 Knapsack & Unbounded Knapsack)**: `Partition Equal Subset Sum`, `Coin Change I & II`.
-- ✅ **DP 2D en Grids o Dos Strings**: `Unique Paths`, `Minimum Path Sum`, `Longest Common Subsequence (LCS)`, `Edit Distance`.
-- ✅ **DP de Intervalos**: `Burst Balloons`, `Longest Palindromic Subsequence`.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si el problema pide devolver TODAS las listas detalladas de soluciones posibles y el tamaño de salida es exponencial (ahí usa Backtracking).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `'Min/Max/Number of ways' con subproblemas superpuestos y N ≤ 10³ - 10⁵`
-- **Complejidad Temporal Promedio:** `1D: O(N) o O(N·K) | 2D / Knapsack / LCS: O(N × M)`
-- **Complejidad Temporal Peor Caso:** `Polinomial según dimensiones de la tabla `dp``
-- **Complejidad Espacial:** `O(N) o O(N × M), optimizable a O(1) u O(M) con Rolling Array`
-- **Nota Técnica:** Si `dp[i]` solo depende de `dp[i-1]` y `dp[i-2]`, puedes reducir el espacio a O(1).
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Before writing a single loop, write a comment stating the exact plain-English meaning of `dp[i]` or `dp[i][j]`.
+2. **Key Takeaway #2:** In 0/1 Knapsack (each item used at most once), optimizing to a 1D array requires iterating capacities **BACKWARD** (`for w in range(target, num - 1, -1)`) so an item is not reused multiple times.
+3. **Key Takeaway #3:** In two-string DP (`LCS`, `Edit Distance`), padding an extra row 0 and column 0 for the empty string eliminates boundary checks.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. 1. Definir el significado exacto de `dp[i]`.
-2. 2. Inicializar la tabla con el valor neutro (`0` para conteo/máximo, `inf` para mínimo) y fijar el caso base (`dp[0]`).
-3. 3. Escribir la ecuación de recurrencia mirando qué estados previos alimentan al estado actual.
-4. 4. (Bonus en entrevista) Si solo miras la fila anterior, reducir el espacio con dos filas `prev` y `curr`.
+### Problem Statement Signals (When to USE Dynamic Programming)
+- [x] **1D Linear DP**: `House Robber`, `Coin Change`, `Decode Ways`, `Longest Increasing Subsequence (LIS)`.
+- [x] **Knapsack DP (0/1 & Unbounded)**: `Partition Equal Subset Sum`, `Coin Change I & II`.
+- [x] **2D Grid or Two-String DP**: `Unique Paths`, `Minimum Path Sum`, `Longest Common Subsequence (LCS)`, `Edit Distance`.
+- [x] **Interval DP**: `Burst Balloons`, `Longest Palindromic Subsequence`.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** En 0/1 Knapsack con arreglo 1D, iterar la capacidad de izquierda a derecha en vez de derecha a izquierda: de izquierda a derecha convierte el problema por accidente en Unbounded Knapsack (usando el mismo elemento múltiples veces).
+### When NOT to Use It (False Positives)
+- [!] When the problem requires returning ALL actual combinations/configurations and the output size itself is exponential (use Backtracking).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `'Min/Max/Number of ways' with overlapping subproblems and N <= 10^3 - 10^5`
+- **Average Time Complexity:** `1D: O(N) or O(N * K) | 2D / Knapsack / LCS: O(N * M)`
+- **Worst-Case Time Complexity:** `Polynomial matching the dimensions of the `dp` table`
+- **Space Complexity:** `O(N) or O(N * M), optimizable to O(1) or O(M) with a Rolling Array`
+- **Engineering Note:** Whenever `dp[i]` only depends on `dp[i-1]` and `dp[i-2]`, space can be reduced to O(1).
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. 1. Define the exact meaning of `dp[i]`.
+2. 2. Initialize the table with the identity value (`0` for max/count, `inf` for min) and set base cases (`dp[0]`).
+3. 3. Write the recurrence transition from already-computed smaller states.
+4. 4. (Bonus) If row `i` only reads row `i - 1`, compress space to two rows `prev` and `curr`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** In 1D 0/1 Knapsack, iterating capacity left-to-right instead of right-to-left—which accidentally turns 0/1 Knapsack into Unbounded Knapsack (reusing the same item multiple times).
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def coin_change_bottom_up(coins: list[int], amount: int) -> int:
     """
-    Patrón 1: Unbounded Knapsack (Coin Change) en DP 1D.
-    dp[a] = mínimo número de monedas para sumar exactamente la cantidad 'a'.
-    Tiempo: O(amount * len(coins)) | Espacio: O(amount)
+    Pattern 1: Unbounded Knapsack (Coin Change) in 1D DP.
+    dp[a] = minimum coins required to make exact amount 'a'.
+    Time: O(amount * len(coins)) | Space: O(amount)
     """
     INF = amount + 1
     dp = [INF] * (amount + 1)
-    dp[0] = 0  # Caso base: 0 monedas para sumar 0
+    dp[0] = 0  # Base case: 0 coins needed to make amount 0
 
     for a in range(1, amount + 1):
         for c in coins:
@@ -93,7 +93,7 @@ def coin_change_bottom_up(coins: list[int], amount: int) -> int:
 
 def longest_common_subsequence(text1: str, text2: str) -> int:
     """
-    Patrón 2: DP 2D sobre Dos Strings (LCS).
+    Pattern 2: 2D DP on Two Strings (LCS).
     """
     m, n = len(text1), len(text2)
     dp = [[0] * (n + 1) for _ in range(m + 1)]
@@ -107,7 +107,7 @@ def longest_common_subsequence(text1: str, text2: str) -> int:
     return dp[m][n]
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function coinChangeBottomUp(coins: number[], amount: number): number {
   const INF = amount + 1;
@@ -127,24 +127,24 @@ export function coinChangeBottomUp(coins: number[], amount: number): number {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 02:00] De Top-Down a Bottom-Up: Llenando la tabla desde los cimientos
-- **🎬 Visual en Pantalla / Slide:** Transformación de las flechas recursivas de Memoization en una tabla que se llena de izquierda a derecha.
-- **🎙️ Narración / Guion:**
-  > "Ya sabemos que Memoization resuelve DP de arriba hacia abajo. Ahora daremos el paso profesional: llenar la tabla directamente desde el caso base hacia arriba, eliminando la recursión y abriendo la puerta a reducir la memoria a O(1)."
+### [00:00 - 02:00] From Top-Down to Bottom-Up: Building from the Foundation
+- **On-Screen Visual / Slide Cue:** Transforming recursive Memoization arrows into a table filling cleanly from left to right.
+- **Narration / Script:**
+  > "We already saw how Memoization solves DP top-down. Now we take the pro step: filling the table directly from base cases upward, removing recursion overhead and unlocking O(1) rolling-space optimization."
 
-### ⏱️ [02:00 - 05:30] Las 4 Familias Clásicas: Lineal, Knapsack, LCS y LIS
-- **🎬 Visual en Pantalla / Slide:** Cuatro cuadrantes visuales mostrando las transiciones de flechas de cada familia de DP.
-- **🎙️ Narración / Guion:**
-  > "El 90% de los problemas de Programación Dinámica en entrevistas pertenecen a una de cuatro familias: secuencias 1D, problemas de mochila como Coin Change, alineación de dos strings como LCS, o subsecuencias crecientes como LIS."
+### [02:00 - 05:30] The 4 Classic Families: 1D Linear, Knapsack, LCS, and LIS
+- **On-Screen Visual / Slide Cue:** Four quadrants illustrating the dependency arrows of each DP family.
+- **Narration / Script:**
+  > "Ninety percent of interview DP problems belong to one of four families: 1D sequences, Knapsack subset sums like Coin Change, two-string alignment like LCS, or Longest Increasing Subsequence."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#322. Coin Change** | `Medium` | [https://leetcode.com/problems/coin-change/](https://leetcode.com/problems/coin-change/) | `dp[a] = min(dp[a], 1 + dp[a - coin])` con `dp[0] = 0`. |
-| **#1143. Longest Common Subsequence** | `Medium` | [https://leetcode.com/problems/longest-common-subsequence/](https://leetcode.com/problems/longest-common-subsequence/) | Tabla `(M+1) × (N+1)`: si las letras coinciden suma `1 + diagonal`; si no, `max(arriba, izquierda)`. |
-| **#300. Longest Increasing Subsequence** | `Medium` | [https://leetcode.com/problems/longest-increasing-subsequence/](https://leetcode.com/problems/longest-increasing-subsequence/) | DP clásica O(N²) `dp[i] = max(1 + dp[j])` u optimizada con Binary Search (Patience Sorting) en O(N log N). |
+| **#322. Coin Change** | `Medium` | [https://leetcode.com/problems/coin-change/](https://leetcode.com/problems/coin-change/) | `dp[a] = min(dp[a], 1 + dp[a - coin])` starting from `dp[0] = 0`. |
+| **#1143. Longest Common Subsequence** | `Medium` | [https://leetcode.com/problems/longest-common-subsequence/](https://leetcode.com/problems/longest-common-subsequence/) | `(M+1) x (N+1)` table: if chars match take `1 + diagonal`; otherwise `max(top, left)`. |
+| **#300. Longest Increasing Subsequence** | `Medium` | [https://leetcode.com/problems/longest-increasing-subsequence/](https://leetcode.com/problems/longest-increasing-subsequence/) | Classic O(N^2) DP `dp[i] = max(1 + dp[j])` or O(N log N) Patience Sorting with Binary Search. |

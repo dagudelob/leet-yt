@@ -1,98 +1,98 @@
-# 🎬 Episodio #28: Heap Patterns (Top-K, K-Way Merge, Two Heaps & Heap Sort)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 4 — Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Heap Sort, Top-K, K-Way Merge & Two Heaps`  
-> **Prerrequisitos Recomendados:** Heaps (Priority Queue) → Sorting + Intervals
+# Episode #28: Heap Patterns (Top-K, K-Way Merge, Two Heaps & Heap Sort)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 4 — Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Heap Sort, Top-K, K-Way Merge & Two Heaps`  
+> **Recommended Prerequisites:** Heaps (Priority Queue) -> Sorting + Intervals
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica la paradoja intuitiva de Top-K: por qué para quedarte con los K MÁS GRANDES usas un MIN-Heap (el portero de un club VIP de K sillas que solo mira quién es el menos importante sentado adentro para ver si el recién llegado lo supera), y para los K MÁS PEQUEÑOS usas un MAX-Heap. Luego explica la elegancia visual del patrón Two Heaps para calcular la mediana en tiempo real.
+Explain the counter-intuitive Top-K rule: why keeping the K LARGEST elements requires a MIN-Heap of size K (the bouncer at a K-seat VIP lounge only needs to know who the weakest member currently inside is to see if a newcomer beats them), while keeping the K SMALLEST requires a MAX-Heap. Then explain the Two Heaps pattern for live median tracking.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Heap Patterns & Top-K", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones ('Top K', 'K closest', 'Merge K sorted' o 'Median from Data Stream') para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Heap Patterns & Top-K", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint ('Top K', 'K closest', 'Merge K sorted', or 'Median from Data Stream') to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Heap Patterns & Top-K?
-Los 4 patrones algorítmicos construidos sobre Heaps: 1) **Top-K Elements** (usar un Min-Heap de tamaño `K` para quedarte con los `K` más grandes en O(N log K)), 2) **K-Way Merge** (fusionar `K` listas ordenadas), 3) **Two Heaps** (Max-Heap + Min-Heap para calcular la mediana en vivo), y 4) **Heap Sort**.
+### What is Heap Patterns & Top-K?
+The 4 high-yield algorithmic patterns powered by Heaps: 1) **Top-K Elements** (using a Min-Heap of size `K` to keep the `K` largest elements in O(N log K)), 2) **K-Way Merge** (merging `K` sorted streams), 3) **Two Heaps** (Max-Heap + Min-Heap to track the running median), and 4) **Heap Sort**.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Para quedarte con los 3 atletas más rápidos de una maratón de 100,000 corredores (Top-3), no necesitas una tarima para 100,000 personas: pon un podio con solo 3 sillas (un Min-Heap de tamaño 3). Cada vez que llega alguien más rápido que el peor de los 3 sentados en el podio, ese peor cede su silla. Al final quedan exactamente los 3 mejores.
+### Real-World Analogy
+> **Visual Intuition:** To find the 3 fastest runners in a 100,000-person marathon (Top-3), you only need a VIP podium with 3 chairs (a Min-Heap of size 3). Whenever a new runner finishes faster than the slowest person currently sitting on the 3-chair podium, that slowest person gives up their seat. At the end, the 3 chairs hold the top 3 champions.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** Regla invertida de Top-K: ¿Quieres los K mayores? Usa Min-Heap de tamaño K. ¿Quieres los K menores? Usa Max-Heap de tamaño K.
-2. **Idea Clave #2:** En Two Heaps (`Find Median from Data Stream`), el tope del Max-Heap izquierdo y el tope del Min-Heap derecho abrazan exactamente el centro de los datos.
-3. **Idea Clave #3:** K-Way Merge usa un Min-Heap con 1 representante de cada una de las K listas para extraer el menor global en O(log K).
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Heap Patterns & Top-K)
-- ✅ **Patrón Top-K**: 'Encuentra los K elementos más grandes / más pequeños / más cercanos / más frecuentes' en O(N log K) tiempo y O(K) memoria.
-- ✅ **Patrón K-Way Merge**: Fusionar `K` listas o arreglos ordenados o hallar el K-ésimo menor en una matriz ordenada.
-- ✅ **Patrón Two Heaps**: Mantener la **Mediana** de un flujo de datos en tiempo real (un `Max-Heap` para la mitad inferior y un `Min-Heap` para la mitad superior).
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Nunca confundas qué Heap usar para Top-K: para conservar los K MÁS GRANDES necesitas un **MIN-HEAP** de tamaño K (para expulsar rápidamente al más pequeño cuando el tamaño supera K).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `'Top K', 'K closest', 'Merge K sorted' o 'Median from Data Stream'`
-- **Complejidad Temporal Promedio:** `Top-K: O(N log K) | Two Heaps insert: O(log N), median: O(1) | Heap Sort: O(N log N)`
-- **Complejidad Temporal Peor Caso:** `O(N log K) o O(N log N)`
-- **Complejidad Espacial:** `O(K) en Top-K y K-Way Merge | O(1) en Heap Sort in-place`
-- **Nota Técnica:** Cuando K es pequeño frente a N, O(N log K) es mucho más rápido y usa mucha menos memoria que ordenar todo en O(N log N).
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** Inverted Top-K rule: Want the K largest? Use a Min-Heap of size K. Want the K smallest? Use a Max-Heap of size K.
+2. **Key Takeaway #2:** In Two Heaps (`Find Median from Data Stream`), the top of the left Max-Heap and the top of the right Min-Heap bracket the exact median in O(1).
+3. **Key Takeaway #3:** K-Way Merge keeps 1 head item from each of the K sorted lists inside a Min-Heap to extract the global minimum in O(log K).
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Para Top-K: mantener un Heap de capacidad máxima `K`; cada vez que `len(heap) > K`, hacer `heappop`.
-2. Para Two Heaps: pasar cada número nuevo por `small` hacia `large` y luego reequilibrar tamaños para que `len(small)` sea igual o `1` mayor que `len(large)`.
+### Problem Statement Signals (When to USE Heap Patterns & Top-K)
+- [x] **Top-K Pattern**: 'Find the K largest / smallest / closest / most frequent elements' in O(N log K) time and O(K) memory.
+- [x] **K-Way Merge Pattern**: Merging `K` sorted linked lists or arrays, or finding the K-th smallest element in a sorted matrix.
+- [x] **Two Heaps Pattern**: Maintaining the **Running Median** of a live stream (a `Max-Heap` for the lower half and a `Min-Heap` for the upper half).
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Meter los `N` elementos al Heap en vez de limitar su tamaño a `K`, perdiendo la ventaja de memoria O(K) y tiempo O(N log K).
+### When NOT to Use It (False Positives)
+- [!] Do not mix up which heap to use for Top-K: to keep the **K LARGEST** elements, use a **MIN-HEAP** of size K (so `heappop()` evicts the smallest of the K+1 candidates).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `'Top K', 'K closest', 'Merge K sorted', or 'Median from Data Stream'`
+- **Average Time Complexity:** `Top-K: O(N log K) | Two Heaps insert: O(log N), median: O(1) | Heap Sort: O(N log N)`
+- **Worst-Case Time Complexity:** `O(N log K) or O(N log N)`
+- **Space Complexity:** `O(K) for Top-K and K-Way Merge | O(1) for in-place Heap Sort`
+- **Engineering Note:** When K << N, O(N log K) uses far less memory and time than sorting all N items.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. For Top-K: maintain a heap capped at size `K`; whenever `len(heap) > K`, call `heappop`.
+2. For Two Heaps: push each new number through `small` into `large`, then rebalance so `len(small)` equals `len(large)` or `len(large) + 1`.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Pushing all `N` elements into the heap instead of capping its size at `K`, losing the O(K) space and O(N log K) time advantage.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 import heapq
 
 def find_k_largest_with_min_heap(nums: list[int], k: int) -> list[int]:
     """
-    Patrón 1: Top-K Más Grandes usando un MIN-HEAP de tamaño K.
-    Tiempo: O(N log K) | Espacio: O(K)
+    Pattern 1: Top-K Largest using a MIN-HEAP of size K.
+    Time: O(N log K) | Space: O(K)
     """
     min_heap: list[int] = []
     for x in nums:
         heapq.heappush(min_heap, x)
         if len(min_heap) > k:
-            heapq.heappop(min_heap)  # Expulsamos al menor de los K+1
+            heapq.heappop(min_heap)  # Evict the smallest among the K+1 items
     return min_heap
 
 
 class MedianFinderTwoHeaps:
     """
-    Patrón 2: Two Heaps para Mediana en Streaming.
-    small_half: Max-Heap (valores negados) con la mitad menor de los datos.
-    large_half: Min-Heap con la mitad mayor de los datos.
+    Pattern 2: Two Heaps for Streaming Median.
+    small: Max-Heap (negated values) storing the smaller half of numbers.
+    large: Min-Heap storing the larger half of numbers.
     """
     def __init__(self):
-        self.small: list[int] = []  # Max-Heap (negado)
+        self.small: list[int] = []  # Max-Heap (negated)
         self.large: list[int] = []  # Min-Heap
 
     def addNum(self, num: int) -> None:
@@ -107,7 +107,7 @@ class MedianFinderTwoHeaps:
         return (-self.small[0] + self.large[0]) / 2.0
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 import { MinHeap } from "./heaps";
 
@@ -116,7 +116,7 @@ export function findKLargest(nums: number[], k: number): number {
   for (const x of nums) {
     minHeap.push(x);
     if (minHeap.size > k) {
-      minHeap.pop(); // Expulsa el más pequeño para conservar los K más grandes
+      minHeap.pop(); // Evict smallest to retain K largest
     }
   }
   return minHeap.peek()!;
@@ -125,24 +125,24 @@ export function findKLargest(nums: number[], k: number): number {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 02:00] El secreto del Podio VIP: Por qué los K Mayores usan un Min-Heap
-- **🎬 Visual en Pantalla / Slide:** Un podio con 3 sillas donde el más bajo de los 3 está en la puerta listo para ser reemplazado.
-- **🎙️ Narración / Guion:**
-  > "Aquí viene una pregunta clásica con trampa: si quieres conservar los K números más grandes de un millón de datos, ¿usas un Max-Heap o un Min-Heap? Aunque suene al revés, usas un Min-Heap de tamaño K, porque a quien necesitas expulsar cada vez que entra alguien mejor es al más pequeño del grupo VIP."
+### [00:00 - 02:00] The VIP Podium Paradox: Why Top-K Largest Uses a Min-Heap
+- **On-Screen Visual / Slide Cue:** A 3-seat podium where the lowest of the 3 champions sits by the door ready to be replaced.
+- **Narration / Script:**
+  > "Here is a classic interview riddle: if you want to keep the K largest numbers out of a million items, do you use a Max-Heap or a Min-Heap? You use a Min-Heap of size K—because the member you need to evict whenever someone better arrives is the smallest member of your VIP club."
 
-### ⏱️ [02:00 - 05:00] Two Heaps: Encontrando la Mediana en vivo en O(1)
-- **🎬 Visual en Pantalla / Slide:** Dos triángulos enfrentados por sus puntas (Max-Heap abajo y Min-Heap arriba) mostrando la mediana justo en medio.
-- **🎙️ Narración / Guion:**
-  > "¿Cómo mantienes la mediana cuando llegan miles de números por segundo? Partes el universo en dos mitades: un Max-Heap para los números pequeños y un Min-Heap para los números grandes. Sus dos cimas te dan la mediana al instante."
+### [02:00 - 05:00] Two Heaps: Computing the Live Median in O(1)
+- **On-Screen Visual / Slide Cue:** Two triangles facing tip-to-tip (Max-Heap below, Min-Heap above) framing the median right in the center.
+- **Narration / Script:**
+  > "How do you maintain the median when thousands of numbers stream in every second? Split the numbers into two balanced halves: a Max-Heap for the smaller half and a Min-Heap for the larger half. Their two peaks give you the median instantly."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#973. K Closest Points to Origin** | `Medium` | [https://leetcode.com/problems/k-closest-points-to-origin/](https://leetcode.com/problems/k-closest-points-to-origin/) | Para quedarte con los K MÁS PEQUEÑOS en distancia, usa un Max-Heap de tamaño K (`(-dist, x, y)`). |
-| **#295. Find Median from Data Stream** | `Hard` | [https://leetcode.com/problems/find-median-from-data-stream/](https://leetcode.com/problems/find-median-from-data-stream/) | Two Heaps: un Max-Heap para la mitad izquierda y un Min-Heap para la mitad derecha balanceados en tamaño. |
-| **#373. Find K Pairs with Smallest Sums** | `Medium` | [https://leetcode.com/problems/find-k-pairs-with-smallest-sums/](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/) | K-Way Merge con un Min-Heap guardando `(nums1[i] + nums2[j], i, j)`. |
+| **#973. K Closest Points to Origin** | `Medium` | [https://leetcode.com/problems/k-closest-points-to-origin/](https://leetcode.com/problems/k-closest-points-to-origin/) | To keep the K SMALLEST distances, maintain a Max-Heap of size K (`(-dist_sq, x, y)`). |
+| **#295. Find Median from Data Stream** | `Hard` | [https://leetcode.com/problems/find-median-from-data-stream/](https://leetcode.com/problems/find-median-from-data-stream/) | Two Heaps: a Max-Heap for the lower half and a Min-Heap for the upper half kept balanced in size. |
+| **#373. Find K Pairs with Smallest Sums** | `Medium` | [https://leetcode.com/problems/find-k-pairs-with-smallest-sums/](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/) | K-Way Merge using a Min-Heap seeded with `(nums1[i] + nums2[0], i, 0)`. |

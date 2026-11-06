@@ -1,81 +1,81 @@
-# 🎬 Episodio #12: Partitioning (QuickSelect & Dutch National Flag)
-> **Proyecto:** Leet-YT (Flowchart Interactivo + Roadmap Progresivo de Algoritmos y Estructuras de Datos)  
-> **Categoría:** Nivel 2 — Patrón Algorítmico (`Intermediate`)  
-> **Término en Inglés (Flowchart):** `Partitioning, QuickSelect & 3-Way Partition`  
-> **Prerrequisitos Recomendados:** Arrays → Two Pointers
+# Episode #12: Partitioning (QuickSelect & Dutch National Flag)
+> **Project:** Leet-YT (Interactive DSA Flowchart + Progressive Video Curriculum)  
+> **Category:** Level 2 — Algorithmic Pattern (`Intermediate`)  
+> **Flowchart Node Term:** `Partitioning, QuickSelect & 3-Way Partition`  
+> **Recommended Prerequisites:** Arrays -> Two Pointers
 
 ---
 
-## 🎯 1. Prompt de Dirección para Google NotebookLM (Audio / Video Overview)
-> **Instrucciones de uso:** Copia el bloque de abajo y pégalo en el campo *"Customize"* (Personalizar) antes de generar el **Audio Overview** o **Video Overview** en Google NotebookLM, tras subir este archivo como fuente.
+## 1. Google NotebookLM Direction Prompt (Audio / Video Overview)
+> **How to use:** Copy the prompt block below and paste it into the *"Customize"* field before generating the **Audio Overview** or **Video Overview** in Google NotebookLM after uploading this file as a source.
 
 ```text
-Explica cómo la operación de Partición es el motor tanto de QuickSort como de QuickSelect (encontrar el K-ésimo elemento en O(N) porque solo exploras una mitad: N + N/2 + N/4 = 2N). Luego explica en detalle el invariante de los 3 punteros de Edsger Dijkstra ('Dutch National Flag') y por qué NO se incrementa `mid` cuando intercambias con `high`.
+Explain how Partitioning powers both QuickSort and QuickSelect (finding the K-th element in O(N) because we only recurse on one side: `N + N/2 + N/4 = 2N`). Then explain Dijkstra's 3-pointer Dutch National Flag invariant and why `mid` does NOT advance when swapping with `high`.
 
-Reglas adicionales para los presentadores de NotebookLM:
-1. Hablen siempre en español claro, dinámico y pedagógico, manteniendo los términos estándar de entrevistas en inglés (como "Partitioning", "Time Limit Exceeded", "Big-O").
-2. Usen la analogía del mundo real incluida en la sección 2 para que cualquier espectador entienda la intuición antes de hablar de código.
-3. Destaquen explícitamente las señales en el enunciado ("Cuándo usarlo") y la pista de restricciones (K-th Largest en O(N) promedio o clasificación en 3 grupos con O(1) espacio) para conectar este nodo con el Flowchart de decisión de Leet-YT.
-4. Cierren mencionando los 3 problemas de LeetCode recomendados para practicar este patrón hoy mismo.
+Additional instructions for the NotebookLM hosts:
+1. Speak in clear, energetic, and pedagogical English using standard technical interview terminology ("Partitioning", "Time Limit Exceeded", "Big-O").
+2. Open with the real-world analogy from Section 2 so viewers build visual intuition before seeing a single line of code.
+3. Explicitly highlight the problem statement signals ("When to Use") and the constraint hint (K-th Largest in O(N) average time or 3-way in-place classification in O(1) space) to connect this node to the Leet-YT decision flowchart.
+4. Close by naming the 3 recommended LeetCode practice problems so viewers can apply the template immediately.
 ```
 
 ---
 
-## 💡 2. Resumen Ejecutivo e Intuición (Documento Fuente para NotebookLM)
+## 2. Executive Summary & Intuition (NotebookLM Source Document)
 
-### ¿Qué es Partitioning?
-Reorganizar un arreglo in-place alrededor de un pivote en O(N) para separar elementos menores, iguales y mayores sin tener que ordenar todo el arreglo completo.
+### What is Partitioning?
+Rearranging an array in-place around a pivot in O(N) time to separate elements that are smaller, equal, and larger—without paying the full O(N log N) cost of sorting everything.
 
-### Analogía del Mundo Real
-> 🧠 **Intuición Visual:** Clasificar la ropa para lavar en tres cestos (blanca, de color y oscura) en una sola pasada, o encontrar al jugador de estatura mediana de un salón haciendo que los más bajos que un voluntario pasen a la izquierda y los más altos a la derecha: si a la izquierda quedaron muchos, solo sigues buscando en ese grupo.
+### Real-World Analogy
+> **Visual Intuition:** Finding the median-height player in a gym class by picking a volunteer pivot: everyone shorter steps left, everyone taller steps right. If 20 people are on the left and you want the 10th shortest overall, you never even need to sort the right half.
 
-### Ideas Clave que debes recordar
-1. **Idea Clave #1:** QuickSelect encuentra el K-ésimo elemento en O(N) promedio porque descarta una mitad en cada paso (`N + N/2 + N/4 ... = 2N`).
-2. **Idea Clave #2:** La partición de 3 vías (Dutch National Flag) evita el peor caso O(N²) cuando el arreglo tiene muchos elementos duplicados.
-3. **Idea Clave #3:** Al intercambiar `mid` con `high`, el elemento que viene desde `high` es desconocido, así que `mid` debe quedarse quieto para evaluarlo en la siguiente vuelta.
-
----
-
-## 🧭 3. Conexión con el Flowchart de Decisión (¿Cómo detectarlo en una entrevista?)
-
-### Señales en el Enunciado (Cuándo USAR Partitioning)
-- ✅ Necesitas el K-ésimo elemento más grande o más pequeño (o la mediana) en O(N) tiempo promedio sin pagar el O(N log N) de ordenar todo (`QuickSelect`).
-- ✅ Debes agrupar un arreglo en exactamente 3 categorías in-place en un solo pase (`Dutch National Flag` / `Sort Colors` con punteros `low`, `mid`, `high`).
-- ✅ Mover todos los ceros o pares al frente manteniendo O(1) espacio.
-
-### Cuándo NO usarlo (Falsos Positivos)
-- ⚠️ Si necesitas que TODOS los elementos queden ordenados o vas a hacer muchas consultas de distintos K sobre el mismo arreglo (ahí ordena una sola vez en O(N log N)).
-
-### Pista de Restricciones ($N$) y Complejidad Big-O
-- **Restricción típica en LeetCode:** `K-th Largest en O(N) promedio o clasificación en 3 grupos con O(1) espacio`
-- **Complejidad Temporal Promedio:** `O(N) (QuickSelect: N + N/2 + N/4 + ... = 2N)`
-- **Complejidad Temporal Peor Caso:** `O(N²) en QuickSelect si el pivote siempre cae en un extremo (usa pivote aleatorio + 3-way partition)`
-- **Complejidad Espacial:** `O(1) in-place`
-- **Nota Técnica:** Dutch National Flag siempre es O(N) estricto en un solo pase.
+### Key Takeaways to Remember
+1. **Key Takeaway #1:** QuickSelect finds the K-th largest element in O(N) average time because it discards half the remaining subarray at each step (`N + N/2 + N/4 ... = 2N`).
+2. **Key Takeaway #2:** 3-way partitioning (`< pivot`, `== pivot`, `> pivot`) prevents O(N^2) degradation on arrays with many duplicates.
+3. **Key Takeaway #3:** When swapping `mid` with `high`, the element arriving from `high` has not been inspected yet, so `mid` must stay put for the next check.
 
 ---
 
-## 🛠️ 4. Receta Paso a Paso y Trampas de Entrevista
+## 3. Decision Flowchart Connection (How to Spot It in an Interview)
 
-### Algoritmo Paso a Paso
-1. Definir las regiones del arreglo mediante punteros frontera (`low`, `mid`, `high`).
-2. Inspeccionar siempre el elemento en `nums[mid]` mientras `mid <= high`.
-3. En QuickSelect, comparar el índice del pivote (o rango de iguales al pivote) contra `k` para decidir en qué subarreglo continuar.
+### Problem Statement Signals (When to USE Partitioning)
+- [x] Finding the **K-th largest or smallest element** (or median) in **O(N) average time** (`QuickSelect`).
+- [x] Grouping an array into **3 distinct categories in-place** in a single pass (`Dutch National Flag` / `Sort Colors` with `low`, `mid`, `high` pointers).
+- [x] Segregating zeroes, evens/odds, or positives/negatives in-place in O(1) space.
 
-### Errores Comunes y Casos Borde
-- 🚨 **Trampa de Entrevista:** Incrementar `mid` después de hacer swap con `high` en `Sort Colors`: te saltarías sin revisar el número que acabas de traer desde el final.
+### When NOT to Use It (False Positives)
+- [!] If you need the entire array sorted or need to answer many different K queries on the same static array (sort once in O(N log N) instead).
+
+### Input Constraint Hint ($N$) & Big-O Complexity
+- **Typical LeetCode Constraint:** `K-th Largest in O(N) average time or 3-way in-place classification in O(1) space`
+- **Average Time Complexity:** `O(N) (QuickSelect geometric series: N + N/2 + N/4 + ... = 2N)`
+- **Worst-Case Time Complexity:** `O(N^2) in QuickSelect if bad pivots are chosen (use random pivot + 3-way partition)`
+- **Space Complexity:** `O(1) in-place`
+- **Engineering Note:** Dijkstra's Dutch National Flag is strictly O(N) in a single pass.
 
 ---
 
-## 💻 5. Plantillas de Código (Code Templates)
+## 4. Step-by-Step Recipe & Interview Traps
 
-### Plantilla en Python (Principal para explicación en video)
+### Step-by-Step Algorithm
+1. Maintain boundary pointers (`low`, `mid`, `high`) partitioning the array into 4 regions.
+2. Inspect `nums[mid]` while `mid <= high`.
+3. In QuickSelect, compare the target index `k` against the pivot boundaries to recurse into only one partition.
+
+### Common Bugs & Edge Cases
+- **Interview Trap:** Incrementing `mid` after swapping with `high` in `Sort Colors`, which skips inspecting the unknown element brought in from `high`.
+
+---
+
+## 5. Code Templates
+
+### Python Template (Primary for Video Walkthrough)
 ```python
 def sort_colors_dutch_flag(nums: list[int]) -> None:
     """
-    Algoritmo de la Bandera Holandesa de Dijkstra (3-Way Partitioning in-place).
-    Clasifica 0s (izquierda), 1s (centro) y 2s (derecha) en 1 solo pase O(N).
-    Invariante:
+    Dijkstra's Dutch National Flag Algorithm (3-Way In-Place Partition).
+    Groups 0s (left), 1s (middle), and 2s (right) in a single O(N) pass.
+    Invariant:
       nums[0..low-1] == 0
       nums[low..mid-1] == 1
       nums[high+1..n-1] == 2
@@ -90,10 +90,10 @@ def sort_colors_dutch_flag(nums: list[int]) -> None:
             mid += 1
         else:  # nums[mid] == 2
             nums[mid], nums[high] = nums[high], nums[mid]
-            high -= 1  # OJO: No incrementamos mid porque el valor traído de 'high' aún no fue inspeccionado
+            high -= 1  # NOTE: Do NOT increment mid yet; the swapped value from 'high' is uninspected
 ```
 
-### Plantilla en TypeScript / JavaScript
+### TypeScript / JavaScript Template
 ```typescript
 export function sortColorsDutchFlag(nums: number[]): void {
   let low = 0,
@@ -109,7 +109,7 @@ export function sortColorsDutchFlag(nums: number[]): void {
       mid++;
     } else {
       [nums[mid], nums[high]] = [nums[high], nums[mid]];
-      high--; // No avanzar mid hasta evaluar el nuevo elemento traído desde high
+      high--; // Do not increment mid until the newly swapped element is inspected
     }
   }
 }
@@ -117,24 +117,24 @@ export function sortColorsDutchFlag(nums: number[]): void {
 
 ---
 
-## 🎙️ 6. Guion Narrado por Bloques y Sugerencias Visuales (Teleprompter / Slides)
+## 6. Timestamped Narrative Script & Visual Cues (Teleprompter / Slides)
 
-### ⏱️ [00:00 - 01:45] Ordenar a medias es el doble de inteligente: QuickSelect
-- **🎬 Visual en Pantalla / Slide:** Árbol de QuickSort podando una rama entera en cada nivel: N + N/2 + N/4 = 2N.
-- **🎙️ Narración / Guion:**
-  > "Si solo te interesa saber quién quedó en el puesto número K, ¿para qué ordenar todo el salón? Al partir el grupo respecto a un pivote, sabes instantáneamente de qué lado está el puesto K y descartas la otra mitad para siempre."
+### [00:00 - 01:45] Why Partial Sorting Beats Full Sorting: QuickSelect
+- **On-Screen Visual / Slide Cue:** QuickSort tree pruning an entire half at every level: N + N/2 + N/4 = 2N.
+- **Narration / Script:**
+  > "If you only care about who finished in K-th place, why sort the entire stadium? By partitioning around a pivot, you know immediately which side holds index K and discard the other side forever."
 
-### ⏱️ [01:45 - 04:30] La Bandera Holandesa de Dijkstra (3-Way Partition)
-- **🎬 Visual en Pantalla / Slide:** Tres zonas de color (Rojo 0, Blanco 1, Azul 2) y la zona gris de incógnita entre mid y high.
-- **🎙️ Narración / Guion:**
-  > "Cuando tienes tres categorías o muchos duplicados, la partición de tres punteros de Dijkstra mantiene cuatro zonas en el arreglo y reduce la zona desconocida hasta que `mid` cruza a `high`."
+### [01:45 - 04:30] Dijkstra's Dutch National Flag (3-Way Partition)
+- **On-Screen Visual / Slide Cue:** Three colored zones (0s, 1s, 2s) and the shrinking unknown zone between `mid` and `high`.
+- **Narration / Script:**
+  > "When you have three categories or heavy duplicates, Dijkstra's three-pointer partition maintains four zones in the array and shrinks the unknown region until `mid` crosses `high`."
 
 ---
 
-## 🏆 7. Problemas Clásicos de LeetCode para Practicar Hoy
+## 7. Classic LeetCode Problems to Practice Today
 
-| Problema | Dificultad | Link Directo | Pista de Aplicación de la Plantilla |
+| Problem | Difficulty | Direct Link | Template Application Hint |
 | :--- | :---: | :--- | :--- |
-| **#75. Sort Colors** | `Medium` | [https://leetcode.com/problems/sort-colors/](https://leetcode.com/problems/sort-colors/) | Usa los 3 punteros (`low`, `mid`, `high`) de la Bandera Nacional Holandesa. |
-| **#215. Kth Largest Element in an Array** | `Medium` | [https://leetcode.com/problems/kth-largest-element-in-an-array/](https://leetcode.com/problems/kth-largest-element-in-an-array/) | QuickSelect con partición en 3 vías (`< pivot`, `== pivot`, `> pivot`) para alcanzar O(N) promedio. |
-| **#283. Move Zeroes** | `Easy` | [https://leetcode.com/problems/move-zeroes/](https://leetcode.com/problems/move-zeroes/) | Partición estable de 2 vías: intercambia elementos no-cero hacia el puntero `low`. |
+| **#75. Sort Colors** | `Medium` | [https://leetcode.com/problems/sort-colors/](https://leetcode.com/problems/sort-colors/) | Use the 3 pointers (`low`, `mid`, `high`) of Dijkstra's Dutch National Flag algorithm. |
+| **#215. Kth Largest Element in an Array** | `Medium` | [https://leetcode.com/problems/kth-largest-element-in-an-array/](https://leetcode.com/problems/kth-largest-element-in-an-array/) | QuickSelect with 3-way partitioning (`< pivot`, `== pivot`, `> pivot`) achieves O(N) average time. |
+| **#283. Move Zeroes** | `Easy` | [https://leetcode.com/problems/move-zeroes/](https://leetcode.com/problems/move-zeroes/) | 2-way stable partition: swap non-zero elements forward into the `low` pointer. |
