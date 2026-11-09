@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import {
@@ -33,17 +33,24 @@ export const AuthOnboardingModal: React.FC = () => {
   const [primaryGoal, setPrimaryGoal] = useState(user?.primaryGoal || "Crack Tech & FAANG Interviews");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Sync state if user loads after mount
+  useEffect(() => {
+    if (user?.fullName) {
+      setFullName(user.fullName);
+    }
+  }, [user?.fullName]);
+
   if (!isAuthModalOpen) return null;
 
   // Determine view: if not authenticated -> Google Sign-in screen.
-  // If authenticated but onboarding not completed -> Fast Onboarding Form (<45s).
+  // If authenticated but onboarding not completed -> Fast Onboarding Form (<30s).
   const isStepOnboarding = isAuthenticated && !hasCompletedOnboarding;
 
   const handleOnboardingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     await saveOnboarding({
-      fullName: fullName.trim() || "Developer",
+      fullName: user?.fullName || fullName.trim() || "Developer",
       ageRange,
       occupation,
       primaryGoal,
@@ -178,20 +185,45 @@ export const AuthOnboardingModal: React.FC = () => {
               </p>
             </div>
 
-            {/* Full Name */}
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                <User className="h-3.5 w-3.5 text-violet-400" /> Your Name or Nickname
-              </label>
-              <input
-                type="text"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="e.g. Alex Smith"
-                className="w-full rounded-xl border border-border bg-secondary/50 px-3.5 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:border-violet-500 focus:outline-none"
-              />
-            </div>
+            {/* Google Profile Badge (Imported automatically) or Name input fallback */}
+            {user?.fullName ? (
+              <div className="flex items-center gap-3 rounded-2xl border border-violet-500/30 bg-violet-500/10 p-3">
+                {user.avatarUrl ? (
+                  <img
+                    src={user.avatarUrl}
+                    alt={user.fullName}
+                    className="h-10 w-10 rounded-full border border-violet-500/40 object-cover shrink-0"
+                  />
+                ) : (
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-600 text-sm font-extrabold text-white shrink-0">
+                    {user.fullName.charAt(0)}
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-foreground truncate">{user.fullName}</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
+                      <CheckCircle2 className="h-3 w-3" /> Imported from Google
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground truncate">{user.email}</p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                  <User className="h-3.5 w-3.5 text-violet-400" /> Your Name or Nickname
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="e.g. Alex Smith"
+                  className="w-full rounded-xl border border-border bg-secondary/50 px-3.5 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:border-violet-500 focus:outline-none"
+                />
+              </div>
+            )}
 
             {/* Age Range */}
             <div className="space-y-1.5">

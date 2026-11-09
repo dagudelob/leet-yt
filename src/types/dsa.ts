@@ -136,6 +136,7 @@ export interface UserProfile {
   id: string;
   email: string;
   fullName: string;
+  avatarUrl?: string;
   ageRange?: string;
   occupation?: string;
   primaryGoal?: string;

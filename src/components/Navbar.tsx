@@ -170,10 +170,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           {isAuthenticated ? (
             <div className="hidden lg:flex items-center gap-2">
               <div className="flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-3 py-1.5 text-xs font-semibold text-foreground">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-600 text-[10px] font-extrabold text-white">
-                  {user?.fullName?.charAt(0) || "U"}
-                </span>
-                <span className="max-w-[100px] truncate">{user?.fullName || "Learner"}</span>
+                {user?.avatarUrl ? (
+                  <img
+                    src={user.avatarUrl}
+                    alt={user.fullName || "User"}
+                    className="h-5 w-5 rounded-full object-cover border border-violet-500/30"
+                  />
+                ) : (
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-600 text-[10px] font-extrabold text-white">
+                    {user?.fullName?.charAt(0) || "U"}
+                  </span>
+                )}
+                <span className="max-w-[120px] truncate">{user?.fullName || "Learner"}</span>
               </div>
               <button
                 onClick={signOut}

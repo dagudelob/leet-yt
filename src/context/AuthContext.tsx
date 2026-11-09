@@ -23,6 +23,22 @@ const STORAGE_KEYS = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Helper to extract user identity from Supabase Google OAuth metadata
+const extractOAuthUserData = (supabaseUser: any) => {
+  const metadata = supabaseUser?.user_metadata || {};
+  const fullName =
+    metadata.full_name ||
+    metadata.name ||
+    (metadata.given_name
+      ? `${metadata.given_name} ${metadata.family_name || ""}`.trim()
+      : "") ||
+    "";
+  const avatarUrl = metadata.avatar_url || metadata.picture || "";
+  const email = supabaseUser?.email || metadata.email || "";
+
+  return { fullName, avatarUrl, email };
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProfile | null>(() => {
     try {
@@ -52,7 +68,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Check active session
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
-        fetchProfile(session.user.id, session.user.email ?? "");
+        fetchProfile(session.user);
       }
     });
 
@@ -60,7 +76,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
-        fetchProfile(session.user.id, session.user.email ?? "");
+        fetchProfile(session.user);
       } else {
         persistUser(null);
       }
@@ -71,8 +87,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, []);
 
-  const fetchProfile = async (userId: string, email: string) => {
-    if (!supabase) return;
+  const fetchProfile = async (supabaseUser: any) => {
+    if (!supabase || !supabaseUser) return;
+    const { fullName: oauthName, avatarUrl: oauthAvatar, email } = extractOAuthUserData(supabaseUser);
+    const userId = supabaseUser.id;
+
     try {
       const { data, error } = await supabase
         .from("profiles")
@@ -81,10 +100,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .single();
 
       if (data && !error) {
+        const resolvedName = data.full_name || oauthName || "";
+        const resolvedAvatar = data.avatar_url || oauthAvatar || "";
+
         persistUser({
           id: userId,
           email: data.email || email,
-          fullName: data.full_name || "",
+          fullName: resolvedName,
+          avatarUrl: resolvedAvatar,
           ageRange: data.age_range || "",
           occupation: data.occupation || "",
           primaryGoal: data.primary_goal || "",
@@ -92,19 +115,56 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           completedTopics: data.completed_topics || [],
           solvedProblems: data.solved_problems || [],
         });
+
+        // Sync Google name & avatar back to profiles table if missing
+        if ((!data.full_name && oauthName) || (!data.avatar_url && oauthAvatar)) {
+          supabase
+            .from("profiles")
+            .update({
+              full_name: resolvedName,
+              avatar_url: resolvedAvatar || null,
+              updated_at: new Date().toISOString(),
+            })
+            .eq("id", userId)
+            .then(() => {});
+        }
       } else {
-        // New profile placeholder
-        persistUser({
+        // New profile populated automatically with Google metadata
+        const newUser: UserProfile = {
           id: userId,
           email,
-          fullName: "",
+          fullName: oauthName,
+          avatarUrl: oauthAvatar,
           onboardingCompleted: false,
           completedTopics: [],
           solvedProblems: [],
-        });
+        };
+        persistUser(newUser);
+
+        // Pre-create profile record with imported Google metadata
+        supabase
+          .from("profiles")
+          .upsert({
+            id: userId,
+            email,
+            full_name: oauthName,
+            avatar_url: oauthAvatar || null,
+            onboarding_completed: false,
+            updated_at: new Date().toISOString(),
+          })
+          .then(() => {});
       }
     } catch {
-      // Ignore network errors, maintain local state
+      // Fallback with Google OAuth metadata
+      persistUser({
+        id: userId,
+        email,
+        fullName: oauthName,
+        avatarUrl: oauthAvatar,
+        onboardingCompleted: false,
+        completedTopics: [],
+        solvedProblems: [],
+      });
     }
   };
 
@@ -127,15 +187,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
     } else {
       // Fallback local mode for testing when .env is not yet populated
-      simulateLocalSignIn("Alex Developer", "alex.dev@example.com");
+      simulateLocalSignIn("Alex Rivera", "alex.rivera@gmail.com");
     }
   };
 
-  const simulateLocalSignIn = (demoName = "Software Engineer", demoEmail = "learner@leet-yt.dev") => {
+  const simulateLocalSignIn = (demoName = "Alex Rivera", demoEmail = "alex.rivera@gmail.com") => {
     const newUser: UserProfile = {
       id: "mock-user-" + Date.now(),
       email: demoEmail,
       fullName: demoName,
+      avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces",
       onboardingCompleted: false,
       completedTopics: [],
       solvedProblems: [],
@@ -163,6 +224,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .from("profiles")
           .update({
             full_name: updatedUser.fullName,
+            avatar_url: updatedUser.avatarUrl || null,
             age_range: updatedUser.ageRange,
             occupation: updatedUser.occupation,
             primary_goal: updatedUser.primaryGoal,
